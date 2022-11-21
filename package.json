@@ -1,0 +1,27 @@
+{
+  "name": "@cocos/ccbuild",
+  "version": "1.0.0",
+  "description": "The next generation of build tool for Cocos engine.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/pp_pro/ccbuild.git"
+  },
+  "keywords": [
+    "cocos",
+    "engine",
+    "build",
+    "compile"
+  ],
+  "author": "PP_Pro",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.3"
+  }
+}
