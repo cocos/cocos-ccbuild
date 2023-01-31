@@ -14,5 +14,8 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-  }
+  },
+  "exclude": [
+    "./test/"
+  ]
 }

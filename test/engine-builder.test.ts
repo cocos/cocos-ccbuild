@@ -1,19 +1,16 @@
-import { CCBuild } from '../src/index'
+import * as ccbuild from '../src/index'
 
 test('test base', async () => {
-    const engineBuilder = new CCBuild.EngineBuilder();
+    const engineBuilder = new ccbuild.EngineBuilder();
     const buildResult = await engineBuilder.build({
-        root: './test-source',
         entries: [
             './test-source/exports/audio.ts',
             './test-source/exports/animation.ts'
         ],
-        platformConfig: {
-            OPEN_HARMONY: true,
-        },
+        platform: 'OPEN_HARMONY',
         flagConfig: {
             DEBUG: true,
         },
     });
     expect(buildResult).toMatchInlineSnapshot(`{}`);
-})
+});

@@ -1,10 +1,9 @@
-import { IFlagConfig, IPlatformConfig } from "./config-parser";
+import { IFlagConfig, PlatformType } from "./config-parser";
 
 export interface IBuildOptions {
-    root: string;
     entries: string[];
-    platformConfig: Partial<IPlatformConfig>;
-    flagConfig: Partial<IFlagConfig>,
+    platform: PlatformType;
+    flagConfig: Partial<IFlagConfig>;
 }
 
 export interface IBuildResult {
@@ -12,10 +11,6 @@ export interface IBuildResult {
         code: string;
         map: string;
     }
-}
-
-export interface IGenerateOptions {
-
 }
 
 export class EngineBuilder {
@@ -26,12 +21,6 @@ export class EngineBuilder {
     build (options: IBuildOptions): Promise<IBuildResult> {
         return new Promise(resolve => {
             resolve({})
-        });
-    }
-
-    generate (options: IGenerateOptions): Promise<void> {
-        return new Promise(resolve => {
-            resolve();
         });
     }
 }
