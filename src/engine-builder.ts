@@ -38,9 +38,9 @@ export class EngineBuilder {
             const result: IBuildResult = {};
             const compileRecursively = (file: string) => {
                 if (virtualModule && file in virtualModule) {
-                    // TODO: compile code
+                    const transformedCode = this._transform(virtualModule[file]);
                     result[ps.join(root, '__virtual__', file).replace(/\\/g, '/') + '.ts'] =  {
-                        code: virtualModule[file],
+                        code: transformedCode,
                     };
                     return;
                 }
@@ -69,8 +69,18 @@ export class EngineBuilder {
     }
 
     private _compileFile (file: string): ICompileResult {
-        let { virtualModule, resolveExtensions } = this._options;
         const code = fs.readFileSync(file, 'utf-8');
+        const deps = this._resolveDeps(file, code);
+        const transformedCode = this._transform(code);
+
+        return {
+            code: transformedCode,
+            deps,
+        };
+    }
+
+    private _resolveDeps (file: string, code: string): string[] {
+        const { virtualModule, resolveExtensions } = this._options;
         const ast = parser.parse(code, {
             sourceType: 'module'
         });
@@ -108,11 +118,11 @@ export class EngineBuilder {
                 }
             }
         });
+        return resolvedDeps;
+    }
 
-        // TODO: compile code
-        return {
-            code,
-            deps: resolvedDeps,
-        };
+    private _transform (code: string): string {
+        // TODO: transform code
+        return code;
     }
 }
