@@ -1,6 +1,9 @@
 import * as fs from 'fs-extra';
 import * as ps from 'path';
+import * as babel from '@babel/core';
 import * as parser from '@babel/parser';
+// @ts-ignore
+import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 import traverse from '@babel/traverse';
 import { IFlagConfig, PlatformType } from "./config-parser";
 
@@ -38,7 +41,7 @@ export class EngineBuilder {
             const result: IBuildResult = {};
             const compileRecursively = (file: string) => {
                 if (virtualModule && file in virtualModule) {
-                    const transformedCode = this._transform(virtualModule[file]);
+                    const transformedCode = this._transform(file, virtualModule[file]);
                     result[ps.join(root, '__virtual__', file).replace(/\\/g, '/') + '.ts'] =  {
                         code: transformedCode,
                     };
@@ -71,7 +74,7 @@ export class EngineBuilder {
     private _compileFile (file: string): ICompileResult {
         const code = fs.readFileSync(file, 'utf-8');
         const deps = this._resolveDeps(file, code);
-        const transformedCode = this._transform(code);
+        const transformedCode = this._transform(file, code);
 
         return {
             code: transformedCode,
@@ -82,7 +85,10 @@ export class EngineBuilder {
     private _resolveDeps (file: string, code: string): string[] {
         const { virtualModule, resolveExtensions } = this._options;
         const ast = parser.parse(code, {
-            sourceType: 'module'
+            sourceType: 'module',
+            plugins: [
+                'typescript'
+            ],
         });
         
         let deps: string[] = [];
@@ -121,8 +127,30 @@ export class EngineBuilder {
         return resolvedDeps;
     }
 
-    private _transform (code: string): string {
-        // TODO: transform code
-        return code;
+    private _transform (file: string, code: string): string {
+        const res = babel.transformSync(code, {
+            plugins: [
+                [pluginSyntaxTS],
+                [
+                    function () {
+                        return {
+                            visitor: {
+                                ImportDeclaration (path: any) {
+                                    console.log(path.node.source.value);
+                                },
+                                ExportDeclaration (path: any) {
+                                    // @ts-ignore
+                                    const source = path.node.source;
+                                    if (source) {
+                                        console.log(source.value);
+                                    }
+                                },
+                            }
+                        }
+                    }
+                ]
+            ],
+        });
+        return res?.code!;
     }
 }

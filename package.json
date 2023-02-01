@@ -26,7 +26,9 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "@babel/core": "^7.20.12",
     "@babel/parser": "^7.20.13",
+    "@babel/plugin-syntax-typescript": "^7.20.0",
     "@babel/traverse": "^7.20.13",
     "fs-extra": "^10.1.0"
   }

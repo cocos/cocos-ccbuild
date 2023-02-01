@@ -9,3 +9,5 @@ export class Player {
         }
     }
 }
+
+export const player: Player = new Player();

@@ -34,33 +34,33 @@ export const EDITOR = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
-    play () {}
+  play() {}
 }",
   },
   "animation/index.ts": {
-    "code": "export * from './animation'",
+    "code": "export * from './animation';",
   },
   "audio/index.ts": {
     "code": "export * from './player';",
   },
   "audio/player.ts": {
     "code": "import { EDITOR, TEST } from "virtual";
-
 export class Player {
-    play () {
-        if (EDITOR) {
-            console.log('this is editor');
-        } else if (TEST) {
-            console.log('this is test');
-        }
+  play() {
+    if (EDITOR) {
+      console.log('this is editor');
+    } else if (TEST) {
+      console.log('this is test');
     }
-}",
+  }
+}
+export const player: Player = new Player();",
   },
   "exports/animation.ts": {
-    "code": "export * from '../animation'",
+    "code": "export * from '../animation';",
   },
   "exports/audio.ts": {
-    "code": "export * from '../audio'",
+    "code": "export * from '../audio';",
   },
 }
 `);
