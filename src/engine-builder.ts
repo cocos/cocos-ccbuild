@@ -11,6 +11,7 @@ export interface IBuildOptions {
     flagConfig: Partial<IFlagConfig>;
     resolveExtensions?: string[];
     outDir?: string;
+    virtualModule?: Record<string, string>,
 }
 
 export interface IBuildResult {
@@ -27,18 +28,22 @@ export interface ICompileResult {
 }
 
 export class EngineBuilder {
-    private _resolveExtensions = ['.ts'];
+    private _options!: IBuildOptions;
 
-    constructor () {
-
-    }
-
-    build (options: IBuildOptions): Promise<IBuildResult> {
+    public build (options: IBuildOptions): Promise<IBuildResult> {
         return new Promise(resolve => {
-            let { root, resolveExtensions, outDir } = options;
-            this._resolveExtensions = resolveExtensions ?? this._resolveExtensions;
+            this._options = options;
+            let { root, outDir, virtualModule } = options;
+            options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
             const result: IBuildResult = {};
             const compileRecursively = (file: string) => {
+                if (virtualModule && file in virtualModule) {
+                    // TODO: compile code
+                    result[ps.join(root, '__virtual__', file).replace(/\\/g, '/') + '.ts'] =  {
+                        code: virtualModule[file],
+                    };
+                    return;
+                }
                 const compileResult = this._compileFile(file);
                 result[file] = {
                     code: compileResult.code,
@@ -63,29 +68,37 @@ export class EngineBuilder {
         });
     }
 
-    _compileFile (file: string): ICompileResult {
+    private _compileFile (file: string): ICompileResult {
+        let { virtualModule, resolveExtensions } = this._options;
         const code = fs.readFileSync(file, 'utf-8');
         const ast = parser.parse(code, {
             sourceType: 'module'
         });
+        
         let deps: string[] = [];
         traverse(ast, {
-            Import (path) {
-                // @ts-ignore
-                deps.push(path.node.source.value)
+            ImportDeclaration (path) {
+                deps.push(path.node.source.value);
             },
             ExportDeclaration (path) {
                 // @ts-ignore
-                const source = path.node.source
+                const source = path.node.source;
                 if (source) {
-                    deps.push(source.value)
+                    deps.push(source.value);
                 }
             },
         });
-        deps = deps.map(dep => ps.join(ps.dirname(file), dep).replace(/\\/g, '/'));
         const resolvedDeps: string[] = [];
         deps.forEach(dep => {
-            for (let ext of this._resolveExtensions) {
+            // ON RESOLVE
+            // virtual module
+            if (virtualModule && dep in virtualModule) {
+                resolvedDeps.push(dep);
+                return;
+            }
+            // fs module
+            dep = ps.join(ps.dirname(file), dep).replace(/\\/g, '/');
+            for (let ext of resolveExtensions!) {
                 const fileExt = dep + ext;
                 const indexExt = ps.join(dep, 'index').replace(/\\/g, '/') + ext; 
                 if (fs.existsSync(fileExt)) {

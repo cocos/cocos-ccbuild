@@ -15,6 +15,9 @@ test('test base', async () => {
             DEBUG: true,
         },
         outDir: ps.join(__dirname, './lib').replace(/\\/g, '/'),
+        virtualModule: {
+          'virtual': 'export const TEST = true;\nexport const EDITOR = false;'
+        },
     });
     const files = Object.keys(buildResult);
     for (let file of files) {
@@ -25,6 +28,10 @@ test('test base', async () => {
     }
     expect(buildResult).toMatchInlineSnapshot(`
 {
+  "__virtual__/virtual.ts": {
+    "code": "export const TEST = true;
+export const EDITOR = false;",
+  },
   "animation/animation.ts": {
     "code": "export class Animation {
     play () {}
@@ -37,8 +44,16 @@ test('test base', async () => {
     "code": "export * from './player';",
   },
   "audio/player.ts": {
-    "code": "export class Player {
-    play () {}
+    "code": "import { EDITOR, TEST } from "virtual";
+
+export class Player {
+    play () {
+        if (EDITOR) {
+            console.log('this is editor');
+        } else if (TEST) {
+            console.log('this is test');
+        }
+    }
 }",
   },
   "exports/animation.ts": {

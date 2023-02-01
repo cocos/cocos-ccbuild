@@ -1,3 +1,11 @@
+import { EDITOR, TEST } from "virtual";
+
 export class Player {
-    play () {}
+    play () {
+        if (EDITOR) {
+            console.log('this is editor');
+        } else if (TEST) {
+            console.log('this is test');
+        }
+    }
 }
