@@ -128,6 +128,8 @@ export class EngineBuilder {
     }
 
     private _transform (file: string, code: string): string {
+        const { virtualModule, root } = this._options;
+
         const res = babel.transformSync(code, {
             plugins: [
                 [pluginSyntaxTS],
@@ -135,14 +137,34 @@ export class EngineBuilder {
                     function () {
                         return {
                             visitor: {
-                                ImportDeclaration (path: any) {
-                                    console.log(path.node.source.value);
+                                ImportDeclaration (path: babel.NodePath<babel.types.ImportDeclaration>) {
+                                    const specifier = path.node.source.value as string;
+                                    if (virtualModule && specifier in virtualModule) {
+                                        traverse(path.node, {
+                                            StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
+                                                const virtualPath = ps.join(root, '__virtual__', specifier).replace(/\\/g, '/');
+                                                const relativePath = ps.relative(ps.dirname(file), virtualPath).replace(/\\/g, '/');
+                                                path.replaceWith(babel.types.stringLiteral(relativePath));
+                                                path.skip();
+                                            }
+                                        }, path.scope);
+                                    }
                                 },
-                                ExportDeclaration (path: any) {
+                                ExportDeclaration (path: babel.NodePath<babel.types.ExportDeclaration>) {
                                     // @ts-ignore
                                     const source = path.node.source;
                                     if (source) {
-                                        console.log(source.value);
+                                        const specifier = source.value as string;
+                                        if (virtualModule && specifier in virtualModule) {
+                                            traverse(path.node, {
+                                                StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
+                                                    const virtualPath = ps.join(root, '__virtual__', specifier).replace(/\\/g, '/');
+                                                    const relativePath = ps.relative(ps.dirname(file), virtualPath).replace(/\\/g, '/');
+                                                    path.replaceWith(babel.types.stringLiteral(relativePath));
+                                                    path.skip();
+                                                }
+                                            }, path.scope);
+                                        }
                                     }
                                 },
                             }

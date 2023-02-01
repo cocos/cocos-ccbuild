@@ -44,7 +44,7 @@ export const EDITOR = false;",
     "code": "export * from './player';",
   },
   "audio/player.ts": {
-    "code": "import { EDITOR, TEST } from "virtual";
+    "code": "import { EDITOR, TEST } from "../__virtual__/virtual";
 export class Player {
   play() {
     if (EDITOR) {
