@@ -1,6 +1,9 @@
 import { EDITOR, TEST } from "virtual";
-
+import { testDecorator } from "../decorators";
+@testDecorator
 export class Player {
+
+    @testDecorator
     play () {
         if (EDITOR) {
             console.log('this is editor');

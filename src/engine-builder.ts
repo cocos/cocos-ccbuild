@@ -4,6 +4,8 @@ import * as babel from '@babel/core';
 import * as parser from '@babel/parser';
 // @ts-ignore
 import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
+// @ts-ignore
+import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
 import { IFlagConfig, PlatformType } from "./config-parser";
 
@@ -40,6 +42,10 @@ export class EngineBuilder {
             options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
             const result: IBuildResult = {};
             const compileRecursively = (file: string) => {
+                if (result[file]) {
+                    // skip cached
+                    return;
+                }
                 if (virtualModule && file in virtualModule) {
                     const transformedCode = this._transform(file, virtualModule[file]);
                     result[ps.join(root, '__virtual__', file).replace(/\\/g, '/') + '.ts'] =  {
@@ -87,7 +93,8 @@ export class EngineBuilder {
         const ast = parser.parse(code, {
             sourceType: 'module',
             plugins: [
-                'typescript'
+                'typescript',
+                'decorators-legacy',
             ],
         });
         
@@ -133,6 +140,10 @@ export class EngineBuilder {
         const res = babel.transformSync(code, {
             plugins: [
                 [pluginSyntaxTS],
+                [syntaxDecorators, {
+                    version: '2018-09',  // NOTE: only version 2018-09 of decorator proposal can support decorators before export, which we need for tsc compiler
+                    decoratorsBeforeExport: true,
+                }],
                 [
                     function () {
                         return {

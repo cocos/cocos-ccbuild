@@ -26,42 +26,5 @@ test('test base', async () => {
       const relativeFile = ps.relative(root, file).replace(/\\/g, '/');
       buildResult[relativeFile] = data;
     }
-    expect(buildResult).toMatchInlineSnapshot(`
-{
-  "__virtual__/virtual.ts": {
-    "code": "export const TEST = true;
-export const EDITOR = false;",
-  },
-  "animation/animation.ts": {
-    "code": "export class Animation {
-  play() {}
-}",
-  },
-  "animation/index.ts": {
-    "code": "export * from './animation';",
-  },
-  "audio/index.ts": {
-    "code": "export * from './player';",
-  },
-  "audio/player.ts": {
-    "code": "import { EDITOR, TEST } from "../__virtual__/virtual";
-export class Player {
-  play() {
-    if (EDITOR) {
-      console.log('this is editor');
-    } else if (TEST) {
-      console.log('this is test');
-    }
-  }
-}
-export const player: Player = new Player();",
-  },
-  "exports/animation.ts": {
-    "code": "export * from '../animation';",
-  },
-  "exports/audio.ts": {
-    "code": "export * from '../audio';",
-  },
-}
-`);
+    expect(buildResult).toMatchSnapshot();
 });

@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2015",
-    "module": "ES2015",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "outDir": "./lib",
+    "sourceMap": true,
     "rootDir": "./src",
     "types": [
       "./node_modules/@types/jest/index"
