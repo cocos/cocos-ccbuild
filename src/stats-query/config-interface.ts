@@ -1,3 +1,5 @@
+// NOTE: This is the source code to generate cc.config.json
+
 export interface Config {
     /**
      * Engine features. Keys are feature IDs.

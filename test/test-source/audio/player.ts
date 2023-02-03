@@ -1,4 +1,4 @@
-import { EDITOR, TEST } from "virtual";
+import { EDITOR, TEST } from "virtual:const";
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {

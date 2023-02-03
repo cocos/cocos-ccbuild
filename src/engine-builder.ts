@@ -7,9 +7,16 @@ import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 // @ts-ignore
 import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
-import { IFlagConfig, PlatformType } from "./config-parser";
+import { IFlagConfig, ModeType, PlatformType } from "./stats-query";
 
 export interface IBuildOptions {
+    root: string;
+    platform: PlatformType;
+    mode: ModeType;
+    flagConfig: Partial<IFlagConfig>;
+}
+
+interface IParsedBuildOptions {
     root: string;
     entries: string[];
     platform: PlatformType;
@@ -19,77 +26,78 @@ export interface IBuildOptions {
     virtualModule?: Record<string, string>,
 }
 
-export interface IBuildResult {
-    [fileName: string]: {
-        code: string;
-        map?: string;
-    }
+interface ITransformResult {
+    code: string;
+    map?: any;
 }
 
-export interface ICompileResult {
-    code: string;
-    map?: string;
-    deps: string[];
+interface IDependencyGraph {
+    [file: string]: string[];
+}
+
+export interface IBuildResult {
+    [fileName: string]: ITransformResult;
 }
 
 export class EngineBuilder {
-    private _options!: IBuildOptions;
+    private _options!: IParsedBuildOptions;
+    private _virtual2dir: Record<string, string> = {};
 
-    public build (options: IBuildOptions): Promise<IBuildResult> {
-        return new Promise(resolve => {
-            this._options = options;
-            let { root, outDir, virtualModule } = options;
-            options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
-            const result: IBuildResult = {};
-            const compileRecursively = (file: string) => {
-                if (result[file]) {
-                    // skip cached
-                    return;
-                }
-                if (virtualModule && file in virtualModule) {
-                    const transformedCode = this._transform(file, virtualModule[file]);
-                    result[ps.join(root, '__virtual__', file).replace(/\\/g, '/') + '.ts'] =  {
-                        code: transformedCode,
-                    };
-                    return;
-                }
-                const compileResult = this._compileFile(file);
-                result[file] = {
-                    code: compileResult.code,
-                };
-                compileResult.deps.forEach(dep => {
-                    compileRecursively(dep);
-                });
-            };
-            options.entries.forEach(file => {
-                compileRecursively(file);
-            });
-
-            if (outDir) {
-                for (const file in result) {
-                    const { code } = result[file];
-                    const targetFile = ps.join(outDir, ps.relative(root, file)).replace(/\\/g, '/');
-                    fs.outputFileSync(targetFile, code, 'utf8');
-                }
+    // public async build (options: IBuildOptions): Promise<IBuildResult> {
+    public async build (options: IParsedBuildOptions): Promise<IBuildResult> {
+        this._options = options;
+        const { root, virtualModule } = options;
+        if (virtualModule) {
+            for (let virtualName in virtualModule) {
+                this._virtual2dir[virtualName] = ps.join(root, '__virtual__', virtualName.replace(/:/g, '_')).replace(/\\/g, '/') + '.ts';
             }
-            
-            resolve(result);
-        });
+        }
+        this._options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
+        const buildResult: IBuildResult = {};
+        // const parsedOptions = this._parseOptions(options);
+        const parsedOptions = options;
+        const allScripts = this._resolveEntries(parsedOptions.entries);
+        for (let file of allScripts) {
+            if (virtualModule && file in virtualModule) {
+                buildResult[this._virtual2dir[file]] = {
+                    code: virtualModule[file],  // TODO: transform virtual module code
+                };
+            } else {
+                buildResult[file] = this._transformFile(file);
+            }
+        }
+        if (parsedOptions.outDir) {
+            console.log(buildResult)
+        }
+        return buildResult;
+        // return this._doBuild(parsedOptions);
     }
 
-    private _compileFile (file: string): ICompileResult {
-        const code = fs.readFileSync(file, 'utf-8');
-        const deps = this._resolveDeps(file, code);
-        const transformedCode = this._transform(file, code);
+    // private _parseOptions (options: IBuildOptions): IParsedBuildOptions {
 
-        return {
-            code: transformedCode,
-            deps,
-        };
+    // }
+
+    // NOTE: do we need to return the dependency graph ?
+    private _resolveEntries (entries: string[]): string[] {
+        const depGraph: IDependencyGraph = {};
+        for (let entry of entries) {
+            this._resolveDeps(entry, depGraph);
+        }
+        return Object.keys(depGraph);
     }
 
-    private _resolveDeps (file: string, code: string): string[] {
+    private _resolveDeps (file: string, depGraph: IDependencyGraph) {
+        if (depGraph[file]) {
+            // skip resolve cache.
+            return;
+        }
         const { virtualModule, resolveExtensions } = this._options;
+        if (virtualModule && file in virtualModule) {
+            // don't resolve virtual module
+            depGraph[file] = [];  
+            return; 
+        }
+        const code = fs.readFileSync(file, 'utf8');
         const ast = parser.parse(code, {
             sourceType: 'module',
             plugins: [
@@ -131,13 +139,16 @@ export class EngineBuilder {
                 }
             }
         });
-        return resolvedDeps;
+        depGraph[file] = resolvedDeps;
+        resolvedDeps.forEach(dep => {
+            this._resolveDeps(dep, depGraph);
+        });
     }
 
-    private _transform (file: string, code: string): string {
+    private _transformFile (file: string): ITransformResult {
         const { virtualModule, root } = this._options;
-
-        const res = babel.transformSync(code, {
+        const code = fs.readFileSync(file, 'utf-8');
+        const transformedResult = babel.transformSync(code, {
             plugins: [
                 [pluginSyntaxTS],
                 [syntaxDecorators, {
@@ -184,6 +195,8 @@ export class EngineBuilder {
                 ]
             ],
         });
-        return res?.code!;
+        return {
+            code: transformedResult?.code!,
+        };
     }
 }
