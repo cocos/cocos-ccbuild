@@ -7,28 +7,29 @@ import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 // @ts-ignore
 import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
-import { IFlagConfig, ModeType, PlatformType } from "./stats-query";
+import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, StatsQuery } from "./stats-query";
+import { normalizePath } from './stats-query/path-utils';
 
 export interface IBuildOptions {
     root: string;
+    entries: string[];
     platform: PlatformType;
     mode: ModeType;
     flagConfig: Partial<IFlagConfig>;
+    outDir?: string;
+    virtualModule: Record<string, string>;
+    resolveExtensions?: string[];
 }
 
-interface IParsedBuildOptions {
-    root: string;
-    entries: string[];
-    platform: PlatformType;
-    flagConfig: Partial<IFlagConfig>;
-    resolveExtensions?: string[];
-    outDir?: string;
-    virtualModule?: Record<string, string>,
-}
+// interface ITransformResult {
+//     code: string;
+//     map?: any;
+// }
 
 interface ITransformResult {
     code: string;
     map?: any;
+    deps: string[],
 }
 
 interface IDependencyGraph {
@@ -40,115 +41,131 @@ export interface IBuildResult {
 }
 
 export class EngineBuilder {
-    private _options!: IParsedBuildOptions;
-    private _virtual2dir: Record<string, string> = {};
+    private _options!: IBuildOptions;
+    private _virtualOverrides: Record<string, string> = {};
+    private _buildTimeConstants!: BuildTimeConstants;
+    private _moduleOverrides!: Record<string, string>;
 
-    // public async build (options: IBuildOptions): Promise<IBuildResult> {
-    public async build (options: IParsedBuildOptions): Promise<IBuildResult> {
-        this._options = options;
+    public async build (options: IBuildOptions): Promise<IBuildResult> {
         const { root, virtualModule } = options;
+        const buildResult: IBuildResult = {};
+        
+        await this._initOptions(options);
+
+        const virtualModules = Object.values(this._virtualOverrides);
+        const file2virtual = Object.entries(this._virtualOverrides).reduce((result, [k, v]) => {
+            result[v] = k;
+            return result;
+        }, {} as Record<string, string>);
+        const transformFiles = (files: string[]) => {
+            for (let file of files) {
+                if (fs.existsSync(file)) {
+                    const code = fs.readFileSync(file, 'utf8');
+                    const transformResult = this._transform(file, code);
+                    buildResult[file] = {
+                        code: transformResult.code,
+                        deps: transformResult.deps,
+                    };
+                    transformFiles(transformResult.deps);
+                } else if (this._moduleOverrides[file] && fs.existsSync(this._moduleOverrides[file])) {
+                    const overrideFile = this._moduleOverrides[file];
+                    const code = fs.readFileSync(overrideFile, 'utf8');
+                    const transformResult = this._transform(file, code);
+                    buildResult[file] = {
+                        code: transformResult.code,
+                        deps: transformResult.deps,
+                    };
+                    transformFiles(transformResult.deps);
+                } 
+                else if (virtualModules.includes(file)) {
+                    const transformResult = this._transform(file, virtualModule[file2virtual[file]]);
+                    buildResult[file] = {
+                        code: transformResult.code,
+                        deps: transformResult.deps,
+                    };
+                } else {
+                    throw new Error(`Cannot transform file ${file}, which is not exist`);
+                }
+            }
+        };
+        transformFiles(options.entries);
+
+        if (options.outDir) {
+            for (let file in buildResult) {
+                const res = buildResult[file];
+                const output = ps.join(options.outDir, ps.relative(root, file));
+                fs.outputFileSync(output, res.code, 'utf8');
+            }
+        }
+        return buildResult;
+    }
+
+    private async _initOptions (options: IBuildOptions): Promise<void> {
+        this._options = options;
+        const { root, virtualModule, flagConfig, platform, mode } = options;
+        const statsQuery = await StatsQuery.create(root);
+        const constantManager = statsQuery.constantManager;
+        this._buildTimeConstants = constantManager.genBuildTimeConstants({
+            platform,
+            mode,
+            flags: flagConfig,
+        });
+        this._moduleOverrides = statsQuery.evaluateModuleOverrides({
+            mode: options.mode,
+            platform: options.platform,
+            buildTimeConstants: this._buildTimeConstants,
+        });
+        this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
+            result[normalizePath(k)] = normalizePath(v);
+            return result;
+        }, {} as Record<string, string>);
         if (virtualModule) {
             for (let virtualName in virtualModule) {
-                this._virtual2dir[virtualName] = ps.join(root, '__virtual__', virtualName.replace(/:/g, '_')).replace(/\\/g, '/') + '.ts';
+                this._virtualOverrides[virtualName] = normalizePath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
             }
         }
         this._options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
-        const buildResult: IBuildResult = {};
-        // const parsedOptions = this._parseOptions(options);
-        const parsedOptions = options;
-        const allScripts = this._resolveEntries(parsedOptions.entries);
-        for (let file of allScripts) {
-            if (virtualModule && file in virtualModule) {
-                buildResult[this._virtual2dir[file]] = {
-                    code: virtualModule[file],  // TODO: transform virtual module code
-                };
-            } else {
-                buildResult[file] = this._transformFile(file);
-            }
-        }
-        if (parsedOptions.outDir) {
-            console.log(buildResult)
-        }
-        return buildResult;
-        // return this._doBuild(parsedOptions);
+
     }
 
-    // private _parseOptions (options: IBuildOptions): IParsedBuildOptions {
-
-    // }
-
-    // NOTE: do we need to return the dependency graph ?
-    private _resolveEntries (entries: string[]): string[] {
-        const depGraph: IDependencyGraph = {};
-        for (let entry of entries) {
-            this._resolveDeps(entry, depGraph);
-        }
-        return Object.keys(depGraph);
-    }
-
-    private _resolveDeps (file: string, depGraph: IDependencyGraph) {
-        if (depGraph[file]) {
-            // skip resolve cache.
-            return;
-        }
-        const { virtualModule, resolveExtensions } = this._options;
-        if (virtualModule && file in virtualModule) {
-            // don't resolve virtual module
-            depGraph[file] = [];  
-            return; 
-        }
-        const code = fs.readFileSync(file, 'utf8');
-        const ast = parser.parse(code, {
-            sourceType: 'module',
-            plugins: [
-                'typescript',
-                'decorators-legacy',
-            ],
-        });
-        
-        let deps: string[] = [];
-        traverse(ast, {
-            ImportDeclaration (path) {
-                deps.push(path.node.source.value);
-            },
-            ExportDeclaration (path) {
-                // @ts-ignore
-                const source = path.node.source;
-                if (source) {
-                    deps.push(source.value);
-                }
-            },
-        });
+    private _transform (file: string, code: string): ITransformResult {
+        const { virtualModule } = this._options;
         const resolvedDeps: string[] = [];
-        deps.forEach(dep => {
-            // ON RESOLVE
-            // virtual module
-            if (virtualModule && dep in virtualModule) {
-                resolvedDeps.push(dep);
-                return;
-            }
-            // fs module
-            dep = ps.join(ps.dirname(file), dep).replace(/\\/g, '/');
-            for (let ext of resolveExtensions!) {
-                const fileExt = dep + ext;
-                const indexExt = ps.join(dep, 'index').replace(/\\/g, '/') + ext; 
-                if (fs.existsSync(fileExt)) {
-                    resolvedDeps.push(fileExt);
-                } else if (fs.existsSync(indexExt)) {
-                    resolvedDeps.push(indexExt);
+        type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
+        const transformImportSpecifier = (path: ImportTypes, targetSpecifier: string) => {
+            traverse(path.node, {
+                StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
+                    path.replaceWith(babel.types.stringLiteral(targetSpecifier));
+                    path.skip();
                 }
-            }
-        });
-        depGraph[file] = resolvedDeps;
-        resolvedDeps.forEach(dep => {
-            this._resolveDeps(dep, depGraph);
-        });
-    }
+            }, path.scope);
+        };
+        const importExportVisitor = (path: ImportTypes) => {
+            // @ts-ignore
+            const source = path.node.source;
+            if (source) {
+                const specifier = source.value as string;
+                const targetSpecifier = this._resolve(specifier, file);
+                if (!targetSpecifier) {
+                    throw new Error(`Cannot resolve '${specifier}' from file: ${file}`);
+                }
+                if (specifier in virtualModule || specifier in this._moduleOverrides) {
+                    transformImportSpecifier(path, normalizePath(ps.relative(ps.dirname(file), targetSpecifier)));
+                } else {
+                    const originalFile = this._resolveRelative(specifier, file);
 
-    private _transformFile (file: string): ITransformResult {
-        const { virtualModule, root } = this._options;
-        const code = fs.readFileSync(file, 'utf-8');
-        const transformedResult = babel.transformSync(code, {
+                    if (originalFile && originalFile in this._moduleOverrides) {
+                        let relativePath = normalizePath(ps.relative(ps.dirname(file), targetSpecifier)).slice(0, -3);
+                        if (!relativePath.startsWith('.')) {
+                            relativePath = './' + relativePath;
+                        }
+                        transformImportSpecifier(path, relativePath);
+                    }
+                }
+                resolvedDeps.push(targetSpecifier);
+            }
+        }
+        const transformResult = babel.transformSync(code, {
             plugins: [
                 [pluginSyntaxTS],
                 [syntaxDecorators, {
@@ -159,36 +176,8 @@ export class EngineBuilder {
                     function () {
                         return {
                             visitor: {
-                                ImportDeclaration (path: babel.NodePath<babel.types.ImportDeclaration>) {
-                                    const specifier = path.node.source.value as string;
-                                    if (virtualModule && specifier in virtualModule) {
-                                        traverse(path.node, {
-                                            StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
-                                                const virtualPath = ps.join(root, '__virtual__', specifier).replace(/\\/g, '/');
-                                                const relativePath = ps.relative(ps.dirname(file), virtualPath).replace(/\\/g, '/');
-                                                path.replaceWith(babel.types.stringLiteral(relativePath));
-                                                path.skip();
-                                            }
-                                        }, path.scope);
-                                    }
-                                },
-                                ExportDeclaration (path: babel.NodePath<babel.types.ExportDeclaration>) {
-                                    // @ts-ignore
-                                    const source = path.node.source;
-                                    if (source) {
-                                        const specifier = source.value as string;
-                                        if (virtualModule && specifier in virtualModule) {
-                                            traverse(path.node, {
-                                                StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
-                                                    const virtualPath = ps.join(root, '__virtual__', specifier).replace(/\\/g, '/');
-                                                    const relativePath = ps.relative(ps.dirname(file), virtualPath).replace(/\\/g, '/');
-                                                    path.replaceWith(babel.types.stringLiteral(relativePath));
-                                                    path.skip();
-                                                }
-                                            }, path.scope);
-                                        }
-                                    }
-                                },
+                                ImportDeclaration: importExportVisitor,
+                                ExportDeclaration: importExportVisitor,
                             }
                         }
                     }
@@ -196,7 +185,35 @@ export class EngineBuilder {
             ],
         });
         return {
-            code: transformedResult?.code!,
+            code: transformResult?.code!,
+            deps: resolvedDeps,
         };
+    }
+
+    private _resolve (specifier: string, importer?: string): string | undefined {
+        const { root, virtualModule } = this._options;
+        if (!importer) {
+            return specifier;
+        } else if (virtualModule && specifier in virtualModule) {
+            return this._virtualOverrides[specifier];
+        } else if (specifier in this._moduleOverrides) {
+            return this._moduleOverrides[specifier];
+        } else if (!ps.isAbsolute(specifier)) {
+            const resolved = this._resolveRelative(specifier, importer);
+            if (resolved) {
+                return this._moduleOverrides[resolved] ?? resolved;
+            }
+        } 
+    }
+
+    private _resolveRelative (specifier: string, importer: string): string | undefined {
+        const file = normalizePath(ps.join(ps.dirname(importer), specifier));
+        const fileExt = file + '.ts';
+        const indexExt = normalizePath(ps.join(file, 'index')) + '.ts';
+        if (fs.existsSync(fileExt)) {
+            return fileExt;
+        } else if (fs.existsSync(indexExt)) {
+            return indexExt;
+        }
     }
 }

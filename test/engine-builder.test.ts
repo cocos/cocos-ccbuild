@@ -10,7 +10,8 @@ test('test base', async () => {
           ps.join(__dirname, './test-source/exports/audio.ts').replace(/\\/g, '/'),
           ps.join(__dirname, './test-source/exports/animation.ts').replace(/\\/g, '/'),
         ],
-        platform: 'OPEN_HARMONY',
+        platform: 'NATIVE',
+        mode: 'BUILD', 
         flagConfig: {
             DEBUG: true,
         },
@@ -22,6 +23,8 @@ test('test base', async () => {
     const files = Object.keys(buildResult);
     for (let file of files) {
       const data = buildResult[file];
+      // @ts-ignore
+      delete data.deps;
       delete buildResult[file];
       const relativeFile = ps.relative(root, file).replace(/\\/g, '/');
       buildResult[relativeFile] = data;

@@ -1,4 +1,6 @@
+import 'internal:native';
 import { EDITOR, TEST } from "virtual:const";
+import './module';
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {

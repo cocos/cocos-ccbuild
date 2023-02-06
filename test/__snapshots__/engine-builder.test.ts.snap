@@ -2,7 +2,7 @@
 
 exports[`test base 1`] = `
 {
-  "__virtual__/virtual.ts": {
+  "__virtual__/virtual_const.ts": {
     "code": "export const TEST = true;
 export const EDITOR = false;",
   },
@@ -17,8 +17,16 @@ export const EDITOR = false;",
   "audio/index.ts": {
     "code": "export * from './player';",
   },
+  "audio/internal-native.ts": {
+    "code": "console.log('internal-native');",
+  },
+  "audio/module.native.ts": {
+    "code": "console.log('module that after override');",
+  },
   "audio/player.ts": {
-    "code": "import { EDITOR, TEST } from "../__virtual__/virtual";
+    "code": "import "internal-native.ts";
+import { EDITOR, TEST } from "../__virtual__/virtual_const.ts";
+import "./module.native";
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {
