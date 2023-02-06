@@ -1,6 +1,8 @@
 import 'internal:native';
 import { EDITOR, TEST } from "virtual:const";
 import './module';
+import 'pal/audio';
+import 'pal/minigame';
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {

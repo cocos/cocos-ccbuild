@@ -27,6 +27,8 @@ export const EDITOR = false;",
     "code": "import "internal-native.ts";
 import { EDITOR, TEST } from "../__virtual__/virtual_const.ts";
 import "./module.native";
+import "../pal/audio/native.ts";
+import "../pal/minigame/native.ts";
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {
@@ -49,6 +51,12 @@ export const player: Player = new Player();",
   },
   "exports/audio.ts": {
     "code": "export * from '../audio';",
+  },
+  "pal/audio/native.ts": {
+    "code": "console.log('native audio');",
+  },
+  "pal/minigame/native.ts": {
+    "code": "console.log('native');",
   },
 }
 `;
