@@ -12,7 +12,7 @@ import { normalizePath } from './stats-query/path-utils';
 
 export interface IBuildOptions {
     root: string;
-    entries: string[];
+    features?: string[],
     platform: PlatformType;
     mode: ModeType;
     flagConfig: Partial<IFlagConfig>;
@@ -36,6 +36,7 @@ export interface IBuildResult {
 
 export class EngineBuilder {
     private _options!: IBuildOptions;
+    private _entries: string[] = [];
     private _virtual2code: Record<string, string> = {};
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
@@ -83,7 +84,7 @@ export class EngineBuilder {
                 }
             }
         };
-        transformFiles(options.entries);
+        transformFiles(this._entries);
 
         if (options.outDir) {
             for (let file in buildResult) {
@@ -100,6 +101,14 @@ export class EngineBuilder {
         const { root, flagConfig, platform, mode } = options;
         const statsQuery = await StatsQuery.create(root);
         const constantManager = statsQuery.constantManager;
+
+        if (options.features) {
+            const featureUnits = statsQuery.getUnitsOfFeatures(options.features);
+            this._entries = featureUnits.map(fu => normalizePath(statsQuery.getFeatureUnitFile(fu)));
+        } else {
+            const featureUnits = statsQuery.getFeatureUnits();
+            this._entries = featureUnits.map(fu => normalizePath(statsQuery.getFeatureUnitFile(fu)));
+        }
         this._buildTimeConstants = constantManager.genBuildTimeConstants({
             platform,
             mode,

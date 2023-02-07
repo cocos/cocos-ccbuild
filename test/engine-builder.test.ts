@@ -1,21 +1,19 @@
 import * as ccbuild from '../src/index'
 import * as ps from 'path';
+import { normalizePath } from '../src/stats-query/path-utils';
 
 test('test base', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
-    const root = ps.join(__dirname, './test-source').replace(/\\/g, '/');
+    const root = normalizePath(ps.join(__dirname, './test-source'));
     const buildResult = await engineBuilder.build({
         root,
-        entries: [
-          ps.join(__dirname, './test-source/exports/audio.ts').replace(/\\/g, '/'),
-          ps.join(__dirname, './test-source/exports/animation.ts').replace(/\\/g, '/'),
-        ],
+        features: ['audio', 'animation'],
         platform: 'NATIVE',
         mode: 'BUILD', 
         flagConfig: {
             DEBUG: true,
         },
-        outDir: ps.join(__dirname, './lib').replace(/\\/g, '/'),
+        outDir: normalizePath(ps.join(__dirname, './lib')),
     });
     const files = Object.keys(buildResult);
     for (let file of files) {
@@ -23,7 +21,7 @@ test('test base', async () => {
       // @ts-ignore
       delete data.deps;
       delete buildResult[file];
-      const relativeFile = ps.relative(root, file).replace(/\\/g, '/');
+      const relativeFile = normalizePath(ps.relative(root, file));
       buildResult[relativeFile] = data;
     }
     expect(buildResult).toMatchSnapshot();
