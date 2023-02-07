@@ -55,6 +55,10 @@ export class EngineBuilder {
         }, {} as Record<string, string>);
         const transformFiles = (files: string[]) => {
             for (let file of files) {
+                if (buildResult[file]) {
+                    // skip cached file
+                    continue;
+                }
                 if (fs.existsSync(file)) {
                     const code = fs.readFileSync(file, 'utf8');
                     const transformResult = this._transform(file, code);
