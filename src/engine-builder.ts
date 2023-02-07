@@ -140,9 +140,15 @@ export class EngineBuilder {
             }
         }
 
+        // handle output file
+        let file = overrideId || resolvedId;
+        if (file.endsWith('.json')) {
+            file = file.slice(0, -5) + '.ts';
+        }
+
         return {
             code: transformResult.code,
-            file: overrideId || resolvedId,
+            file,
             originalId: id,
             resolvedId,
             map: transformResult.map,
@@ -180,7 +186,11 @@ export class EngineBuilder {
 
     private _load (id: string): string | void {
         if (fs.existsSync(id)) {
-            return fs.readFileSync(id, 'utf8');
+            let code = fs.readFileSync(id, 'utf8');
+            if (id.endsWith('.json')) {
+                code = `export default ${code};`
+            }
+            return code;
         } else if (this._virtualOverrides[id]) {
             return this._virtual2code[id];
         }

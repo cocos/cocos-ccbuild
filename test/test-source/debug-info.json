@@ -1,0 +1,8 @@
+{
+    "1006": "[Action step]. override me",
+    "1007": "[Action update]. override me",
+    "1008": "[Action reverse]. override me",
+    "1100": "Expected 'data' dict, but not found. Config file: %s",
+    "1101": "Please load the resource first : %s",
+    "1200": "cocos2d: Director: Error in gettimeofday"
+}

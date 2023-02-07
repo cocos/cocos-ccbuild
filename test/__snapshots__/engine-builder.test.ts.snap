@@ -71,7 +71,8 @@ export const WEBGPU = false;",
     "code": "export * from './animation';",
   },
   "audio/index.ts": {
-    "code": "export * from './player';",
+    "code": "import debugInfo from '../debug-info';
+export * from './player';",
   },
   "audio/internal-native.ts": {
     "code": "console.log('internal-native');",
@@ -98,6 +99,16 @@ export class Player {
   }
 }
 export const player: Player = new Player();",
+  },
+  "debug-info.ts": {
+    "code": "export default {
+  "1006": "[Action step]. override me",
+  "1007": "[Action update]. override me",
+  "1008": "[Action reverse]. override me",
+  "1100": "Expected 'data' dict, but not found. Config file: %s",
+  "1101": "Please load the resource first : %s",
+  "1200": "cocos2d: Director: Error in gettimeofday"
+};",
   },
   "decorators.ts": {
     "code": "export function testDecorator() {}",
