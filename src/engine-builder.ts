@@ -17,14 +17,8 @@ export interface IBuildOptions {
     mode: ModeType;
     flagConfig: Partial<IFlagConfig>;
     outDir?: string;
-    virtualModule: Record<string, string>;
     resolveExtensions?: string[];
 }
-
-// interface ITransformResult {
-//     code: string;
-//     map?: any;
-// }
 
 interface ITransformResult {
     code: string;
@@ -42,12 +36,13 @@ export interface IBuildResult {
 
 export class EngineBuilder {
     private _options!: IBuildOptions;
+    private _virtual2code: Record<string, string> = {};
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
 
     public async build (options: IBuildOptions): Promise<IBuildResult> {
-        const { root, virtualModule } = options;
+        const { root } = options;
         const buildResult: IBuildResult = {};
         
         await this._initOptions(options);
@@ -78,7 +73,7 @@ export class EngineBuilder {
                     transformFiles(transformResult.deps);
                 } 
                 else if (virtualModules.includes(file)) {
-                    const transformResult = this._transform(file, virtualModule[file2virtual[file]]);
+                    const transformResult = this._transform(file, this._virtual2code[file2virtual[file]]);
                     buildResult[file] = {
                         code: transformResult.code,
                         deps: transformResult.deps,
@@ -102,7 +97,7 @@ export class EngineBuilder {
 
     private async _initOptions (options: IBuildOptions): Promise<void> {
         this._options = options;
-        const { root, virtualModule, flagConfig, platform, mode } = options;
+        const { root, flagConfig, platform, mode } = options;
         const statsQuery = await StatsQuery.create(root);
         const constantManager = statsQuery.constantManager;
         this._buildTimeConstants = constantManager.genBuildTimeConstants({
@@ -119,17 +114,20 @@ export class EngineBuilder {
             result[normalizePath(k)] = normalizePath(v);
             return result;
         }, {} as Record<string, string>);
-        if (virtualModule) {
-            for (let virtualName in virtualModule) {
-                this._virtualOverrides[virtualName] = normalizePath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
-            }
+
+        this._virtual2code['internal:constants'] = constantManager.exportStaticConstants({
+            platform,
+            mode,
+            flags: flagConfig,
+        });
+        for (let virtualName in this._virtual2code) {
+            this._virtualOverrides[virtualName] = normalizePath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
         }
         this._options.resolveExtensions = options.resolveExtensions ?? ['.ts'];
 
     }
 
     private _transform (file: string, code: string): ITransformResult {
-        const { virtualModule } = this._options;
         const resolvedDeps: string[] = [];
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
         const transformImportSpecifier = (path: ImportTypes, targetSpecifier: string) => {
@@ -149,7 +147,7 @@ export class EngineBuilder {
                 if (!targetSpecifier) {
                     throw new Error(`Cannot resolve '${specifier}' from file: ${file}`);
                 }
-                if (specifier in virtualModule || specifier in this._moduleOverrides) {
+                if (specifier in this._virtual2code || specifier in this._moduleOverrides) {
                     transformImportSpecifier(path, normalizePath(ps.relative(ps.dirname(file), targetSpecifier)));
                 } else {
                     const originalFile = this._resolveRelative(specifier, file);
@@ -191,10 +189,10 @@ export class EngineBuilder {
     }
 
     private _resolve (specifier: string, importer?: string): string | undefined {
-        const { root, virtualModule } = this._options;
+        const { root } = this._options;
         if (!importer) {
             return specifier;
-        } else if (virtualModule && specifier in virtualModule) {
+        } else if (specifier in this._virtual2code) {
             return this._virtualOverrides[specifier];
         } else if (specifier in this._moduleOverrides) {
             return this._moduleOverrides[specifier];

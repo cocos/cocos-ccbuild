@@ -16,9 +16,6 @@ test('test base', async () => {
             DEBUG: true,
         },
         outDir: ps.join(__dirname, './lib').replace(/\\/g, '/'),
-        virtualModule: {
-          'virtual:const': 'export const TEST = true;\nexport const EDITOR = false;'
-        },
     });
     const files = Object.keys(buildResult);
     for (let file of files) {

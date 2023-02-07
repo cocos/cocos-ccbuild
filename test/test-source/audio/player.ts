@@ -1,5 +1,5 @@
 import 'internal:native';
-import { EDITOR, TEST } from "virtual:const";
+import { EDITOR, TEST } from "internal:constants";
 import './module';
 import 'pal/audio';
 import 'pal/minigame';
