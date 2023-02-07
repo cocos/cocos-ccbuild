@@ -80,11 +80,11 @@ export const WEBGPU = false;",
     "code": "console.log('module that after override');",
   },
   "audio/player.ts": {
-    "code": "import "internal-native.ts";
-import { EDITOR, TEST } from "../__virtual__/internal_constants.ts";
+    "code": "import "./internal-native";
+import { EDITOR, TEST } from "../__virtual__/internal_constants";
 import "./module.native";
-import "../pal/audio/native.ts";
-import "../pal/minigame/native.ts";
+import "../pal/audio/native";
+import "../pal/minigame/native";
 import { testDecorator } from "../decorators";
 @testDecorator
 export class Player {
