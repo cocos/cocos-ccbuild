@@ -15,14 +15,12 @@ test('test base', async () => {
         },
         outDir: normalizePath(ps.join(__dirname, './lib')),
     });
-    const files = Object.keys(buildResult);
-    for (let file of files) {
-      const data = buildResult[file];
-      // @ts-ignore
-      delete data.deps;
-      delete buildResult[file];
-      const relativeFile = normalizePath(ps.relative(root, file));
-      buildResult[relativeFile] = data;
+    const res: any = {};
+    for (let [k, v] of Object.entries(buildResult)) {
+      const relativeFile = normalizePath(ps.relative(root, v.file));
+      res[relativeFile] = {
+        code: v.code,
+      };
     }
-    expect(buildResult).toMatchSnapshot();
+    expect(res).toMatchSnapshot();
 });

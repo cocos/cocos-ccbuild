@@ -1,7 +1,6 @@
 import * as fs from 'fs-extra';
 import * as ps from 'path';
 import * as babel from '@babel/core';
-import * as parser from '@babel/parser';
 // @ts-ignore
 import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 // @ts-ignore
@@ -34,7 +33,7 @@ interface ITransformResult {
 }
 
 export interface IBuildResult {
-    [outputFile: string]: ITransformResult;
+    [outputFile: string]: IHandleResult;
 }
 
 export class EngineBuilder {
@@ -54,15 +53,8 @@ export class EngineBuilder {
 
         const handleIdList = (idList: string[]) => {
             for (let id of idList) {
-                if (this._buildResult[id]) {
-                    // skip cached id
-                    continue;
-                }
-
                 const handleResult = this._handleId(id);
-                this._buildResult[handleResult.file] = {
-                    code: handleResult.code,
-                };
+                this._buildResult[handleResult.file] = handleResult;
             }
         };
         handleIdList(this._entries);
@@ -125,7 +117,6 @@ export class EngineBuilder {
         if (!code) {
             throw new Error(`Cannot load module: ${resolvedId}`);
         }
-        const transformResult = this._transform(resolvedId, code);
 
         // override id for transforming import/export declaration
         let overrideId: string | undefined;
@@ -145,6 +136,12 @@ export class EngineBuilder {
         if (file.endsWith('.json')) {
             file = file.slice(0, -5) + '.ts';
         }
+
+        if (this._buildResult[file]) {
+            return this._buildResult[file];
+        }
+
+        const transformResult = this._transform(resolvedId, code);
 
         return {
             code: transformResult.code,
@@ -206,9 +203,7 @@ export class EngineBuilder {
                 const specifier = source.value as string;
                 // handle dependency
                 const handleResult = this._handleId(specifier, file);
-                this._buildResult[handleResult.file] = {
-                    code: handleResult.code,
-                };
+                this._buildResult[handleResult.file] = handleResult;
                 // transform import/export declaration if needed
                 if (handleResult.overrideId) {
                     let relativePath = normalizePath(ps.relative(ps.dirname(file), handleResult.overrideId));
