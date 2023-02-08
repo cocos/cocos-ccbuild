@@ -24,12 +24,12 @@ interface IHandleResult {
     originalId: string;
     resolvedId: string;
     map: any;
-    overrideId?: string;
 }
 
 interface ITransformResult {
     code: string;
     map?: any;
+    depIdList: string[],
 }
 
 export interface IBuildResult {
@@ -118,7 +118,37 @@ export class EngineBuilder {
             throw new Error(`Cannot load module: ${resolvedId}`);
         }
 
-        // override id for transforming import/export declaration
+        let overrideId = this._getOverrideId(id, importer);
+
+        // handle output file
+        let file = overrideId || resolvedId;
+        if (file.endsWith('.json')) {
+            file = file.slice(0, -5) + '.ts';
+        }
+
+        if (this._buildResult[file]) {
+            // skip cached file
+            return this._buildResult[file];
+        }
+
+        const transformResult = this._transform(resolvedId, code);
+        const handleResult = this._buildResult[file] = {
+            code: transformResult.code,
+            file,
+            originalId: id,
+            resolvedId,
+            map: transformResult.map,
+        };
+
+        transformResult.depIdList.forEach(id => {
+            const handleResult = this._handleId(id, file);
+            this._buildResult[handleResult.file] = handleResult;
+        });
+
+        return handleResult;
+    }
+
+    private _getOverrideId (id: string, importer?: string) {
         let overrideId: string | undefined;
         if (id in this._virtualOverrides) {
             overrideId = this._virtualOverrides[id];
@@ -130,27 +160,7 @@ export class EngineBuilder {
                 overrideId = this._moduleOverrides[absolutePath];
             }
         }
-
-        // handle output file
-        let file = overrideId || resolvedId;
-        if (file.endsWith('.json')) {
-            file = file.slice(0, -5) + '.ts';
-        }
-
-        if (this._buildResult[file]) {
-            return this._buildResult[file];
-        }
-
-        const transformResult = this._transform(resolvedId, code);
-
-        return {
-            code: transformResult.code,
-            file,
-            originalId: id,
-            resolvedId,
-            map: transformResult.map,
-            overrideId,
-        };
+        return overrideId;
     }
 
     private _resolve (id: string, importer?: string): string | undefined {
@@ -194,19 +204,19 @@ export class EngineBuilder {
     }
 
     private _transform (file: string, code: string): ITransformResult {
+        const depIdList: string[] = [];
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
-
         const importExportVisitor = (path: ImportTypes) => {
             // @ts-ignore
             const source = path.node.source;
             if (source) {
                 const specifier = source.value as string;
-                // handle dependency
-                const handleResult = this._handleId(specifier, file);
-                this._buildResult[handleResult.file] = handleResult;
+                // add dependency
+                depIdList.push(specifier);
                 // transform import/export declaration if needed
-                if (handleResult.overrideId) {
-                    let relativePath = normalizePath(ps.relative(ps.dirname(file), handleResult.overrideId));
+                const overrideId = this._getOverrideId(specifier, file);
+                if (overrideId) {
+                    let relativePath = normalizePath(ps.relative(ps.dirname(file), overrideId));
                     if (!relativePath.startsWith('.')) {
                         relativePath = './' + relativePath;
                     }
@@ -243,6 +253,7 @@ export class EngineBuilder {
         });
         return {
             code: transformResult?.code!,
+            depIdList,
         };
     }
 }
