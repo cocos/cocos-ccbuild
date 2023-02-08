@@ -8,6 +8,7 @@ import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
 import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, StatsQuery } from "./stats-query";
 import { normalizePath } from './stats-query/path-utils';
+import * as json5 from 'json5';
 
 export interface IBuildOptions {
     root: string;
@@ -96,6 +97,18 @@ export class EngineBuilder {
             result[normalizePath(k)] = normalizePath(v);
             return result;
         }, {} as Record<string, string>);
+        // paths in tsconfig.json 
+        const tsconfigFile = ps.join(root, './tsconfig.json');
+        if (fs.existsSync(tsconfigFile)) {
+            const tsconfigContent = fs.readFileSync(tsconfigFile, 'utf8');
+            const tsconfig = json5.parse(tsconfigContent);
+            const compilerOptions = tsconfig.compilerOptions;
+            if (compilerOptions && compilerOptions.baseUrl && compilerOptions.paths) {
+                for (let [key, paths] of Object.entries(compilerOptions.paths) as any) {
+                    this._moduleOverrides[key] = normalizePath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
+                }
+            }
+        }
 
         this._virtual2code['internal:constants'] = constantManager.exportStaticConstants({
             platform,

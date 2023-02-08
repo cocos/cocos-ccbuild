@@ -4,6 +4,7 @@ import './module';
 import 'pal/audio';
 import 'pal/minigame';
 import { testDecorator } from "../decorators";
+import { testDecorator as testDecorator2 } from 'cc.decorator';
 @testDecorator
 export class Player {
 

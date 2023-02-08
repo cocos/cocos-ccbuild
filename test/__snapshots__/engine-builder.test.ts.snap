@@ -87,6 +87,7 @@ import "./module.native";
 import "../pal/audio/native";
 import "../pal/minigame/native";
 import { testDecorator } from "../decorators";
+import { testDecorator as testDecorator2 } from "../decorators";
 @testDecorator
 export class Player {
   @testDecorator
