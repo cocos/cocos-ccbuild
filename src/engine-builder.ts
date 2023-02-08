@@ -7,7 +7,7 @@ import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
 import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, StatsQuery } from "./stats-query";
-import { normalizePath } from './stats-query/path-utils';
+import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
 
 export interface IBuildOptions {
@@ -167,7 +167,7 @@ export class EngineBuilder {
         return handleResult;
     }
 
-    private _getOverrideId (id: string, importer?: string) {
+    private _getOverrideId (id: string, importer?: string): string | void {
         let overrideId: string | undefined;
         if (id in this._virtualOverrides) {
             overrideId = this._virtualOverrides[id];
@@ -175,6 +175,13 @@ export class EngineBuilder {
             overrideId = this._moduleOverrides[id];
         } else if (!ps.isAbsolute(id) && importer) {
             const absolutePath = this._resolveRelative(id, importer);
+            if (absolutePath && this._moduleOverrides[absolutePath] === importer) {
+                // @ts-ignore TODO simple copy type declaration.
+                this._buildResult[absolutePath] = {
+                    code: fs.readFileSync(absolutePath, 'utf8'),
+                }
+                return;
+            }
             if (absolutePath && absolutePath in this._moduleOverrides) {
                 overrideId = this._moduleOverrides[absolutePath];
             }
@@ -182,7 +189,7 @@ export class EngineBuilder {
         return overrideId;
     }
 
-    private _resolve (id: string, importer?: string): string | undefined {
+    private _resolve (id: string, importer?: string): string | void {
         if (!importer) {
             return id;  // entry
         } else if (id in this._virtualOverrides) {
@@ -231,8 +238,7 @@ export class EngineBuilder {
     private _transform (file: string, code: string): ITransformResult {
         const depIdList: string[] = [];
         if (ps.extname(file) === '.js') {
-            const parsed = ps.parse(file);
-            const dtsFile = normalizePath(ps.join(parsed.dir, parsed.name)) + '.d.ts';
+            const dtsFile = toExtensionLess(file) + '.d.ts';
             if (fs.existsSync(dtsFile)) {
                 depIdList.push(dtsFile);
             }
