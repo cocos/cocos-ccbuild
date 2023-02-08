@@ -124,11 +124,11 @@ export class EngineBuilder {
     private _handleId (id: string, importer?: string): IHandleResult {
         const resolvedId = this._resolve(id, importer);
         if (!resolvedId) {
-            throw new Error(`Cannot resolve module id: ${id}`);
+            throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
         }
         const code = this._load(resolvedId);
         if (!code) {
-            throw new Error(`Cannot load module: ${resolvedId}`);
+            throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
 
         let overrideId = this._getOverrideId(id, importer);
