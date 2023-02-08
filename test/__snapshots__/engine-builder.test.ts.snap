@@ -88,6 +88,10 @@ import "../pal/audio/native";
 import "../pal/minigame/native";
 import { testDecorator } from "../decorators";
 import { testDecorator as testDecorator2 } from "../decorators";
+import { zlib } from '../external/zlib';
+import { zlib as zlib2 } from '../external/zlib.js';
+console.log(zlib.Inflate);
+console.log(zlib2.Inflate);
 @testDecorator
 export class Player {
   @testDecorator
@@ -119,6 +123,17 @@ export const player: Player = new Player();",
   },
   "exports/audio.ts": {
     "code": "export * from '../audio';",
+  },
+  "external/zlib.d.ts": {
+    "code": "declare namespace zlib {
+  export function Inflate(data: any, info?: any): void;
+}
+export { zlib };",
+  },
+  "external/zlib.js": {
+    "code": "export const zlib = {
+  Inflate() {}
+};",
   },
   "pal/audio/native.ts": {
     "code": "console.log('native audio');",

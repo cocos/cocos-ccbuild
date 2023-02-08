@@ -44,7 +44,7 @@ export class EngineBuilder {
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
-    private _resolveExtension: string[] = ['.ts', '.json'];  // not an option
+    private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     private _buildResult: IBuildResult = {};
 
     public async build (options: IBuildOptions): Promise<IBuildResult> {
@@ -115,6 +115,12 @@ export class EngineBuilder {
             mode,
             flags: flagConfig,
         });
+        // TODO: resolve node modules
+        this._virtual2code['@cocos/dragonbones-js'] = 'export {}';
+        this._virtual2code['@cocos/box2d'] = 'export {}';
+        this._virtual2code['@cocos/bullet'] = 'export {}';
+        this._virtual2code['@cocos/cannon'] = 'export {}';
+
         for (let virtualName in this._virtual2code) {
             this._virtualOverrides[virtualName] = normalizePath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
         }
@@ -123,11 +129,11 @@ export class EngineBuilder {
 
     private _handleId (id: string, importer?: string): IHandleResult {
         const resolvedId = this._resolve(id, importer);
-        if (!resolvedId) {
+        if (typeof resolvedId === 'undefined') {
             throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
         }
         const code = this._load(resolvedId);
-        if (!code) {
+        if (typeof code === 'undefined') {
             throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
 
@@ -183,17 +189,23 @@ export class EngineBuilder {
             return id;  // virtual module does not have real fs path
         } else if (id in this._moduleOverrides) {
             return this._moduleOverrides[id];
-        } else if (!ps.isAbsolute(id)) {
+        } else if (ps.isAbsolute(id)) {
+            return id;
+        } else {
             const resolved = this._resolveRelative(id, importer);
             if (resolved) {
                 return this._moduleOverrides[resolved] ?? resolved;
             }
-        } 
+        }
     }
 
     private _resolveRelative (id: string, importer: string): string | undefined {
+        const file = normalizePath(ps.join(ps.dirname(importer), id));
+        if (ps.extname(file) && fs.existsSync(file)) {
+            return file;
+        }
+        // resolve extension less
         for (const ext of this._resolveExtension) {
-            const file = normalizePath(ps.join(ps.dirname(importer), id));
             const fileExt = file + ext;
             const indexExt = normalizePath(ps.join(file, 'index')) + ext;
             if (fs.existsSync(fileExt)) {
@@ -218,6 +230,13 @@ export class EngineBuilder {
 
     private _transform (file: string, code: string): ITransformResult {
         const depIdList: string[] = [];
+        if (ps.extname(file) === '.js') {
+            const parsed = ps.parse(file);
+            const dtsFile = normalizePath(ps.join(parsed.dir, parsed.name)) + '.d.ts';
+            if (fs.existsSync(dtsFile)) {
+                depIdList.push(dtsFile);
+            }
+        }
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
         const importExportVisitor = (path: ImportTypes) => {
             // @ts-ignore
