@@ -10,6 +10,8 @@ import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, Stat
 import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
 
+import t = babel.types;
+
 export interface IBuildOptions {
     root: string;
     features?: string[],
@@ -45,8 +47,14 @@ export class EngineBuilder {
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
-    private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     private _buildResult: IBuildResult = {};
+    private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
+    // TODO: for now OH global interface conflict with Rect and Path
+    // so we need to rename them.
+    private _renameClass: Record<string, string> = {
+        Rect: 'RectAlias',
+        Path: 'PathAlias',
+    };
 
     public async build (options: IBuildOptions): Promise<IBuildResult> {
         const { root } = options;
@@ -274,10 +282,24 @@ export class EngineBuilder {
                         StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
                             path.replaceWith(babel.types.stringLiteral(relativePath));
                             path.skip();
-                        }
+                        },
                     }, path.scope);
                 }
             }
+
+            type Types = babel.NodePath<babel.types.ExportSpecifier | babel.types.ImportSpecifier>;
+            const importExportSpecifier = (path: Types) => {
+                const name = path.node.local.name;
+                const alias = this._renameClass[name];
+                if (alias) {
+                    path.replaceWith(babel.types.exportSpecifier(babel.types.identifier(alias), babel.types.identifier(alias)));
+                }
+            }
+
+            path.traverse({
+                ExportSpecifier: importExportSpecifier,
+                ImportSpecifier: importExportSpecifier,
+            });
         }
         const transformResult = babel.transformSync(code, {
             plugins: [
@@ -287,21 +309,33 @@ export class EngineBuilder {
                     decoratorsBeforeExport: true,
                 }],
                 [
-                    function () {
+                    () => {
                         return {
                             name: 'custom-transform',
                             visitor: {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
-                                // TODO: for now, OH doesn't support standard console interface,
-                                // so we need to ignore the type checking for console call expressions.
-                                ExpressionStatement (path) {
+                                // TODO: here we rename class Rect and Path
+                                CallExpression: (path) => {
                                     let needInsert = false;
                                     path.traverse({
-                                        MemberExpression (path2) {
+                                        MemberExpression: (path2) => {
                                             // @ts-ignore
                                             const name = path2.node.object.name;
-                                            if (name === 'console') {
+                                            const alias = this._renameClass[name];
+                                            if (alias) {
+                                                path2.traverse({
+                                                    Identifier: (path3) => {
+                                                        if (path3.node.name === name) {
+                                                            path3.replaceWith(t.identifier(alias));
+                                                        }
+                                                        path3.skip();
+                                                    },
+                                                })
+                                            } 
+                                            // TODO: for now, OH doesn't support standard console interface,
+                                            // so we need to ignore the type checking for console call expressions.
+                                            else if (name === 'console') {
                                                 needInsert = true;
                                             }
                                             path2.skip();
@@ -312,7 +346,51 @@ export class EngineBuilder {
                                     }
                                     path.skip();
                                 },
-                                
+                                ClassDeclaration: (path) => {
+                                    const name = path.node.id.name;
+                                    const alias = this._renameClass[name];
+                                    if (alias) {
+                                        path.traverse({
+                                            Identifier: (path2) => {
+                                                if (path2.node.name === name) {
+                                                    path2.replaceWith(t.identifier(alias));
+                                                }
+                                                path2.skip();
+                                            }
+                                        });
+                                    }
+                                },
+                                NewExpression: (path) => {
+                                    // @ts-ignore
+                                    const name = path.node.callee.name;
+                                    if (name) {
+                                        const alias = this._renameClass[name];
+                                        if (alias) {
+                                            path.traverse({
+                                                Identifier: (path2) => {
+                                                    if (path2.node.name === name) {
+                                                        path2.replaceWith(t.identifier(alias));
+                                                    }
+                                                    path2.skip();
+                                                }
+                                            })
+                                        }
+                                    }
+                                },
+                                TSTypeAnnotation: (path) => {
+                                    // @ts-ignore
+                                    const typeName = path.node.typeAnnotation.typeName;
+                                    if (typeName) {
+                                        const name = typeName.name as string;
+                                        const alias = this._renameClass[name];
+                                        if (alias) {
+                                            path.replaceWith(t.tsTypeAnnotation({
+                                                type: 'TSExpressionWithTypeArguments',
+                                                expression: t.identifier(alias),
+                                            }))
+                                        }
+                                    }
+                                },
                             }
                         } as babel.PluginObj;
                     }

@@ -128,7 +128,8 @@ export const player: Player = new Player();",
     "code": "export * from '../animation';",
   },
   "exports/audio.ts": {
-    "code": "export * from '../audio';",
+    "code": "export * from '../audio';
+export * from '../misc';",
   },
   "external/zlib.d.ts": {
     "code": "declare namespace zlib {
@@ -140,6 +141,32 @@ export { zlib };",
     "code": "export const zlib = {
   Inflate() {}
 };",
+  },
+  "misc/index.ts": {
+    "code": "import { RectAlias } from './rect';
+import { PathAlias } from './path';
+let p: PathAlias = new PathAlias();
+const r: RectAlias = RectAlias.from(0, 0, 100, 100);
+interface Test {
+  r: RectAlias;
+  p: PathAlias;
+  test(r: RectAlias, p: PathAlias): RectAlias;
+}
+// @ts-ignore
+console.log(p, r);
+export * from './rect';
+export * from './path';",
+  },
+  "misc/path.ts": {
+    "code": "class PathAlias {}
+export { PathAlias };",
+  },
+  "misc/rect.ts": {
+    "code": "export class RectAlias {
+  public static from(x: number, y: number, width: number, height: number): RectAlias {
+    throw 'not implemented';
+  }
+}",
   },
   "pal/audio/native.ts": {
     "code": "// @ts-ignore
