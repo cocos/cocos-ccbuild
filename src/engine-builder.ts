@@ -289,11 +289,32 @@ export class EngineBuilder {
                 [
                     function () {
                         return {
+                            name: 'custom-transform',
                             visitor: {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
+                                // TODO: for now, OH doesn't support standard console interface,
+                                // so we need to ignore the type checking for console call expressions.
+                                ExpressionStatement (path) {
+                                    let needInsert = false;
+                                    path.traverse({
+                                        MemberExpression (path2) {
+                                            // @ts-ignore
+                                            const name = path2.node.object.name;
+                                            if (name === 'console') {
+                                                needInsert = true;
+                                            }
+                                            path2.skip();
+                                        }
+                                    });
+                                    if (needInsert) {
+                                        path.insertBefore(babel.types.identifier('// @ts-ignore'));
+                                    }
+                                    path.skip();
+                                },
+                                
                             }
-                        }
+                        } as babel.PluginObj;
                     }
                 ]
             ],
