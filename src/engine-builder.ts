@@ -40,6 +40,7 @@ export interface IBuildResult {
 export class EngineBuilder {
     private _options!: IBuildOptions;
     private _entries: string[] = [];
+    private _entriesForPass2: Set<string> = new Set<string>;
     private _virtual2code: Record<string, string> = {};
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
@@ -50,15 +51,26 @@ export class EngineBuilder {
     public async build (options: IBuildOptions): Promise<IBuildResult> {
         const { root } = options;
         this._buildResult = {};
-        await this._initOptions(options);
-
         const handleIdList = (idList: string[]) => {
             for (let id of idList) {
                 const handleResult = this._handleId(id);
                 this._buildResult[handleResult.file] = handleResult;
             }
         };
+        
+        // pass1: build ts for native engine
+        await this._initOptions(options);
         handleIdList(this._entries);
+
+        // pass2: build web version for jsb type declarations
+        this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
+            if (!fs.existsSync(k)) {
+                result[k] = v;
+            }
+            return result;
+        }, {} as Record<string, string>);
+        handleIdList(Array.from(this._entriesForPass2));
+
 
         if (options.outDir) {
             for (let file in this._buildResult) {
@@ -176,10 +188,7 @@ export class EngineBuilder {
         } else if (!ps.isAbsolute(id) && importer) {
             const absolutePath = this._resolveRelative(id, importer);
             if (absolutePath && this._moduleOverrides[absolutePath] === importer) {
-                // @ts-ignore TODO simple copy type declaration.
-                this._buildResult[absolutePath] = {
-                    code: fs.readFileSync(absolutePath, 'utf8'),
-                }
+                this._entriesForPass2.add(absolutePath);  // for next pass
                 return;
             }
             if (absolutePath && absolutePath in this._moduleOverrides) {
