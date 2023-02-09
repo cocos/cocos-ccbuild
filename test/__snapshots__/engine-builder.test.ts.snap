@@ -75,10 +75,12 @@ export const WEBGPU = false;",
 export * from './player';",
   },
   "audio/internal-native.ts": {
-    "code": "console.log('internal-native');",
+    "code": "// @ts-ignore
+console.log('internal-native');",
   },
   "audio/module.native.ts": {
-    "code": "console.log('module that after override');",
+    "code": "// @ts-ignore
+console.log('module that after override');",
   },
   "audio/player.ts": {
     "code": "import "./internal-native";
@@ -90,15 +92,19 @@ import { testDecorator } from "../decorators";
 import { testDecorator as testDecorator2 } from "../decorators";
 import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
+// @ts-ignore
 console.log(zlib.Inflate);
+// @ts-ignore
 console.log(zlib2.Inflate);
 @testDecorator
 export class Player {
   @testDecorator
   play() {
     if (EDITOR) {
+      // @ts-ignore
       console.log('this is editor');
     } else if (TEST) {
+      // @ts-ignore
       console.log('this is test');
     }
   }
@@ -136,10 +142,12 @@ export { zlib };",
 };",
   },
   "pal/audio/native.ts": {
-    "code": "console.log('native audio');",
+    "code": "// @ts-ignore
+console.log('native audio');",
   },
   "pal/minigame/native.ts": {
-    "code": "console.log('native');",
+    "code": "// @ts-ignore
+console.log('native');",
   },
 }
 `;
