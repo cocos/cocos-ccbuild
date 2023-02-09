@@ -323,7 +323,7 @@ export class EngineBuilder {
                                             // @ts-ignore
                                             const name = path2.node.object.name;
                                             const alias = this._renameClass[name];
-                                            if (alias) {
+                                            if (typeof alias === 'string') {
                                                 path2.traverse({
                                                     Identifier: (path3) => {
                                                         if (path3.node.name === name) {
@@ -349,13 +349,13 @@ export class EngineBuilder {
                                 ClassDeclaration: (path) => {
                                     const name = path.node.id.name;
                                     const alias = this._renameClass[name];
-                                    if (alias) {
+                                    if (typeof alias === 'string') {
                                         path.traverse({
                                             Identifier: (path2) => {
                                                 if (path2.node.name === name) {
                                                     path2.replaceWith(t.identifier(alias));
+                                                    path2.skip();
                                                 }
-                                                path2.skip();
                                             }
                                         });
                                     }
@@ -365,13 +365,13 @@ export class EngineBuilder {
                                     const name = path.node.callee.name;
                                     if (name) {
                                         const alias = this._renameClass[name];
-                                        if (alias) {
+                                        if (typeof alias === 'string') {
                                             path.traverse({
                                                 Identifier: (path2) => {
                                                     if (path2.node.name === name) {
                                                         path2.replaceWith(t.identifier(alias));
+                                                        path2.skip();
                                                     }
-                                                    path2.skip();
                                                 }
                                             })
                                         }
@@ -383,7 +383,7 @@ export class EngineBuilder {
                                     if (typeName) {
                                         const name = typeName.name as string;
                                         const alias = this._renameClass[name];
-                                        if (alias) {
+                                        if (typeof alias === 'string') {
                                             path.replaceWith(t.tsTypeAnnotation({
                                                 type: 'TSExpressionWithTypeArguments',
                                                 expression: t.identifier(alias),
