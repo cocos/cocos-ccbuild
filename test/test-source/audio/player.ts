@@ -16,13 +16,18 @@ console.log(zlib2.Inflate)
 export class Player {
 
     @testDecorator
-    play () {
+    play (): Promise<void> {
         if (EDITOR) {
             console.log('this is editor');
         } else if (TEST) {
             console.log('this is test');
         }
+        return new Promise(resolve => resolve());
     }
 }
 
 export const player: Player = new Player();
+
+player.play().then(() => {
+    console.log('test log');
+});
