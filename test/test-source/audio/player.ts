@@ -32,3 +32,9 @@ export const player: Player = new Player();
 player.play().then(() => {
     console.log('test log');
 });
+
+export const testConsoleLog = {
+    test: (): void => {console.warn('test console log')},
+    test2: (): void => console.warn('test console log'),
+    test3: (): number => 1,
+};
