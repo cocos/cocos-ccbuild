@@ -49,11 +49,12 @@ export class EngineBuilder {
     private _moduleOverrides!: Record<string, string>;
     private _buildResult: IBuildResult = {};
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
-    // TODO: for now OH global interface conflict with Rect and Path
+    // TODO: for now OH global interface conflict with Rect and Path, struct
     // so we need to rename them.
     private _renameMap: Record<string, string> = {
         Rect: 'RectAlias',
         Path: 'PathAlias',
+        struct: 'structAlias',
     };
 
     public async build (options: IBuildOptions): Promise<IBuildResult> {
@@ -328,8 +329,10 @@ export class EngineBuilder {
                                         // TODO: for now, OH doesn't support standard console interface,
                                         // so we need to ignore the type checking for console call expressions.
                                         else if (name === 'console') {
-                                            path.insertBefore(t.identifier('// @ts-ignore'));
-                                            path.skip();  // TODO: this may skip some AST node which cannot be handled.
+                                            path.node.leadingComments = [{
+                                                type: 'CommentLine',
+                                                value: ' @ts-ignore',
+                                            }];
                                         }
                                     }
                                 },
@@ -363,6 +366,27 @@ export class EngineBuilder {
                                                 type: 'TSExpressionWithTypeArguments',
                                                 expression: t.identifier(alias),
                                             }))
+                                        }
+                                    }
+                                },
+                                Identifier: (path) => {
+                                    const name = path.node.name;
+                                    const alias = this._renameMap[name];
+                                    if (typeof alias === 'string') {
+                                        if (path.parent.type === 'ObjectProperty') {
+                                            if (path.parent.key !== path.node) {
+                                                path.replaceWith(t.identifier(alias));
+                                            }
+                                        } else if (path.parent.type === 'MemberExpression') {
+                                            if (path.parent.property !== path.node) {
+                                                path.replaceWith(t.identifier(alias));
+                                            }
+                                        } else {
+                                            const newIdentifier = t.identifier(alias);
+                                            if (path.node.typeAnnotation) {
+                                                newIdentifier.typeAnnotation = path.node.typeAnnotation;
+                                            }
+                                            path.replaceWith(newIdentifier);
                                         }
                                     }
                                 },
