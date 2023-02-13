@@ -7,6 +7,7 @@ import { testDecorator } from "../decorators";
 import { testDecorator as testDecorator2 } from 'cc.decorator';
 import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
+import './struct'
 
 console.log(zlib.Inflate)
 console.log(zlib2.Inflate)
