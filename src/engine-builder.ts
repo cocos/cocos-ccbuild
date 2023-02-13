@@ -333,8 +333,8 @@ export class EngineBuilder {
                                         // so we need to ignore the type checking for console call expressions.
                                         else if (name === 'console') {
                                             path.insertBefore(t.identifier('// @ts-ignore'));
+                                            path.skip();
                                         }
-
                                     }
                                 },
                                 ClassDeclaration: (path) => {
