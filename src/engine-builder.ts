@@ -373,21 +373,12 @@ export class EngineBuilder {
                                     const name = path.node.name;
                                     const alias = this._renameMap[name];
                                     if (typeof alias === 'string') {
-                                        if (path.parent.type === 'ObjectProperty') {
-                                            if (path.parent.key !== path.node) {
-                                                path.replaceWith(t.identifier(alias));
-                                            }
-                                        } else if (path.parent.type === 'MemberExpression') {
-                                            if (path.parent.property !== path.node) {
-                                                path.replaceWith(t.identifier(alias));
-                                            }
-                                        } else {
-                                            const newIdentifier = t.identifier(alias);
-                                            if (path.node.typeAnnotation) {
-                                                newIdentifier.typeAnnotation = path.node.typeAnnotation;
-                                            }
-                                            path.replaceWith(newIdentifier);
+                                        // TODO: if 'struct' identifier is a native binding property, the property may be undefined after renaming.
+                                        const newIdentifier = t.identifier(alias);
+                                        if (path.node.typeAnnotation) {
+                                            newIdentifier.typeAnnotation = path.node.typeAnnotation;
                                         }
+                                        path.replaceWith(newIdentifier);
                                     }
                                 },
                             }
