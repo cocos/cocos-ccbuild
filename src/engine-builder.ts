@@ -317,34 +317,25 @@ export class EngineBuilder {
                                 ExportDeclaration: importExportVisitor,
                                 // TODO: here we rename class Rect and Path
                                 CallExpression: (path) => {
-                                    let needInsert = false;
-                                    path.traverse({
-                                        MemberExpression: (path2) => {
-                                            // @ts-ignore
-                                            const name = path2.node.object.name;
-                                            const alias = this._renameClass[name];
-                                            if (typeof alias === 'string') {
-                                                path2.traverse({
-                                                    Identifier: (path3) => {
-                                                        if (path3.node.name === name) {
-                                                            path3.replaceWith(t.identifier(alias));
-                                                        }
-                                                        path3.skip();
-                                                    },
-                                                })
-                                            } 
-                                            // TODO: for now, OH doesn't support standard console interface,
-                                            // so we need to ignore the type checking for console call expressions.
-                                            else if (name === 'console') {
-                                                needInsert = true;
-                                            }
-                                            path2.skip();
+                                    if (path.node.callee.type === 'MemberExpression') {
+                                        // @ts-ignore
+                                        const name = path.node.callee.object.name;
+                                        const alias = this._renameClass[name];
+                                        if (typeof alias === 'string' && path.node.callee.object.type === 'Identifier') {
+                                            path.traverse({
+                                                Identifier: (path2) => {
+                                                    path2.replaceWith(t.identifier(alias));
+                                                    path2.stop();
+                                                },
+                                            });
                                         }
-                                    });
-                                    if (needInsert) {
-                                        path.insertBefore(babel.types.identifier('// @ts-ignore'));
+                                        // TODO: for now, OH doesn't support standard console interface,
+                                        // so we need to ignore the type checking for console call expressions.
+                                        else if (name === 'console') {
+                                            path.insertBefore(t.identifier('// @ts-ignore'));
+                                        }
+
                                     }
-                                    path.skip();
                                 },
                                 ClassDeclaration: (path) => {
                                     const name = path.node.id.name;

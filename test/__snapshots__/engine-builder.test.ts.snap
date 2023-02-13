@@ -99,7 +99,7 @@ console.log(zlib2.Inflate);
 @testDecorator
 export class Player {
   @testDecorator
-  play() {
+  play(): Promise<void> {
     if (EDITOR) {
       // @ts-ignore
       console.log('this is editor');
@@ -107,9 +107,14 @@ export class Player {
       // @ts-ignore
       console.log('this is test');
     }
+    return new Promise(resolve => resolve());
   }
 }
-export const player: Player = new Player();",
+export const player: Player = new Player();
+player.play().then(() => {
+  // @ts-ignore
+  console.log('test log');
+});",
   },
   "debug-info.ts": {
     "code": "export default {
