@@ -51,7 +51,7 @@ export class EngineBuilder {
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     // TODO: for now OH global interface conflict with Rect and Path
     // so we need to rename them.
-    private _renameClass: Record<string, string> = {
+    private _renameMap: Record<string, string> = {
         Rect: 'RectAlias',
         Path: 'PathAlias',
     };
@@ -290,7 +290,7 @@ export class EngineBuilder {
             type Types = babel.NodePath<babel.types.ExportSpecifier | babel.types.ImportSpecifier>;
             const importExportSpecifier = (path: Types) => {
                 const name = path.node.local.name;
-                const alias = this._renameClass[name];
+                const alias = this._renameMap[name];
                 if (alias) {
                     path.replaceWith(babel.types.exportSpecifier(babel.types.identifier(alias), babel.types.identifier(alias)));
                 }
@@ -318,53 +318,37 @@ export class EngineBuilder {
                                 // TODO: here we rename class Rect and Path
                                 CallExpression: (path) => {
                                     if (path.node.callee.type === 'MemberExpression') {
-                                        // @ts-ignore
-                                        const name = path.node.callee.object.name;
-                                        const alias = this._renameClass[name];
+                                        const memberExpressionPath = path.get('callee') as babel.NodePath<t.MemberExpression>;
+                                        const objectPath = memberExpressionPath.get('object') as babel.NodePath<t.Identifier>;
+                                        const name = objectPath.node.name;
+                                        const alias = this._renameMap[name];
                                         if (typeof alias === 'string' && path.node.callee.object.type === 'Identifier') {
-                                            path.traverse({
-                                                Identifier: (path2) => {
-                                                    path2.replaceWith(t.identifier(alias));
-                                                    path2.stop();
-                                                },
-                                            });
+                                            objectPath.replaceWith(t.identifier(alias));
                                         }
                                         // TODO: for now, OH doesn't support standard console interface,
                                         // so we need to ignore the type checking for console call expressions.
                                         else if (name === 'console') {
                                             path.insertBefore(t.identifier('// @ts-ignore'));
-                                            path.skip();
+                                            path.skip();  // TODO: this may skip some AST node which cannot be handled.
                                         }
                                     }
                                 },
                                 ClassDeclaration: (path) => {
-                                    const name = path.node.id.name;
-                                    const alias = this._renameClass[name];
+                                    const idPath = path.get('id');
+                                    const name = idPath.node.name;
+                                    const alias = this._renameMap[name];
                                     if (typeof alias === 'string') {
-                                        path.traverse({
-                                            Identifier: (path2) => {
-                                                if (path2.node.name === name) {
-                                                    path2.replaceWith(t.identifier(alias));
-                                                    path2.skip();
-                                                }
-                                            }
-                                        });
+                                        idPath.replaceWith(t.identifier(alias));
                                     }
                                 },
                                 NewExpression: (path) => {
+                                    const calleePath = path.get('callee');
                                     // @ts-ignore
-                                    const name = path.node.callee.name;
+                                    const name = calleePath.node.name;
                                     if (name) {
-                                        const alias = this._renameClass[name];
+                                        const alias = this._renameMap[name];
                                         if (typeof alias === 'string') {
-                                            path.traverse({
-                                                Identifier: (path2) => {
-                                                    if (path2.node.name === name) {
-                                                        path2.replaceWith(t.identifier(alias));
-                                                        path2.skip();
-                                                    }
-                                                }
-                                            })
+                                            calleePath.replaceWith(t.identifier(alias));
                                         }
                                     }
                                 },
@@ -373,7 +357,7 @@ export class EngineBuilder {
                                     const typeName = path.node.typeAnnotation.typeName;
                                     if (typeName) {
                                         const name = typeName.name as string;
-                                        const alias = this._renameClass[name];
+                                        const alias = this._renameMap[name];
                                         if (typeof alias === 'string') {
                                             path.replaceWith(t.tsTypeAnnotation({
                                                 type: 'TSExpressionWithTypeArguments',
