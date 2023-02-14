@@ -373,7 +373,7 @@ export class EngineBuilder {
                                     const name = path.node.name;
                                     const alias = this._renameMap[name];
                                     if (typeof alias === 'string') {
-                                        if (path.parent.type === 'ObjectProperty') {
+                                        if (path.parent.type === 'ObjectProperty' ||　path.parent.type === 'TSPropertySignature') {
                                             if (path.parent.key !== path.node) {
                                                 path.replaceWith(t.identifier(alias));
                                             }

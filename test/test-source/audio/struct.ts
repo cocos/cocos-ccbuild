@@ -20,3 +20,22 @@ function test3 () {
     struct.test();
     console.error(struct.test2);
 }
+
+function test4 (test: {struct: number}) {
+    const { struct } = test;
+    const test2 = {
+        struct,
+    };
+}
+
+interface ITest {
+    struct: number;
+}
+
+
+function test5 (test: ITest) {
+    const { struct } = test;
+    const test2 = {
+        struct,
+    };
+}
