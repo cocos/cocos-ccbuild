@@ -44,16 +44,21 @@ class Mesh {
 }
 
 class Mesh2 {
-    private struct: number = 1;
+    public struct: number = 1;
 }
 
 
 class Mesh3 {
-    private struct () {}
+    public struct () {}
 }
 class Mesh4 {
     private static struct = 1;
 }
 class Mesh5 {
     private test (struct: number){}
+}
+
+function test6 (mesh2?: Mesh2, mesh3?: Mesh3) {
+    mesh2!.struct;
+    mesh3?.struct();
 }

@@ -377,7 +377,7 @@ export class EngineBuilder {
                                             if (path.parent.key !== path.node) {
                                                 path.replaceWith(t.identifier(alias));
                                             }
-                                        } else if (path.parent.type === 'MemberExpression') {
+                                        } else if (path.parent.type === 'MemberExpression' || path.parent.type === 'OptionalMemberExpression') {
                                             if (path.parent.property !== path.node) {
                                                 path.replaceWith(t.identifier(alias));
                                             }
