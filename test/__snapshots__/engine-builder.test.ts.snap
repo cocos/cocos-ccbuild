@@ -92,6 +92,7 @@ import { testDecorator } from "../decorators";
 import { testDecorator as testDecorator2 } from "../decorators";
 import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
+import './struct';
 // @ts-ignore
 console.log(zlib.Inflate);
 // @ts-ignore
@@ -114,7 +115,88 @@ export const player: Player = new Player();
 player.play().then(() => {
   // @ts-ignore
   console.log('test log');
-});",
+});
+export const testConsoleLog = {
+  test: (): void => {
+    // @ts-ignore
+    console.warn('test console log');
+  },
+  test2: (): void => // @ts-ignore
+  console.warn('test console log'),
+  test3: (): number => 1
+};",
+  },
+  "audio/struct.ts": {
+    "code": "function test1(structAlias: Object) {
+  const a = {
+    struct: structAlias
+  };
+  // @ts-ignore
+  console.warn(a.struct);
+}
+function test2(a: number, structAlias: Object) {
+  const b = {
+    struct: structAlias
+  };
+  const c = {
+    struct: structAlias
+  };
+  const d = {
+    struct: 1
+  };
+  const e = {
+    struct: () => {}
+  };
+  // @ts-ignore
+  console.warn(b.struct);
+}
+function test3() {
+  const structAlias = {
+    test() {},
+    test2: 1
+  };
+  structAlias.test();
+  // @ts-ignore
+  console.error(structAlias.test2);
+}
+function test4(test: {
+  struct: number;
+}) {
+  const {
+    struct: structAlias
+  } = test;
+  const test2 = {
+    struct: structAlias
+  };
+}
+interface ITest {
+  struct: number;
+}
+function test5({
+  struct: structAlias
+}: ITest) {
+  const test = {
+    struct: structAlias
+  };
+}
+class Mesh {
+  get struct() {
+    return 1;
+  }
+  set struct(v) {}
+}
+class Mesh2 {
+  private struct: number = 1;
+}
+class Mesh3 {
+  private struct() {}
+}
+class Mesh4 {
+  private static struct = 1;
+}
+class Mesh5 {
+  private test(structAlias: number) {}
+}",
   },
   "debug-info.ts": {
     "code": "export default {

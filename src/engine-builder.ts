@@ -381,7 +381,8 @@ export class EngineBuilder {
                                             if (path.parent.property !== path.node) {
                                                 path.replaceWith(t.identifier(alias));
                                             }
-                                        } else {
+                                        } else if (!(path.parent.type === 'ClassMethod' && (path.parent.kind === 'get' || path.parent.kind === 'set' || path.parent.key === path.node)) 
+                                            && path.parent.type !== 'ClassProperty'){
                                             const newIdentifier = t.identifier(alias);
                                             if (path.node.typeAnnotation) {
                                                 newIdentifier.typeAnnotation = path.node.typeAnnotation;

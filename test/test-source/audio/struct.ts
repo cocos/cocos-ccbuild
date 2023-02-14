@@ -32,10 +32,28 @@ interface ITest {
     struct: number;
 }
 
-
-function test5 (test: ITest) {
-    const { struct } = test;
-    const test2 = {
+function test5 ({ struct }: ITest) {
+    const test = {
         struct,
     };
+}
+
+class Mesh {
+    get struct () {return 1}
+    set struct (v) {}
+}
+
+class Mesh2 {
+    private struct: number = 1;
+}
+
+
+class Mesh3 {
+    private struct () {}
+}
+class Mesh4 {
+    private static struct = 1;
+}
+class Mesh5 {
+    private test (struct: number){}
 }
