@@ -72,13 +72,14 @@ export class EngineBuilder {
         handleIdList(this._entries);
 
         // pass2: build web version for jsb type declarations
+        const entries2 = Array.from(this._entriesForPass2);
         this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
-            if (!fs.existsSync(k)) {
+            if (!fs.existsSync(k) || !entries2.includes(k)) {
                 result[k] = v;
             }
             return result;
         }, {} as Record<string, string>);
-        handleIdList(Array.from(this._entriesForPass2));
+        handleIdList(entries2);
 
 
         if (options.outDir) {
