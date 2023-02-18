@@ -93,6 +93,7 @@ import { testDecorator as testDecorator2 } from "../decorators";
 import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
 import './struct';
+import './template-string-type';
 // @ts-ignore
 console.log(zlib.Inflate);
 // @ts-ignore
@@ -201,6 +202,13 @@ function test6(mesh2?: Mesh2, mesh3?: Mesh3) {
   mesh2!.struct;
   mesh3?.struct();
 }",
+  },
+  "audio/template-string-type.ts": {
+    "code": "const DELIMITER = '$_$';
+const POSTFIX_TYPE: string = \`\${DELIMITER}type\`;
+const POSTFIX_EDITOR_ONLY: string = \`\${DELIMITER}editorOnly\`;
+const POSTFIX_DEFAULT: string = \`\${DELIMITER}default\`;
+const POSTFIX_FORMERLY_SERIALIZED_AS: string = \`\${DELIMITER}formerlySerializedAs\`;",
   },
   "debug-info.ts": {
     "code": "export default {

@@ -358,6 +358,7 @@ export class EngineBuilder {
                                 TSTypeAnnotation: (path) => {
                                     // @ts-ignore
                                     const typeName = path.node.typeAnnotation.typeName;
+                                    const childPath = path.get('typeAnnotation');
                                     if (typeName) {
                                         const name = typeName.name as string;
                                         const alias = this._renameMap[name];
@@ -367,6 +368,12 @@ export class EngineBuilder {
                                                 expression: t.identifier(alias),
                                             }))
                                         }
+                                    } else if (childPath.type === 'TSLiteralType') {
+                                        const literalPath = (childPath as babel.NodePath<t.TSLiteralType>).get('literal');
+                                        if (literalPath.type === 'TemplateLiteral') {
+                                            path.replaceWith(t.tsTypeAnnotation(t.tsStringKeyword()));
+                                        }
+                                        
                                     }
                                 },
                                 Identifier: (path) => {
