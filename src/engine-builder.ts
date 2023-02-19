@@ -9,6 +9,7 @@ import traverse from '@babel/traverse';
 import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, StatsQuery } from "./stats-query";
 import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
+import { ESLint } from 'eslint';
 
 import t = babel.types;
 
@@ -88,7 +89,13 @@ export class EngineBuilder {
                 const output = ps.join(options.outDir, ps.relative(root, file));
                 fs.outputFileSync(output, res.code, 'utf8');
             }
+
+            // pass3: post handle to lint import
+            await this._lintImport([
+                normalizePath(ps.join(options.outDir, '**/*.ts'))
+            ]);
         }
+
         return this._buildResult;
     }
 
@@ -409,5 +416,27 @@ export class EngineBuilder {
             code: transformResult?.code!,
             depIdList,
         };
+    }
+
+    private async _lintImport (lintFiles: string[], verbose: boolean = false) {
+        const eslint = new ESLint({ fix: true, 
+        baseConfig: {
+            parser: "@typescript-eslint/parser",
+            plugins: ["@typescript-eslint", "unused-imports"],
+            rules: {
+                "@typescript-eslint/consistent-type-imports": "error",
+                "unused-imports/no-unused-imports": "error",
+            },
+        }});
+
+        const results = await eslint.lintFiles(lintFiles);
+
+        await ESLint.outputFixes(results);
+        
+        if (verbose) {
+            const formatter = await eslint.loadFormatter();
+            const resultText = formatter.format(results);
+            console.log(resultText);
+        }
     }
 }
