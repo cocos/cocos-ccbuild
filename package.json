@@ -1,11 +1,16 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "jest"
   },
+  "files": [
+    "./lib",
+    "./package.json",
+    "./README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://gitee.com/pp_pro/ccbuild.git"

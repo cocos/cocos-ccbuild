@@ -1,2 +1,0 @@
-export const TEST = true;
-export const EDITOR = false;
