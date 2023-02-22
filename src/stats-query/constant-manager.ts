@@ -192,10 +192,7 @@ export class ConstantManager {
         // eval value
         for (const key in config) {
             const info = config[key];
-            // HACK: close support JIT for OH platform.
-            if (key === 'SUPPORT_JIT') {
-                info.value = false;
-            } else if (typeof info.value === 'string') {
+            if (typeof info.value === 'string') {
                 info.value = this._evalExpression(info.value, config);
             }
         }
@@ -343,10 +340,7 @@ export class ConstantManager {
         // eval value
         for (const key in config) {
             const info = config[key];
-            // HACK: close support JIT for OH platform.
-            if (key === 'SUPPORT_JIT') {
-                info.value = false;
-            } else if (typeof info.value === 'string') {
+            if (typeof info.value === 'string') {
                 info.value = this._evalExpression(info.value, config);
             }
         }
