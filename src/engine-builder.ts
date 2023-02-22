@@ -10,6 +10,7 @@ import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, Stat
 import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
+import dedent from 'dedent';
 
 import t = babel.types;
 
@@ -94,6 +95,8 @@ export class EngineBuilder {
             await this._lintImport([
                 normalizePath(ps.join(options.outDir, '**/*.ts'))
             ]);
+
+            this._buildIndex();
         }
 
         return this._buildResult;
@@ -420,13 +423,14 @@ export class EngineBuilder {
 
     private async _lintImport (lintFiles: string[], verbose: boolean = false) {
         const eslint = new ESLint({ fix: true, 
-        baseConfig: {
-            parser: "@typescript-eslint/parser",
-            plugins: ["@typescript-eslint", "unused-imports"],
-            rules: {
-                "@typescript-eslint/consistent-type-imports": "error",
-                "unused-imports/no-unused-imports": "error",
-            },
+            resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
+            baseConfig: {
+                parser: "@typescript-eslint/parser",
+                plugins: ["@typescript-eslint", "unused-imports"],
+                rules: {
+                    "@typescript-eslint/consistent-type-imports": "error",
+                    "unused-imports/no-unused-imports": "error",
+                },
         }});
 
         const results = await eslint.lintFiles(lintFiles);
@@ -438,5 +442,36 @@ export class EngineBuilder {
             const resultText = formatter.format(results);
             console.log(resultText);
         }
+    }
+
+    private _buildIndex () {
+        const { outDir, root } = this._options;
+        if (outDir) {
+            const indexFile = normalizePath(ps.join(outDir, 'index.ts'));
+            const ccFile = normalizePath(ps.join(outDir, 'cc.ts'));
+            const systemCCFile = normalizePath(ps.join(outDir, 'system-cc.js'));
+            let indexContent = '';
+            this._entries.forEach(item => {
+                const relative = normalizePath(ps.relative(root, toExtensionLess(item)));
+                indexContent += `export * from './${relative}';\n`;
+            });
+            const ccContent = dedent`import * as cc from './index';
+            // @ts-ignore
+            window.cc_module = cc;`;
+            const systemCCContent = dedent`System.register([], function (exports, module) {
+                return {
+                    execute: function () {
+                        window.cc_module_context = module;
+            
+                        exports(window.cc_module);
+                    }
+                };
+            });
+            `;
+            fs.outputFileSync(indexFile, indexContent, 'utf8');
+            fs.outputFileSync(ccFile, ccContent, 'utf8');
+            fs.outputFileSync(systemCCFile, systemCCContent, 'utf8');
+        }
+
     }
 }

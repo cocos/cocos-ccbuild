@@ -1,15 +1,14 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.3",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "jest"
   },
   "files": [
-    "./lib",
-    "./package.json",
-    "./README.md"
+    "lib/**/*",
+    "static/**/*"
   ],
   "repository": {
     "type": "git",
@@ -32,18 +31,18 @@
     "@types/eslint": "^8.21.1"
   },
   "dependencies": {
-    "typescript": "^4.9.3",
     "@babel/core": "^7.20.12",
     "@babel/parser": "^7.20.13",
     "@babel/plugin-syntax-decorators": "^7.19.0",
     "@babel/plugin-syntax-typescript": "^7.20.0",
     "@babel/traverse": "^7.20.13",
-    "dedent": "^0.7.0",
-    "fs-extra": "^10.1.0",
-    "json5": "^2.2.3",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "dedent": "^0.7.0",
     "eslint": "^8.34.0",
-    "eslint-plugin-unused-imports": "^2.0.0"
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "fs-extra": "^10.1.0",
+    "json5": "^2.2.3",
+    "typescript": "^4.9.3"
   }
 }
