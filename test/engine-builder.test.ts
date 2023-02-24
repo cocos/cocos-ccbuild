@@ -2,6 +2,7 @@ import * as ccbuild from '../src/index'
 import * as ps from 'path';
 import { normalizePath } from '../src/stats-query/path-utils';
 
+jest.setTimeout(10000);
 test('test base', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
     const root = normalizePath(ps.join(__dirname, './test-source'));

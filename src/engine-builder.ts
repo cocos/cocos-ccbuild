@@ -345,6 +345,19 @@ export class EngineBuilder {
                                                 value: ' @ts-ignore',
                                             }];
                                         }
+                                    } else if (path.node.callee.type === 'Import') {
+                                        // TODO: for now, we transform `import('./xxx/xxx.js')` into `window.__cc_module_context__.import('./xxx/xxx.js')`
+                                        // we need to support import(`project://xxx`) in the future.
+                                        path.replaceWith(t.callExpression(
+                                            t.memberExpression(
+                                                t.memberExpression(
+                                                    t.identifier('window'),
+                                                    t.identifier('__cc_module_context__')
+                                                ),
+                                                t.identifier('import'),
+                                            ),
+                                            path.node.arguments,
+                                        ));
                                     }
                                 },
                                 ClassDeclaration: (path) => {
@@ -461,7 +474,7 @@ export class EngineBuilder {
             const systemCCContent = dedent`System.register([], function (exports, module) {
                 return {
                     execute: function () {
-                        window.cc_module_context = module;
+                        window.__cc_module_context__ = module;
             
                         exports(window.cc_module);
                     }

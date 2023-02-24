@@ -70,6 +70,9 @@ export const WEBGPU = false;",
   "animation/index.ts": {
     "code": "export * from './animation';",
   },
+  "audio/dynamic-import.ts": {
+    "code": "window.__cc_module_context__.import('./player');",
+  },
   "audio/index.ts": {
     "code": "import debugInfo from '../debug-info';
 export * from './player';",
@@ -94,6 +97,7 @@ import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
 import './struct';
 import './template-string-type';
+import './dynamic-import';
 // @ts-ignore
 console.log(zlib.Inflate);
 // @ts-ignore
