@@ -70,10 +70,15 @@ export class EngineBuilder {
         };
         
         // pass1: build ts for native engine
+        console.log('[Build Engine]: pass1 - traverse and compile modules');
+        console.time('pass1');
         await this._initOptions(options);
         handleIdList(this._entries);
+        console.timeEnd('pass1');
 
         // pass2: build web version for jsb type declarations
+        console.log('[Build Engine]: pass2 - apply jsb interface info');
+        console.time('pass2');
         const entries2 = Array.from(this._entriesForPass2);
         this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
             if (!fs.existsSync(k) || !entries2.includes(k)) {
@@ -82,6 +87,7 @@ export class EngineBuilder {
             return result;
         }, {} as Record<string, string>);
         handleIdList(entries2);
+        console.timeEnd('pass2');
 
 
         if (options.outDir) {
@@ -92,9 +98,12 @@ export class EngineBuilder {
             }
 
             // pass3: post handle to lint import
+            console.log('[Build Engine]: pass3 - linting import statement');
+            console.time('pass3');
             await this._lintImport([
                 normalizePath(ps.join(options.outDir, '**/*.ts'))
             ]);
+            console.timeEnd('pass3');
 
             this._buildIndex();
         }
