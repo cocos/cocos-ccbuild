@@ -445,6 +445,7 @@ export class EngineBuilder {
 
     private async _lintImport (lintFiles: string[], verbose: boolean = false) {
         const eslint = new ESLint({ fix: true, 
+            cwd: __dirname,  // fix not found parser issue
             resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
             baseConfig: {
                 parser: "@typescript-eslint/parser",
