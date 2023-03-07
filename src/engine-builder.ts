@@ -11,6 +11,7 @@ import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
 import dedent from 'dedent';
+import { glob } from 'glob';
 
 import t = babel.types;
 
@@ -106,6 +107,7 @@ export class EngineBuilder {
             console.timeEnd('pass3');
 
             this._buildIndex();
+            await this._copyTypes();
         }
 
         return this._buildResult;
@@ -496,5 +498,25 @@ export class EngineBuilder {
             fs.outputFileSync(systemCCFile, systemCCContent, 'utf8');
         }
 
+    }
+
+    private async _copyTypes () {
+        const { root, outDir } = this._options;
+        if (!outDir) {
+            return;
+        }
+        const dtsFiles = await glob(normalizePath(ps.join(root, './@types/**/*.d.ts')));
+        for (let file of dtsFiles) {
+            const code = fs.readFileSync(file, 'utf8');
+            const relativePath = ps.relative(root, file);
+            const targetPath = normalizePath(ps.join(outDir, relativePath));
+            fs.outputFileSync(targetPath, code, 'utf8');
+        }
+        // copy lib.dom.d.ts
+        // we use 4.2 version of typescript
+        const originalDomDts = normalizePath(ps.join(__dirname, '../static/lib.dom.d.ts'));
+        const targetDomDts = normalizePath(ps.join(outDir, '@types/lib.dom.d.ts'));
+        const code = fs.readFileSync(originalDomDts, 'utf8');
+        fs.outputFileSync(targetDomDts, code, 'utf8');
     }
 }
