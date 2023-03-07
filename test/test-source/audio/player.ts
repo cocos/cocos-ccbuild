@@ -10,6 +10,7 @@ import { zlib as zlib2 } from '../external/zlib.js';
 import './struct'
 import './template-string-type'
 import './dynamic-import'
+import './as-type'
 
 console.log(zlib.Inflate)
 console.log(zlib2.Inflate)

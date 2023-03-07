@@ -70,6 +70,11 @@ export const WEBGPU = false;",
   "animation/index.ts": {
     "code": "export * from './animation';",
   },
+  "audio/as-type.ts": {
+    "code": "const a = 1;
+const b = 2;
+const c = ((a as unknown as number) & b) as unknown as number; // this is a bug in babel,
+  },
   "audio/dynamic-import.ts": {
     "code": "window.__cc_module_context__.import('./player');",
   },
@@ -98,6 +103,7 @@ import { zlib as zlib2 } from '../external/zlib.js';
 import './struct';
 import './template-string-type';
 import './dynamic-import';
+import './as-type';
 // @ts-ignore
 console.log(zlib.Inflate);
 // @ts-ignore
