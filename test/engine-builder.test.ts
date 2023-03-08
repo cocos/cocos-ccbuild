@@ -8,7 +8,7 @@ test('test base', async () => {
     const root = normalizePath(ps.join(__dirname, './test-source'));
     const buildResult = await engineBuilder.build({
         root,
-        features: ['audio', 'animation'],
+        features: ['audio', 'animation', 'dragon-bones'],
         platform: 'NATIVE',
         mode: 'BUILD', 
         flagConfig: {

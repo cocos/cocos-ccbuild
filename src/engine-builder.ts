@@ -12,6 +12,8 @@ import * as json5 from 'json5';
 import { ESLint } from 'eslint';
 import dedent from 'dedent';
 import { glob } from 'glob';
+import nodeResolve from 'resolve';
+
 
 import t = babel.types;
 
@@ -45,8 +47,16 @@ export interface IBuildResult {
 export class EngineBuilder {
     private _options!: IBuildOptions;
     private _entries: string[] = [];
-    private _entriesForPass2: Set<string> = new Set<string>;
+    private _entriesForPass2: Set<string> = new Set<string>();
     private _virtual2code: Record<string, string> = {};
+    private _feature2NodeModule: Record<string, string> = {
+        'dragon-bones': '@cocos/dragonbones-js',
+        'physics-2d-box2d': '@cocos/box2d',
+        'physics-cannon': '@cocos/cannon',
+        'physics-physx': '@cocos/physx',
+        'physics-ammo': '@cocos/bullet',
+    };
+    private _nodeModules: string[] = [];
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
@@ -80,14 +90,17 @@ export class EngineBuilder {
         // pass2: build web version for jsb type declarations
         console.log('[Build Engine]: pass2 - apply jsb interface info');
         console.time('pass2');
-        const entries2 = Array.from(this._entriesForPass2);
-        this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
-            if (!fs.existsSync(k) || !entries2.includes(k)) {
-                result[k] = v;
-            }
-            return result;
-        }, {} as Record<string, string>);
-        handleIdList(entries2);
+        while (this._entriesForPass2.size !== 0) {
+            const entries2 = Array.from(this._entriesForPass2);
+            this._entriesForPass2.clear();
+            this._moduleOverrides = Object.entries(this._moduleOverrides).reduce((result, [k, v]) => {
+                if (!fs.existsSync(k) || !entries2.includes(k)) {
+                    result[k] = v;
+                }
+                return result;
+            }, {} as Record<string, string>);
+            handleIdList(entries2);
+        }
         console.timeEnd('pass2');
 
 
@@ -108,6 +121,7 @@ export class EngineBuilder {
 
             this._buildIndex();
             await this._copyTypes();
+            // this._addNodeModulesDeps();  // TODO: support node modules building
         }
 
         return this._buildResult;
@@ -122,9 +136,14 @@ export class EngineBuilder {
         if (options.features) {
             const featureUnits = statsQuery.getUnitsOfFeatures(options.features);
             this._entries = featureUnits.map(fu => normalizePath(statsQuery.getFeatureUnitFile(fu)));
+            options.features.forEach(feature => {
+                const nodeModule = this._feature2NodeModule[feature];
+                nodeModule && this._nodeModules.push(nodeModule);
+            });
         } else {
             const featureUnits = statsQuery.getFeatureUnits();
             this._entries = featureUnits.map(fu => normalizePath(statsQuery.getFeatureUnitFile(fu)));
+            this._nodeModules.push(...Object.values(this._feature2NodeModule));
         }
         this._buildTimeConstants = constantManager.genBuildTimeConstants({
             platform,
@@ -159,7 +178,6 @@ export class EngineBuilder {
             flags: flagConfig,
         });
         // TODO: resolve node modules
-        this._virtual2code['@cocos/dragonbones-js'] = 'export {}';
         this._virtual2code['@cocos/box2d'] = 'export {}';
         this._virtual2code['@cocos/bullet'] = 'export {}';
         this._virtual2code['@cocos/cannon'] = 'export {}';
@@ -236,6 +254,8 @@ export class EngineBuilder {
             return id;  // virtual module does not have real fs path
         } else if (id in this._moduleOverrides) {
             return this._moduleOverrides[id];
+        } else if (this._nodeModules.includes(id)) {
+            return id;  // node module only use bare specifier as module id
         } else if (ps.isAbsolute(id)) {
             return id;
         } else {
@@ -290,7 +310,10 @@ export class EngineBuilder {
             if (source) {
                 const specifier = source.value as string;
                 // add dependency
-                depIdList.push(specifier);
+                if (!this._nodeModules.includes(specifier)) {
+                    // don't load node modules, we post install the modules in OH project
+                    depIdList.push(specifier);
+                }
                 // transform import/export declaration if needed
                 const overrideId = this._getOverrideId(specifier, file);
                 if (overrideId) {
@@ -518,5 +541,28 @@ export class EngineBuilder {
         const targetDomDts = normalizePath(ps.join(outDir, '@types/lib.dom.d.ts'));
         const code = fs.readFileSync(originalDomDts, 'utf8');
         fs.outputFileSync(targetDomDts, code, 'utf8');
+    }
+
+    private _addNodeModulesDeps () {
+        const { outDir } = this._options;
+        if (!outDir) {
+            return;
+        }
+        const pkgFile = normalizePath(ps.join(outDir, 
+                '..',  // src
+                '..',  // cocos
+                '..',  // ets
+                '..',  // main
+                '..',  // src
+                '..',  // entry
+                'package.json',
+            ));
+
+        if (!fs.existsSync(pkgFile)) {
+            return;
+        }
+        const jsonObj = fs.readJSONSync(pkgFile);
+        console.log(jsonObj)
+        // TODO
     }
 }
