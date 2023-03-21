@@ -348,6 +348,7 @@ export class EngineBuilder {
             });
         }
         const transformResult = babel.transformSync(code, {
+            configFile: false,
             plugins: [
                 [pluginSyntaxTS],
                 [syntaxDecorators, {
@@ -472,6 +473,7 @@ export class EngineBuilder {
         const eslint = new ESLint({ fix: true, 
             cwd: __dirname,  // fix not found parser issue
             resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
+            useEslintrc: false,
             baseConfig: {
                 parser: "@typescript-eslint/parser",
                 plugins: ["@typescript-eslint", "unused-imports"],
