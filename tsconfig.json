@@ -6,6 +6,7 @@
     "outDir": "./lib",
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "rootDir": "./src",
     "types": [
       "./node_modules/@types/jest/index"

@@ -3,10 +3,12 @@
   "version": "1.0.0-alpha.7",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "change": "changeset add",
     "version": "changeset version",
     "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
+    "api": "tsc && api-extractor run --local --verbose",
     "test": "jest"
   },
   "files": [
@@ -27,6 +29,7 @@
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
+    "@microsoft/api-extractor": "^7.34.4",
     "@types/dedent": "^0.7.0",
     "@types/eslint": "^8.21.1",
     "@types/fs-extra": "^9.0.13",
