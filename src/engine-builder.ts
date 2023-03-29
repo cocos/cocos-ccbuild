@@ -17,35 +17,35 @@ import nodeResolve from 'resolve';
 
 import t = babel.types;
 
-export interface IBuildOptions {
-    root: string;
-    features?: string[],
-    platform: PlatformType;
-    mode: ModeType;
-    flagConfig: Partial<IFlagConfig>;
-    outDir?: string;
-}
+export namespace EngineBuilder {
 
-interface IHandleResult {
-    code: string;
-    file: string;
-    originalId: string;
-    resolvedId: string;
-    map: any;
-}
-
-interface ITransformResult {
-    code: string;
-    map?: any;
-    depIdList: string[],
-}
-
-export interface IBuildResult {
-    [outputFile: string]: IHandleResult;
+    export interface IBuildOptions {
+        root: string;
+        features?: string[],
+        platform: PlatformType;
+        mode: ModeType;
+        flagConfig: Partial<IFlagConfig>;
+        outDir?: string;
+    }
+    export interface IBuildResult {
+        [outputFile: string]: IHandleResult;
+    }
+    export interface IHandleResult {
+        code: string;
+        file: string;
+        originalId: string;
+        resolvedId: string;
+        map: any;
+    }
+    export interface ITransformResult {
+        code: string;
+        map?: any;
+        depIdList: string[],
+    }
 }
 
 export class EngineBuilder {
-    private _options!: IBuildOptions;
+    private _options!: EngineBuilder.IBuildOptions;
     private _entries: string[] = [];
     private _entriesForPass2: Set<string> = new Set<string>();
     private _virtual2code: Record<string, string> = {};
@@ -60,7 +60,7 @@ export class EngineBuilder {
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
-    private _buildResult: IBuildResult = {};
+    private _buildResult: EngineBuilder.IBuildResult = {};
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     // TODO: for now OH global interface conflict with Rect and Path, struct
     // so we need to rename them.
@@ -70,7 +70,7 @@ export class EngineBuilder {
         struct: 'structAlias',
     };
 
-    public async build (options: IBuildOptions): Promise<IBuildResult> {
+    public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
         this._buildResult = {};
         const handleIdList = (idList: string[]) => {
@@ -127,7 +127,7 @@ export class EngineBuilder {
         return this._buildResult;
     }
 
-    private async _initOptions (options: IBuildOptions): Promise<void> {
+    private async _initOptions (options: EngineBuilder.IBuildOptions): Promise<void> {
         this._options = options;
         const { root, flagConfig, platform, mode } = options;
         const statsQuery = await StatsQuery.create(root);
@@ -188,7 +188,7 @@ export class EngineBuilder {
 
     }
 
-    private _handleId (id: string, importer?: string): IHandleResult {
+    private _handleId (id: string, importer?: string): EngineBuilder.IHandleResult {
         const resolvedId = this._resolve(id, importer);
         if (typeof resolvedId === 'undefined') {
             throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
@@ -295,7 +295,7 @@ export class EngineBuilder {
         }
     }
 
-    private _transform (file: string, code: string): ITransformResult {
+    private _transform (file: string, code: string): EngineBuilder.ITransformResult {
         const depIdList: string[] = [];
         if (ps.extname(file) === '.js') {
             const dtsFile = toExtensionLess(file) + '.d.ts';

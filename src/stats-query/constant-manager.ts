@@ -2,7 +2,7 @@ import fsExt from 'fs-extra';
 import ps from 'path';
 import { Config, IConstantConfig, IConstantInfo } from './config-interface';
 
-interface IPlatformConfig {
+export interface IPlatformConfig {
     HTML5: boolean; 
     NATIVE: boolean; 
     WECHAT: boolean; 
@@ -19,20 +19,20 @@ interface IPlatformConfig {
     OPEN_HARMONY: boolean;
 }
 
-interface IInternalFlagConfig {
+export interface IInternalFlagConfig {
     SERVER_MODE: boolean; 
     NOT_PACK_PHYSX_LIBS: boolean; 
     WEBGPU: boolean;
 }
 
-interface IPublicFlagConfig {
+export interface IPublicFlagConfig {
     DEBUG: boolean;
     NET_MODE: number; 
 }
 
 export interface IFlagConfig extends IInternalFlagConfig, IPublicFlagConfig {}
 
-interface IModeConfig {
+export interface IModeConfig {
     EDITOR: boolean;
     PREVIEW: boolean; 
     BUILD: boolean; 

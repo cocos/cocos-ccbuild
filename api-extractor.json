@@ -415,6 +415,11 @@
       "default": {
         "logLevel": "warning"
         // "addToApiReportFile": false
+      },
+
+      "tsdoc-param-tag-missing-hyphen": {
+        "addToApiReportFile": false,
+        "logLevel": "none"
       }
 
       // "tsdoc-link-tag-unescaped-text": {

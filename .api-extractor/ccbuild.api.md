@@ -5,10 +5,207 @@
 ```ts
 
 // @public (undocumented)
+export interface BuildTimeConstants extends IPlatformConfig, IFlagConfig, IModeConfig {
+}
+
+// @public (undocumented)
+export interface CCEnvConstants extends IPlatformConfig, IPublicFlagConfig, IModeConfig {
+}
+
+// @public (undocumented)
+export class ConstantManager {
+    constructor(engineRoot: string);
+    // (undocumented)
+    exportDynamicConstants({ mode, platform, flags, }: ConstantOptions): string;
+    // (undocumented)
+    exportStaticConstants({ mode, platform, flags, }: ConstantOptions): string;
+    // (undocumented)
+    genBuildTimeConstants(options: ConstantOptions): BuildTimeConstants;
+    // (undocumented)
+    genCCEnv(): string;
+    // (undocumented)
+    genCCEnvConstants(options: ConstantOptions): CCEnvConstants;
+    // (undocumented)
+    genInternalConstants(): string;
+}
+
+// @public (undocumented)
+export interface ConstantOptions {
+    // (undocumented)
+    flags: Partial<Record<FlagType, ValueType>>;
+    // (undocumented)
+    mode: ModeType;
+    // (undocumented)
+    platform: PlatformType;
+}
+
+// @public (undocumented)
+export interface Context {
+    // (undocumented)
+    buildTimeConstants?: Object;
+    // (undocumented)
+    mode?: string;
+    // (undocumented)
+    platform?: string;
+}
+
+// @public (undocumented)
+export namespace EngineBuilder {
+    // (undocumented)
+    export interface IBuildOptions {
+        // (undocumented)
+        features?: string[];
+        // (undocumented)
+        flagConfig: Partial<IFlagConfig>;
+        // (undocumented)
+        mode: ModeType;
+        // (undocumented)
+        outDir?: string;
+        // (undocumented)
+        platform: PlatformType;
+        // (undocumented)
+        root: string;
+    }
+    // (undocumented)
+    export interface IBuildResult {
+        // (undocumented)
+        [outputFile: string]: IHandleResult;
+    }
+    // (undocumented)
+    export interface IHandleResult {
+        // (undocumented)
+        code: string;
+        // (undocumented)
+        file: string;
+        // (undocumented)
+        map: any;
+        // (undocumented)
+        originalId: string;
+        // (undocumented)
+        resolvedId: string;
+    }
+    // (undocumented)
+    export interface ITransformResult {
+        // (undocumented)
+        code: string;
+        // (undocumented)
+        depIdList: string[];
+        // (undocumented)
+        map?: any;
+    }
+}
+
+// @public (undocumented)
 export class EngineBuilder {
     // (undocumented)
-    build(options: IBuildOptions): Promise<IBuildResult>;
+    build(options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult>;
 }
+
+// @public (undocumented)
+export type FlagType = keyof IFlagConfig;
+
+// @public (undocumented)
+export interface IFlagConfig extends IInternalFlagConfig, IPublicFlagConfig {
+}
+
+// @public (undocumented)
+export interface IInternalFlagConfig {
+    // (undocumented)
+    NOT_PACK_PHYSX_LIBS: boolean;
+    // (undocumented)
+    SERVER_MODE: boolean;
+    // (undocumented)
+    WEBGPU: boolean;
+}
+
+// @public (undocumented)
+export interface IModeConfig {
+    // (undocumented)
+    BUILD: boolean;
+    // (undocumented)
+    EDITOR: boolean;
+    // (undocumented)
+    PREVIEW: boolean;
+    // (undocumented)
+    TEST: boolean;
+}
+
+// @public (undocumented)
+export interface IOptimizeDecorators {
+    editorDecorators: string[];
+    fieldDecorators: string[];
+}
+
+// @public (undocumented)
+export interface IPlatformConfig {
+    // (undocumented)
+    ALIPAY: boolean;
+    // (undocumented)
+    BAIDU: boolean;
+    // (undocumented)
+    BYTEDANCE: boolean;
+    // (undocumented)
+    COCOSPLAY: boolean;
+    // (undocumented)
+    HTML5: boolean;
+    // (undocumented)
+    HUAWEI: boolean;
+    // (undocumented)
+    LINKSURE: boolean;
+    // (undocumented)
+    NATIVE: boolean;
+    // (undocumented)
+    OPEN_HARMONY: boolean;
+    // (undocumented)
+    OPPO: boolean;
+    // (undocumented)
+    QTT: boolean;
+    // (undocumented)
+    VIVO: boolean;
+    // (undocumented)
+    WECHAT: boolean;
+    // (undocumented)
+    XIAOMI: boolean;
+}
+
+// @public (undocumented)
+export interface IPublicFlagConfig {
+    // (undocumented)
+    DEBUG: boolean;
+    // (undocumented)
+    NET_MODE: number;
+}
+
+// @public (undocumented)
+export type ModeType = keyof IModeConfig;
+
+// @public (undocumented)
+export type PlatformType = keyof IPlatformConfig;
+
+// @public
+export class StatsQuery {
+    constantManager: ConstantManager;
+    // (undocumented)
+    static create(engine: string): Promise<StatsQuery>;
+    evaluateEnvModuleSourceFromRecord(record: Record<string, unknown>): string;
+    evaluateIndexModuleSource(featureUnits: string[], mapper?: (featureUnit: string) => string): string;
+    evaluateModuleOverrides(context: Context): Record<string, string>;
+    getEditorPublicModuleFile(moduleName: string): string;
+    getEditorPublicModules(): string[];
+    getFeatures(): string[];
+    getFeatureUnitFile(featureUnit: string): string;
+    getFeatureUnits(): string[];
+    // (undocumented)
+    getIntrinsicFlagsOfFeatures(featureIds: string[]): Record<string, string | number | boolean>;
+    getOptimizeDecorators(): IOptimizeDecorators;
+    getUnitsOfFeatures(featureIds: string[]): string[];
+    hasFeature(feature: string): boolean;
+    get path(): string;
+    get tsConfigPath(): string;
+}
+
+// @public (undocumented)
+export type ValueType = boolean | number;
 
 // (No @packageDocumentation comment for this package)
 
