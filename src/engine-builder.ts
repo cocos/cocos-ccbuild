@@ -6,7 +6,7 @@ import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 // @ts-ignore
 import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
-import { BuildTimeConstants, FlagType, IFlagConfig, ModeType, PlatformType, StatsQuery } from "./stats-query";
+import { StatsQuery } from "./stats-query";
 import { normalizePath, toExtensionLess } from './stats-query/path-utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
@@ -14,17 +14,18 @@ import dedent from 'dedent';
 import { glob } from 'glob';
 import nodeResolve from 'resolve';
 
-
 import t = babel.types;
+import ConstantManager = StatsQuery.ConstantManager;
+
 
 export namespace EngineBuilder {
 
     export interface IBuildOptions {
         root: string;
         features?: string[],
-        platform: PlatformType;
-        mode: ModeType;
-        flagConfig: Partial<IFlagConfig>;
+        platform: ConstantManager.PlatformType;
+        mode: ConstantManager.ModeType;
+        flagConfig: Partial<ConstantManager.IFlagConfig>;
         outDir?: string;
     }
     export interface IBuildResult {
@@ -58,7 +59,7 @@ export class EngineBuilder {
     };
     private _nodeModules: string[] = [];
     private _virtualOverrides: Record<string, string> = {};
-    private _buildTimeConstants!: BuildTimeConstants;
+    private _buildTimeConstants!: ConstantManager.BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
     private _buildResult: EngineBuilder.IBuildResult = {};
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option

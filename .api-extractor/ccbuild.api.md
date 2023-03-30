@@ -5,42 +5,40 @@
 ```ts
 
 // @public (undocumented)
-export interface BuildTimeConstants extends IPlatformConfig, IFlagConfig, IModeConfig {
+interface Config {
+    constants: IConstantConfig;
+    features: Record<string, Feature>;
+    includes: Array<string>;
+    index?: IndexConfig;
+    // (undocumented)
+    moduleOverrides?: Array<{
+        test: Test;
+        overrides: Record<string, string>;
+        isVirtualModule: boolean;
+    }>;
+    optimizeDecorators: IOptimizeDecorators;
 }
 
-// @public (undocumented)
-export interface CCEnvConstants extends IPlatformConfig, IPublicFlagConfig, IModeConfig {
+declare namespace ConfigInterface {
+    export {
+        Config,
+        IndexConfig,
+        Test,
+        Feature,
+        Context,
+        ConstantTypeName,
+        IConstantInfo,
+        IConstantConfig,
+        IOptimizeDecorators
+    }
 }
+export { ConfigInterface }
 
 // @public (undocumented)
-export class ConstantManager {
-    constructor(engineRoot: string);
-    // (undocumented)
-    exportDynamicConstants({ mode, platform, flags, }: ConstantOptions): string;
-    // (undocumented)
-    exportStaticConstants({ mode, platform, flags, }: ConstantOptions): string;
-    // (undocumented)
-    genBuildTimeConstants(options: ConstantOptions): BuildTimeConstants;
-    // (undocumented)
-    genCCEnv(): string;
-    // (undocumented)
-    genCCEnvConstants(options: ConstantOptions): CCEnvConstants;
-    // (undocumented)
-    genInternalConstants(): string;
-}
+type ConstantTypeName = 'boolean' | 'number';
 
 // @public (undocumented)
-export interface ConstantOptions {
-    // (undocumented)
-    flags: Partial<Record<FlagType, ValueType>>;
-    // (undocumented)
-    mode: ModeType;
-    // (undocumented)
-    platform: PlatformType;
-}
-
-// @public (undocumented)
-export interface Context {
+interface Context {
     // (undocumented)
     buildTimeConstants?: Object;
     // (undocumented)
@@ -56,13 +54,13 @@ export namespace EngineBuilder {
         // (undocumented)
         features?: string[];
         // (undocumented)
-        flagConfig: Partial<IFlagConfig>;
+        flagConfig: Partial<ConstantManager.IFlagConfig>;
         // (undocumented)
-        mode: ModeType;
+        mode: ConstantManager.ModeType;
         // (undocumented)
         outDir?: string;
         // (undocumented)
-        platform: PlatformType;
+        platform: ConstantManager.PlatformType;
         // (undocumented)
         root: string;
     }
@@ -101,90 +99,49 @@ export class EngineBuilder {
     build(options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult>;
 }
 
-// @public (undocumented)
-export type FlagType = keyof IFlagConfig;
-
-// @public (undocumented)
-export interface IFlagConfig extends IInternalFlagConfig, IPublicFlagConfig {
+// @public
+interface Feature {
+    dependentAssets?: string[];
+    dependentModules?: string[];
+    intrinsicFlags?: Record<string, unknown>;
+    isNativeOnly?: boolean;
+    modules: string[];
 }
 
 // @public (undocumented)
-export interface IInternalFlagConfig {
+interface IConstantConfig {
     // (undocumented)
-    NOT_PACK_PHYSX_LIBS: boolean;
-    // (undocumented)
-    SERVER_MODE: boolean;
-    // (undocumented)
-    WEBGPU: boolean;
+    [ConstantName: string]: IConstantInfo;
 }
 
 // @public (undocumented)
-export interface IModeConfig {
-    // (undocumented)
-    BUILD: boolean;
-    // (undocumented)
-    EDITOR: boolean;
-    // (undocumented)
-    PREVIEW: boolean;
-    // (undocumented)
-    TEST: boolean;
+interface IConstantInfo {
+    ccGlobal?: boolean;
+    readonly comment: string;
+    dynamic?: boolean;
+    readonly internal: boolean;
+    readonly type: ConstantTypeName;
+    value: boolean | string | number;
 }
 
 // @public (undocumented)
-export interface IOptimizeDecorators {
+interface IndexConfig {
+    // (undocumented)
+    modules?: Record<string, {
+        ns?: string;
+        deprecated?: boolean;
+    }>;
+}
+
+// @public (undocumented)
+interface IOptimizeDecorators {
     editorDecorators: string[];
     fieldDecorators: string[];
 }
 
-// @public (undocumented)
-export interface IPlatformConfig {
-    // (undocumented)
-    ALIPAY: boolean;
-    // (undocumented)
-    BAIDU: boolean;
-    // (undocumented)
-    BYTEDANCE: boolean;
-    // (undocumented)
-    COCOSPLAY: boolean;
-    // (undocumented)
-    HTML5: boolean;
-    // (undocumented)
-    HUAWEI: boolean;
-    // (undocumented)
-    LINKSURE: boolean;
-    // (undocumented)
-    NATIVE: boolean;
-    // (undocumented)
-    OPEN_HARMONY: boolean;
-    // (undocumented)
-    OPPO: boolean;
-    // (undocumented)
-    QTT: boolean;
-    // (undocumented)
-    VIVO: boolean;
-    // (undocumented)
-    WECHAT: boolean;
-    // (undocumented)
-    XIAOMI: boolean;
-}
-
-// @public (undocumented)
-export interface IPublicFlagConfig {
-    // (undocumented)
-    DEBUG: boolean;
-    // (undocumented)
-    NET_MODE: number;
-}
-
-// @public (undocumented)
-export type ModeType = keyof IModeConfig;
-
-// @public (undocumented)
-export type PlatformType = keyof IPlatformConfig;
-
 // @public
 export class StatsQuery {
-    constantManager: ConstantManager;
+    constantManager: StatsQuery.ConstantManager;
     // (undocumented)
     static create(engine: string): Promise<StatsQuery>;
     evaluateEnvModuleSourceFromRecord(record: Record<string, unknown>): string;
@@ -197,7 +154,7 @@ export class StatsQuery {
     getFeatureUnits(): string[];
     // (undocumented)
     getIntrinsicFlagsOfFeatures(featureIds: string[]): Record<string, string | number | boolean>;
-    getOptimizeDecorators(): IOptimizeDecorators;
+    getOptimizeDecorators(): ConfigInterface.IOptimizeDecorators;
     getUnitsOfFeatures(featureIds: string[]): string[];
     hasFeature(feature: string): boolean;
     get path(): string;
@@ -205,7 +162,121 @@ export class StatsQuery {
 }
 
 // @public (undocumented)
-export type ValueType = boolean | number;
+export namespace StatsQuery {
+    // (undocumented)
+    export namespace ConstantManager {
+        // (undocumented)
+        export interface BuildTimeConstants extends IPlatformConfig, IFlagConfig, IModeConfig {
+        }
+        // (undocumented)
+        export interface CCEnvConstants extends IPlatformConfig, IPublicFlagConfig, IModeConfig {
+        }
+        // (undocumented)
+        export interface ConstantOptions {
+            // (undocumented)
+            flags: Partial<Record<FlagType, ValueType>>;
+            // (undocumented)
+            mode: ModeType;
+            // (undocumented)
+            platform: PlatformType;
+        }
+        // (undocumented)
+        export type FlagType = keyof IFlagConfig;
+        // (undocumented)
+        export interface IConstantOptions {
+            // (undocumented)
+            flagConfig: IFlagConfig;
+            // (undocumented)
+            platform: PlatformType;
+        }
+        // (undocumented)
+        export interface IFlagConfig extends IInternalFlagConfig, IPublicFlagConfig {
+        }
+        // (undocumented)
+        export interface IInternalFlagConfig {
+            // (undocumented)
+            NOT_PACK_PHYSX_LIBS: boolean;
+            // (undocumented)
+            SERVER_MODE: boolean;
+            // (undocumented)
+            WEBGPU: boolean;
+        }
+        // (undocumented)
+        export interface IModeConfig {
+            // (undocumented)
+            BUILD: boolean;
+            // (undocumented)
+            EDITOR: boolean;
+            // (undocumented)
+            PREVIEW: boolean;
+            // (undocumented)
+            TEST: boolean;
+        }
+        // (undocumented)
+        export interface IPlatformConfig {
+            // (undocumented)
+            ALIPAY: boolean;
+            // (undocumented)
+            BAIDU: boolean;
+            // (undocumented)
+            BYTEDANCE: boolean;
+            // (undocumented)
+            COCOSPLAY: boolean;
+            // (undocumented)
+            HTML5: boolean;
+            // (undocumented)
+            HUAWEI: boolean;
+            // (undocumented)
+            LINKSURE: boolean;
+            // (undocumented)
+            NATIVE: boolean;
+            // (undocumented)
+            OPEN_HARMONY: boolean;
+            // (undocumented)
+            OPPO: boolean;
+            // (undocumented)
+            QTT: boolean;
+            // (undocumented)
+            VIVO: boolean;
+            // (undocumented)
+            WECHAT: boolean;
+            // (undocumented)
+            XIAOMI: boolean;
+        }
+        // (undocumented)
+        export interface IPublicFlagConfig {
+            // (undocumented)
+            DEBUG: boolean;
+            // (undocumented)
+            NET_MODE: number;
+        }
+        // (undocumented)
+        export type ModeType = keyof IModeConfig;
+        // (undocumented)
+        export type PlatformType = keyof IPlatformConfig;
+        // (undocumented)
+        export type ValueType = boolean | number;
+    }
+    // (undocumented)
+    export class ConstantManager {
+        constructor(engineRoot: string);
+        // (undocumented)
+        exportDynamicConstants({ mode, platform, flags, }: ConstantManager.ConstantOptions): string;
+        // (undocumented)
+        exportStaticConstants({ mode, platform, flags, }: ConstantManager.ConstantOptions): string;
+        // (undocumented)
+        genBuildTimeConstants(options: ConstantManager.ConstantOptions): ConstantManager.BuildTimeConstants;
+        // (undocumented)
+        genCCEnv(): string;
+        // (undocumented)
+        genCCEnvConstants(options: ConstantManager.ConstantOptions): ConstantManager.CCEnvConstants;
+        // (undocumented)
+        genInternalConstants(): string;
+    }
+}
+
+// @public (undocumented)
+type Test = string;
 
 // (No @packageDocumentation comment for this package)
 

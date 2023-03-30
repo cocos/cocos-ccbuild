@@ -420,7 +420,12 @@
       "tsdoc-param-tag-missing-hyphen": {
         "addToApiReportFile": false,
         "logLevel": "none"
-      }
+      },
+
+      "tsdoc-undefined-tag": {
+        "addToApiReportFile": false,
+        "logLevel": "none"
+      },
 
       // "tsdoc-link-tag-unescaped-text": {
       //   "logLevel": "warning",
