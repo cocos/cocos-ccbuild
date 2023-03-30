@@ -5,6 +5,43 @@
 ```ts
 
 // @public (undocumented)
+export function buildEngine(options: buildEngine.Options): Promise<buildEngine.Result>;
+
+// @public (undocumented)
+export namespace buildEngine {
+    // (undocumented)
+    export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
+    // (undocumented)
+    export interface Options {
+        ammoJsWasm?: boolean | 'fallback';
+        compress?: boolean;
+        engine: string;
+        features?: string[];
+        incremental?: string;
+        loose?: boolean;
+        // (undocumented)
+        mode: StatsQuery.ConstantManager.ModeType;
+        moduleFormat?: ModuleFormat;
+        noDeprecatedFeatures?: string | boolean;
+        out: string;
+        // (undocumented)
+        platform: StatsQuery.ConstantManager.PlatformType;
+        sourceMap?: boolean | 'inline';
+        split?: boolean;
+        targets?: string | string[] | Record<string, string>;
+    }
+    // (undocumented)
+    export interface Result {
+        chunkAliases: Record<string, string>;
+        // (undocumented)
+        dependencyGraph?: Record<string, string[]>;
+        exports: Record<string, string>;
+        // (undocumented)
+        hasCriticalWarns: boolean;
+    }
+}
+
+// @public (undocumented)
 interface Config {
     constants: IConstantConfig;
     features: Record<string, Feature>;
@@ -45,58 +82,6 @@ interface Context {
     mode?: string;
     // (undocumented)
     platform?: string;
-}
-
-// @public (undocumented)
-export namespace EngineBuilder {
-    // (undocumented)
-    export interface IBuildOptions {
-        // (undocumented)
-        features?: string[];
-        // (undocumented)
-        flagConfig: Partial<ConstantManager.IFlagConfig>;
-        // (undocumented)
-        mode: ConstantManager.ModeType;
-        // (undocumented)
-        outDir?: string;
-        // (undocumented)
-        platform: ConstantManager.PlatformType;
-        // (undocumented)
-        root: string;
-    }
-    // (undocumented)
-    export interface IBuildResult {
-        // (undocumented)
-        [outputFile: string]: IHandleResult;
-    }
-    // (undocumented)
-    export interface IHandleResult {
-        // (undocumented)
-        code: string;
-        // (undocumented)
-        file: string;
-        // (undocumented)
-        map: any;
-        // (undocumented)
-        originalId: string;
-        // (undocumented)
-        resolvedId: string;
-    }
-    // (undocumented)
-    export interface ITransformResult {
-        // (undocumented)
-        code: string;
-        // (undocumented)
-        depIdList: string[];
-        // (undocumented)
-        map?: any;
-    }
-}
-
-// @public (undocumented)
-export class EngineBuilder {
-    // (undocumented)
-    build(options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult>;
 }
 
 // @public
@@ -277,6 +262,17 @@ export namespace StatsQuery {
 
 // @public (undocumented)
 type Test = string;
+
+declare namespace transformer {
+    export {
+        Transformer_2 as Transformer
+    }
+}
+export { transformer }
+
+// @public (undocumented)
+class Transformer_2 {
+}
 
 // (No @packageDocumentation comment for this package)
 
