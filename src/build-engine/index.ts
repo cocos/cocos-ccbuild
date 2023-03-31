@@ -37,7 +37,7 @@ export namespace buildEngine {
 
         platform: StatsQuery.ConstantManager.PlatformType;
 
-        flags?: StatsQuery.ConstantManager.IFlagConfig;
+        flags?: Partial<StatsQuery.ConstantManager.IFlagConfig>;
 
         /**
          * 包含的功能。
