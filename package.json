@@ -30,6 +30,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@microsoft/api-extractor": "^7.34.4",
+    "@types/babel__preset-env": "^7.9.2",
     "@types/dedent": "^0.7.0",
     "@types/eslint": "^8.21.1",
     "@types/fs-extra": "^9.0.13",
@@ -42,7 +43,17 @@
     "@babel/parser": "^7.20.13",
     "@babel/plugin-syntax-decorators": "^7.19.0",
     "@babel/plugin-syntax-typescript": "^7.20.0",
+    "@babel/plugin-transform-for-of": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
     "@babel/traverse": "^7.20.13",
+    "@cocos/babel-plugin-dynamic-import-vars": "^1.0.2",
+    "@cocos/creator-programming-babel-preset-cc": "1.0.1-alpha.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-virtual": "^3.0.1",
     "@types/resolve": "^1.20.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
@@ -53,6 +64,7 @@
     "glob": "^9.2.1",
     "json5": "^2.2.3",
     "resolve": "^1.22.1",
+    "rollup": "^2.79.1",
     "typescript": "^4.9.3"
   }
 }

@@ -14,9 +14,12 @@ export namespace buildEngine {
     // (undocumented)
     export interface Options {
         ammoJsWasm?: boolean | 'fallback';
+        assetURLFormat?: 'relative-from-out' | 'relative-from-chunk' | 'runtime-resolved';
         compress?: boolean;
         engine: string;
         features?: string[];
+        // (undocumented)
+        flags?: Partial<StatsQuery.ConstantManager.IFlagConfig>;
         incremental?: string;
         loose?: boolean;
         // (undocumented)
@@ -27,6 +30,7 @@ export namespace buildEngine {
         // (undocumented)
         platform: StatsQuery.ConstantManager.PlatformType;
         sourceMap?: boolean | 'inline';
+        sourceMapFile?: string;
         split?: boolean;
         targets?: string | string[] | Record<string, string>;
     }
@@ -221,6 +225,8 @@ export namespace StatsQuery {
             OPPO: boolean;
             // (undocumented)
             QTT: boolean;
+            // (undocumented)
+            TAOBAO_MINIGAME: boolean;
             // (undocumented)
             VIVO: boolean;
             // (undocumented)
