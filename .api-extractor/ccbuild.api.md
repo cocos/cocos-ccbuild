@@ -19,7 +19,7 @@ export namespace buildEngine {
         engine: string;
         features?: string[];
         // (undocumented)
-        flags?: StatsQuery.ConstantManager.IFlagConfig;
+        flags?: Partial<StatsQuery.ConstantManager.IFlagConfig>;
         incremental?: string;
         loose?: boolean;
         // (undocumented)
@@ -225,6 +225,8 @@ export namespace StatsQuery {
             OPPO: boolean;
             // (undocumented)
             QTT: boolean;
+            // (undocumented)
+            TAOBAO_MINIGAME: boolean;
             // (undocumented)
             VIVO: boolean;
             // (undocumented)
