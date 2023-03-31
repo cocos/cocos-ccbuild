@@ -291,6 +291,7 @@ export namespace StatsQuery {
             QTT: boolean; 
             LINKSURE: boolean;
             OPEN_HARMONY: boolean;
+            TAOBAO_MINIGAME: boolean,
         }
         
         export interface IInternalFlagConfig {
