@@ -1,5 +1,7 @@
 import { StatsQuery } from "../stats-query";
 import { buildJsEngine } from "./engine-js";
+import { babel } from '../transformer'
+import fs from 'fs-extra';
 
 function verifyCache (options: buildEngine.Options): boolean {
     // TODO
@@ -162,5 +164,85 @@ export namespace buildEngine {
         dependencyGraph?: Record<string, string[]>;
 
         hasCriticalWarns: boolean;
+    }
+
+    export async function transform(code: string, moduleOption: ModuleFormat, loose?: boolean) {
+        const babelFormat = moduleOptionsToBabelEnvModules(moduleOption);
+        const babelFileResult = await babel.core.transformAsync(code, {
+            presets: [[babel.presetEnv, { modules: babelFormat, loose: loose ?? true } as babel.presetEnv.Options]],
+        });
+        if (!babelFileResult || !babelFileResult.code) {
+            throw new Error(`Failed to transform!`);
+        }
+        return {
+            code: babelFileResult.code,
+        };
+    }
+
+    function moduleOptionsToBabelEnvModules(moduleOptions: ModuleFormat): false | 'commonjs' | 'amd' | 'umd' | 'systemjs' | 'auto' {
+        switch (moduleOptions) {
+            case 'cjs': return 'commonjs';
+            case 'system': return 'systemjs';
+            case 'iife':
+            case 'esm': return false;
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            default: throw new Error(`Unknown module format ${moduleOptions}`);
+        }
+    }
+
+    export async function isSourceChanged(incrementalFile: string) {
+        let record: Record<string, number>;
+        try {
+            record = await fs.readJSON(incrementalFile);
+        } catch {
+            console.debug(`Failed to read incremental file: ${incrementalFile} - rebuild is needed.`);
+            return true;
+        }
+        for (const file of Object.keys(record)) {
+            const mtime = record[file];
+            try {
+                /* eslint-disable-next-line no-await-in-loop */
+                const mtimeNow = (await fs.stat(file)).mtimeMs;
+                if (mtimeNow !== mtime) {
+                    console.debug(`Source ${file} in watch files record ${incrementalFile} has a different time stamp - rebuild is needed.`);
+                    return true;
+                }
+            } catch {
+                console.debug(`Failed to read source ${file} in watch files record ${incrementalFile} - rebuild is needed.`);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Enumerates all chunk files that used by specified feature units.
+     * @param meta Metadata of build result.
+     * @param featureUnits Feature units.
+     */
+    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
+        const result: string[] = [];
+        const visited = new Set<string>();
+        const addChunk = (chunkFileName: string) => {
+            if (visited.has(chunkFileName)) {
+                return;
+            }
+            visited.add(chunkFileName);
+            result.push(chunkFileName);
+            if (meta.dependencyGraph && chunkFileName in meta.dependencyGraph) {
+                for (const dependencyChunk of meta.dependencyGraph[chunkFileName]) {
+                    addChunk(dependencyChunk);
+                }
+            }
+        };
+        for (const featureUnit of featureUnits) {
+            const chunkFileName = meta.exports[featureUnit];
+            if (!chunkFileName) {
+                console.error(`Feature unit ${featureUnit} is not in build result!`);
+                continue;
+            }
+            addChunk(chunkFileName);
+        }
+        return result;
     }
 }

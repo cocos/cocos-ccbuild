@@ -9,6 +9,9 @@ export function buildEngine(options: buildEngine.Options): Promise<buildEngine.R
 
 // @public (undocumented)
 export namespace buildEngine {
+    export function enumerateDependentChunks(meta: buildEngine.Result, featureUnits: string[]): string[];
+    // (undocumented)
+    export function isSourceChanged(incrementalFile: string): Promise<boolean>;
     // (undocumented)
     export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
     // (undocumented)
@@ -43,6 +46,10 @@ export namespace buildEngine {
         // (undocumented)
         hasCriticalWarns: boolean;
     }
+    // (undocumented)
+    export function transform(code: string, moduleOption: ModuleFormat, loose?: boolean): Promise<{
+        code: string;
+    }>;
 }
 
 // @public (undocumented)
