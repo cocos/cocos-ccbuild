@@ -16,7 +16,7 @@ import ps from 'path';
  */
 export function assetRef (options: assetRef.Options): rollup.Plugin {
     return {
-        name: '@cocos/build-engine|load-asset',
+        name: '@cocos/ccbuild|load-asset',
         // eslint-disable-next-line @typescript-eslint/require-await
         async resolveId (this, source, importer) {
             if (source.startsWith(assetPrefix)) {

@@ -249,7 +249,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         }),
 
         {
-            name: '@cocos/build-engine|module-overrides',
+            name: '@cocos/ccbuild|module-overrides',
             resolveId(source, importer) {
                 if (moduleOverrides[source]) {
                     return source;

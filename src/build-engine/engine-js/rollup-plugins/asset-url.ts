@@ -15,7 +15,7 @@ export function assetUrl ({
 }: IOptions): rollup.Plugin {
     const files = new Set<string>();
     return {
-        name: '@cocos/build-engine|external-asset',
+        name: '@cocos/ccbuild|external-asset',
 
         async resolveId (this, source, importer) {
             if (source.startsWith(URL_PROTOCOL) && importer) {

@@ -39,7 +39,7 @@ export function codeAsset ({
     const emitMap: Record<string, string> = {};
 
     return {
-        name: '@cocos/build-engine|code-asset',
+        name: '@cocos/ccbuild|code-asset',
 
         resolveId (source, _importer) {
             if (!(source in emitMap)) {

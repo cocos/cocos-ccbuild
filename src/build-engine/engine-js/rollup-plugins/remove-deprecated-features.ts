@@ -5,7 +5,7 @@ import ps from 'path';
 export default function removeDeprecatedFeatures (range?: string): rollup.Plugin {
     const versionRange = range ? new semver.Range(range) : undefined;
     return {
-        name: '@cocos/build-engine | remove-deprecated-features',
+        name: '@cocos/ccbuild|remove-deprecated-features',
 
         load (this, id: string) {
             if (!ps.isAbsolute(id)) {
