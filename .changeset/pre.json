@@ -1,0 +1,12 @@
+{
+  "mode": "exit",
+  "tag": "alpha",
+  "initialVersions": {
+    "@cocos/ccbuild": "1.0.0-alpha.7"
+  },
+  "changesets": [
+    "breezy-snails-heal",
+    "curly-queens-listen",
+    "plenty-wolves-shave"
+  ]
+}
