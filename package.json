@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -50,7 +50,7 @@
     "@cocos/creator-programming-babel-preset-cc": "1.0.1-alpha.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^11.1.0",
-    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
     "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-virtual": "^3.0.1",

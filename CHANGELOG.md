@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.0.0-alpha.9
+
+### Patch Changes
+
+- fix @rollup/plugin-json deps for editor-extension install
+
 ## 1.0.0-alpha.8
 
 ### Major Changes
