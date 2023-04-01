@@ -4,6 +4,20 @@
 
 ```ts
 
+import * as core from '@babel/core';
+import * as parser from '@babel/parser';
+import * as presetEnv from '@babel/preset-env';
+import * as traverse from '@babel/traverse';
+
+declare namespace babel_2 {
+    export {
+        core,
+        parser,
+        traverse,
+        presetEnv
+    }
+}
+
 // @public (undocumented)
 export function buildEngine(options: buildEngine.Options): Promise<buildEngine.Result>;
 
@@ -278,14 +292,10 @@ type Test = string;
 
 declare namespace transformer {
     export {
-        Transformer_2 as Transformer
+        babel_2 as babel
     }
 }
 export { transformer }
-
-// @public (undocumented)
-class Transformer_2 {
-}
 
 // (No @packageDocumentation comment for this package)
 

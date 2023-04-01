@@ -5,7 +5,7 @@ import rpBabel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import rpTerser from '@rollup/plugin-terser';
+import { terser as rpTerser } from 'rollup-plugin-terser';
 import babelPresetEnv from '@babel/preset-env';
 import type { Options as babelPresetEnvOptions } from '@babel/preset-env';
 import { babelPresetCC, helpers } from '@cocos/creator-programming-babel-preset-cc'

@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.0.0-alpha.10
+
+### Patch Changes
+
+- change @rollup/plugin-terser to rollup-plugin-terser
+
 ## 1.0.0-alpha.9
 
 ### Patch Changes
