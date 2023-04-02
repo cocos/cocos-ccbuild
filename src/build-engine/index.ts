@@ -2,6 +2,7 @@ import { StatsQuery } from "../stats-query";
 import { buildJsEngine } from "./engine-js";
 import { babel } from '../transformer'
 import fs from 'fs-extra';
+import { buildTsEngine } from "./engine-ts";
 
 function verifyCache (options: buildEngine.Options): boolean {
     // TODO
@@ -12,12 +13,12 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
     if (verifyCache(options)) {
         throw 'TODO';
     }
-    // if (options.platform === 'OPEN_HARMONY') {
-    //     // we use a custom engine builder for OPEN_HARMONY platform
-    //     throw 'TODO';
-    // } else {
+    if (options.platform === 'OPEN_HARMONY') {
+        // we use a custom engine builder for OPEN_HARMONY platform
+        return buildTsEngine(options);
+    } else {
         return buildJsEngine(options);
-    // }
+    }
 }
 
 export namespace buildEngine {

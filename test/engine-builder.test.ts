@@ -1,4 +1,4 @@
-import * as ccbuild from '../src/index'
+import * as ccbuild from '../src/build-engine/engine-ts/engine-builder'
 import * as ps from 'path';
 import { normalizePath } from '../src/stats-query/path-utils';
 

@@ -6,8 +6,8 @@ import pluginSyntaxTS from '@babel/plugin-syntax-typescript';
 // @ts-ignore
 import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import traverse from '@babel/traverse';
-import { StatsQuery } from "./stats-query";
-import { normalizePath, toExtensionLess } from './stats-query/path-utils';
+import { StatsQuery } from "../../stats-query";
+import { normalizePath, toExtensionLess } from '../../stats-query/path-utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
 import dedent from 'dedent';
@@ -540,7 +540,7 @@ export class EngineBuilder {
         }
         // copy lib.dom.d.ts
         // we use 4.2 version of typescript
-        const originalDomDts = normalizePath(ps.join(__dirname, '../static/lib.dom.d.ts'));
+        const originalDomDts = normalizePath(ps.join(__dirname, '../../../static/lib.dom.d.ts'));
         const targetDomDts = normalizePath(ps.join(outDir, '@types/lib.dom.d.ts'));
         const code = fs.readFileSync(originalDomDts, 'utf8');
         fs.outputFileSync(targetDomDts, code, 'utf8');
