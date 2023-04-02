@@ -12,12 +12,12 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
     if (verifyCache(options)) {
         throw 'TODO';
     }
-    if (options.platform === 'OPEN_HARMONY') {
-        // we use a custom engine builder for OPEN_HARMONY platform
-        throw 'TODO';
-    } else {
+    // if (options.platform === 'OPEN_HARMONY') {
+    //     // we use a custom engine builder for OPEN_HARMONY platform
+    //     throw 'TODO';
+    // } else {
         return buildJsEngine(options);
-    }
+    // }
 }
 
 export namespace buildEngine {

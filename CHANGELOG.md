@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.0.0-alpha.11
+
+### Patch Changes
+
+- use build js engine for OH platform
+
 ## 1.0.0-alpha.10
 
 ### Patch Changes

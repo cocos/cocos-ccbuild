@@ -2,13 +2,14 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "1.0.0-alpha.9"
+    "@cocos/ccbuild": "1.0.0-alpha.10"
   },
   "changesets": [
     "breezy-snails-heal",
     "curly-queens-listen",
     "nine-vans-stare",
     "plenty-wolves-shave",
+    "serious-files-type",
     "thick-eagles-bake"
   ]
 }
