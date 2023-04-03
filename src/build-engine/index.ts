@@ -9,14 +9,27 @@ function verifyCache (options: buildEngine.Options): boolean {
     return false;
 }
 
+function applyDefaultOptions (options: buildEngine.Options) {
+    options.keepTypes ??= false;
+}
+
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
+    applyDefaultOptions(options);
+
     if (verifyCache(options)) {
         throw 'TODO';
     }
     if (options.platform === 'OPEN_HARMONY') {
-        // we use a custom engine builder for OPEN_HARMONY platform
-        return buildTsEngine(options);
+        if (options.keepTypes) {
+            // we use a custom engine builder for OPEN_HARMONY platform when enable keepTypes option.
+            return buildTsEngine(options);
+        } else {
+            return buildJsEngine(options);
+        }
     } else {
+        if (options.keepTypes) {
+            console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
+        }
         return buildJsEngine(options);
     }
 }
@@ -127,6 +140,13 @@ export namespace buildEngine {
          * This requires `URL` and `import.meta.url` to be valid.
          */
         assetURLFormat?: 'relative-from-out' | 'relative-from-chunk' | 'runtime-resolved';
+
+        /**
+         * Keep engine type info, this options will build a TS engine to the output directory.
+         * This options is only supported on Open Harmony platform for now.
+         * @default false
+         */
+        keepTypes?: boolean;
 
         // visualize?: boolean | {
         //     file?: string;

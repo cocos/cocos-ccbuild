@@ -319,7 +319,7 @@ export namespace StatsQuery {
             flagConfig: IFlagConfig;
         }
         
-        export type PlatformType = keyof IPlatformConfig;
+        export type PlatformType = keyof IPlatformConfig | string;
         export type ModeType = keyof IModeConfig;
         export type FlagType = keyof IFlagConfig; 
         

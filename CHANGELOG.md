@@ -1,5 +1,13 @@
 # @cocos/ccbuild
 
+## 1.0.0-alpha.12
+
+### Patch Changes
+
+- support keepTypes options
+- make PlatformType for string
+- b2f4116: implement build ts engine
+
 ## 1.0.0-alpha.11
 
 ### Patch Changes

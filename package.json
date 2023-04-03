@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -9,7 +9,8 @@
     "version": "changeset version",
     "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
     "api": "tsc && api-extractor run --local --verbose",
-    "prepublishOnly": "node ./scripts/clear.mjs && tsc",
+    "clean": "node ./scripts/clear.mjs",
+    "prepublishOnly": "npm run clean && tsc",
     "test": "jest"
   },
   "files": [
