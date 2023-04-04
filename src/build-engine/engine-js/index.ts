@@ -83,7 +83,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         }
     }
 
-    asserts(options.mode === 'BUILD', `the mode should be 'BUILD' when building js engine!`);
     const flags = options.flags ?? {};
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
