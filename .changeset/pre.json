@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "1.0.0-alpha.11"
+    "@cocos/ccbuild": "1.0.0-alpha.12"
   },
   "changesets": [
     "breezy-snails-heal",
@@ -13,6 +13,7 @@
     "red-seals-grab",
     "serious-elephants-impress",
     "serious-files-type",
-    "thick-eagles-bake"
+    "thick-eagles-bake",
+    "twelve-mice-doubt"
   ]
 }

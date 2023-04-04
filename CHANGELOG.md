@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.0.0-alpha.13
+
+### Patch Changes
+
+- change keepTypes to preserveType option
+
 ## 1.0.0-alpha.12
 
 ### Patch Changes
