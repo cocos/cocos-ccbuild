@@ -1,5 +1,5 @@
 ---
-"@cocos/ccbuild": minor
+"@cocos/ccbuild": patch
 ---
 
 feat: support CCBuildTsFieldDecoratorHelper
