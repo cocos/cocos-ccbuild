@@ -2,6 +2,28 @@
 
 exports[`test base 1`] = `
 {
+  "__virtual__/CCBUILD_HELPER_MODULE.ts": {
+    "code": "/**
+ * TsPropertyDecorator cannot access the property descriptor, sometimes we need to access the initializer in property descriptor.
+ * This helper helps receive the initializer from EngineCompiler, and generate a BabelPropertyDecorator in runtime.
+ * @param decoratorOrFactory A TsPropertyDecorator or a decorator factory
+ * @param initializer the property initializer generate from engine compiler
+ * @param factoryArgs if \`decoratorOrFactory\` is a factory, then we may need some arguments for this factory method.
+ * @returns BabelPropertyDecorator
+ */
+export function CCBuildTsFieldDecoratorHelper(decoratorOrFactory: Function, initializer: Function, ...factoryArgs: any[]): PropertyDecorator {
+  if (factoryArgs.length > 0) {
+    const decorator = decoratorOrFactory(...factoryArgs);
+    return (target, propertyKey) => {
+      decorator(target, propertyKey, initializer);
+    };
+  } else {
+    return (target, propertyKey) => {
+      decoratorOrFactory(target, propertyKey, initializer);
+    };
+  }
+}",
+  },
   "__virtual__/internal_constants.ts": {
     "code": "function tryDefineGlobal(name, value) {
   const _global = typeof window === 'undefined' ? global : window;
@@ -253,8 +275,33 @@ export { zlib };",
   Inflate() {}
 };",
   },
+  "misc/decorator.ts": {
+    "code": "import { CCBuildTsFieldDecoratorHelper as _CCBuildTsFieldDecoratorHelper } from "../__virtual__/CCBUILD_HELPER_MODULE";
+const classDec: ClassDecorator = function (target) {};
+const propDec1: PropertyDecorator = function (target, propertyKey) {};
+const propDec2: PropertyDecorator = function (target, propertyKey) {};
+function propDecFactory(name: string, ...args: any) {
+  return (function (target, propertyKey) {} as PropertyDecorator);
+}
+@classDec
+class A {
+  @_CCBuildTsFieldDecoratorHelper(propDec1, () => 1)
+  public test1 = 1;
+  @_CCBuildTsFieldDecoratorHelper(propDec1, () => 2)
+  @_CCBuildTsFieldDecoratorHelper(propDec2, () => 2)
+  public test2 = 2;
+  @_CCBuildTsFieldDecoratorHelper(propDecFactory, () => 3, 'test')
+  public test3 = 3;
+  @_CCBuildTsFieldDecoratorHelper(propDec1, () => 4)
+  @_CCBuildTsFieldDecoratorHelper(propDecFactory, () => 4, 'test', 1, 2, () => {})
+  public test4 = 4;
+  @_CCBuildTsFieldDecoratorHelper(propDec1, null)
+  public test5;
+}",
+  },
   "misc/index.ts": {
-    "code": "import { RectAlias } from './rect';
+    "code": "import './decorator';
+import { RectAlias } from './rect';
 import { PathAlias } from './path';
 let p: PathAlias = new PathAlias();
 const r: RectAlias = RectAlias.from(0, 0, 100, 100);

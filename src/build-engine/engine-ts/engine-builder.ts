@@ -16,6 +16,7 @@ import nodeResolve from 'resolve';
 
 import t = babel.types;
 import ConstantManager = StatsQuery.ConstantManager;
+import { FiledDecoratorHelper } from './field-decorator-helper';
 
 
 export namespace EngineBuilder {
@@ -70,6 +71,7 @@ export class EngineBuilder {
         Path: 'PathAlias',
         struct: 'structAlias',
     };
+    private _filedDecoratorHelper = new FiledDecoratorHelper();
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
@@ -178,6 +180,7 @@ export class EngineBuilder {
             mode,
             flags: flagConfig,
         });
+        this._virtual2code[this._filedDecoratorHelper.getModuleName()] = this._filedDecoratorHelper.genModuleSource();
         // TODO: resolve node modules
         this._virtual2code['@cocos/box2d'] = 'export {}';
         this._virtual2code['@cocos/bullet'] = 'export {}';
@@ -348,6 +351,7 @@ export class EngineBuilder {
                 ImportSpecifier: importExportSpecifier,
             });
         }
+        const self = this;
         const transformResult = babel.transformSync(code, {
             configFile: false,
             plugins: [
@@ -360,16 +364,57 @@ export class EngineBuilder {
                     () => {
                         return {
                             name: 'custom-transform',
+                            pre (file) {
+                                const pluginPass = this;
+                                traverse(file.ast, {
+                                    ClassProperty (path) {
+                                        const decoratorsPath = path.get('decorators');
+                                        if (Array.isArray(decoratorsPath)) {
+                                            const propertyValuePath = path.get('value');
+                                            const helperIdentifier = self._filedDecoratorHelper.addHelper(pluginPass.file);
+                                            decoratorsPath.forEach(decPath => {
+                                                const expPath = decPath.get('expression');
+                                                const type = expPath.node.type;
+                                                if (type === 'CallExpression') {
+                                                    const decName = (expPath.node.callee as t.Identifier).name;
+                                                    const args = expPath.node.arguments;
+                                                    decPath.replaceWith(t.decorator(t.callExpression(
+                                                        helperIdentifier,
+                                                        [
+                                                            t.identifier(decName),
+                                                            (propertyValuePath.node ?
+                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                            t.nullLiteral()),
+                                                            ...args
+                                                        ]
+                                                    )));
+                                                } else if (type === 'Identifier') {
+                                                    const decName = expPath.node.name;
+                                                    decPath.replaceWith(t.decorator(t.callExpression(
+                                                        helperIdentifier,
+                                                        [
+                                                            t.identifier(decName),
+                                                            (propertyValuePath.node ?
+                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                            t.nullLiteral())
+                                                        ]
+                                                    )));
+                                                }
+                                            })
+                                        }
+                                    },
+                                });
+                            },
                             visitor: {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
                                 // TODO: here we rename class Rect and Path
-                                CallExpression: (path) => {
+                                CallExpression (path) {
                                     if (path.node.callee.type === 'MemberExpression') {
                                         const memberExpressionPath = path.get('callee') as babel.NodePath<t.MemberExpression>;
                                         const objectPath = memberExpressionPath.get('object') as babel.NodePath<t.Identifier>;
                                         const name = objectPath.node.name;
-                                        const alias = this._renameMap[name];
+                                        const alias = self._renameMap[name];
                                         if (typeof alias === 'string' && path.node.callee.object.type === 'Identifier') {
                                             objectPath.replaceWith(t.identifier(alias));
                                         }
@@ -396,32 +441,32 @@ export class EngineBuilder {
                                         ));
                                     }
                                 },
-                                ClassDeclaration: (path) => {
+                                ClassDeclaration (path) {
                                     const idPath = path.get('id');
                                     const name = idPath.node.name;
-                                    const alias = this._renameMap[name];
+                                    const alias = self._renameMap[name];
                                     if (typeof alias === 'string') {
                                         idPath.replaceWith(t.identifier(alias));
                                     }
                                 },
-                                NewExpression: (path) => {
+                                NewExpression (path) {
                                     const calleePath = path.get('callee');
                                     // @ts-ignore
                                     const name = calleePath.node.name;
                                     if (name) {
-                                        const alias = this._renameMap[name];
+                                        const alias = self._renameMap[name];
                                         if (typeof alias === 'string') {
                                             calleePath.replaceWith(t.identifier(alias));
                                         }
                                     }
                                 },
-                                TSTypeAnnotation: (path) => {
+                                TSTypeAnnotation (path) {
                                     // @ts-ignore
                                     const typeName = path.node.typeAnnotation.typeName;
                                     const childPath = path.get('typeAnnotation');
                                     if (typeName) {
                                         const name = typeName.name as string;
-                                        const alias = this._renameMap[name];
+                                        const alias = self._renameMap[name];
                                         if (typeof alias === 'string') {
                                             path.replaceWith(t.tsTypeAnnotation({
                                                 type: 'TSExpressionWithTypeArguments',
@@ -436,9 +481,9 @@ export class EngineBuilder {
                                         
                                     }
                                 },
-                                Identifier: (path) => {
+                                Identifier (path) {
                                     const name = path.node.name;
-                                    const alias = this._renameMap[name];
+                                    const alias = self._renameMap[name];
                                     if (typeof alias === 'string') {
                                         if (path.parent.type === 'ObjectProperty' ||　path.parent.type === 'TSPropertySignature') {
                                             if (path.parent.key !== path.node) {

@@ -1,3 +1,4 @@
+import './decorator';
 import { Rect } from './rect'
 import { Path } from './path'
 import '@cocos/dragonbones-js'
