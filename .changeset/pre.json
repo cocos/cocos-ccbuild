@@ -1,0 +1,10 @@
+{
+  "mode": "exit",
+  "tag": "alpha",
+  "initialVersions": {
+    "@cocos/ccbuild": "1.0.0"
+  },
+  "changesets": [
+    "quick-chicken-breathe"
+  ]
+}

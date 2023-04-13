@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.0.1-alpha.0
+
+### Patch Changes
+
+- d94d769: feat: support CCBuildTsFieldDecoratorHelper
+
 ## 1.0.0
 
 ### Major Changes
