@@ -1,11 +1,11 @@
-import * as ccbuild from '../src/build-engine/engine-ts/engine-builder'
+import * as ccbuild from '../../src/build-engine/engine-ts/engine-builder'
 import * as ps from 'path';
-import { normalizePath } from '../src/stats-query/path-utils';
+import { normalizePath } from '../../src/stats-query/path-utils';
 
 jest.setTimeout(10000);
 test('test base', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
-    const root = normalizePath(ps.join(__dirname, './test-source'));
+    const root = normalizePath(ps.join(__dirname, '../test-source'));
     const buildResult = await engineBuilder.build({
         root,
         features: ['audio', 'animation', 'dragon-bones'],
