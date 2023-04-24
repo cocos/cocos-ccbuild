@@ -7,6 +7,9 @@
         },
         "audio": {
             "modules": ["audio"]
+        },
+        "wasm-test": {
+            "modules": ["wasm-test"]
         }
     },
     "moduleOverrides": [{
