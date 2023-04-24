@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test base 1`] = `
+exports[`engine-ts 1`] = `
 {
   "__virtual__/CCBUILD_HELPER_MODULE.ts": {
     "code": "/**
