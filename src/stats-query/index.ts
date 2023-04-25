@@ -298,6 +298,7 @@ export namespace StatsQuery {
             SERVER_MODE: boolean; 
             NOT_PACK_PHYSX_LIBS: boolean; 
             WEBGPU: boolean;
+            WASM_SUPPORT_MODE: number;
         }
         
         export interface IPublicFlagConfig {

@@ -26,7 +26,7 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
             if (id.startsWith(externalOrigin)) {
                 let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
                 if (filePath.endsWith('.wasm')) {
-                    try {
+                    if (options.supportWasm) {
                         const referenceId = this.emitFile({
                             type: 'asset',
                             name: ps.basename(filePath),
@@ -35,8 +35,8 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
                         });
 
                         return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
-                    } catch(e) {
-                        console.log(e)
+                    } else {
+                        return `export default '';`;
                     }
                 } else {
                     const a = await fs.readFile(filePath, 'utf8');
@@ -69,7 +69,14 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
 
 export declare namespace assetRef {
     export interface Options {
+        /**
+         * the root path of external repository
+         */
         externalRoot: string,
+        /**
+         * whether support wasm, if false, the plugin won't emit the wasm asset to reduce engine package size.
+         */
+        supportWasm: boolean;
         format?: Format;
     }
 
