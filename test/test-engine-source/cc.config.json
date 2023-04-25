@@ -295,10 +295,10 @@
             "internal": true
         },
         "WASM_SUPPORT_MODE": {
-            "comment": "Whether support wasm, here we provide 3 options:\n0: The platform doesn't support WASM, on this platform\n1: The platform supports WASM\n2: The platform may support WASM, especially on Web platform",
+            "comment": "Whether support wasm, here we provide 3 options:\n0: The platform doesn't support WASM\n1: The platform supports WASM\n2: The platform may support WASM, especially on Web platform",
             "type": "number",
             "value": 1,
-            "internal": true
+            "internal": false
         }
     },
 

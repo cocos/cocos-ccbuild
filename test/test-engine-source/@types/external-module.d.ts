@@ -4,7 +4,7 @@ declare module 'external://*.wasm' {
 }
 
 declare module 'external:///wasm/emscripten/wasm_c.*js' {
-    function factory (options: {
+    function factory (options?: {
         locateFile (wasmPath: string, scriptDirectory?: string): string;
     }): Promise<any>;
 
