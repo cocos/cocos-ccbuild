@@ -9,7 +9,7 @@
     "version": "changeset version",
     "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
     "api": "tsc && api-extractor run --local --verbose",
-    "clean": "node ./scripts/clear.mjs",
+    "clean": "node ./scripts/clear.js",
     "prepublishOnly": "npm run clean && tsc",
     "test": "jest"
   },
