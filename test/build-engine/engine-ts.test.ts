@@ -9,12 +9,12 @@ test('engine-ts', async () => {
     const buildResult = await engineBuilder.build({
         root,
         features: ['audio', 'animation', 'dragon-bones'],
-        platform: 'NATIVE',
+        platform: 'OPEN_HARMONY',
         mode: 'BUILD', 
         flagConfig: {
             DEBUG: true,
         },
-        outDir: normalizePath(ps.join(__dirname, './lib')),
+        outDir: normalizePath(ps.join(__dirname, './lib-ts')),
     });
     const res: any = {};
     for (let [k, v] of Object.entries(buildResult)) {

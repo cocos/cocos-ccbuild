@@ -20,11 +20,9 @@ import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
 import { StatsQuery } from '../../stats-query';
-import { assetRef as rpAssetRef, pathToAssetRefURL } from './rollup-plugins/asset-ref';
-import { codeAsset } from './rollup-plugins/code-asset';
-import { assetUrl } from './rollup-plugins/asset-url';
 import type { buildEngine } from '../index'
-import { asserts, filePathToModuleRequest } from '../../utils';
+import { filePathToModuleRequest } from '../../utils';
+import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 
 // import * as decoratorRecorder from './babel-plugins/decorator-parser';
 
@@ -194,6 +192,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
             /node_modules[/\\]@cocos[/\\]ammo/,
             /node_modules[/\\]@cocos[/\\]cannon/,
             /node_modules[/\\]@cocos[/\\]physx/,
+            /\.asm\.js/,
         ],
         comments: false, // Do not preserve comments, even in debug build since we have source map
         overrides: [{
@@ -224,18 +223,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
 
     const rollupPlugins: rollup.Plugin[] = [];
 
-    const codeAssetMapping: Record<string, string> = {};
-    if (rollupFormat === 'system') {
-        // `@cocos/physx` is too big(~6Mb) and cause memory crash.
-        // Our temporary solution: exclude @cocos/physx from bundling and connect it with source map.
-        rollupPlugins.push(codeAsset({
-            resultMapping: codeAssetMapping,
-            include: [
-                /node_modules[/\\]@cocos[/\\]physx/,
-            ],
-        }));
-    }
-
     if (options.noDeprecatedFeatures) {
         rollupPlugins.push(removeDeprecatedFeatures(
             typeof options.noDeprecatedFeatures === 'string' ? options.noDeprecatedFeatures : undefined,
@@ -243,8 +230,8 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
     }
 
     rollupPlugins.push(
-        rpAssetRef({
-            format: options.assetURLFormat,
+        externalWasmLoader({
+            externalRoot: ps.join(engineRoot, 'native/external'),
         }),
 
         {
@@ -365,11 +352,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         defaultHandler(warning);
     };
 
-    rollupPlugins.unshift(assetUrl({
-        engineRoot,
-        useWebGPU,
-    }));
-
     const rollupOptions: rollup.InputOptions = {
         input: rollupEntries,
         plugins: rollupPlugins,
@@ -381,36 +363,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
 
     if (perf) {
         rollupOptions.perf = true;
-    }
-
-    const bulletAsmJsModule = await nodeResolveAsync('@cocos/bullet/bullet.cocos.js');
-    const wasmBinaryPath = ps.join(bulletAsmJsModule, '..', 'bullet.wasm.wasm');
-    if (ammoJsWasm === true) {
-        rpVirtualOptions['@cocos/bullet'] = `
-import wasmBinaryURL from '${pathToAssetRefURL(wasmBinaryPath)}';
-export const bulletType = 'wasm';
-export default wasmBinaryURL;
-`;
-    } else if (ammoJsWasm === 'fallback') {
-        rpVirtualOptions['@cocos/bullet'] = `
-export async function initialize(isWasm) {
-    let ammo;
-    if (isWasm) {
-        ammo = await import('${pathToAssetRefURL(wasmBinaryPath)}');
-    } else {
-        ammo = await import('${filePathToModuleRequest(bulletAsmJsModule)}');
-    }
-    return ammo.default;
-}
-export const bulletType = 'fallback';
-export default initialize;
-        `;
-    } else {
-        rpVirtualOptions['@cocos/bullet'] = `
-import Bullet from '${filePathToModuleRequest(bulletAsmJsModule)}';
-export const bulletType = 'asmjs';
-export default Bullet;
-`;
     }
 
     const rollupBuild = await rollup.rollup(rollupOptions);
@@ -469,8 +421,6 @@ export default Bullet;
     }
 
     Object.assign(result.exports, validEntryChunks);
-
-    Object.assign(result.chunkAliases, codeAssetMapping);
 
     result.dependencyGraph = {};
     for (const output of rollupOutput.output) {

@@ -36,8 +36,16 @@ export function CCBuildTsFieldDecoratorHelper(decoratorOrFactory: Function, init
 }
 export const HTML5 = false;
 export const NATIVE = true;
+export const ANDROID = false;
+export const IOS = false;
+export const MAC = false;
+export const WINDOWS = false;
+export const LINUX = false;
+export const OHOS = false;
+export const OPEN_HARMONY = true;
 export const WECHAT = false;
 tryDefineGlobal('CC_WECHAT', false);
+export const WECHAT_MINI_PROGRAM = false;
 export const BAIDU = false;
 tryDefineGlobal('CC_BAIDU', false);
 export const XIAOMI = false;
@@ -45,6 +53,7 @@ tryDefineGlobal('CC_XIAOMI', false);
 export const ALIPAY = false;
 tryDefineGlobal('CC_ALIPAY', false);
 export const TAOBAO = false;
+export const TAOBAO_MINIGAME = false;
 export const BYTEDANCE = false;
 tryDefineGlobal('CC_BYTEDANCE', false);
 export const OPPO = false;
@@ -76,13 +85,14 @@ export const MINIGAME = false;
 tryDefineGlobal('CC_MINIGAME', false);
 export const RUNTIME_BASED = false;
 tryDefineGlobal('CC_RUNTIME_BASED', false);
-export const SUPPORT_JIT = true;
-tryDefineGlobal('CC_SUPPORT_JIT', true);
+export const SUPPORT_JIT = false;
+tryDefineGlobal('CC_SUPPORT_JIT', false);
 export const JSB = true;
 tryDefineGlobal('CC_JSB', true);
 export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
-export const WEBGPU = false;",
+export const WEBGPU = false;
+export const WASM_SUPPORT_MODE = 0;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
