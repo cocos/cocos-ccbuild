@@ -122,7 +122,9 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
     rpVirtualOptions['internal:constants'] = vmInternalConstants;
     rpVirtualOptions[helpers.CC_HELPER_MODULE] = helpers.generateHelperModuleSource();
 
-    const forceStandaloneModules = ['wait-for-ammo-instantiation', 'decorator'];
+    // for some modules that we need to instantiate before cc module
+    // const forceStandaloneModules = ['wait-for-ammo-instantiation'];
+    const forceStandaloneModules: string[] = [];
 
     let rollupEntries: NonNullable<rollup.RollupOptions['input']> | undefined;
     if (split) {
@@ -233,6 +235,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
             supportWasm: buildTimeConstants.WASM_SUPPORT_MODE !== 0,
+            format: 'relative-from-chunk',
         }),
 
         {
@@ -275,6 +278,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         commonjs({
             include: [
                 /node_modules[/\\]/,
+                /asm\.js/,
             ],
             sourceMap: false,
         }),
