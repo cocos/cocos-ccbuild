@@ -3,7 +3,7 @@ import { URL, fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
 
-const externalOrigin = 'external://';
+const externalOrigin = 'external:';
 function normalizePath (path: string) {
     return path.replace(/\\/g, '/');
 }
