@@ -1,8 +1,8 @@
 import { WASM_SUPPORT_MODE } from 'internal:constants';
 import { isSupportWASM } from './is-support-wasm';
-import wasmUrl from 'external:///wasm/emscripten/wasm_c.wasm';
-import wasmFactory from 'external:///wasm/emscripten/wasm_c.js';
-import asmFactory from 'external:///wasm/emscripten/wasm_c.asm.js';
+import wasmUrl from 'external:wasm/emscripten/wasm_c.wasm';
+import wasmFactory from 'external:wasm/emscripten/wasm_c.js';
+import asmFactory from 'external:wasm/emscripten/wasm_c.asm.js';
 
 
 function initializeWasm (): Promise<any> {
