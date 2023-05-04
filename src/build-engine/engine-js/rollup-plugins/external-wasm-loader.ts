@@ -39,8 +39,7 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
                         return `export default '';`;
                     }
                 } else {
-                    const a = await fs.readFile(filePath, 'utf8');
-                    return a;
+                    return await fs.readFile(filePath, 'utf8');
                 }
             }
             return null;

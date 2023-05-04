@@ -108,9 +108,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
 
     const featureUnits = statsQuery.getUnitsOfFeatures(features);
 
-    // Wether use webgpu
-    const useWebGPU = !!(options.flags?.WEBGPU);
-
     const rpVirtualOptions: Record<string, string> = {};
 
     const vmInternalConstants = statsQuery.constantManager.exportStaticConstants({

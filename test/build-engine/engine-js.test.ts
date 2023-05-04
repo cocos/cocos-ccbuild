@@ -2,19 +2,9 @@ import { buildJsEngine } from '../../src/build-engine/engine-js';
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 import del from 'del';
+import { readdirR } from './utils';
 
 jest.setTimeout(10000);
-
-async function readdirR (item: string, reduceOutput: string[]) { 
-    if ((await fs.stat(item)).isDirectory()) {
-        const dirItems = await fs.readdir(item);
-        for (let subItem of dirItems) {
-            await readdirR(ps.join(item, subItem), reduceOutput);
-        }
-    } else {
-        reduceOutput.push(item);
-    }
-}
 
 describe('engine-js', () => {
     test('build WASM module on platform supporting WASM', async () => {
