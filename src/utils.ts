@@ -8,3 +8,8 @@ export function asserts(expr: unknown, message?: string): boolean {
 export function filePathToModuleRequest (path: string) {
     return path.replace(/\\/g, '\\\\');
 }
+
+export function isThenable (value: any) {
+    // https://stackoverflow.com/a/53955664/10602525
+    return Boolean(value && typeof value.then === 'function');
+}

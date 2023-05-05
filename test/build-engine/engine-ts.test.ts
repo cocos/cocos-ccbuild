@@ -25,3 +25,28 @@ test('engine-ts', async () => {
     }
     expect(res).toMatchSnapshot();
 });
+
+describe('WASM', () => {
+  test('build WASM', async () => {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = normalizePath(ps.join(__dirname, '../test-engine-source'));
+    const buildResult = await engineBuilder.build({
+        root,
+        features: ['wasm-test'],
+        platform: 'OPEN_HARMONY',
+        mode: 'BUILD', 
+        flagConfig: {
+            DEBUG: true,
+        },
+        outDir: normalizePath(ps.join(__dirname, './lib-ts')),
+    });
+    const res: any = {};
+    for (let [k, v] of Object.entries(buildResult)) {
+      const relativeFile = normalizePath(ps.relative(root, v.file));
+      res[relativeFile] = {
+        code: v.code,
+      };
+    }
+    expect(res).toMatchSnapshot();
+  });
+});
