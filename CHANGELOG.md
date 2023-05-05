@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.1
+
+### Patch Changes
+
+- fix: use fixed babel version
+
 ## 1.1.0
 
 ### Minor Changes
