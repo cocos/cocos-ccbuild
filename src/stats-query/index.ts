@@ -478,7 +478,12 @@ export namespace StatsQuery {
             for (const key in config) {
                 const info = config[key];
                 const value = info.value;
-                result += `export const ${key} = ${value};\n`;
+                
+                let declarationKind = 'const';
+                if (platform === 'OPEN_HARMONY' && key === 'WASM_SUPPORT_MODE') {
+                    declarationKind = 'let'; // HACK: on OH platform, we cannot compile successfully when declarationKind is const.
+                }
+                result += `export ${declarationKind} ${key} = ${value};\n`;
                 if (info.ccGlobal) {
                     result += `tryDefineGlobal('CC_${key}', ${value});\n`
                 }
