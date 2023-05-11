@@ -21,6 +21,7 @@
         ]
     },
     "types": [
+      "./@types/external-module",
       "./@types/globals",
       "./@types/consts",
       "./@types/jsb",

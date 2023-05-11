@@ -1,5 +1,21 @@
 # @cocos/ccbuild
 
+## 1.1.1
+
+### Patch Changes
+
+- fix: use fixed babel version
+
+## 1.1.0
+
+### Minor Changes
+
+- 279e42a: feat: support engine WASM module building
+
+### Patch Changes
+
+- 6411ef4: feat: support CCBuildTsFieldDecoratorHelper
+
 ## 1.0.1-alpha.0
 
 ### Patch Changes

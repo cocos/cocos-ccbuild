@@ -17,6 +17,7 @@ import nodeResolve from 'resolve';
 import t = babel.types;
 import ConstantManager = StatsQuery.ConstantManager;
 import { FiledDecoratorHelper } from './field-decorator-helper';
+import { externalWasmLoaderFactory } from './plugins/external-wasm-loader';
 
 
 export namespace EngineBuilder {
@@ -72,6 +73,10 @@ export class EngineBuilder {
         struct: 'structAlias',
     };
     private _filedDecoratorHelper = new FiledDecoratorHelper();
+    private _plugins: ITsEnginePlugin[] = [];
+    private _excludeTransform = [
+        /external\:/
+    ];
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
@@ -86,6 +91,7 @@ export class EngineBuilder {
         // pass1: build ts for native engine
         console.log('[Build Engine]: pass1 - traverse and compile modules');
         console.time('pass1');
+        this._initPlugins(options);
         await this._initOptions(options);
         handleIdList(this._entries);
         console.timeEnd('pass1');
@@ -128,6 +134,14 @@ export class EngineBuilder {
         }
 
         return this._buildResult;
+    }
+
+    private _initPlugins (options: EngineBuilder.IBuildOptions): void {
+        this._plugins.push(
+            externalWasmLoaderFactory({
+                engineRoot: options.root,
+            }),
+        );
     }
 
     private async _initOptions (options: EngineBuilder.IBuildOptions): Promise<void> {
@@ -233,7 +247,13 @@ export class EngineBuilder {
     }
 
     private _getOverrideId (id: string, importer?: string): string | void {
-        let overrideId: string | undefined;
+        let overrideId: string | void | undefined;
+        for (let p of this._plugins) {
+            overrideId = p.transformId?.(id, importer);
+            if (overrideId) {
+                return overrideId;
+            }
+        }
         if (id in this._virtualOverrides) {
             overrideId = this._virtualOverrides[id];
         } else if (id in this._moduleOverrides) {
@@ -252,6 +272,12 @@ export class EngineBuilder {
     }
 
     private _resolve (id: string, importer?: string): string | void {
+        for (let p of this._plugins) {
+            const resolvedId = p.resolve?.(id, importer);
+            if (resolvedId) {
+                return resolvedId;
+            }
+        }
         if (!importer) {
             return id;  // entry
         } else if (id in this._virtualOverrides) {
@@ -288,6 +314,12 @@ export class EngineBuilder {
     }
 
     private _load (id: string): string | void {
+        for (let p of this._plugins) {
+            const loadedCode = p.load?.(id);
+            if (loadedCode) {
+                return loadedCode;
+            }
+        }
         if (fs.existsSync(id)) {
             let code = fs.readFileSync(id, 'utf8');
             if (id.endsWith('.json')) {
@@ -300,11 +332,20 @@ export class EngineBuilder {
     }
 
     private _transform (file: string, code: string): EngineBuilder.ITransformResult {
+        file = normalizePath(file);
+        for (let ex of this._excludeTransform) {
+            if (ex.test(file)) {
+                return {
+                    code,
+                    depIdList: [],
+                };
+            }
+        }
         const depIdList: string[] = [];
         if (ps.extname(file) === '.js') {
             const dtsFile = toExtensionLess(file) + '.d.ts';
             if (fs.existsSync(dtsFile)) {
-                depIdList.push(dtsFile);
+                depIdList.push(dtsFile);  // emit the .d.ts file
             }
         }
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
@@ -325,7 +366,9 @@ export class EngineBuilder {
                     if (!relativePath.startsWith('.')) {
                         relativePath = './' + relativePath;
                     }
-                    relativePath = relativePath.slice(0, -3);  // remove '.ts'
+                    if (ps.extname(relativePath) === '.ts') {
+                        relativePath = relativePath.slice(0, -3);  // remove '.ts'
+                    }
                     
                     // traverse to transform specifier
                     traverse(path.node, {

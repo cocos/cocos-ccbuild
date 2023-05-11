@@ -3,39 +3,44 @@ import { URL, fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
 
+const externalOrigin = 'external:';
+function normalizePath (path: string) {
+    return path.replace(/\\/g, '/');
+}
+
 /**
- * This plugin enable to locate non-code assets in their path or URLs:
- * ```ts
- * import wasm from `asset-ref-url-to-C:/foo.wasm`;
- * ```
- * is equivalent to, for example:
- * ```ts
- * const wasm = 'path-to-<C:/foo.wasm>-relative-to-<outDir>-after-bundle';
- * ```
- * You can call `pathToAssetRefURL()` to convert file path to asset ref URL.
+ * This plugin enable to load script or wasm with url based on 'external://' origin.
  */
-export function assetRef (options: assetRef.Options): rollup.Plugin {
+export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
     return {
-        name: '@cocos/ccbuild|load-asset',
-        // eslint-disable-next-line @typescript-eslint/require-await
+        name: '@cocos/ccbuild|external-loader',
+
         async resolveId (this, source, importer) {
-            if (source.startsWith(assetPrefix)) {
+            if (source.startsWith(externalOrigin)) {
                 return source;
             }
             return null;
         },
 
         async load (id) {
-            if (id.startsWith(assetPrefix)) {
-                const pathname = id.substr(assetPrefix.length);
-                const path = fileURLToPath(`file://${pathname}`);
-                const referenceId = this.emitFile({
-                    type: 'asset',
-                    name: ps.basename(path),
-                    // fileName: path,
-                    source: await fs.readFile(path),
-                });
-                return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
+            if (id.startsWith(externalOrigin)) {
+                let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
+                if (filePath.endsWith('.wasm')) {
+                    if (options.supportWasm) {
+                        const referenceId = this.emitFile({
+                            type: 'asset',
+                            name: ps.basename(filePath),
+                            // fileName: path,
+                            source: await fs.readFile(filePath),
+                        });
+
+                        return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
+                    } else {
+                        return `export default '';`;
+                    }
+                } else {
+                    return await fs.readFile(filePath, 'utf8');
+                }
             }
             return null;
         },
@@ -63,6 +68,14 @@ export function assetRef (options: assetRef.Options): rollup.Plugin {
 
 export declare namespace assetRef {
     export interface Options {
+        /**
+         * the root path of external repository
+         */
+        externalRoot: string,
+        /**
+         * whether support wasm, if false, the plugin won't emit the wasm asset to reduce engine package size.
+         */
+        supportWasm: boolean;
         format?: Format;
     }
 

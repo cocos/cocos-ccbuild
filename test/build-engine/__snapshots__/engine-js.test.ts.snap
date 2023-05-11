@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`engine-js build WASM module on platform not supporting WASM 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM 1`] = `
+[
+  "assets\\wasm_c-8515ca89.wasm",
+  "assets\\wasm_rust-404aff2f.wasm",
+  "cc.js",
+]
+`;
