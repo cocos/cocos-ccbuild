@@ -46,6 +46,7 @@ export namespace buildEngine {
         out: string;
         // (undocumented)
         platform: StatsQuery.ConstantManager.PlatformType;
+        preserveType?: boolean;
         sourceMap?: boolean | 'inline';
         sourceMapFile?: string;
         split?: boolean;
@@ -209,6 +210,8 @@ export namespace StatsQuery {
             // (undocumented)
             SERVER_MODE: boolean;
             // (undocumented)
+            WASM_SUPPORT_MODE: number;
+            // (undocumented)
             WEBGPU: boolean;
         }
         // (undocumented)
@@ -265,7 +268,7 @@ export namespace StatsQuery {
         // (undocumented)
         export type ModeType = keyof IModeConfig;
         // (undocumented)
-        export type PlatformType = keyof IPlatformConfig;
+        export type PlatformType = keyof IPlatformConfig | string;
         // (undocumented)
         export type ValueType = boolean | number;
     }
