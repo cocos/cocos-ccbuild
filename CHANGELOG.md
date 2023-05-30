@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.2
+
+### Patch Changes
+
+- d70a215: fix: export `WASM_SUPPORT_MODE` for dynamic const
+
 ## 1.1.1
 
 ### Patch Changes
