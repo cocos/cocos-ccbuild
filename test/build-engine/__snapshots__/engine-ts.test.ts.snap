@@ -70,7 +70,7 @@ tryDefineGlobal('CC_JSB', true);
 export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
 export const WEBGPU = false;
-export const WASM_SUPPORT_MODE = 0;",
+export let WASM_SUPPORT_MODE = 0;",
   },
   "exports/wasm-test.ts": {
     "code": "export * from '../wasm';",
@@ -8574,7 +8574,7 @@ tryDefineGlobal('CC_JSB', true);
 export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
 export const WEBGPU = false;
-export const WASM_SUPPORT_MODE = 0;",
+export let WASM_SUPPORT_MODE = 0;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
