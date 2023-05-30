@@ -82,6 +82,8 @@ tryDefineGlobal('CC_BUILD', true);
 export const DEBUG = true;
 tryDefineGlobal('CC_DEBUG', true);
 
+export const SERVER_MODE = false;
+
 export const MINIGAME = true;
 tryDefineGlobal('CC_MINIGAME', true);
 
@@ -91,7 +93,13 @@ tryDefineGlobal('CC_RUNTIME_BASED', false);
 export const SUPPORT_JIT = false;
 tryDefineGlobal('CC_SUPPORT_JIT', false);
 
+export const NOT_PACK_PHYSX_LIBS = false;
+
 export const NET_MODE = 0;
+
+export const WEBGPU = false;
+
+export const WASM_SUPPORT_MODE = 1;
 
 "
 `;
