@@ -22,7 +22,6 @@ export const JSB = tryDefineGlobal('CC_JSB', defined('jsb'));
 export const NATIVE = JSB;
 export const HTML5 = !(EDITOR && NATIVE);
 export const DEV = tryDefineGlobal('CC_DEV', true);
-export const EDITOR_PREVIEW = EDITOR && (typeof window === 'undefined' ? global : window).isPreviewProcess;
 
 export const ANDROID = false;
 
@@ -212,8 +211,6 @@ export const WEBGPU = false;
 
 export const WASM_SUPPORT_MODE = 1;
 
-export const EDITOR_PREVIEW = false;
-
 "
 `;
 
@@ -228,7 +225,6 @@ exports[`genBuildTimeConstants 1`] = `
   "DEBUG": false,
   "DEV": true,
   "EDITOR": false,
-  "EDITOR_PREVIEW": false,
   "HTML5": false,
   "HUAWEI": false,
   "IOS": false,
@@ -272,7 +268,6 @@ exports[`genCCEnvConstants 1`] = `
   "DEBUG": false,
   "DEV": true,
   "EDITOR": false,
-  "EDITOR_PREVIEW": false,
   "HTML5": false,
   "HUAWEI": false,
   "IOS": false,
@@ -476,11 +471,6 @@ exports[`generateCCEnv 1`] = `
 	 */
 	export const NET_MODE: number;
 
-	/**
-	 * Whether preview in editor.
-	 */
-	export const EDITOR_PREVIEW: boolean;
-
 }
 "
 `;
@@ -682,11 +672,6 @@ exports[`generateInternalConstants 1`] = `
 	 * 2: The platform may support WASM, especially on Web platform
 	 */
 	export const WASM_SUPPORT_MODE: number;
-
-	/**
-	 * Whether preview in editor.
-	 */
-	export const EDITOR_PREVIEW: boolean;
 
 }
 "
