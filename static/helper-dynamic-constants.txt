@@ -10,3 +10,4 @@ export const JSB = tryDefineGlobal('CC_JSB', defined('jsb'));
 export const NATIVE = JSB;
 export const HTML5 = !(EDITOR && NATIVE);
 export const DEV = tryDefineGlobal('CC_DEV', true);
+export const EDITOR_PREVIEW = EDITOR && (typeof window === 'undefined' ? global : window).isPreviewProcess;
