@@ -360,6 +360,13 @@
             "type": "number",
             "value": "$HTML5 ? 2 : ($NATIVE ? ($OPEN_HARMONY?0:1): ($MINIGAME? ($WECHAT?1:0) :0))",
             "internal": true
+        },
+        "EDITOR_PREVIEW": {
+            "comment": "Whether preview in editor.",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": true
         }
     },
 
