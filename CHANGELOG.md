@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 9406d42: add EDITOR_PREVIEW dynamic constant
+- 9406d42: add EDITOR_NOT_IN_PREVIEW dynamic constant
 
 ## 1.1.2
 
