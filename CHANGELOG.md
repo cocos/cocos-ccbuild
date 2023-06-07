@@ -1,5 +1,12 @@
 # @cocos/ccbuild
 
+## 1.1.4
+
+### Patch Changes
+
+- 2aa2d7f: add EDITOR_NOT_IN_PREVIEW dynamic constant
+- 8001c61: Revert "patch: add EDITOR_PREVIEW dynamic constant (#7)"
+
 ## 1.1.3
 
 ### Patch Changes
