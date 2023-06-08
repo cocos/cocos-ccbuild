@@ -83,7 +83,7 @@ tryDefineGlobal('CC_BUILD', true);
 export const DEBUG = true;
 tryDefineGlobal('CC_DEBUG', true);
 
-export const SERVER_MODE = false;
+export const SERVER_MODE = true;
 
 export const MINIGAME = true;
 tryDefineGlobal('CC_MINIGAME', true);
@@ -101,6 +101,8 @@ export const NET_MODE = 0;
 export const WEBGPU = false;
 
 export const WASM_SUPPORT_MODE = 1;
+
+export const FORCE_BANNING_BULLET_WASM = true;
 
 "
 `;
@@ -214,6 +216,8 @@ export const WASM_SUPPORT_MODE = 1;
 
 export const EDITOR_NOT_IN_PREVIEW = false;
 
+export const FORCE_BANNING_BULLET_WASM = true;
+
 "
 `;
 
@@ -229,6 +233,7 @@ exports[`genBuildTimeConstants 1`] = `
   "DEV": true,
   "EDITOR": false,
   "EDITOR_NOT_IN_PREVIEW": false,
+  "FORCE_BANNING_BULLET_WASM": true,
   "HTML5": false,
   "HUAWEI": false,
   "IOS": false,
@@ -687,6 +692,11 @@ exports[`generateInternalConstants 1`] = `
 	 * Run in editor but not in editor preview.
 	 */
 	export const EDITOR_NOT_IN_PREVIEW: boolean;
+
+	/**
+	 * Whether force banning using bullet wasm and use asmjs instead.
+	 */
+	export const FORCE_BANNING_BULLET_WASM: boolean;
 
 }
 "

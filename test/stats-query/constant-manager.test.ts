@@ -16,7 +16,7 @@ test("genCCEnvConstants", () => {
     expect(cm.genCCEnvConstants({
         mode: "TEST",
         platform: "NATIVE",
-        flags: { DEBUG: false, SERVER_MODE: true },
+        flags: { DEBUG: false, SERVER_MODE: true, FORCE_BANNING_BULLET_WASM: true },
       })).toMatchSnapshot();
 });
 
@@ -25,7 +25,7 @@ test("exportStaticConstants", () => {
     cm.exportStaticConstants({
       mode: "PREVIEW",
       platform: "WECHAT",
-      flags: { DEBUG: false, SERVER_MODE: true },
+      flags: { DEBUG: false, SERVER_MODE: true, FORCE_BANNING_BULLET_WASM: true },
     })
   ).toMatchSnapshot();
 });
@@ -35,7 +35,7 @@ test("exportDynamicConstants", () => {
     cm.exportDynamicConstants({
       mode: "BUILD",
       platform: "WECHAT",
-      flags: { DEBUG: true },
+      flags: { DEBUG: true, SERVER_MODE: true, FORCE_BANNING_BULLET_WASM: true },
     })
   ).toMatchSnapshot();
 });
@@ -44,7 +44,7 @@ test("genBuildTimeConstants", () => {
   const result = cm.genBuildTimeConstants({
     mode: "TEST",
     platform: "NATIVE",
-    flags: { DEBUG: false, SERVER_MODE: true },
+    flags: { DEBUG: false, SERVER_MODE: true, FORCE_BANNING_BULLET_WASM: true },
   });
   expect(result).toMatchSnapshot();
 });
