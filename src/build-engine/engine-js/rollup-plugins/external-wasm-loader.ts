@@ -11,7 +11,7 @@ function normalizePath (path: string) {
 /**
  * This plugin enable to load script or wasm with url based on 'external://' origin.
  */
-export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
+export function externalWasmLoader (options: externalWasmLoader.Options): rollup.Plugin {
     return {
         name: '@cocos/ccbuild|external-loader',
 
@@ -26,7 +26,8 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
             if (id.startsWith(externalOrigin)) {
                 let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
                 if (filePath.endsWith('.wasm')) {
-                    if (options.supportWasm) {
+                    if (options.supportWasm
+                        && !(options.forceBanningBulletWasm && filePath.includes('bullet'))) {
                         const referenceId = this.emitFile({
                             type: 'asset',
                             name: ps.basename(filePath),
@@ -66,7 +67,7 @@ export function externalWasmLoader (options: assetRef.Options): rollup.Plugin {
     };
 }
 
-export declare namespace assetRef {
+export declare namespace externalWasmLoader {
     export interface Options {
         /**
          * the root path of external repository
@@ -76,6 +77,10 @@ export declare namespace assetRef {
          * whether support wasm, if false, the plugin won't emit the wasm asset to reduce engine package size.
          */
         supportWasm: boolean;
+        /**
+         * whether force banning to emit bullet wasm.
+         */
+        forceBanningBulletWasm: boolean;
         format?: Format;
     }
 

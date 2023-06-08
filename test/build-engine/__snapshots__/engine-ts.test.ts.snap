@@ -71,7 +71,8 @@ export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
 export const WEBGPU = false;
 export let WASM_SUPPORT_MODE = 0;
-export const EDITOR_NOT_IN_PREVIEW = false;",
+export const EDITOR_NOT_IN_PREVIEW = false;
+export const FORCE_BANNING_BULLET_WASM = false;",
   },
   "exports/wasm-test.ts": {
     "code": "export * from '../wasm';",
@@ -8576,7 +8577,8 @@ export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
 export const WEBGPU = false;
 export let WASM_SUPPORT_MODE = 0;
-export const EDITOR_NOT_IN_PREVIEW = false;",
+export const EDITOR_NOT_IN_PREVIEW = false;
+export const FORCE_BANNING_BULLET_WASM = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {

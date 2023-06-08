@@ -200,4 +200,9 @@ declare module 'internal:constants'{
      */
     export const WASM_SUPPORT_MODE: number;
 
+    /**
+     * Whether force banning using bullet wasm and use asmjs instead.
+     */
+    export const FORCE_BANNING_BULLET_WASM: boolean;
+
 }

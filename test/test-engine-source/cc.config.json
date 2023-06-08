@@ -10,6 +10,9 @@
         },
         "wasm-test": {
             "modules": ["wasm-test"]
+        },
+        "internal-constants": {
+            "modules": ["internal-constants"]
         }
     },
     "moduleOverrides": [{
@@ -367,6 +370,12 @@
             "value": false,
             "internal": false,
             "dynamic": true
+        },
+        "FORCE_BANNING_BULLET_WASM": {
+            "comment": "Whether force banning using bullet wasm and use asmjs instead.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
         }
     },
 

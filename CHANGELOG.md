@@ -1,5 +1,17 @@
 # @cocos/ccbuild
 
+## 1.1.6
+
+### Patch Changes
+
+- fix bullet wasm emit
+
+## 1.1.5
+
+### Patch Changes
+
+- caffe4d: add FORCE_BANNING_BULLET_WASM constant, controlled by ammoJsWasm option
+
 ## 1.1.4
 
 ### Patch Changes

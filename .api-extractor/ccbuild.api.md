@@ -30,6 +30,7 @@ export namespace buildEngine {
     export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
     // (undocumented)
     export interface Options {
+        // @deprecated
         ammoJsWasm?: boolean | 'fallback';
         assetURLFormat?: 'relative-from-out' | 'relative-from-chunk' | 'runtime-resolved';
         compress?: boolean;
