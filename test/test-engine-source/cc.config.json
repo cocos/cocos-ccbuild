@@ -10,6 +10,9 @@
         },
         "wasm-test": {
             "modules": ["wasm-test"]
+        },
+        "internal-constants": {
+            "modules": ["internal-constants"]
         }
     },
     "moduleOverrides": [{

@@ -49,13 +49,6 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
 
     const rollupFormat = options.moduleFormat ?? 'iife';
 
-    let { ammoJsWasm } = options;
-    if (ammoJsWasm === 'fallback'
-        && rollupFormat !== 'system') {
-        console.warn('--ammojs-wasm=fallback is only available under SystemJS target.');
-        ammoJsWasm = false;
-    }
-
     const statsQuery = await StatsQuery.create(engineRoot);
 
     if (options.features) {
@@ -81,7 +74,12 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
         }
     }
 
+
+    let { ammoJsWasm } = options;
+    ammoJsWasm ??= true;  // default is true
+    const forceBanningBulletWasm = !ammoJsWasm;
     const flags = options.flags ?? {};
+    flags.FORCE_BANNING_BULLET_WASM = forceBanningBulletWasm;
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,

@@ -99,7 +99,12 @@ export namespace buildEngine {
          * - 为 `'fallback` 时同时在结果中包含两个版本的 ammo.js，并自动根据环境 fallback 选择。
          *
          * 注意，`'fallback'` 只有在 SystemJS 和 Async functions 同时支持时才有效。
-         * @default false
+         * @default true
+         * 
+         * @deprecated 从 1.1.5 版本开始，该选项只会影响 FORCE_BANNING_BULLET_WASM 宏的值
+         * - 为 `true` 时，FORCE_BANNING_BULLET_WASM 为 false
+         * - 为 `false` 时，FORCE_BANNING_BULLET_WASM 为 true
+         * - 为 `'fallback'` 时, FORCE_BANNING_BULLET_WASM 为 false
          */
         ammoJsWasm?: boolean | 'fallback';
 

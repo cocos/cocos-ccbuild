@@ -41,4 +41,68 @@ describe('engine-js', () => {
         expect(outputScripts).toMatchSnapshot();
         await del(out, { force: true });
     });
+
+    test('build width option ammoJsWasm true', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildJsEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['internal-constants'],
+            moduleFormat: 'esm',
+            ammoJsWasm: true,
+        });
+        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
+        expect(cc).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+
+    test('build width option ammoJsWasm false', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildJsEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['internal-constants'],
+            moduleFormat: 'esm',
+            ammoJsWasm: false,
+        });
+        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
+        expect(cc).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('build width option ammoJsWasm fallback', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildJsEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['internal-constants'],
+            moduleFormat: 'esm',
+            ammoJsWasm: 'fallback',
+        });
+        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
+        expect(cc).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('build without option ammoJsWasm', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildJsEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['internal-constants'],
+            moduleFormat: 'esm',
+        });
+        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
+        expect(cc).toMatchSnapshot();
+        await del(out, { force: true });
+    });
 });
