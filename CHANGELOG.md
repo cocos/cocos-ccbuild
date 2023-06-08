@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.6
+
+### Patch Changes
+
+- fix bullet wasm emit
+
 ## 1.1.5
 
 ### Patch Changes
