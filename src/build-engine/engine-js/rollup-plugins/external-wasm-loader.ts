@@ -78,7 +78,7 @@ export declare namespace externalWasmLoader {
          */
         supportWasm: boolean;
         /**
-         * whether force emitting bullet wasm.
+         * whether force banning to emit bullet wasm.
          */
         forceBanningBulletWasm: boolean;
         format?: Format;
