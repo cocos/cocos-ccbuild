@@ -24,13 +24,13 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
             // we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
             return buildTsEngine(options);
         } else {
-            return buildJsEngine(options);
+            return buildJsEngine(options as Required<buildEngine.Options>);
         }
     } else {
         if (options.preserveType) {
             console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
         }
-        return buildJsEngine(options);
+        return buildJsEngine(options as Required<buildEngine.Options>);
     }
 }
 

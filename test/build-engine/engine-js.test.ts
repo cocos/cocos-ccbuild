@@ -1,4 +1,4 @@
-import { buildJsEngine } from '../../src/build-engine/engine-js';
+import { buildEngine } from '../../src/build-engine';
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 import del from 'del';
@@ -7,10 +7,21 @@ import { formatPath } from '../../src/utils';
 
 jest.setTimeout(10000);
 
+async function getOutputDirStructure (out: string): Promise<string[]> {
+    let outputScripts: string[] = [];
+    await readdirR(out, outputScripts);
+    return outputScripts.map(item => formatPath(ps.relative(out, item)));
+}
+
+async function getOutputContent (out: string): Promise<string> {
+    const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
+    return cc;
+}
+
 describe('engine-js', () => {
     test('build WASM module on platform supporting WASM', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -18,16 +29,30 @@ describe('engine-js', () => {
             features: ['wasm-test'],
             moduleFormat: 'system',
         });
-        let outputScripts: string[] = [];
-        await readdirR(out, outputScripts);
-        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
-        expect(outputScripts).toMatchSnapshot();
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
+        await del(out, { force: true });
+
+        // cull asm.js module
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            flags: {
+                CULL_ASM_JS_MODULE: true,
+            }
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
+        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
 
     test('build WASM module on platform maybe supporting WASM', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -35,17 +60,30 @@ describe('engine-js', () => {
             features: ['wasm-test'],
             moduleFormat: 'system',
         });
-        let outputScripts: string[] = [];
-        await readdirR(out, outputScripts);
-        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
-        expect(outputScripts).toMatchSnapshot();
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
+        await del(out, { force: true });
+        
+        // cull asm.js module
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'HTML5',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            flags: {
+                CULL_ASM_JS_MODULE: true,
+            }
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
+        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
-
     
     test('build WASM module on platform not supporting WASM', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -53,16 +91,30 @@ describe('engine-js', () => {
             features: ['wasm-test'],
             moduleFormat: 'system',
         });
-        let outputScripts: string[] = [];
-        await readdirR(out, outputScripts);
-        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
-        expect(outputScripts).toMatchSnapshot();
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
+        await del(out, { force: true });
+
+        // cull asm.js module
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            flags: {
+                CULL_ASM_JS_MODULE: true,
+            }
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
+        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
 
     test('build width option ammoJsWasm true', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -71,15 +123,14 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: true,
         });
-        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
-        expect(cc).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
 
 
     test('build width option ammoJsWasm false', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -88,14 +139,13 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: false,
         });
-        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
-        expect(cc).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
 
     test('build width option ammoJsWasm fallback', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -104,14 +154,13 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: 'fallback',
         });
-        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
-        expect(cc).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
 
     test('build without option ammoJsWasm', async () => {
         const out = ps.join(__dirname, './lib-js');
-        await buildJsEngine({
+        await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -119,8 +168,7 @@ describe('engine-js', () => {
             features: ['internal-constants'],
             moduleFormat: 'esm',
         });
-        const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
-        expect(cc).toMatchSnapshot();
+        expect(await getOutputContent(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
 });

@@ -52,6 +52,10 @@ function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: st
     return options.forceBanningBulletWasm && id.includes('bullet');
 }
 
+function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string) {
+    return options.wasmSupportMode !== 0 && options.cullAsmJsModule;
+}
+
 const loadConfig: ILoadConfig = {
     '.wasm': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
@@ -64,7 +68,7 @@ const loadConfig: ILoadConfig = {
     },
     '.js.mem': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 1;
+            return options.wasmSupportMode === 1 || shouldCullAsmJsModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -82,7 +86,7 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 1;
+            return options.wasmSupportMode === 1 || shouldCullAsmJsModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -164,6 +168,10 @@ export declare namespace externalWasmLoader {
          * Whether force banning to emit bullet wasm.
          */
         forceBanningBulletWasm: boolean;
+        /**
+         * Whether cull asm js module.
+         */
+        cullAsmJsModule: boolean;
         format?: Format;
     }
 
