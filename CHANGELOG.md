@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.8
+
+### Patch Changes
+
+- eb0ede7: fix: change .mem suffix to .bin
+
 ## 1.1.7
 
 ### Patch Changes
