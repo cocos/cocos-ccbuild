@@ -13,3 +13,7 @@ export function isThenable (value: any) {
     // https://stackoverflow.com/a/53955664/10602525
     return Boolean(value && typeof value.then === 'function');
 }
+
+export function formatPath (path: string) {
+    return path.replace(/\\/g, '/');
+}
