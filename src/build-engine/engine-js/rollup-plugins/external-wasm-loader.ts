@@ -9,6 +9,83 @@ function normalizePath (path: string) {
 }
 
 /**
+ * emit asset and return the export statement
+ */
+async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
+    const referenceId = context.emitFile({
+        type: 'asset',
+        name: ps.basename(filePath),
+        // fileName: path,
+        source: await fs.readFile(filePath),
+    });
+
+    return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
+}
+
+interface ILoadConfig {
+    /**
+     * The suffix of module specifier, we use the module suffix to determine whether the module is an asm or a wasm module.
+     */
+    [suffix: string]: {
+        /**
+         * Whether we should cull the module, this is useful when we need to take control of the package size.
+         */
+        shouldCullModule: (options: externalWasmLoader.Options, id: string) => boolean;
+        /**
+         * Whether we should emit the asset, this is useful when we compile module with suffix of '.wasm' or '.js.mem'.
+         */
+        shouldEmitAsset: (options: externalWasmLoader.Options, id: string) => boolean;
+        /**
+         * The module content to load when we the `shouldCullModule()` method returns true.
+         */
+        cullingContent: string;
+    }
+}
+
+function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string) {
+    return options.forceBanningBulletWasm && id.includes('bullet');
+}
+
+const loadConfig: ILoadConfig = {
+    '.wasm': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id);
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return !this.shouldCullModule(options, id);
+        },
+        cullingContent: `export default '';`,
+    },
+    '.js.mem': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return options.wasmSupportMode === 1;
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return !this.shouldCullModule(options, id);
+        },
+        cullingContent: `export default '';`,
+    },
+    '.wasm.js': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id);
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return false;
+        },
+        cullingContent: `export default function () {}`,
+    },
+    '.asm.js': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return options.wasmSupportMode === 1;
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return false;
+        },
+        cullingContent: `export default function () {}`,
+    },
+}
+
+/**
  * This plugin enable to load script or wasm with url based on 'external://' origin.
  */
 export function externalWasmLoader (options: externalWasmLoader.Options): rollup.Plugin {
@@ -25,23 +102,20 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
         async load (id) {
             if (id.startsWith(externalOrigin)) {
                 let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
-                if (filePath.endsWith('.wasm')) {
-                    if (options.supportWasm
-                        && !(options.forceBanningBulletWasm && filePath.includes('bullet'))) {
-                        const referenceId = this.emitFile({
-                            type: 'asset',
-                            name: ps.basename(filePath),
-                            // fileName: path,
-                            source: await fs.readFile(filePath),
-                        });
-
-                        return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
-                    } else {
-                        return `export default '';`;
+                for (const suffix in loadConfig) {
+                    if (filePath.endsWith(suffix)) {
+                        const config = loadConfig[suffix];
+                        if (config.shouldCullModule(options, id)) {
+                            return config.cullingContent;
+                        } else if (config.shouldEmitAsset(options, id)) {
+                            return emitAsset(this, filePath);
+                        } else {
+                            return await fs.readFile(filePath, 'utf8');
+                        }
                     }
-                } else {
-                    return await fs.readFile(filePath, 'utf8');
                 }
+                // some external module that doesn't obey the suffix specification, we return its content by default.
+                return await fs.readFile(filePath, 'utf8');
             }
             return null;
         },
@@ -70,15 +144,18 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
 export declare namespace externalWasmLoader {
     export interface Options {
         /**
-         * the root path of external repository
+         * The root path of external repository
          */
         externalRoot: string,
         /**
-         * whether support wasm, if false, the plugin won't emit the wasm asset to reduce engine package size.
+         * The wasm support mode:
+         * 0. not support
+         * 1. support
+         * 2. maybe support
          */
-        supportWasm: boolean;
+        wasmSupportMode: number;
         /**
-         * whether force banning to emit bullet wasm.
+         * Whether force banning to emit bullet wasm.
          */
         forceBanningBulletWasm: boolean;
         format?: Format;
