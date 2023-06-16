@@ -3,9 +3,15 @@ declare module 'external:*.wasm' {
     export default wasmPath;
 }
 
+declare module 'external:*.js.mem' {
+    const jsMemPath: string;
+    export default jsMemPath;
+}
+
 declare module 'external:wasm/emscripten/wasm_c.*js' {
     function factory (options?: {
-        locateFile (wasmPath: string, scriptDirectory?: string): string;
+        locateFile? (wasmPath: string, scriptDirectory?: string): string;
+        memoryInitializerRequest?: Partial<XMLHttpRequest>;
     }): Promise<any>;
 
     export default factory; 

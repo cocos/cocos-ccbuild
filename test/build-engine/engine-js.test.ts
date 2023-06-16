@@ -3,11 +3,29 @@ import * as ps from 'path';
 import * as fs from 'fs-extra';
 import del from 'del';
 import { readdirR } from './utils';
+import { formatPath } from '../../src/utils';
 
 jest.setTimeout(10000);
 
 describe('engine-js', () => {
     test('build WASM module on platform supporting WASM', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildJsEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+        });
+        let outputScripts: string[] = [];
+        await readdirR(out, outputScripts);
+        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
+        expect(outputScripts).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('build WASM module on platform maybe supporting WASM', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildJsEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
@@ -19,7 +37,7 @@ describe('engine-js', () => {
         });
         let outputScripts: string[] = [];
         await readdirR(out, outputScripts);
-        outputScripts = outputScripts.map(item => ps.relative(out, item));
+        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
         expect(outputScripts).toMatchSnapshot();
         await del(out, { force: true });
     });
@@ -37,7 +55,7 @@ describe('engine-js', () => {
         });
         let outputScripts: string[] = [];
         await readdirR(out, outputScripts);
-        outputScripts = outputScripts.map(item => ps.relative(out, item));
+        outputScripts = outputScripts.map(item => formatPath(ps.relative(out, item)));
         expect(outputScripts).toMatchSnapshot();
         await del(out, { force: true });
     });

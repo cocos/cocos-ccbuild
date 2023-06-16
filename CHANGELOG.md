@@ -1,5 +1,18 @@
 # @cocos/ccbuild
 
+## 1.1.8
+
+### Patch Changes
+
+- eb0ede7: fix: change .mem suffix to .bin
+
+## 1.1.7
+
+### Patch Changes
+
+- 32d1541: feat: support loading '.js.mem' module
+- 345fc75: fix: downgrade "typescript" version
+
 ## 1.1.6
 
 ### Patch Changes

@@ -229,7 +229,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
     rollupPlugins.push(
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
-            supportWasm: buildTimeConstants.WASM_SUPPORT_MODE !== 0,
+            wasmSupportMode: buildTimeConstants.WASM_SUPPORT_MODE,
             forceBanningBulletWasm,
             format: 'relative-from-chunk',
         }),

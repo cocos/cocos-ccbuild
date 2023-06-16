@@ -1,8 +1,9 @@
 import { WASM_SUPPORT_MODE } from 'internal:constants';
 import { isSupportWASM } from './is-support-wasm';
 import wasmUrl from 'external:wasm/emscripten/wasm_c.wasm';
-import wasmFactory from 'external:wasm/emscripten/wasm_c.js';
+import wasmFactory from 'external:wasm/emscripten/wasm_c.wasm.js';
 import asmFactory from 'external:wasm/emscripten/wasm_c.asm.js';
+import asmJsMemUrl from 'external:wasm/emscripten/wasm_c.js.mem';
 
 
 function initializeWasm (): Promise<any> {
@@ -19,7 +20,12 @@ function initializeWasm (): Promise<any> {
 
 function initializeAsm (): Promise<any> {
     return new Promise((resolve, reject) => {
-        asmFactory().then(inst => {
+        asmFactory({
+            memoryInitializerRequest: {
+                response: asmJsMemUrl,  // this should be fs.readFileSync(asmJsMemUrl)
+                status: 200,
+            } as Partial<XMLHttpRequest>
+        }).then(inst => {
             resolve(inst);
         }).catch(reject);
     });
