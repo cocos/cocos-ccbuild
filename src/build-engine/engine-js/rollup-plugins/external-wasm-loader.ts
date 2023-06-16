@@ -12,9 +12,15 @@ function normalizePath (path: string) {
  * emit asset and return the export statement
  */
 async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
+    let basename = ps.basename(filePath)
+    const suffixToReplace = '.mem';
+    if (basename.endsWith(suffixToReplace)) {
+        // some platforms doesn't support '.mem' files, we replace it to '.bin'
+        basename = basename.slice(0, -suffixToReplace.length) + '.bin';
+    }
     const referenceId = context.emitFile({
         type: 'asset',
-        name: ps.basename(filePath),
+        name: basename,
         // fileName: path,
         source: await fs.readFile(filePath),
     });
