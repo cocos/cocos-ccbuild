@@ -207,6 +207,8 @@ export namespace StatsQuery {
         // (undocumented)
         export interface IInternalFlagConfig {
             // (undocumented)
+            FORCE_BANNING_BULLET_WASM: boolean;
+            // (undocumented)
             NOT_PACK_PHYSX_LIBS: boolean;
             // (undocumented)
             SERVER_MODE: boolean;
