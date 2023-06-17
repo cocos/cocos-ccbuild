@@ -1833,6 +1833,31 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
 "
 `;
 
+exports[`engine-js build WASM module on platform not supporting WASM: build result 1`] = `
+{
+  "assetDepGraph": {
+    "cc.js": [
+      "assets/wasm_c.js-1642e984.bin",
+    ],
+  },
+  "chunkAliases": {},
+  "chunkDepGraph": {
+    "cc.js": [
+      "module",
+    ],
+  },
+  "dependencyGraph": {
+    "cc.js": [
+      "module",
+    ],
+  },
+  "exports": {
+    "cc": "cc.js",
+  },
+  "hasCriticalWarns": false,
+}
+`;
+
 exports[`engine-js build WASM module on platform not supporting WASM: cull asm.js module 1`] = `
 [
   "assets/wasm_c.js-1642e984.bin",

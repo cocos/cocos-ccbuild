@@ -96,7 +96,7 @@ describe('engine-js', () => {
         await del(out, { force: true });
 
         // cull asm.js module
-        await buildEngine({
+        const buildResult = await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
@@ -110,6 +110,9 @@ describe('engine-js', () => {
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
         // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
+
+        
+        expect(buildResult).toMatchSnapshot('build result');
     });
 
     test('build width option ammoJsWasm true', async () => {
