@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.11
+
+### Patch Changes
+
+- 58a3a35: feat: support buildEngine.enumerateAllDependents()
+
 ## 1.1.10
 
 ### Patch Changes
