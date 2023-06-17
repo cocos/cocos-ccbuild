@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.9
+
+### Patch Changes
+
+- f7fe86e: feat: support constant CULL_ASM_JS_MODULE
+
 ## 1.1.8
 
 ### Patch Changes
