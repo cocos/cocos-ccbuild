@@ -68,7 +68,7 @@ const loadConfig: ILoadConfig = {
     },
     '.js.mem': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 1 || shouldCullAsmJsModule(options, id);
+            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -86,7 +86,7 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 1 || shouldCullAsmJsModule(options, id);
+            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
