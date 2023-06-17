@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.10
+
+### Patch Changes
+
+- e3c3221: fix: culling bullet wasm on wechat platform
+
 ## 1.1.9
 
 ### Patch Changes
