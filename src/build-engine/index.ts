@@ -24,13 +24,13 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
             // we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
             return buildTsEngine(options);
         } else {
-            return buildJsEngine(options);
+            return buildJsEngine(options as Required<buildEngine.Options>);
         }
     } else {
         if (options.preserveType) {
             console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
         }
-        return buildJsEngine(options);
+        return buildJsEngine(options as Required<buildEngine.Options>);
     }
 }
 
@@ -188,7 +188,16 @@ export namespace buildEngine {
          */
         chunkAliases: Record<string, string>;
 
+        /**
+         * The dependency graph, only including dependency chunks.
+         * 
+         * @deprecated please use `chunkDepGraph` instead.
+         */
         dependencyGraph?: Record<string, string[]>;
+        
+        chunkDepGraph: Record<string, string[]>;
+
+        assetDepGraph: Record<string, string[]>;
 
         hasCriticalWarns: boolean;
     }
@@ -242,12 +251,7 @@ export namespace buildEngine {
         return false;
     }
 
-    /**
-     * Enumerates all chunk files that used by specified feature units.
-     * @param meta Metadata of build result.
-     * @param featureUnits Feature units.
-     */
-    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
+    function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
         const result: string[] = [];
         const visited = new Set<string>();
         const addChunk = (chunkFileName: string) => {
@@ -256,14 +260,14 @@ export namespace buildEngine {
             }
             visited.add(chunkFileName);
             result.push(chunkFileName);
-            if (meta.dependencyGraph && chunkFileName in meta.dependencyGraph) {
-                for (const dependencyChunk of meta.dependencyGraph[chunkFileName]) {
+            if (metaDepGraph && chunkFileName in metaDepGraph) {
+                for (const dependencyChunk of metaDepGraph[chunkFileName]) {
                     addChunk(dependencyChunk);
                 }
             }
         };
         for (const featureUnit of featureUnits) {
-            const chunkFileName = meta.exports[featureUnit];
+            const chunkFileName = metaExports[featureUnit];
             if (!chunkFileName) {
                 console.error(`Feature unit ${featureUnit} is not in build result!`);
                 continue;
@@ -271,5 +275,27 @@ export namespace buildEngine {
             addChunk(chunkFileName);
         }
         return result;
+    }
+
+    /**
+     * Enumerates all chunk files that used by specified feature units.
+     * @param meta Metadata of build result.
+     * @param featureUnits Feature units.
+     * 
+     * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
+     */
+    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
+        return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
+    }
+
+    /**
+     * Enumerates all chunk files and asset files that used by specified feature units.
+     * @param meta Metadata of build result.
+     * @param featureUnits Feature units.
+     */
+    export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]) {
+        const dependentChunks = enumerateDependentChunks(meta, featureUnits);
+        const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
+        return dependentAssets.concat(dependentChunks);
     }
 }

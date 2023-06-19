@@ -104,6 +104,8 @@ export const WASM_SUPPORT_MODE = 1;
 
 export const FORCE_BANNING_BULLET_WASM = true;
 
+export const CULL_ASM_JS_MODULE = true;
+
 "
 `;
 
@@ -218,6 +220,8 @@ export const EDITOR_NOT_IN_PREVIEW = false;
 
 export const FORCE_BANNING_BULLET_WASM = true;
 
+export const CULL_ASM_JS_MODULE = false;
+
 "
 `;
 
@@ -229,6 +233,7 @@ exports[`genBuildTimeConstants 1`] = `
   "BUILD": false,
   "BYTEDANCE": false,
   "COCOSPLAY": false,
+  "CULL_ASM_JS_MODULE": true,
   "DEBUG": false,
   "DEV": true,
   "EDITOR": false,
@@ -697,6 +702,12 @@ exports[`generateInternalConstants 1`] = `
 	 * Whether force banning using bullet wasm and use asmjs instead.
 	 */
 	export const FORCE_BANNING_BULLET_WASM: boolean;
+
+	/**
+	 * Whether cull the asm js module
+	 * The external modules ending with '.asm.js'. or '.js.mem' is culled if this constant is true.
+	 */
+	export const CULL_ASM_JS_MODULE: boolean;
 
 }
 "

@@ -17,5 +17,7 @@ export async function buildTsEngine (options: buildEngine.Options): Promise<buil
         exports: {},
         chunkAliases: { cc: './system-cc.js' },
         hasCriticalWarns: false,
+        chunkDepGraph: {},
+        assetDepGraph: {},
     };
 }

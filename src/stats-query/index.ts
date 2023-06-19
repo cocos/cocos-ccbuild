@@ -300,6 +300,13 @@ export namespace StatsQuery {
             WEBGPU: boolean;
             WASM_SUPPORT_MODE: number;
             FORCE_BANNING_BULLET_WASM: boolean;
+            /**
+             * Whether cull the asm.js module.
+             * If this is true, the external modules ending with '.asm.js' or 'js.mem' will be culled.
+             * 
+             * @default false
+             */
+            CULL_ASM_JS_MODULE: boolean;
         }
         
         export interface IPublicFlagConfig {

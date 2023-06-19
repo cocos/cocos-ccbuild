@@ -43,7 +43,7 @@ function makePathEqualityKey(path: string) {
     return process.platform === 'win32' ? path.toLocaleLowerCase() : path;
 }
 
-export async function buildJsEngine(options: buildEngine.Options): Promise<buildEngine.Result> {
+export async function buildJsEngine(options: Required<buildEngine.Options>): Promise<buildEngine.Result> {
     const doUglify = !!options.compress;
     const engineRoot = ps.resolve(options.engine);
 
@@ -231,6 +231,7 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
             externalRoot: ps.join(engineRoot, 'native/external'),
             wasmSupportMode: buildTimeConstants.WASM_SUPPORT_MODE,
             forceBanningBulletWasm,
+            cullAsmJsModule: buildTimeConstants.CULL_ASM_JS_MODULE,
             format: 'relative-from-chunk',
         }),
 
@@ -394,6 +395,8 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
     const result: buildEngine.Result = {
         chunkAliases: {},
         exports: {},
+        chunkDepGraph: {},
+        assetDepGraph: {},
         hasCriticalWarns: false,
     };
 
@@ -426,25 +429,14 @@ export async function buildJsEngine(options: buildEngine.Options): Promise<build
     result.dependencyGraph = {};
     for (const output of rollupOutput.output) {
         if (output.type === 'chunk') {
-            result.dependencyGraph[output.fileName] = output.imports.concat(output.dynamicImports);
+            const depList = output.imports.concat(output.dynamicImports);
+            result.dependencyGraph[output.fileName] = depList;
+            result.chunkDepGraph[output.fileName] = depList;
+            result.assetDepGraph[output.fileName] = output.referencedFiles.slice();
         }
     }
 
     result.hasCriticalWarns = hasCriticalWarns;
 
     return result;
-
-    async function nodeResolveAsync(specifier: string) {
-        return new Promise<string>((r, reject) => {
-            nodeResolve(specifier, {
-                basedir: engineRoot,
-            }, (err, resolved, pkg) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    r(resolved as string);
-                }
-            });
-        });
-    }
 }
