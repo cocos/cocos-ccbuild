@@ -307,6 +307,14 @@ export namespace StatsQuery {
              * @default false
              */
             CULL_ASM_JS_MODULE: boolean;
+            /**
+             * An internal constant to indicate whether need a fallback of wasm.
+             * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
+             * This is useful when we use wasm on different version of Safari browsers.
+             * 
+             * @default false
+             */
+            WASM_FALLBACK: boolean;
         }
         
         export interface IPublicFlagConfig {

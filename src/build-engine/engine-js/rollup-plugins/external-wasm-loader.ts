@@ -8,15 +8,26 @@ function normalizePath (path: string) {
     return path.replace(/\\/g, '/');
 }
 
+interface ISuffixReplaceConfig {
+    [suffix: string]: string;
+}
+
+const suffixReplaceConfig: ISuffixReplaceConfig = {
+    '.mem': '.mem.bin',
+    '.wasm.fallback': '.wasm.fallback.bin',
+};
+
 /**
  * emit asset and return the export statement
  */
 async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
     let basename = ps.basename(filePath)
-    const suffixToReplace = '.mem';
-    if (basename.endsWith(suffixToReplace)) {
-        // some platforms doesn't support '.mem' files, we replace it to '.bin'
-        basename = basename.slice(0, -suffixToReplace.length) + '.bin';
+    for (let suffixToReplace in suffixReplaceConfig) {
+        const replacement: string =  suffixReplaceConfig[suffixToReplace];
+        if (basename.endsWith(suffixToReplace)) {
+            // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
+            basename = basename.slice(0, -suffixToReplace.length) + replacement;
+        }
     }
     const referenceId = context.emitFile({
         type: 'asset',
@@ -87,6 +98,24 @@ const loadConfig: ILoadConfig = {
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
             return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id);
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return false;
+        },
+        cullingContent: `export default function () {}`,
+    },
+    '.wasm.fallback': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return loadConfig['.wasm'].shouldCullModule(options, id) || !options.wasmFallback;
+        },
+        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
+            return !this.shouldCullModule(options, id);
+        },
+        cullingContent: `export default '';`,
+    },
+    '.wasm.fallback.js': {
+        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
+            return loadConfig['.wasm.js'].shouldCullModule(options, id) || !options.wasmFallback;
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -164,6 +193,11 @@ export declare namespace externalWasmLoader {
          * 2. maybe support
          */
         wasmSupportMode: number;
+        /**
+         * Whether need a fallback of wasm.
+         * If true, we need to build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
+         */
+        wasmFallback: boolean;
         /**
          * Whether force banning to emit bullet wasm.
          */
