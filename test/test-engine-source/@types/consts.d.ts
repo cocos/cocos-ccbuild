@@ -205,4 +205,10 @@ declare module 'internal:constants'{
      */
     export const FORCE_BANNING_BULLET_WASM: boolean;
 
+    /**
+     * An internal constant to indicate whether need a fallback of wasm.
+     * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
+     * This is useful when we use wasm on different version of Safari browsers.
+     */
+    export const WASM_FALLBACK: boolean;
 }

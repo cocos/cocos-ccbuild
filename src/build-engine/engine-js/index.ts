@@ -233,6 +233,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             forceBanningBulletWasm,
             cullAsmJsModule: buildTimeConstants.CULL_ASM_JS_MODULE,
             format: 'relative-from-chunk',
+            wasmFallback: buildTimeConstants.WASM_FALLBACK,
         }),
 
         {

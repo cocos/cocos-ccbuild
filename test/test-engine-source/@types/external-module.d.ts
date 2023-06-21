@@ -8,6 +8,12 @@ declare module 'external:*.js.mem' {
     export default jsMemPath;
 }
 
+
+declare module 'external:*.wasm.fallback' {
+    const wasmFallbackPath: string;
+    export default wasmFallbackPath;
+}
+
 declare module 'external:wasm/emscripten/wasm_c.*js' {
     function factory (options?: {
         locateFile? (wasmPath: string, scriptDirectory?: string): string;

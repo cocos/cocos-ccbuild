@@ -73,7 +73,8 @@ export const WEBGPU = false;
 export let WASM_SUPPORT_MODE = 0;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const FORCE_BANNING_BULLET_WASM = false;
-export const CULL_ASM_JS_MODULE = false;",
+export const CULL_ASM_JS_MODULE = false;
+export const WASM_FALLBACK = false;",
   },
   "exports/wasm-test.ts": {
     "code": "export * from '../wasm';",
@@ -2075,7 +2076,7 @@ export default init;
     "code": "export default 'WebAssembly is not supported !'",
   },
   "wasm/emscripten.ts": {
-    "code": "import { WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
+    "code": "import { WASM_FALLBACK, WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
 import { isSupportWASM } from './is-support-wasm';
 import wasmUrl from "../native/external/wasm/emscripten/wasm_c.wasm";
 import wasmFactory from "../native/external/wasm/emscripten/wasm_c.wasm.js";
@@ -2083,6 +2084,22 @@ import asmFactory from "../native/external/wasm/emscripten/wasm_c.asm.js";
 import asmJsMemUrl from "../native/external/wasm/emscripten/wasm_c.js.mem";
 function initializeWasm(): Promise<any> {
   return new Promise((resolve, reject) => {
+    if (WASM_FALLBACK) {
+      Promise.all([window.__cc_module_context__.import('external:wasm/emscripten/wasm_c.wasm.fallback'), window.__cc_module_context__.import('external:wasm/emscripten/wasm_c.wasm.fallback.js')]).then(([{
+        default: wasmFallbackUrl
+      }, {
+        default: wasmFallbackFactory
+      }]) => {
+        return wasmFallbackFactory({
+          locateFile(_) {
+            return wasmFallbackUrl;
+          }
+        }).then(inst => {
+          resolve(inst);
+        }).catch(reject);
+      });
+      return;
+    }
     wasmFactory({
       locateFile(_) {
         return wasmUrl;
@@ -2260,7 +2277,8 @@ export const WEBGPU = false;
 export let WASM_SUPPORT_MODE = 0;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const FORCE_BANNING_BULLET_WASM = false;
-export const CULL_ASM_JS_MODULE = false;",
+export const CULL_ASM_JS_MODULE = false;
+export const WASM_FALLBACK = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
