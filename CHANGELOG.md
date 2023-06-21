@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.12
+
+### Patch Changes
+
+- 84a40ac: feat: support load wasm.fallback module && WASM_FALLBACK constant
+
 ## 1.1.11
 
 ### Patch Changes
