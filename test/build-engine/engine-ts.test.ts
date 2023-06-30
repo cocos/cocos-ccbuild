@@ -1,13 +1,13 @@
-import * as ccbuild from '../../src/build-engine/engine-ts/engine-builder'
+import * as ccbuild from '../../modules/build-engine/src/engine-ts/engine-builder';
 import * as ps from 'path';
-import { normalizePath } from '../../src/stats-query/path-utils';
 import del from 'del';
+import { formatPath } from '@ccbuild/utils';
 
 jest.setTimeout(10000);
 test('engine-ts', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
-    const root = normalizePath(ps.join(__dirname, '../test-engine-source'));
-    const out = normalizePath(ps.join(__dirname, './lib-ts'));
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
     const buildResult = await engineBuilder.build({
         root,
         features: ['audio', 'animation', 'dragon-bones'],
@@ -20,7 +20,7 @@ test('engine-ts', async () => {
     });
     const res: any = {};
     for (let [k, v] of Object.entries(buildResult)) {
-      const relativeFile = normalizePath(ps.relative(root, v.file));
+      const relativeFile = formatPath(ps.relative(root, v.file));
       res[relativeFile] = {
         code: v.code,
       };
@@ -32,8 +32,8 @@ test('engine-ts', async () => {
 describe('WASM', () => {
   test('build WASM', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
-    const root = normalizePath(ps.join(__dirname, '../test-engine-source'));
-    const out = normalizePath(ps.join(__dirname, './lib-ts'));
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
     const buildResult = await engineBuilder.build({
         root,
         features: ['wasm-test'],
@@ -46,7 +46,7 @@ describe('WASM', () => {
     });
     const res: any = {};
     for (let [k, v] of Object.entries(buildResult)) {
-      const relativeFile = normalizePath(ps.relative(root, v.file));
+      const relativeFile = formatPath(ps.relative(root, v.file));
       res[relativeFile] = {
         code: v.code,
       };

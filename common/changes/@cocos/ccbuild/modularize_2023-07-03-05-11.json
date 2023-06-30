@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "refactor: use uniform babel && rollup module",
+      "type": "major"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}

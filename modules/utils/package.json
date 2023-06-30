@@ -1,0 +1,34 @@
+{
+  "name": "@ccbuild/utils",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "./lib/**/*"
+  ],
+  "keywords": [],
+  "author": "PP",
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "dependencies": {
+    "fs-extra": "~11.1.1",
+    "path": "~0.12.7",
+    "commander": "~11.0.0"
+  },
+  "peerDependencies": {
+    "@ccbuild/modularize": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "~20.3.3"
+  }
+}
