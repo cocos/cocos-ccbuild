@@ -74,7 +74,8 @@ export let WASM_SUPPORT_MODE = 0;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const FORCE_BANNING_BULLET_WASM = false;
 export const CULL_ASM_JS_MODULE = false;
-export const WASM_FALLBACK = false;",
+export const WASM_FALLBACK = false;
+export const WASM_SUBPACKAGE = false;",
   },
   "exports/wasm-test.ts": {
     "code": "export * from '../wasm';",
@@ -2278,7 +2279,8 @@ export let WASM_SUPPORT_MODE = 0;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const FORCE_BANNING_BULLET_WASM = false;
 export const CULL_ASM_JS_MODULE = false;
-export const WASM_FALLBACK = false;",
+export const WASM_FALLBACK = false;
+export const WASM_SUBPACKAGE = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
