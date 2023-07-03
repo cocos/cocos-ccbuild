@@ -23,6 +23,8 @@ export function buildEngine(options: buildEngine.Options): Promise<buildEngine.R
 
 // @public (undocumented)
 export namespace buildEngine {
+    export function enumerateAllDependents(meta: buildEngine.Result, featureUnits: string[]): string[];
+    // @deprecated
     export function enumerateDependentChunks(meta: buildEngine.Result, featureUnits: string[]): string[];
     // (undocumented)
     export function isSourceChanged(incrementalFile: string): Promise<boolean>;
@@ -55,8 +57,12 @@ export namespace buildEngine {
     }
     // (undocumented)
     export interface Result {
+        // (undocumented)
+        assetDepGraph: Record<string, string[]>;
         chunkAliases: Record<string, string>;
         // (undocumented)
+        chunkDepGraph: Record<string, string[]>;
+        // @deprecated
         dependencyGraph?: Record<string, string[]>;
         exports: Record<string, string>;
         // (undocumented)
@@ -206,12 +212,15 @@ export namespace StatsQuery {
         }
         // (undocumented)
         export interface IInternalFlagConfig {
+            CULL_ASM_JS_MODULE: boolean;
             // (undocumented)
             FORCE_BANNING_BULLET_WASM: boolean;
             // (undocumented)
             NOT_PACK_PHYSX_LIBS: boolean;
             // (undocumented)
             SERVER_MODE: boolean;
+            WASM_FALLBACK: boolean;
+            WASM_SUBPACKAGE: boolean;
             // (undocumented)
             WASM_SUPPORT_MODE: number;
             // (undocumented)
