@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.13
+
+### Patch Changes
+
+- feat: support constant WASM_SUBPACKAGE
+
 ## 1.1.12
 
 ### Patch Changes
