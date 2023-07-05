@@ -2,6 +2,9 @@ import type * as rollup from 'rollup';
 import { URL, fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
+import * as babel from '@babel/core';
+// @ts-ignore
+import pluginTransformSystemJSModule from '@babel/plugin-transform-modules-systemjs';
 
 const externalOrigin = 'external:';
 function normalizePath (path: string) {
@@ -124,15 +127,116 @@ const loadConfig: ILoadConfig = {
     },
 }
 
+declare namespace ExternalWasmModuleBundler {
+    interface Options extends externalWasmLoader.Options {
+        externalWasmModules: string[];
+        outDir: string;
+    }
+}
+
+/**
+ * This is a module bundler for minigame subpacakge.
+ * We need an entry script called 'game.js' for each subpackage.
+ */
+class ExternalWasmModuleBundler {
+    private _options!: ExternalWasmModuleBundler.Options;
+    private _loadedChunkMap: Record<string, string> = {};  // id to code
+
+    constructor (options: ExternalWasmModuleBundler.Options) {
+        this._options = options;
+    }
+
+    private _resolveId (source: string): string {
+        let id = normalizePath(ps.join(this._options.externalRoot, source.substring(externalOrigin.length)));
+        return id;
+    }
+
+    private _load (id: string): string {
+        for (const suffix in loadConfig) {
+            if (id.endsWith(suffix)) {
+                const config = loadConfig[suffix];
+                if (config.shouldCullModule(this._options, id)) {
+                    return config.cullingContent;
+                } else if (config.shouldEmitAsset(this._options, id)) {
+                    return this._emitAsset(id);
+                } else {
+                    return fs.readFileSync(id, 'utf8');
+                }
+            }
+        }
+        // fallback
+        return fs.readFileSync(id, 'utf8');
+    }
+
+    private _emitAsset (id: string): string {
+        let basename = ps.basename(id);
+        for (let suffixToReplace in suffixReplaceConfig) {
+            const replacement: string =  suffixReplaceConfig[suffixToReplace];
+            if (basename.endsWith(suffixToReplace)) {
+                // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
+                basename = basename.slice(0, -suffixToReplace.length) + replacement;
+            }
+        }
+        const buffer = fs.readFileSync(id);
+        const assetsDir = ps.join(this._options.outDir, 'assets');
+        fs.outputFileSync(ps.join(assetsDir, basename), buffer);
+        // output game.js
+        const gameJs = ps.join(assetsDir, 'game.js');
+        if (!fs.existsSync(gameJs)) {
+            fs.outputFileSync(gameJs, `console.log('[CC Subpackage] wasm assets loaded');`, 'utf8');
+        }
+        return `export default 'assets/${basename}';`;
+    }
+
+    private _transform (id: string, code: string): string {
+        const systemJsModuleId = externalOrigin + ps.relative(this._options.externalRoot, id).replace(/\\/g, '/');
+        const res = babel.transformSync(code, {
+            compact: true,  // remove error log
+            plugins: [
+                [pluginTransformSystemJSModule, {
+                    moduleId: systemJsModuleId,
+                }],
+            ],
+        });
+        code = res!.code!;
+        return code;
+    }
+
+    bundle (): string {
+        // transform all external wasm modules
+        for (const externalWasmModule of this._options.externalWasmModules) {
+            const id = this._resolveId(externalWasmModule);
+            const code = this._load(id);
+            this._loadedChunkMap[id] = this._transform(id, code);
+        }
+
+        // bundle
+        let result: string[] = [`console.log('[CC Subpackage] wasm chunks loaded');`];
+        for (let id in this._loadedChunkMap) {
+            const code = this._loadedChunkMap[id];
+            result.push(code);
+        }
+        return result.join('\n');
+    }
+}
+
 /**
  * This plugin enable to load script or wasm with url based on 'external://' origin.
  */
 export function externalWasmLoader (options: externalWasmLoader.Options): rollup.Plugin {
+    const externalWasmModules: string[] = [];
     return {
         name: '@cocos/ccbuild|external-loader',
 
         async resolveId (this, source, importer) {
             if (source.startsWith(externalOrigin)) {
+                if (options.wasmSubpackage) {
+                    externalWasmModules.push(source);
+                    return {
+                        id: source,
+                        external: true,
+                    }
+                }
                 return source;
             }
             return null;
@@ -177,6 +281,18 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
                 return undefined; // return `new URL('${fileName}', import.meta.url).href`;
             }
         },
+
+        generateBundle (opts, bundles) {
+            if (externalWasmModules.length !== 0) {
+                const bundler = new ExternalWasmModuleBundler({
+                    ...options,
+                    externalWasmModules,
+                    outDir: opts.dir!,
+                });
+                const code = bundler.bundle();
+                fs.outputFileSync(ps.join(opts.dir!, 'chunks/game.js'), code, 'utf8');
+            }            
+        },
     };
 }
 
@@ -206,6 +322,11 @@ export declare namespace externalWasmLoader {
          * Whether cull asm js module.
          */
         cullAsmJsModule: boolean;
+        /**
+         * Build external wasm module as minigame subpackage.
+         * This feature is for minigame platforms.
+         */
+        wasmSubpackage: boolean;
         format?: Format;
     }
 

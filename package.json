@@ -49,6 +49,7 @@
     "@babel/plugin-syntax-decorators": "^7.19.0",
     "@babel/plugin-syntax-typescript": "^7.20.0",
     "@babel/plugin-transform-for-of": "^7.21.0",
+    "@babel/plugin-transform-modules-systemjs": "^7.20.11",
     "@babel/preset-env": "^7.20.2",
     "@babel/traverse": "^7.20.13",
     "@cocos/babel-plugin-dynamic-import-vars": "^1.0.2",
