@@ -4,6 +4,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 1`] = `
 [
   "assets/wasm_c-8515ca89.wasm",
   "assets/wasm_c.js.mem-429cc1f7.bin",
+  "assets/wasm_c.wasm.fallback-26103d05.bin",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
   "wasm_c.wasm-303ccdd0.js",
@@ -617,6 +618,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
 exports[`engine-js build WASM module on platform maybe supporting WASM: cull asm.js module 1`] = `
 [
   "assets/wasm_c-8515ca89.wasm",
+  "assets/wasm_c.wasm.fallback-26103d05.bin",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
   "wasm_c.wasm-303ccdd0.js",
@@ -2437,6 +2439,16 @@ exports[`engine-js build WASM module on platform supporting WASM: cull asm.js mo
   "assets/wasm_c-8515ca89.wasm",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM: wasm subpackage 1`] = `
+[
+  "assets/game.js",
+  "assets/wasm_c.wasm",
+  "assets/wasm_rust.wasm",
+  "cc.js",
+  "chunks/game.js",
 ]
 `;
 
