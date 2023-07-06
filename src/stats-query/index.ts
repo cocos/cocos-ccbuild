@@ -315,6 +315,11 @@ export namespace StatsQuery {
              * @default false
              */
             WASM_FALLBACK: boolean;
+            /**
+             * An internal constant to indicate whether we use wasm assets as minigame subpackage.
+             * This is useful when we need to reduce code size.
+             */
+            WASM_SUBPACKAGE: boolean;
         }
         
         export interface IPublicFlagConfig {

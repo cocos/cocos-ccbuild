@@ -48,6 +48,22 @@ describe('engine-js', () => {
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
         // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
+
+        // wasm subpackage
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            flags: {
+                WASM_SUBPACKAGE: true,
+            }
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('wasm subpackage');
+        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
+        await del(out, { force: true });
     });
 
     test('build WASM module on platform maybe supporting WASM', async () => {

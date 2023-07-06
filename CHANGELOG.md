@@ -1,5 +1,17 @@
 # @cocos/ccbuild
 
+## 1.1.14
+
+### Patch Changes
+
+- 1a46941: feat: support wasmSubpackage options on externalWasmLoader
+
+## 1.1.13
+
+### Patch Changes
+
+- feat: support constant WASM_SUBPACKAGE
+
 ## 1.1.12
 
 ### Patch Changes
