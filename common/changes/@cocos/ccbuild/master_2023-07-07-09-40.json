@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "BREAKING: change transformer to Transfomer and add Bundler interface",
+      "type": "major"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}
