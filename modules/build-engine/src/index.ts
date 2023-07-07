@@ -9,7 +9,7 @@ function verifyCache (options: buildEngine.Options): boolean {
 	return false;
 }
 
-function applyDefaultOptions (options: buildEngine.Options) {
+function applyDefaultOptions (options: buildEngine.Options): void {
 	options.preserveType ??= false;
 }
 
@@ -27,7 +27,7 @@ function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat)
 function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
     const result: string[] = [];
     const visited = new Set<string>();
-    const addChunk = (chunkFileName: string) => {
+    const addChunk = (chunkFileName: string): void => {
         if (visited.has(chunkFileName)) {
             return;
         }
@@ -239,7 +239,7 @@ export namespace buildEngine {
         hasCriticalWarns: boolean;
     }
 
-    export async function transform(code: string, moduleOption: ModuleFormat, loose?: boolean) {
+    export async function transform(code: string, moduleOption: ModuleFormat, loose?: boolean): Promise<{ code: string; }> {
         const babelFormat = moduleOptionsToBabelEnvModules(moduleOption);
         const babelFileResult = await babel.core.transformAsync(code, {
             presets: [[babel.presets.presetEnv, { modules: babelFormat, loose: loose ?? true } as babel.presets.presetEnv.Options]],
@@ -252,7 +252,7 @@ export namespace buildEngine {
         };
     }
 
-    export async function isSourceChanged(incrementalFile: string) {
+    export async function isSourceChanged(incrementalFile: string): Promise<boolean> {
         let record: Record<string, number>;
         try {
             record = await fs.readJSON(incrementalFile);
@@ -284,7 +284,7 @@ export namespace buildEngine {
      * 
      * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
      */
-    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
+    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
     	return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
     }
 
@@ -293,7 +293,7 @@ export namespace buildEngine {
      * @param meta Metadata of build result.
      * @param featureUnits Feature units.
      */
-    export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]) {
+    export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]): string[] {
     	const dependentChunks = enumerateDependentChunks(meta, featureUnits);
     	const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
     	return dependentAssets.concat(dependentChunks);

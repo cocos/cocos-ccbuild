@@ -86,7 +86,7 @@ export interface Feature {
 export interface Context {
     mode?: string;
     platform?: string;
-    buildTimeConstants?: Record<string, boolean | number>;
+    buildTimeConstants?: object;
 }
 
 export type ConstantTypeName = 'boolean' | 'number';

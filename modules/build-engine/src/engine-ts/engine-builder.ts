@@ -80,7 +80,7 @@ export class EngineBuilder {
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
         this._buildResult = {};
-        const handleIdList = (idList: string[]) => {
+        const handleIdList = (idList: string[]): void => {
             for (const id of idList) {
                 const handleResult = this._handleId(id);
                 this._buildResult[handleResult.file] = handleResult;
@@ -348,7 +348,7 @@ export class EngineBuilder {
             }
         }
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
-        const importExportVisitor = (path: ImportTypes) => {
+        const importExportVisitor = (path: ImportTypes): void => {
             // @ts-expect-error TODO: fix type
             const source = path.node.source;
             if (source) {
@@ -371,7 +371,7 @@ export class EngineBuilder {
                     
                     // traverse to transform specifier
                     traverse(path.node, {
-                        StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
+                        StringLiteral (path: babel.NodePath<babel.types.StringLiteral>): void {
                             path.replaceWith(babel.types.stringLiteral(relativePath));
                             path.skip();
                         },
@@ -380,7 +380,7 @@ export class EngineBuilder {
             }
 
             type Types = babel.NodePath<babel.types.ExportSpecifier | babel.types.ImportSpecifier>;
-            const importExportSpecifier = (path: Types) => {
+            const importExportSpecifier = (path: Types): void => {
                 const name = path.node.local.name;
                 const alias = this._renameMap[name];
                 if (alias) {
@@ -404,14 +404,14 @@ export class EngineBuilder {
                     decoratorsBeforeExport: true,
                 }],
                 [
-                    () => {
+                    (): babel.PluginObj<babel.PluginPass> => {
                         return {
                             name: 'custom-transform',
-                            pre (file) {
+                            pre (file): void {
                                 // eslint-disable-next-line @typescript-eslint/no-this-alias
                                 const pluginPass = this;
                                 traverse(file.ast, {
-                                    ClassProperty (path) {
+                                    ClassProperty (path): void {
                                         const decoratorsPath = path.get('decorators');
                                         if (Array.isArray(decoratorsPath)) {
                                             const propertyValuePath = path.get('value');
@@ -453,7 +453,7 @@ export class EngineBuilder {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
                                 // TODO: here we rename class Rect and Path
-                                CallExpression (path) {
+                                CallExpression (path): void {
                                     if (path.node.callee.type === 'MemberExpression') {
                                         const memberExpressionPath = path.get('callee') as babel.NodePath<t.MemberExpression>;
                                         const objectPath = memberExpressionPath.get('object') as babel.NodePath<t.Identifier>;
@@ -485,7 +485,7 @@ export class EngineBuilder {
                                         ));
                                     }
                                 },
-                                ClassDeclaration (path) {
+                                ClassDeclaration (path): void {
                                     const idPath = path.get('id');
                                     const name = idPath.node.name;
                                     const alias = self._renameMap[name];
@@ -493,7 +493,7 @@ export class EngineBuilder {
                                         idPath.replaceWith(t.identifier(alias));
                                     }
                                 },
-                                NewExpression (path) {
+                                NewExpression (path): void {
                                     const calleePath = path.get('callee');
                                     // @ts-expect-error TODO: fix type
                                     const name = calleePath.node.name;
@@ -504,7 +504,7 @@ export class EngineBuilder {
                                         }
                                     }
                                 },
-                                TSTypeAnnotation (path) {
+                                TSTypeAnnotation (path): void {
                                     // @ts-expect-error TODO: fix type
                                     const typeName = path.node.typeAnnotation.typeName;
                                     const childPath = path.get('typeAnnotation');
@@ -525,7 +525,7 @@ export class EngineBuilder {
                                         
                                     }
                                 },
-                                Identifier (path) {
+                                Identifier (path): void {
                                     const name = path.node.name;
                                     const alias = self._renameMap[name];
                                     if (typeof alias === 'string') {
@@ -559,7 +559,7 @@ export class EngineBuilder {
         };
     }
 
-    private async _lintImport (lintFiles: string[], verbose = false) {
+    private async _lintImport (lintFiles: string[], verbose = false): Promise<void> {
         const eslint = new ESLint({ fix: true, 
             cwd: __dirname,  // fix not found parser issue
             resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
@@ -584,7 +584,7 @@ export class EngineBuilder {
         }
     }
 
-    private _buildIndex () {
+    private _buildIndex (): void {
         const { outDir, root } = this._options;
         if (outDir) {
             const indexFile = formatPath(ps.join(outDir, 'index.ts'));
@@ -615,7 +615,7 @@ export class EngineBuilder {
 
     }
 
-    private async _copyTypes () {
+    private async _copyTypes (): Promise<void> {
         const { root, outDir } = this._options;
         if (!outDir) {
             return;
@@ -635,7 +635,7 @@ export class EngineBuilder {
         fs.outputFileSync(targetDomDts, code, 'utf8');
     }
 
-    private _addNodeModulesDeps () {
+    private _addNodeModulesDeps (): void {
         const { outDir } = this._options;
         if (!outDir) {
             return;

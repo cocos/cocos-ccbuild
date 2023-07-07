@@ -21,6 +21,9 @@
         "@typescript-eslint/no-empty-function": "off",
         "no-mixed-spaces-and-tabs": "off",
         "no-cond-assign": "off",
+        "@typescript-eslint/explicit-function-return-type": [
+            "error"
+        ],
         "linebreak-style": [
             "error",
             "unix"

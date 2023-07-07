@@ -32,9 +32,9 @@ import rpVirtual = Bundler.plugins.virtual;
 
 // import * as decoratorRecorder from './babel-plugins/decorator-parser';
 
-const realPath = (function () {
+const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
-    return (file: string) => new Promise<string>((resolve, reject) => {
+    return (file: string): Promise<string> => new Promise<string>((resolve, reject) => {
         realpath(file, (err, path) => {
             if (err && err.code !== 'ENOENT') {
                 reject(err);
@@ -45,7 +45,7 @@ const realPath = (function () {
     });
 })();
 
-function makePathEqualityKey(path: string) {
+function makePathEqualityKey(path: string): string {
     return process.platform === 'win32' ? path.toLocaleLowerCase() : path;
 }
 
@@ -245,14 +245,14 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
         {
             name: '@cocos/ccbuild|module-overrides',
-            resolveId(source, importer) {
+            resolveId(source, importer): string | null {
                 if (moduleOverrides[source]) {
                     return source;
                 } else {
                     return null;
                 }
             },
-            load(this, id: string) {
+            load(this, id: string): string | null {
                 const key = makePathEqualityKey(id);
                 if (!(key in moduleOverrides)) {
                     return null;

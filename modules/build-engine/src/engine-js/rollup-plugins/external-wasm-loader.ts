@@ -10,7 +10,7 @@ import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSyste
 import rollup = Bundler.core;
 
 const externalOrigin = 'external:';
-function normalizePath (path: string) {
+function normalizePath (path: string): string {
     return path.replace(/\\/g, '/');
 }
 
@@ -65,11 +65,11 @@ interface ILoadConfig {
     }
 }
 
-function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string) {
+function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string): boolean {
     return options.forceBanningBulletWasm && id.includes('bullet');
 }
 
-function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string) {
+function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string): boolean {
     return options.wasmSupportMode !== 0 && options.cullAsmJsModule;
 }
 
@@ -231,7 +231,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
     return {
         name: '@cocos/ccbuild|external-loader',
 
-        async resolveId (this, source, importer) {
+        async resolveId (this, source, importer): Promise<string | { id: string; external: true; } | null> {
             if (source.startsWith(externalOrigin)) {
                 if (options.wasmSubpackage) {
                     externalWasmModules.push(source);
@@ -245,7 +245,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             return null;
         },
 
-        async load (id) {
+        async load (id): Promise<any> {
             if (id.startsWith(externalOrigin)) {
                 const filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
                 for (const suffix in loadConfig) {
@@ -274,7 +274,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             // > relative to the chunk the file is referenced from.
             // > This will path will contain no leading `./` but may contain a leading `../`.
             relativePath,
-        }) {
+        }): string | undefined {
             switch (options.format) {
             case 'relative-from-chunk':
                 return `'${relativePath}'`;
@@ -285,7 +285,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             }
         },
 
-        generateBundle (opts, bundles) {
+        generateBundle (opts, bundles): void {
             if (externalWasmModules.length !== 0) {
                 const bundler = new ExternalWasmModuleBundler({
                     ...options,
@@ -355,7 +355,7 @@ export declare namespace externalWasmLoader {
  * Convert the file path to asset ref URL.
  * @param file File path in absolute.
  */
-export function pathToAssetRefURL (file: string) {
+export function pathToAssetRefURL (file: string): string {
     return `${assetPrefix}${pathToFileURL(file).pathname}`;
 }
 
