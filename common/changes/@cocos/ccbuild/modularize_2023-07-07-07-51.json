@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "refactor: modularize @cocos/ccbuild",
+      "type": "major"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@ccbuild/test",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "",
+    "test": "rush build && jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ccbuild/stats-query": "workspace:*",
+    "@ccbuild/build-engine": "workspace:*",
+    "@ccbuild/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3"
+  }
+}

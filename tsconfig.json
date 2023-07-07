@@ -2,22 +2,22 @@
   "compilerOptions": {
     "target": "ES2015",
     "module": "CommonJS",
-    "moduleResolution": "node",
-    "outDir": "./lib",
+    "moduleResolution": "NodeNext",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "rootDir": "./src",
-    "types": [
-      "./node_modules/@types/jest/index"
-    ],
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
+    "outDir": "./lib",
+    "rootDir": "./",
   },
+  "include": [
+    "./src/index.ts"
+  ],
   "exclude": [
     "./test/",
     "./lib/",

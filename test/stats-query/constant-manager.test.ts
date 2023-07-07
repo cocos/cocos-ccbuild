@@ -1,4 +1,4 @@
-import { StatsQuery } from "../../src/stats-query";
+import { StatsQuery } from '@ccbuild/stats-query';
 import ps from "path";
 
 const ConstantManager = StatsQuery.ConstantManager;
