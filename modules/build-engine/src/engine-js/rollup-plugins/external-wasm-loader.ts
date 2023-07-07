@@ -1,8 +1,11 @@
 import { rollup as Bundler } from '@ccbuild/bundler';
-import { URL, fileURLToPath, pathToFileURL } from 'url';
+import { babel as Transformer } from '@ccbuild/transformer';
+import { pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
-import * as babel from '@babel/core';
+
+import babel = Transformer.core;
+
 // @ts-ignore
 import pluginTransformSystemJSModule from '@babel/plugin-transform-modules-systemjs';
 
