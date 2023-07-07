@@ -37,7 +37,7 @@ export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Op
             }
             return undefined;
         }
-    }
+    };
 
     return externalWasmLoader;
 }

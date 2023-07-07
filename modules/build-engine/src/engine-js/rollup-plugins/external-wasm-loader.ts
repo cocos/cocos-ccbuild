@@ -5,14 +5,12 @@ import fs from 'fs-extra';
 import ps from 'path';
 
 import babel = Transformer.core;
-
-// @ts-ignore
-import pluginTransformSystemJSModule from '@babel/plugin-transform-modules-systemjs';
+import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSystemjs;
 
 import rollup = Bundler.core;
 
 const externalOrigin = 'external:';
-function normalizePath (path: string) {
+function normalizePath (path: string): string {
     return path.replace(/\\/g, '/');
 }
 
@@ -29,8 +27,8 @@ const suffixReplaceConfig: ISuffixReplaceConfig = {
  * emit asset and return the export statement
  */
 async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
-    let basename = ps.basename(filePath)
-    for (let suffixToReplace in suffixReplaceConfig) {
+    let basename = ps.basename(filePath);
+    for (const suffixToReplace in suffixReplaceConfig) {
         const replacement: string =  suffixReplaceConfig[suffixToReplace];
         if (basename.endsWith(suffixToReplace)) {
             // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
@@ -67,11 +65,11 @@ interface ILoadConfig {
     }
 }
 
-function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string) {
+function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string): boolean {
     return options.forceBanningBulletWasm && id.includes('bullet');
 }
 
-function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string) {
+function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string): boolean {
     return options.wasmSupportMode !== 0 && options.cullAsmJsModule;
 }
 
@@ -130,7 +128,7 @@ const loadConfig: ILoadConfig = {
         },
         cullingContent: `export default function () {}`,
     },
-}
+};
 
 declare namespace ExternalWasmModuleBundler {
     interface Options extends externalWasmLoader.Options {
@@ -152,7 +150,7 @@ class ExternalWasmModuleBundler {
     }
 
     private _resolveId (source: string): string {
-        let id = normalizePath(ps.join(this._options.externalRoot, source.substring(externalOrigin.length)));
+        const id = normalizePath(ps.join(this._options.externalRoot, source.substring(externalOrigin.length)));
         return id;
     }
 
@@ -175,7 +173,7 @@ class ExternalWasmModuleBundler {
 
     private _emitAsset (id: string): string {
         let basename = ps.basename(id);
-        for (let suffixToReplace in suffixReplaceConfig) {
+        for (const suffixToReplace in suffixReplaceConfig) {
             const replacement: string =  suffixReplaceConfig[suffixToReplace];
             if (basename.endsWith(suffixToReplace)) {
                 // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
@@ -216,8 +214,8 @@ class ExternalWasmModuleBundler {
         }
 
         // bundle
-        let result: string[] = [`console.log('[CC Subpackage] wasm chunks loaded');`];
-        for (let id in this._loadedChunkMap) {
+        const result: string[] = [`console.log('[CC Subpackage] wasm chunks loaded');`];
+        for (const id in this._loadedChunkMap) {
             const code = this._loadedChunkMap[id];
             result.push(code);
         }
@@ -233,23 +231,23 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
     return {
         name: '@cocos/ccbuild|external-loader',
 
-        async resolveId (this, source, importer) {
+        async resolveId (this, source, importer): Promise<string | { id: string; external: true; } | null> {
             if (source.startsWith(externalOrigin)) {
                 if (options.wasmSubpackage) {
                     externalWasmModules.push(source);
                     return {
                         id: source,
                         external: true,
-                    }
+                    };
                 }
                 return source;
             }
             return null;
         },
 
-        async load (id) {
+        async load (id): Promise<any> {
             if (id.startsWith(externalOrigin)) {
-                let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
+                const filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
                 for (const suffix in loadConfig) {
                     if (filePath.endsWith(suffix)) {
                         const config = loadConfig[suffix];
@@ -276,7 +274,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             // > relative to the chunk the file is referenced from.
             // > This will path will contain no leading `./` but may contain a leading `../`.
             relativePath,
-        }) {
+        }): string | undefined {
             switch (options.format) {
             case 'relative-from-chunk':
                 return `'${relativePath}'`;
@@ -287,7 +285,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             }
         },
 
-        generateBundle (opts, bundles) {
+        generateBundle (opts, bundles): void {
             if (externalWasmModules.length !== 0) {
                 const bundler = new ExternalWasmModuleBundler({
                     ...options,
@@ -357,7 +355,7 @@ export declare namespace externalWasmLoader {
  * Convert the file path to asset ref URL.
  * @param file File path in absolute.
  */
-export function pathToAssetRefURL (file: string) {
+export function pathToAssetRefURL (file: string): string {
     return `${assetPrefix}${pathToFileURL(file).pathname}`;
 }
 

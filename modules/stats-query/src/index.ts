@@ -17,7 +17,7 @@ export class StatsQuery {
     public static async create (engine: string) {
         const configFile = ps.join(engine, 'cc.config.json');
         const config: Config = JSON5.parse(await fs.readFile(configFile, 'utf8'));
-        // @ts-ignore
+        // @ts-expect-error we should delete this property
         delete config['$schema'];
         const query = new StatsQuery(engine, config);
         await query._initialize();
@@ -158,6 +158,7 @@ export class StatsQuery {
         const overrides: Record<string, string> = {};
 
         const addModuleOverrides = (moduleOverrides: Record<string, string>, isVirtualModule: boolean) => {
+            // eslint-disable-next-line prefer-const
             for (let [source, override] of Object.entries(moduleOverrides)) {
                 const normalizedSource = isVirtualModule ? source : ps.resolve(this._engine, source);
                 override = this._evalPathTemplate(override, context);
@@ -417,7 +418,7 @@ export namespace StatsQuery {
                 }
                 result += `export const ${key} = ${value};\n`;
                 if (info.ccGlobal) {
-                    result += `tryDefineGlobal('CC_${key}', ${value});\n`
+                    result += `tryDefineGlobal('CC_${key}', ${value});\n`;
                 }
                 result += '\n';
             }
@@ -506,7 +507,7 @@ export namespace StatsQuery {
                 }
                 result += `export ${declarationKind} ${key} = ${value};\n`;
                 if (info.ccGlobal) {
-                    result += `tryDefineGlobal('CC_${key}', ${value});\n`
+                    result += `tryDefineGlobal('CC_${key}', ${value});\n`;
                 }
                 result += '\n';
             }
@@ -549,12 +550,12 @@ export namespace StatsQuery {
         
         private _genConstantDeclaration (name: string, info: IConstantInfo): string {
             let result = '\t/**\n';
-            let comments = info.comment.split('\n');
+            const comments = info.comment.split('\n');
             for (const comment of comments) {
                 result += `\t * ${comment}\n`;
             }
             result += '\t */\n';
-            result += `\texport const ${name}: ${info.type};\n\n`
+            result += `\texport const ${name}: ${info.type};\n\n`;
             return result;
         }
         //#endregion declaration
@@ -578,7 +579,7 @@ export namespace StatsQuery {
         }
 
         private _hasCCGlobal (config: IConstantConfig) {
-            for (let key in config) {
+            for (const key in config) {
                 const info = config[key];
                 if (info.ccGlobal) {
                     return true;
@@ -588,7 +589,7 @@ export namespace StatsQuery {
         }
 
         private _hasDynamic (config: IConstantConfig) {
-            for (let key in config) {
+            for (const key in config) {
                 const info = config[key];
                 if (info.dynamic) {
                     return true;
@@ -601,7 +602,7 @@ export namespace StatsQuery {
             // eval sub expression
             const matchResult = expression.match(/(?<=\$)\w+/g);
             if (matchResult) {
-                for (let name of matchResult) {
+                for (const name of matchResult) {
                     const value = config[name].value;
                     if (typeof value === 'string') {
                         config[name].value = this._evalExpression(value, config);

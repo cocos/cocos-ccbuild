@@ -17,5 +17,5 @@ export {
     terser,
     typescript,
     // progress,
-}
+};
 

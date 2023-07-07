@@ -9,7 +9,7 @@ export default function removeDeprecatedFeatures (range?: string): rollup.Plugin
     return {
         name: '@cocos/ccbuild|remove-deprecated-features',
 
-        load (this, id: string) {
+        load (this, id: string): string | null {
             if (!ps.isAbsolute(id)) {
                 return null;
             }

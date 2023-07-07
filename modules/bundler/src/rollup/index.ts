@@ -4,4 +4,4 @@ import * as plugins from './plugins';
 export {
     core,
     plugins,
-}
+};

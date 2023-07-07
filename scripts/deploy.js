@@ -86,7 +86,7 @@ for (const file of dtsFiles) {
                             const sourceValue = sourcePath.node.value;
                             if (sourceValue in pkgName2Types) {
                                 const deployTypesPath = rebasePath(pkgName2Types[sourceValue], rushRootDir, deployDir);
-                                const replaceValue = formatPath(ps.relative(ps.dirname(file), deployTypesPath));
+                                const replaceValue = formatPath(ps.relative(ps.dirname(file), deployTypesPath)).replace('.d.ts', '');
                                 sourcePath.replaceWith(babel.types.stringLiteral(replaceValue));
                             }
                         }

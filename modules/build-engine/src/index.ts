@@ -1,37 +1,74 @@
-import { StatsQuery } from "@ccbuild/stats-query";
-import { buildJsEngine } from "./engine-js";
+import { StatsQuery } from '@ccbuild/stats-query';
+import { buildJsEngine } from './engine-js';
 import { babel } from '@ccbuild/transformer';
 import fs from 'fs-extra';
-import { buildTsEngine } from "./engine-ts";
+import { buildTsEngine } from './engine-ts';
 
 function verifyCache (options: buildEngine.Options): boolean {
-    // TODO
-    return false;
+	// TODO
+	return false;
 }
 
-function applyDefaultOptions (options: buildEngine.Options) {
-    options.preserveType ??= false;
+function applyDefaultOptions (options: buildEngine.Options): void {
+	options.preserveType ??= false;
+}
+
+function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat): false | 'commonjs' | 'amd' | 'umd' | 'systemjs' | 'auto' {
+    switch (moduleOptions) {
+    case 'cjs': return 'commonjs';
+    case 'system': return 'systemjs';
+    case 'iife':
+    case 'esm': return false;
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    default: throw new Error(`Unknown module format ${moduleOptions}`);
+    }
+}
+
+function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
+    const result: string[] = [];
+    const visited = new Set<string>();
+    const addChunk = (chunkFileName: string): void => {
+        if (visited.has(chunkFileName)) {
+            return;
+        }
+        visited.add(chunkFileName);
+        result.push(chunkFileName);
+        if (metaDepGraph && chunkFileName in metaDepGraph) {
+            for (const dependencyChunk of metaDepGraph[chunkFileName]) {
+                addChunk(dependencyChunk);
+            }
+        }
+    };
+    for (const featureUnit of featureUnits) {
+        const chunkFileName = metaExports[featureUnit];
+        if (!chunkFileName) {
+            console.error(`Feature unit ${featureUnit} is not in build result!`);
+            continue;
+        }
+        addChunk(chunkFileName);
+    }
+    return result;
 }
 
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
-    applyDefaultOptions(options);
+	applyDefaultOptions(options);
 
-    if (verifyCache(options)) {
-        throw 'TODO';
-    }
-    if (options.platform === 'OPEN_HARMONY') {
-        if (options.preserveType) {
-            // we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
-            return buildTsEngine(options);
-        } else {
-            return buildJsEngine(options as Required<buildEngine.Options>);
-        }
-    } else {
-        if (options.preserveType) {
-            console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
-        }
-        return buildJsEngine(options as Required<buildEngine.Options>);
-    }
+	if (verifyCache(options)) {
+		throw 'TODO';
+	}
+	if (options.platform === 'OPEN_HARMONY') {
+		if (options.preserveType) {
+			// we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
+			return buildTsEngine(options);
+		} else {
+			return buildJsEngine(options as Required<buildEngine.Options>);
+		}
+	} else {
+		if (options.preserveType) {
+			console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
+		}
+		return buildJsEngine(options as Required<buildEngine.Options>);
+	}
 }
 
 export namespace buildEngine {
@@ -202,31 +239,20 @@ export namespace buildEngine {
         hasCriticalWarns: boolean;
     }
 
-    export async function transform(code: string, moduleOption: ModuleFormat, loose?: boolean) {
+    export async function transform(code: string, moduleOption: ModuleFormat, loose?: boolean): Promise<{ code: string; }> {
         const babelFormat = moduleOptionsToBabelEnvModules(moduleOption);
         const babelFileResult = await babel.core.transformAsync(code, {
             presets: [[babel.presets.presetEnv, { modules: babelFormat, loose: loose ?? true } as babel.presets.presetEnv.Options]],
         });
         if (!babelFileResult || !babelFileResult.code) {
-            throw new Error(`Failed to transform!`);
+            throw new Error('Failed to transform!');
         }
         return {
             code: babelFileResult.code,
         };
     }
 
-    function moduleOptionsToBabelEnvModules(moduleOptions: ModuleFormat): false | 'commonjs' | 'amd' | 'umd' | 'systemjs' | 'auto' {
-        switch (moduleOptions) {
-            case 'cjs': return 'commonjs';
-            case 'system': return 'systemjs';
-            case 'iife':
-            case 'esm': return false;
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            default: throw new Error(`Unknown module format ${moduleOptions}`);
-        }
-    }
-
-    export async function isSourceChanged(incrementalFile: string) {
+    export async function isSourceChanged(incrementalFile: string): Promise<boolean> {
         let record: Record<string, number>;
         try {
             record = await fs.readJSON(incrementalFile);
@@ -236,45 +262,19 @@ export namespace buildEngine {
         }
         for (const file of Object.keys(record)) {
             const mtime = record[file];
-            try {
-                /* eslint-disable-next-line no-await-in-loop */
-                const mtimeNow = (await fs.stat(file)).mtimeMs;
-                if (mtimeNow !== mtime) {
-                    console.debug(`Source ${file} in watch files record ${incrementalFile} has a different time stamp - rebuild is needed.`);
-                    return true;
-                }
-            } catch {
-                console.debug(`Failed to read source ${file} in watch files record ${incrementalFile} - rebuild is needed.`);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
-        const result: string[] = [];
-        const visited = new Set<string>();
-        const addChunk = (chunkFileName: string) => {
-            if (visited.has(chunkFileName)) {
-                return;
-            }
-            visited.add(chunkFileName);
-            result.push(chunkFileName);
-            if (metaDepGraph && chunkFileName in metaDepGraph) {
-                for (const dependencyChunk of metaDepGraph[chunkFileName]) {
-                    addChunk(dependencyChunk);
-                }
-            }
-        };
-        for (const featureUnit of featureUnits) {
-            const chunkFileName = metaExports[featureUnit];
-            if (!chunkFileName) {
-                console.error(`Feature unit ${featureUnit} is not in build result!`);
-                continue;
-            }
-            addChunk(chunkFileName);
-        }
-        return result;
+        	try {
+        		/* eslint-disable-next-line no-await-in-loop */
+        		const mtimeNow = (await fs.stat(file)).mtimeMs;
+        		if (mtimeNow !== mtime) {
+        			console.debug(`Source ${file} in watch files record ${incrementalFile} has a different time stamp - rebuild is needed.`);
+        			return true;
+        		}
+        	} catch {
+    			console.debug(`Failed to read source ${file} in watch files record ${incrementalFile} - rebuild is needed.`);
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     /**
@@ -284,8 +284,8 @@ export namespace buildEngine {
      * 
      * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
      */
-    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
-        return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
+    export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
+    	return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
     }
 
     /**
@@ -293,9 +293,9 @@ export namespace buildEngine {
      * @param meta Metadata of build result.
      * @param featureUnits Feature units.
      */
-    export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]) {
-        const dependentChunks = enumerateDependentChunks(meta, featureUnits);
-        const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
-        return dependentAssets.concat(dependentChunks);
+    export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]): string[] {
+    	const dependentChunks = enumerateDependentChunks(meta, featureUnits);
+    	const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
+    	return dependentAssets.concat(dependentChunks);
     }
 }

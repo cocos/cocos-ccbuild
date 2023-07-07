@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as ps from 'path';
 import { babel as Transformer } from '@ccbuild/transformer';
-import { StatsQuery } from "@ccbuild/stats-query";
+import { StatsQuery } from '@ccbuild/stats-query';
 import { toExtensionLess, formatPath } from '@ccbuild/utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
@@ -74,14 +74,14 @@ export class EngineBuilder {
     private _filedDecoratorHelper = new FiledDecoratorHelper();
     private _plugins: ITsEnginePlugin[] = [];
     private _excludeTransform = [
-        /external\:/
+        /external:/
     ];
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
         this._buildResult = {};
-        const handleIdList = (idList: string[]) => {
-            for (let id of idList) {
+        const handleIdList = (idList: string[]): void => {
+            for (const id of idList) {
                 const handleResult = this._handleId(id);
                 this._buildResult[handleResult.file] = handleResult;
             }
@@ -113,7 +113,7 @@ export class EngineBuilder {
 
 
         if (options.outDir) {
-            for (let file in this._buildResult) {
+            for (const file in this._buildResult) {
                 const res = this._buildResult[file];
                 const output = ps.join(options.outDir, ps.relative(root, file));
                 fs.outputFileSync(output, res.code, 'utf8');
@@ -182,7 +182,7 @@ export class EngineBuilder {
             const tsconfig = json5.parse(tsconfigContent);
             const compilerOptions = tsconfig.compilerOptions;
             if (compilerOptions && compilerOptions.baseUrl && compilerOptions.paths) {
-                for (let [key, paths] of Object.entries(compilerOptions.paths) as any) {
+                for (const [key, paths] of Object.entries(compilerOptions.paths) as any) {
                     this._moduleOverrides[key] = formatPath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
                 }
             }
@@ -199,7 +199,7 @@ export class EngineBuilder {
         this._virtual2code['@cocos/bullet'] = 'export {}';
         this._virtual2code['@cocos/cannon'] = 'export {}';
 
-        for (let virtualName in this._virtual2code) {
+        for (const virtualName in this._virtual2code) {
             this._virtualOverrides[virtualName] = formatPath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
         }
 
@@ -215,7 +215,7 @@ export class EngineBuilder {
             throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
 
-        let overrideId = this._getOverrideId(id, importer);
+        const overrideId = this._getOverrideId(id, importer);
 
         // handle output file
         let file = overrideId || resolvedId;
@@ -247,7 +247,7 @@ export class EngineBuilder {
 
     private _getOverrideId (id: string, importer?: string): string | void {
         let overrideId: string | void | undefined;
-        for (let p of this._plugins) {
+        for (const p of this._plugins) {
             overrideId = p.transformId?.(id, importer);
             if (overrideId) {
                 return overrideId;
@@ -271,7 +271,7 @@ export class EngineBuilder {
     }
 
     private _resolve (id: string, importer?: string): string | void {
-        for (let p of this._plugins) {
+        for (const p of this._plugins) {
             const resolvedId = p.resolve?.(id, importer);
             if (resolvedId) {
                 return resolvedId;
@@ -313,7 +313,7 @@ export class EngineBuilder {
     }
 
     private _load (id: string): string | void {
-        for (let p of this._plugins) {
+        for (const p of this._plugins) {
             const loadedCode = p.load?.(id);
             if (loadedCode) {
                 return loadedCode;
@@ -322,7 +322,7 @@ export class EngineBuilder {
         if (fs.existsSync(id)) {
             let code = fs.readFileSync(id, 'utf8');
             if (id.endsWith('.json')) {
-                code = `export default ${code};`
+                code = `export default ${code};`;
             }
             return code;
         } else if (this._virtualOverrides[id]) {
@@ -332,7 +332,7 @@ export class EngineBuilder {
 
     private _transform (file: string, code: string): EngineBuilder.ITransformResult {
         file = formatPath(file);
-        for (let ex of this._excludeTransform) {
+        for (const ex of this._excludeTransform) {
             if (ex.test(file)) {
                 return {
                     code,
@@ -348,8 +348,8 @@ export class EngineBuilder {
             }
         }
         type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
-        const importExportVisitor = (path: ImportTypes) => {
-            // @ts-ignore
+        const importExportVisitor = (path: ImportTypes): void => {
+            // @ts-expect-error TODO: fix type
             const source = path.node.source;
             if (source) {
                 const specifier = source.value as string;
@@ -371,7 +371,7 @@ export class EngineBuilder {
                     
                     // traverse to transform specifier
                     traverse(path.node, {
-                        StringLiteral (path: babel.NodePath<babel.types.StringLiteral>) {
+                        StringLiteral (path: babel.NodePath<babel.types.StringLiteral>): void {
                             path.replaceWith(babel.types.stringLiteral(relativePath));
                             path.skip();
                         },
@@ -380,19 +380,20 @@ export class EngineBuilder {
             }
 
             type Types = babel.NodePath<babel.types.ExportSpecifier | babel.types.ImportSpecifier>;
-            const importExportSpecifier = (path: Types) => {
+            const importExportSpecifier = (path: Types): void => {
                 const name = path.node.local.name;
                 const alias = this._renameMap[name];
                 if (alias) {
                     path.replaceWith(babel.types.exportSpecifier(babel.types.identifier(alias), babel.types.identifier(alias)));
                 }
-            }
+            };
 
             path.traverse({
                 ExportSpecifier: importExportSpecifier,
                 ImportSpecifier: importExportSpecifier,
             });
-        }
+        };
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
         const transformResult = babel.transformSync(code, {
             configFile: false,
@@ -403,13 +404,14 @@ export class EngineBuilder {
                     decoratorsBeforeExport: true,
                 }],
                 [
-                    () => {
+                    (): babel.PluginObj<babel.PluginPass> => {
                         return {
                             name: 'custom-transform',
-                            pre (file) {
+                            pre (file): void {
+                                // eslint-disable-next-line @typescript-eslint/no-this-alias
                                 const pluginPass = this;
                                 traverse(file.ast, {
-                                    ClassProperty (path) {
+                                    ClassProperty (path): void {
                                         const decoratorsPath = path.get('decorators');
                                         if (Array.isArray(decoratorsPath)) {
                                             const propertyValuePath = path.get('value');
@@ -442,7 +444,7 @@ export class EngineBuilder {
                                                         ]
                                                     )));
                                                 }
-                                            })
+                                            });
                                         }
                                     },
                                 });
@@ -451,7 +453,7 @@ export class EngineBuilder {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
                                 // TODO: here we rename class Rect and Path
-                                CallExpression (path) {
+                                CallExpression (path): void {
                                     if (path.node.callee.type === 'MemberExpression') {
                                         const memberExpressionPath = path.get('callee') as babel.NodePath<t.MemberExpression>;
                                         const objectPath = memberExpressionPath.get('object') as babel.NodePath<t.Identifier>;
@@ -483,7 +485,7 @@ export class EngineBuilder {
                                         ));
                                     }
                                 },
-                                ClassDeclaration (path) {
+                                ClassDeclaration (path): void {
                                     const idPath = path.get('id');
                                     const name = idPath.node.name;
                                     const alias = self._renameMap[name];
@@ -491,9 +493,9 @@ export class EngineBuilder {
                                         idPath.replaceWith(t.identifier(alias));
                                     }
                                 },
-                                NewExpression (path) {
+                                NewExpression (path): void {
                                     const calleePath = path.get('callee');
-                                    // @ts-ignore
+                                    // @ts-expect-error TODO: fix type
                                     const name = calleePath.node.name;
                                     if (name) {
                                         const alias = self._renameMap[name];
@@ -502,8 +504,8 @@ export class EngineBuilder {
                                         }
                                     }
                                 },
-                                TSTypeAnnotation (path) {
-                                    // @ts-ignore
+                                TSTypeAnnotation (path): void {
+                                    // @ts-expect-error TODO: fix type
                                     const typeName = path.node.typeAnnotation.typeName;
                                     const childPath = path.get('typeAnnotation');
                                     if (typeName) {
@@ -513,7 +515,7 @@ export class EngineBuilder {
                                             path.replaceWith(t.tsTypeAnnotation({
                                                 type: 'TSExpressionWithTypeArguments',
                                                 expression: t.identifier(alias),
-                                            }))
+                                            }));
                                         }
                                     } else if (childPath.type === 'TSLiteralType') {
                                         const literalPath = (childPath as babel.NodePath<t.TSLiteralType>).get('literal');
@@ -523,11 +525,11 @@ export class EngineBuilder {
                                         
                                     }
                                 },
-                                Identifier (path) {
+                                Identifier (path): void {
                                     const name = path.node.name;
                                     const alias = self._renameMap[name];
                                     if (typeof alias === 'string') {
-                                        if (path.parent.type === 'ObjectProperty' ||　path.parent.type === 'TSPropertySignature') {
+                                        if (path.parent.type === 'ObjectProperty' || path.parent.type === 'TSPropertySignature') {
                                             if (path.parent.key !== path.node) {
                                                 path.replaceWith(t.identifier(alias));
                                             }
@@ -557,17 +559,17 @@ export class EngineBuilder {
         };
     }
 
-    private async _lintImport (lintFiles: string[], verbose: boolean = false) {
+    private async _lintImport (lintFiles: string[], verbose = false): Promise<void> {
         const eslint = new ESLint({ fix: true, 
             cwd: __dirname,  // fix not found parser issue
             resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
             useEslintrc: false,
             baseConfig: {
-                parser: "@typescript-eslint/parser",
-                plugins: ["@typescript-eslint", "unused-imports"],
+                parser: '@typescript-eslint/parser',
+                plugins: ['@typescript-eslint', 'unused-imports'],
                 rules: {
-                    "@typescript-eslint/consistent-type-imports": "error",
-                    "unused-imports/no-unused-imports": "error",
+                    '@typescript-eslint/consistent-type-imports': 'error',
+                    'unused-imports/no-unused-imports': 'error',
                 },
         }});
 
@@ -582,7 +584,7 @@ export class EngineBuilder {
         }
     }
 
-    private _buildIndex () {
+    private _buildIndex (): void {
         const { outDir, root } = this._options;
         if (outDir) {
             const indexFile = formatPath(ps.join(outDir, 'index.ts'));
@@ -613,13 +615,13 @@ export class EngineBuilder {
 
     }
 
-    private async _copyTypes () {
+    private async _copyTypes (): Promise<void> {
         const { root, outDir } = this._options;
         if (!outDir) {
             return;
         }
         const dtsFiles = await glob(formatPath(ps.join(root, './@types/**/*.d.ts')));
-        for (let file of dtsFiles) {
+        for (const file of dtsFiles) {
             const code = fs.readFileSync(file, 'utf8');
             const relativePath = ps.relative(root, file);
             const targetPath = formatPath(ps.join(outDir, relativePath));
@@ -633,7 +635,7 @@ export class EngineBuilder {
         fs.outputFileSync(targetDomDts, code, 'utf8');
     }
 
-    private _addNodeModulesDeps () {
+    private _addNodeModulesDeps (): void {
         const { outDir } = this._options;
         if (!outDir) {
             return;
@@ -652,7 +654,7 @@ export class EngineBuilder {
             return;
         }
         const jsonObj = fs.readJSONSync(pkgFile);
-        console.log(jsonObj)
+        console.log(jsonObj);
         // TODO
     }
 }

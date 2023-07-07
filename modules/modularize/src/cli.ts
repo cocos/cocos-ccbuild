@@ -14,7 +14,7 @@ program.command('init')
             pkgName: packageName,
             extendTsconfigPath: extendTsConfigPath,
         });
-        for (let mf of result.memoryFiles) {
+        for (const mf of result.memoryFiles) {
             await mf.outputFile();
         }
     });

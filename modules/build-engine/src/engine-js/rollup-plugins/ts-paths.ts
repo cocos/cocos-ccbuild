@@ -29,7 +29,7 @@ export default function ({
         for (const [key, mapped] of Object.entries(paths)) {
             simpleMap[key] = ps.resolve(baseUrlNormalized, mapped[0]);
         }
-        resolveId = function (this, source, importer) {
+        resolveId = function (this, source, importer): string | null {
             if (!(source in simpleMap)) {
                 return null;
             } else {
