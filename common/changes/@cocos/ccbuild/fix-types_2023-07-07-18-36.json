@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "add eslint",
+      "type": "none"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}
