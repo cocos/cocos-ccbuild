@@ -1,0 +1,14 @@
+{
+  "extends": "<%= extendTsconfigPath %>",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "types": [
+    ],
+  },
+  "exclude": [
+    "./test/",
+    "./lib/",
+    "./static/"
+  ]
+}

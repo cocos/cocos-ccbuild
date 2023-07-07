@@ -3,4 +3,8 @@ coverage/
 lib/
 lib-ts/
 lib-js/
-.api-extractor/temp/
+.api-extractor/temp
+common/temp
+*.build.log
+deploy/
+.rush/temp/

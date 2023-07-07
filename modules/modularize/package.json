@@ -1,0 +1,41 @@
+{
+  "name": "@ccbuild/modularize",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "api": "tsc && api-extractor run --local --verbose"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "./lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "keywords": [],
+  "author": "PP",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "~11.1.1",
+    "path": "~0.12.7",
+    "commander": "~11.0.0",
+    "@ccbuild/utils": "workspace:*",
+    "ejs": "~3.1.9"
+  },
+  "devDependencies": {
+    "jest": "~29.5.0",
+    "@types/node": "~20.3.3",
+    "@types/fs-extra": "~11.0.1",
+    "@types/ejs": "~3.1.2",
+    "ts-jest": "~29.1.1",
+    "@types/jest": "~29.5.2",
+    "typescript": "~5.1.6",
+    "@microsoft/api-extractor": "~7.36.0"
+  }
+}
