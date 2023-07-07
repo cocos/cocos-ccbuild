@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@cocos/ccbuild",
-      "comment": "fix dts types",
+      "comment": "fix dts types && fix fs-extra version",
       "type": "patch"
     }
   ],
