@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "fix dts types",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}
