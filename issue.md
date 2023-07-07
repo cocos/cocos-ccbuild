@@ -5,7 +5,3 @@
 
 ## p2 issue 
 - 模块化之后 eslint 配置问题
-
-## P1 issue
-- 构建发布
-- .d.ts bundle

@@ -5,7 +5,7 @@ import { rollup as Bundler } from '@ccbuild/bundler';
 import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
-import type { buildEngine } from '../index'
+import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest } from '@ccbuild/utils';

@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import * as ps from 'path';
-import { babel as Transformer } from "@ccbuild/transformer";
+import { babel as Transformer } from '@ccbuild/transformer';
 import { addNamed } from '@babel/helper-module-imports';
 
 import BabelFile = Transformer.core.BabelFile;

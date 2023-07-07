@@ -1,5 +1,5 @@
-import * as rollup from './rollup'
+import * as rollup from './rollup';
 
 export {
     rollup,
-}
+};

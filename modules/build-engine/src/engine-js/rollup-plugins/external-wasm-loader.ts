@@ -5,9 +5,7 @@ import fs from 'fs-extra';
 import ps from 'path';
 
 import babel = Transformer.core;
-
-// @ts-ignore
-import pluginTransformSystemJSModule from '@babel/plugin-transform-modules-systemjs';
+import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSystemjs;
 
 import rollup = Bundler.core;
 
@@ -29,8 +27,8 @@ const suffixReplaceConfig: ISuffixReplaceConfig = {
  * emit asset and return the export statement
  */
 async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
-    let basename = ps.basename(filePath)
-    for (let suffixToReplace in suffixReplaceConfig) {
+    let basename = ps.basename(filePath);
+    for (const suffixToReplace in suffixReplaceConfig) {
         const replacement: string =  suffixReplaceConfig[suffixToReplace];
         if (basename.endsWith(suffixToReplace)) {
             // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
@@ -130,7 +128,7 @@ const loadConfig: ILoadConfig = {
         },
         cullingContent: `export default function () {}`,
     },
-}
+};
 
 declare namespace ExternalWasmModuleBundler {
     interface Options extends externalWasmLoader.Options {
@@ -152,7 +150,7 @@ class ExternalWasmModuleBundler {
     }
 
     private _resolveId (source: string): string {
-        let id = normalizePath(ps.join(this._options.externalRoot, source.substring(externalOrigin.length)));
+        const id = normalizePath(ps.join(this._options.externalRoot, source.substring(externalOrigin.length)));
         return id;
     }
 
@@ -175,7 +173,7 @@ class ExternalWasmModuleBundler {
 
     private _emitAsset (id: string): string {
         let basename = ps.basename(id);
-        for (let suffixToReplace in suffixReplaceConfig) {
+        for (const suffixToReplace in suffixReplaceConfig) {
             const replacement: string =  suffixReplaceConfig[suffixToReplace];
             if (basename.endsWith(suffixToReplace)) {
                 // some platforms doesn't support files with special suffix like '.mem', we replace it to '.bin'
@@ -216,8 +214,8 @@ class ExternalWasmModuleBundler {
         }
 
         // bundle
-        let result: string[] = [`console.log('[CC Subpackage] wasm chunks loaded');`];
-        for (let id in this._loadedChunkMap) {
+        const result: string[] = [`console.log('[CC Subpackage] wasm chunks loaded');`];
+        for (const id in this._loadedChunkMap) {
             const code = this._loadedChunkMap[id];
             result.push(code);
         }
@@ -240,7 +238,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
                     return {
                         id: source,
                         external: true,
-                    }
+                    };
                 }
                 return source;
             }
@@ -249,7 +247,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
 
         async load (id) {
             if (id.startsWith(externalOrigin)) {
-                let filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
+                const filePath = normalizePath(ps.join(options.externalRoot, id.substring(externalOrigin.length)));
                 for (const suffix in loadConfig) {
                     if (filePath.endsWith(suffix)) {
                         const config = loadConfig[suffix];

@@ -8,7 +8,7 @@ export function formatPath (path: string) {
 export function absolutePathFuncFactory (dirname: string) {
     return function absolutePath (relativePath: string) {
         return ps.join(dirname, relativePath);
-    }
+    };
 }
 
 export function replaceExtname (path: string, extname: string): string {
@@ -30,7 +30,7 @@ export function toExtensionLess (path: string) {
 export async function readdirR (item: string, reduceOutput: string[]) { 
     if ((await fs.stat(item)).isDirectory()) {
         const dirItems = await fs.readdir(item);
-        for (let subItem of dirItems) {
+        for (const subItem of dirItems) {
             await readdirR(ps.join(item, subItem), reduceOutput);
         }
     } else {

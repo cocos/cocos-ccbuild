@@ -236,6 +236,7 @@ importers:
       '@babel/plugin-syntax-decorators': ^7.19.0
       '@babel/plugin-syntax-typescript': ^7.20.0
       '@babel/plugin-transform-for-of': ^7.21.0
+      '@babel/plugin-transform-modules-systemjs': ~7.22.5
       '@babel/preset-env': ^7.20.2
       '@babel/traverse': ^7.20.13
       '@ccbuild/stats-query': workspace:*
@@ -275,6 +276,7 @@ importers:
       '@babel/plugin-syntax-decorators': 7.22.5_@babel+core@7.22.5
       '@babel/plugin-syntax-typescript': 7.22.5_@babel+core@7.22.5
       '@babel/plugin-transform-for-of': 7.22.5_@babel+core@7.22.5
+      '@babel/plugin-transform-modules-systemjs': 7.22.5_@babel+core@7.22.5
       '@babel/preset-env': 7.22.5_@babel+core@7.22.5
       '@babel/traverse': 7.22.5
       '@ccbuild/stats-query': link:../stats-query
