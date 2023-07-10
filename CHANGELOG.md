@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.15
+
+### Patch Changes
+
+- downgrade glob to fix compability with node14
+
 ## 1.1.14
 
 ### Patch Changes
