@@ -26,7 +26,8 @@
     "path": "~0.12.7",
     "commander": "~11.0.0",
     "@ccbuild/utils": "workspace:*",
-    "ejs": "~3.1.9"
+    "ejs": "~3.1.9",
+    "glob": "~7.2.0"
   },
   "devDependencies": {
     "jest": "~29.5.0",
@@ -36,6 +37,7 @@
     "ts-jest": "~29.1.1",
     "@types/jest": "~29.5.2",
     "typescript": "~5.1.6",
-    "@microsoft/api-extractor": "~7.36.0"
+    "@microsoft/api-extractor": "~7.36.0",
+    "@types/glob": "~7.2.0"
   }
 }
