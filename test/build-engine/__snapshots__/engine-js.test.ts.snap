@@ -2603,3 +2603,10 @@ const FORCE_BANNING_BULLET_WASM = false;
 console.log(FORCE_BANNING_BULLET_WASM);
 "
 `;
+
+exports[`engine-js intrinsic flag 1`] = `
+"var str = 'intrinsic flag is true';
+
+export { str };
+"
+`;

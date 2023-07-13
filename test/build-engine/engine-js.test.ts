@@ -179,4 +179,18 @@ describe('engine-js', () => {
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
+
+    test('intrinsic flag', async function () {
+        const out = ps.join(__dirname, './lib-js');
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['intrinsic-flag-test'],
+            moduleFormat: 'esm',
+        });
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
+        await del(out, { force: true });
+    });
 });

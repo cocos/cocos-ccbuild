@@ -149,23 +149,21 @@ export class EngineBuilder {
         const statsQuery = await StatsQuery.create(root);
         const constantManager = statsQuery.constantManager;
 
-        if (options.features) {
-            const featureUnits = statsQuery.getUnitsOfFeatures(options.features);
-            this._entries = featureUnits.map(fu => formatPath(statsQuery.getFeatureUnitFile(fu)));
-            options.features.forEach(feature => {
-                const nodeModule = this._feature2NodeModule[feature];
-                nodeModule && this._nodeModules.push(nodeModule);
-            });
-        } else {
-            const featureUnits = statsQuery.getFeatureUnits();
-            this._entries = featureUnits.map(fu => formatPath(statsQuery.getFeatureUnitFile(fu)));
-            this._nodeModules.push(...Object.values(this._feature2NodeModule));
-        }
+        const features: string[] = options.features ?? statsQuery.getFeatures();
+        const featureUnits = statsQuery.getUnitsOfFeatures(features);
+        this._entries = featureUnits.map(fu => formatPath(statsQuery.getFeatureUnitFile(fu)));
+        features.forEach(feature => {
+            const nodeModule = this._feature2NodeModule[feature];
+            nodeModule && this._nodeModules.push(nodeModule);
+        });
         this._buildTimeConstants = constantManager.genBuildTimeConstants({
             platform,
             mode,
             flags: flagConfig,
         });
+        const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
+        Object.assign(this._buildTimeConstants, intrinsicFlags);
+        
         this._moduleOverrides = statsQuery.evaluateModuleOverrides({
             mode: options.mode,
             platform: options.platform,
@@ -620,7 +618,7 @@ export class EngineBuilder {
         if (!outDir) {
             return;
         }
-        const dtsFiles = glob.sync(normalizePath(ps.join(root, './@types/**/*.d.ts')));
+        const dtsFiles = glob.sync(formatPath(ps.join(root, './@types/**/*.d.ts')));
         for (const file of dtsFiles) {
             const code = fs.readFileSync(file, 'utf8');
             const relativePath = ps.relative(root, file);

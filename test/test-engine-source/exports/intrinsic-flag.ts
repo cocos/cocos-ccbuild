@@ -1,0 +1,1 @@
+export * from '../intrinsic-flag/intrinsic-flag-false';
