@@ -11,7 +11,7 @@
     "version": "rush public -a",
     "api": "tsc && api-extractor run --local --verbose",
     "clean": "node ./scripts/clear.js",
-    "test": "jest",
+    "test": "rush build && jest",
     "init-module": "node ./modules/modularize/lib/cli.js init"
   },
   "files": [
