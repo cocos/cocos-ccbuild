@@ -30,7 +30,7 @@ test('engine-ts', async () => {
     await del(out, { force: true });
 });
 
-describe.only('build time constant', function () {
+describe('build time constant', function () {
   test('intrinsic flag', async function () {
     const engineBuilder = new ccbuild.EngineBuilder();
     const root = formatPath(ps.join(__dirname, '../test-engine-source'));
