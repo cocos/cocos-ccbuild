@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@cocos/ccbuild",
+      "comment": "fix build ts engine with intrinsic flag",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@cocos/ccbuild"
+}
