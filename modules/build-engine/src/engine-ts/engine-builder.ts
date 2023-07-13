@@ -620,7 +620,7 @@ export class EngineBuilder {
         if (!outDir) {
             return;
         }
-        const dtsFiles = await glob(formatPath(ps.join(root, './@types/**/*.d.ts')));
+        const dtsFiles = glob.sync(normalizePath(ps.join(root, './@types/**/*.d.ts')));
         for (const file of dtsFiles) {
             const code = fs.readFileSync(file, 'utf8');
             const relativePath = ps.relative(root, file);
