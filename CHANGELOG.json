@@ -1,0 +1,36 @@
+{
+  "name": "@cocos/ccbuild",
+  "entries": [
+    {
+      "version": "2.0.0",
+      "tag": "@cocos/ccbuild_v2.0.0",
+      "date": "Thu, 13 Jul 2023 15:30:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "add eslint"
+          }
+        ],
+        "major": [
+          {
+            "comment": "BREAKING: change transformer to Transfomer and add Bundler interface"
+          },
+          {
+            "comment": "refactor: use uniform babel && rollup module"
+          },
+          {
+            "comment": "refactor: modularize @cocos/ccbuild"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "fix dts types && fix fs-extra version"
+          },
+          {
+            "comment": "fix build ts engine with intrinsic flag"
+          }
+        ]
+      }
+    }
+  ]
+}
