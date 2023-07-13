@@ -24,10 +24,6 @@
         "@typescript-eslint/explicit-function-return-type": [
             "error"
         ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
         "quotes": [
             "error",
             "single",
