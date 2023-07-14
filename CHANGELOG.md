@@ -1,8 +1,15 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.2
+
+### Patch Changes
+
+- fix: build ts engine with external wasm
+
 This log was last generated on Fri, 14 Jul 2023 13:11:15 GMT and should not be manually modified.
 
 ## 2.0.1
+
 Fri, 14 Jul 2023 13:11:15 GMT
 
 ### Patches
@@ -10,6 +17,7 @@ Fri, 14 Jul 2023 13:11:15 GMT
 - feat: support building ts engine with npm module
 
 ## 2.0.0
+
 Thu, 13 Jul 2023 15:30:27 GMT
 
 ### Breaking changes
@@ -22,4 +30,3 @@ Thu, 13 Jul 2023 15:30:27 GMT
 
 - fix dts types && fix fs-extra version
 - fix build ts engine with intrinsic flag
-
