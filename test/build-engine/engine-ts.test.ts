@@ -1,5 +1,6 @@
 import * as ccbuild from '../../modules/build-engine/src/engine-ts/engine-builder';
 import * as ps from 'path';
+import * as fs from 'fs';
 import del from 'del';
 import { formatPath } from '@ccbuild/utils';
 import { getOutputContent, getOutputDirStructure, renameNodeModules } from './utils';
@@ -77,7 +78,7 @@ describe('WASM', () => {
     const engineBuilder = new ccbuild.EngineBuilder();
     const root = formatPath(ps.join(__dirname, '../test-engine-source'));
     const out = formatPath(ps.join(__dirname, './lib-ts'));
-    const buildResult = await engineBuilder.build({
+    await engineBuilder.build({
         root,
         features: ['wasm-test'],
         platform: 'OPEN_HARMONY',
@@ -87,14 +88,16 @@ describe('WASM', () => {
         },
         outDir: out,
     });
-    const res: any = {};
-    for (const [k, v] of Object.entries(buildResult)) {
-      const relativeFile = formatPath(ps.relative(root, v.file));
-      res[relativeFile] = {
-        code: v.code,
-      };
+    const outputDirStructure = await getOutputDirStructure(out);
+    const filesToDetect = outputDirStructure
+      .filter(path => path.startsWith('native/external/wasm/emscripten') || path === 'wasm/emscripten.ts')
+      .map(path => ps.join(out, path));
+    const file2Code: Record<string, string> = {};
+    for (const file of filesToDetect) {
+      file2Code[formatPath(ps.relative(out, file))] = fs.readFileSync(file, 'utf8');
     }
-    expect(res).toMatchSnapshot();
+    expect(outputDirStructure).toMatchSnapshot('get output dir structure');
+    expect(file2Code).toMatchSnapshot('file 2 code');
     await del(out, { force: true });
   });
 });

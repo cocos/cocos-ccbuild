@@ -67,7 +67,7 @@ export class EngineBuilder {
     private _fieldDecoratorHelper = new FieldDecoratorHelper();
     private _plugins: ITsEnginePlugin[] = [];
     private _excludeTransform = [
-        /external:/
+        /native\/external\//
     ];
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
@@ -144,6 +144,7 @@ export class EngineBuilder {
             nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,
+                outDir: options.outDir,
             }),
         );
     }
@@ -326,6 +327,11 @@ export class EngineBuilder {
 
     private _getDepIdList (file: string, code: string): string[] {
         const depIdList: string[] = [];
+        for (const ex of this._excludeTransform) {
+            if (ex.test(file)) {
+                return depIdList;
+            }
+        }
         // eg. zlib.js dependent on zlib.d.ts
         if (ps.extname(file) === '.js') {
             const dtsFile = toExtensionLess(file) + '.d.ts';
