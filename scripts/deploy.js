@@ -1,4 +1,4 @@
-const { formatPath, rebasePath } = require("@ccbuild/utils");
+const { formatPath, rebasePath } = require('@ccbuild/utils');
 const { babel: Transformer } = require('@ccbuild/transformer');
 const ps = require('path');
 const fs = require('fs-extra');
@@ -39,7 +39,7 @@ pkgFileList.forEach(pkgFile => {
     if (pkg.files) {
         for (let filePattern of pkg.files) {
             filePattern = formatPath(ps.join(ps.dirname(pkgFile), filePattern));
-            filesToCopy.push(...glob.globSync(filePattern).filter(file => !fs.statSync(file).isDirectory()));
+            filesToCopy.push(...glob.sync(filePattern).filter(file => !fs.statSync(file).isDirectory()));
         }
     } else {
         console.warn(`package ${pkgName} lacks field 'files'`);
@@ -72,7 +72,7 @@ filesToCopy.forEach(file => {
 
 // transform dts files
 console.log('transform .d.ts files');
-const dtsFiles = glob.globSync(formatPath(ps.join(deployDir, '**/*.d.ts')));
+const dtsFiles = glob.sync(formatPath(ps.join(deployDir, '**/*.d.ts')));
 for (const file of dtsFiles) {
     const code = fs.readFileSync(file, 'utf8');
     const res = babel.transformSync(code, {
@@ -102,7 +102,7 @@ for (const file of dtsFiles) {
 
 // transform js files
 console.log('transform js files');
-const jsFiles = glob.globSync(formatPath(ps.join(deployDir, '**/*.js')));
+const jsFiles = glob.sync(formatPath(ps.join(deployDir, '**/*.js')));
 for (const file of jsFiles) {
     const code = fs.readFileSync(file, 'utf8');
     const res = babel.transformSync(code, {

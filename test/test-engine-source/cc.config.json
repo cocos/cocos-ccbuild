@@ -13,6 +13,12 @@
         },
         "internal-constants": {
             "modules": ["internal-constants"]
+        },
+        "intrinsic-flag-test": {
+            "modules": ["intrinsic-flag"],
+            "intrinsicFlags": {
+                "INTRINSIC_FLAG": true
+            }
         }
     },
     "moduleOverrides": [{
@@ -81,10 +87,10 @@
             }
         },
         {
-            "test": "!context.buildTimeConstants.MARIONETTE",
+            "test": "context.buildTimeConstants.INTRINSIC_FLAG",
             "isVirtualModule": false,
             "overrides": {
-                "cocos/animation/marionette/runtime-exports.ts": "cocos/animation/marionette/index-empty.ts"
+                "intrinsic-flag/intrinsic-flag-false.ts": "intrinsic-flag/intrinsic-flag-true.ts"
             }
         }
     ],

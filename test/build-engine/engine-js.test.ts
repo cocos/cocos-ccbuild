@@ -3,19 +3,9 @@ import { buildEngine } from '@ccbuild/build-engine';
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 import del from 'del';
+import { getOutputContent, getOutputDirStructure } from './utils';
 
 jest.setTimeout(10000);
-
-async function getOutputDirStructure (out: string): Promise<string[]> {
-    let outputScripts: string[] = [];
-    await readdirR(out, outputScripts);
-    return outputScripts.map(item => formatPath(ps.relative(out, item)));
-}
-
-async function getOutputContent (out: string): Promise<string> {
-    const cc = await fs.readFile(ps.join(out, 'cc.js'), 'utf8');
-    return cc;
-}
 
 describe('engine-js', () => {
     test('build WASM module on platform supporting WASM', async () => {
@@ -29,7 +19,7 @@ describe('engine-js', () => {
             moduleFormat: 'system',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
 
         // cull asm.js module
@@ -45,7 +35,7 @@ describe('engine-js', () => {
             }
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
-        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
 
         // wasm subpackage
@@ -61,7 +51,7 @@ describe('engine-js', () => {
             }
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('wasm subpackage');
-        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
 
@@ -76,7 +66,7 @@ describe('engine-js', () => {
             moduleFormat: 'system',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
         
         // cull asm.js module
@@ -92,7 +82,7 @@ describe('engine-js', () => {
             }
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
-        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
     
@@ -107,7 +97,7 @@ describe('engine-js', () => {
             moduleFormat: 'system',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
 
         // cull asm.js module
@@ -123,7 +113,7 @@ describe('engine-js', () => {
             }
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
-        // expect(await getOutputContent(out)).toMatchSnapshot();  // this is too much for a snapshot output
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
 
         
@@ -141,7 +131,7 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: true,
         });
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 
@@ -157,7 +147,7 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: false,
         });
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 
@@ -172,7 +162,7 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
             ammoJsWasm: 'fallback',
         });
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 
@@ -186,7 +176,21 @@ describe('engine-js', () => {
             features: ['internal-constants'],
             moduleFormat: 'esm',
         });
-        expect(await getOutputContent(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('intrinsic flag', async function () {
+        const out = ps.join(__dirname, './lib-js');
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['intrinsic-flag-test'],
+            moduleFormat: 'esm',
+        });
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 });
