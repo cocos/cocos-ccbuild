@@ -1,7 +1,6 @@
 import './decorator';
 import { Rect } from './rect'
 import { Path } from './path'
-import '@cocos/dragonbones-js'
 
 let p: Path = new Path();
 const r: Rect = Rect.from(0, 0, 100, 100);

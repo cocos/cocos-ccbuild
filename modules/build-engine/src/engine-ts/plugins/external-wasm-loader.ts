@@ -7,14 +7,14 @@ const externalOrigin = 'external:';
 export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Options): ITsEnginePlugin {
 
     const externalWasmLoader: ITsEnginePlugin = {
-        resolve (id: string, importer?: string): string | void {
-            if (id.startsWith(externalOrigin)) {
-                return id;
+        async resolve (source: string, importer?: string): Promise<string | void> {
+            if (source.startsWith(externalOrigin)) {
+                return source;
             }
             return undefined;
         },
     
-        load (id: string): string | void {
+        async load (id: string): Promise<string | void> {
             if (id.startsWith(externalOrigin)) {
                 if (id.endsWith('.wasm')) {
                     return `export default 'WebAssembly is not supported !'`;
@@ -26,13 +26,13 @@ export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Op
             return undefined;
         },
 
-        transformId (id: string, importer?: string): string | void {
-            if (id.startsWith(externalOrigin)) {
-                if (id.endsWith('.wasm')) {
+        transformId (source: string, importer?: string): string | void {
+            if (source.startsWith(externalOrigin)) {
+                if (source.endsWith('.wasm')) {
                     // we generate a ts file to throw an message that we don't support wasm for now
-                    return ps.join(options.engineRoot, id.replace(externalOrigin, 'native/external/') + '.ts');
+                    return ps.join(options.engineRoot, source.replace(externalOrigin, 'native/external/') + '.ts');
                 } else {
-                    return ps.join(options.engineRoot, id.replace(externalOrigin, 'native/external/'));
+                    return ps.join(options.engineRoot, source.replace(externalOrigin, 'native/external/'));
                 }
             }
             return undefined;

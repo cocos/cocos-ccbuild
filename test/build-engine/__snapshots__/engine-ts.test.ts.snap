@@ -2540,3 +2540,25 @@ console.log('native');",
   },
 }
 `;
+
+exports[`node modules 1`] = `
+[
+  "@types/consts.d.ts",
+  "@types/external-module.d.ts",
+  "@types/lib.dom.d.ts",
+  "cc.ts",
+  "exports/node-modules.ts",
+  "index.ts",
+  "node_modules/@cocos/cannon/cannon.js",
+  "node_modules/@cocos/dragonbones-js/dragonBones.js",
+  "system-cc.js",
+]
+`;
+
+exports[`node modules 2`] = `
+"import * as db from "../node_modules/@cocos/dragonbones-js/dragonBones.js";
+import * as c from "../node_modules/@cocos/cannon/cannon.js";
+// @ts-ignore
+console.log(db, c);
+export { db, c };"
+`;

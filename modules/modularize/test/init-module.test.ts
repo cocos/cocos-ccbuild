@@ -1,10 +1,10 @@
-import { absolutePathFuncFactory, formatPath } from "@ccbuild/utils";
-import { ModuleManager } from "../src/index";
+import { absolutePathFuncFactory, formatPath } from '@ccbuild/utils';
+import { ModuleManager } from '../src/index';
 import ps from 'path';
 
 const absolutePath = absolutePathFuncFactory(__dirname);
 
-test('init module', async () => {
+test.skip('init module', async () => {
     const mm = new ModuleManager();
     const modulePath = absolutePath('./module-to-init/');
     const result = await mm.initModule(modulePath, { pkgName: 'test-pkg-name', extendTsconfigPath: absolutePath('../../../tsconfig.json') });

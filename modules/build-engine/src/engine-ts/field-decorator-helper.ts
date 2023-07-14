@@ -6,7 +6,7 @@ import { addNamed } from '@babel/helper-module-imports';
 import BabelFile = Transformer.core.BabelFile;
 import t = Transformer.core.types;
 
-export class FiledDecoratorHelper {
+export class FieldDecoratorHelper {
     private _moduleName = 'CCBUILD_HELPER_MODULE';
     private _moduleSource?: string;
     private _file2NamedIdentifier: WeakMap<BabelFile, t.Identifier> = new WeakMap();

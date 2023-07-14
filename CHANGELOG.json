@@ -2,6 +2,18 @@
   "name": "@cocos/ccbuild",
   "entries": [
     {
+      "version": "2.0.1",
+      "tag": "@cocos/ccbuild_v2.0.1",
+      "date": "Fri, 14 Jul 2023 13:11:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "feat: support building ts engine with npm module"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.0.0",
       "tag": "@cocos/ccbuild_v2.0.0",
       "date": "Thu, 13 Jul 2023 15:30:27 GMT",
