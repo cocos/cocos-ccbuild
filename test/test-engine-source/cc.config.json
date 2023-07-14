@@ -19,6 +19,9 @@
             "intrinsicFlags": {
                 "INTRINSIC_FLAG": true
             }
+        },
+        "node-modules": {
+            "modules": ["node-modules"]
         }
     },
     "moduleOverrides": [{

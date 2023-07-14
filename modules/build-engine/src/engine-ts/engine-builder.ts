@@ -9,13 +9,15 @@ import dedent from 'dedent';
 import { glob } from 'glob';
 
 import ConstantManager = StatsQuery.ConstantManager;
-import { FiledDecoratorHelper } from './field-decorator-helper';
+import { FieldDecoratorHelper } from './field-decorator-helper';
 import { externalWasmLoaderFactory } from './plugins/external-wasm-loader';
+import { nodeModuleLoaderFactory } from './plugins/node-module-loader';
 import { ITsEnginePlugin } from './plugins/interface';
 
 import babel = Transformer.core;
 import t = babel.types;
 import traverse = babel.traverse;
+type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
 const pluginSyntaxTS = Transformer.plugins.syntaxTS;
 const syntaxDecorators = Transformer.plugins.syntaxDecorators;
 
@@ -42,7 +44,6 @@ export namespace EngineBuilder {
     export interface ITransformResult {
         code: string;
         map?: any;
-        depIdList: string[],
     }
 }
 
@@ -51,14 +52,6 @@ export class EngineBuilder {
     private _entries: string[] = [];
     private _entriesForPass2: Set<string> = new Set<string>();
     private _virtual2code: Record<string, string> = {};
-    private _feature2NodeModule: Record<string, string> = {
-        'dragon-bones': '@cocos/dragonbones-js',
-        'physics-2d-box2d': '@cocos/box2d',
-        'physics-cannon': '@cocos/cannon',
-        'physics-physx': '@cocos/physx',
-        'physics-ammo': '@cocos/bullet',
-    };
-    private _nodeModules: string[] = [];
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: ConstantManager.BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
@@ -71,7 +64,7 @@ export class EngineBuilder {
         Path: 'PathAlias',
         struct: 'structAlias',
     };
-    private _filedDecoratorHelper = new FiledDecoratorHelper();
+    private _fieldDecoratorHelper = new FieldDecoratorHelper();
     private _plugins: ITsEnginePlugin[] = [];
     private _excludeTransform = [
         /external:/
@@ -80,19 +73,25 @@ export class EngineBuilder {
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
         this._buildResult = {};
-        const handleIdList = (idList: string[]): void => {
+        const handleIdList = async (idList: string[]): Promise<void> => {
             for (const id of idList) {
-                const handleResult = this._handleId(id);
+                const handleResult = await this._handleId(id);
                 this._buildResult[handleResult.file] = handleResult;
             }
         };
         
+        this._initPlugins(options);
+        await this._initOptions(options);
+
+        for (const plugin of this._plugins) {
+            if (plugin.buildStart) {
+                await plugin.buildStart();
+            }
+        }
         // pass1: build ts for native engine
         console.log('[Build Engine]: pass1 - traverse and compile modules');
         console.time('pass1');
-        this._initPlugins(options);
-        await this._initOptions(options);
-        handleIdList(this._entries);
+        await handleIdList(this._entries);
         console.timeEnd('pass1');
 
         // pass2: build web version for jsb type declarations
@@ -129,7 +128,12 @@ export class EngineBuilder {
 
             this._buildIndex();
             await this._copyTypes();
-            // this._addNodeModulesDeps();  // TODO: support node modules building
+        }
+
+        for (const plugin of this._plugins) {
+            if (plugin.buildEnd) {
+                await plugin.buildEnd();
+            }
         }
 
         return this._buildResult;
@@ -137,6 +141,7 @@ export class EngineBuilder {
 
     private _initPlugins (options: EngineBuilder.IBuildOptions): void {
         this._plugins.push(
+            nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,
             }),
@@ -152,10 +157,6 @@ export class EngineBuilder {
         const features: string[] = options.features ?? statsQuery.getFeatures();
         const featureUnits = statsQuery.getUnitsOfFeatures(features);
         this._entries = featureUnits.map(fu => formatPath(statsQuery.getFeatureUnitFile(fu)));
-        features.forEach(feature => {
-            const nodeModule = this._feature2NodeModule[feature];
-            nodeModule && this._nodeModules.push(nodeModule);
-        });
         this._buildTimeConstants = constantManager.genBuildTimeConstants({
             platform,
             mode,
@@ -191,11 +192,7 @@ export class EngineBuilder {
             mode,
             flags: flagConfig,
         });
-        this._virtual2code[this._filedDecoratorHelper.getModuleName()] = this._filedDecoratorHelper.genModuleSource();
-        // TODO: resolve node modules
-        this._virtual2code['@cocos/box2d'] = 'export {}';
-        this._virtual2code['@cocos/bullet'] = 'export {}';
-        this._virtual2code['@cocos/cannon'] = 'export {}';
+        this._virtual2code[this._fieldDecoratorHelper.getModuleName()] = this._fieldDecoratorHelper.genModuleSource();
 
         for (const virtualName in this._virtual2code) {
             this._virtualOverrides[virtualName] = formatPath(ps.join(root, '__virtual__', virtualName.replace(/:/g, '_'))) + '.ts';
@@ -203,12 +200,12 @@ export class EngineBuilder {
 
     }
 
-    private _handleId (id: string, importer?: string): EngineBuilder.IHandleResult {
-        const resolvedId = this._resolve(id, importer);
+    private async _handleId (id: string, importer?: string): Promise<EngineBuilder.IHandleResult> {
+        const resolvedId = await this._resolve(id, importer);
         if (typeof resolvedId === 'undefined') {
             throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
         }
-        const code = this._load(resolvedId);
+        const code = await this._load(resolvedId);
         if (typeof code === 'undefined') {
             throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
@@ -226,7 +223,13 @@ export class EngineBuilder {
             return this._buildResult[file];
         }
 
-        const transformResult = this._transform(resolvedId, code);
+        const depIdList: string[] = this._getDepIdList(file, code);
+        // we handle the dep module first, because we need to get the resolved dep id to transform the import specifier in current module.
+        for (const depId of depIdList) {
+            await this._handleId(depId, file);
+        }
+
+        const transformResult = await this._transform(resolvedId, code);
         const handleResult = this._buildResult[file] = {
             code: transformResult.code,
             file,
@@ -234,11 +237,6 @@ export class EngineBuilder {
             resolvedId,
             map: transformResult.map,
         };
-
-        transformResult.depIdList.forEach(id => {
-            const handleResult = this._handleId(id, file);
-            this._buildResult[handleResult.file] = handleResult;
-        });
 
         return handleResult;
     }
@@ -268,9 +266,9 @@ export class EngineBuilder {
         return overrideId;
     }
 
-    private _resolve (id: string, importer?: string): string | void {
+    private async _resolve (id: string, importer?: string): Promise<string | void> {
         for (const p of this._plugins) {
-            const resolvedId = p.resolve?.(id, importer);
+            const resolvedId = await p.resolve?.(id, importer);
             if (resolvedId) {
                 return resolvedId;
             }
@@ -281,8 +279,6 @@ export class EngineBuilder {
             return id;  // virtual module does not have real fs path
         } else if (id in this._moduleOverrides) {
             return this._moduleOverrides[id];
-        } else if (this._nodeModules.includes(id)) {
-            return id;  // node module only use bare specifier as module id
         } else if (ps.isAbsolute(id)) {
             return id;
         } else {
@@ -310,9 +306,9 @@ export class EngineBuilder {
         }
     }
 
-    private _load (id: string): string | void {
+    private async _load (id: string): Promise<string | void> {
         for (const p of this._plugins) {
-            const loadedCode = p.load?.(id);
+            const loadedCode = await p.load?.(id);
             if (loadedCode) {
                 return loadedCode;
             }
@@ -328,34 +324,56 @@ export class EngineBuilder {
         }
     }
 
-    private _transform (file: string, code: string): EngineBuilder.ITransformResult {
-        file = formatPath(file);
-        for (const ex of this._excludeTransform) {
-            if (ex.test(file)) {
-                return {
-                    code,
-                    depIdList: [],
-                };
-            }
-        }
+    private _getDepIdList (file: string, code: string): string[] {
         const depIdList: string[] = [];
+        // eg. zlib.js dependent on zlib.d.ts
         if (ps.extname(file) === '.js') {
             const dtsFile = toExtensionLess(file) + '.d.ts';
             if (fs.existsSync(dtsFile)) {
                 depIdList.push(dtsFile);  // emit the .d.ts file
             }
         }
-        type ImportTypes = babel.NodePath<babel.types.ImportDeclaration> | babel.NodePath<babel.types.ExportDeclaration>;
         const importExportVisitor = (path: ImportTypes): void => {
             // @ts-expect-error TODO: fix type
             const source = path.node.source;
             if (source) {
                 const specifier = source.value as string;
                 // add dependency
-                if (!this._nodeModules.includes(specifier)) {
-                    // don't load node modules, we post install the modules in OH project
-                    depIdList.push(specifier);
-                }
+                depIdList.push(specifier);
+            }
+        };
+        const res = babel.parseSync(code, {
+            configFile: false,
+            plugins: [
+                [pluginSyntaxTS],
+                [syntaxDecorators, {
+                    version: '2018-09',  // NOTE: only version 2018-09 of decorator proposal can support decorators before export, which we need for tsc compiler
+                    decoratorsBeforeExport: true,
+                }],
+            ]
+        });
+        babel.traverse(res, {
+            ImportDeclaration: importExportVisitor,
+            ExportDeclaration: importExportVisitor,
+        });
+        return depIdList;
+    }
+
+    private async _transform (file: string, code: string): Promise<EngineBuilder.ITransformResult> {
+        file = formatPath(file);
+        for (const ex of this._excludeTransform) {
+            if (ex.test(file)) {
+                return {
+                    code,
+                };
+            }
+        }
+        let needFieldHelperModule = false;
+        const importExportVisitor = (path: ImportTypes): void => {
+            // @ts-expect-error TODO: fix type
+            const source = path.node.source;
+            if (source) {
+                const specifier = source.value as string;
                 // transform import/export declaration if needed
                 const overrideId = this._getOverrideId(specifier, file);
                 if (overrideId) {
@@ -367,7 +385,6 @@ export class EngineBuilder {
                         relativePath = relativePath.slice(0, -3);  // remove '.ts'
                     }
                     
-                    // traverse to transform specifier
                     traverse(path.node, {
                         StringLiteral (path: babel.NodePath<babel.types.StringLiteral>): void {
                             path.replaceWith(babel.types.stringLiteral(relativePath));
@@ -413,7 +430,8 @@ export class EngineBuilder {
                                         const decoratorsPath = path.get('decorators');
                                         if (Array.isArray(decoratorsPath)) {
                                             const propertyValuePath = path.get('value');
-                                            const helperIdentifier = self._filedDecoratorHelper.addHelper(pluginPass.file);
+                                            const helperIdentifier = self._fieldDecoratorHelper.addHelper(pluginPass.file);
+                                            needFieldHelperModule = true;
                                             decoratorsPath.forEach(decPath => {
                                                 const expPath = decPath.get('expression');
                                                 const type = expPath.node.type;
@@ -551,9 +569,11 @@ export class EngineBuilder {
                 ]
             ],
         });
+        if (needFieldHelperModule) {
+            await this._handleId(this._fieldDecoratorHelper.getModuleName(), file);
+        }
         return {
             code: transformResult?.code!,
-            depIdList,
         };
     }
 
@@ -631,28 +651,5 @@ export class EngineBuilder {
         const targetDomDts = formatPath(ps.join(outDir, '@types/lib.dom.d.ts'));
         const code = fs.readFileSync(originalDomDts, 'utf8');
         fs.outputFileSync(targetDomDts, code, 'utf8');
-    }
-
-    private _addNodeModulesDeps (): void {
-        const { outDir } = this._options;
-        if (!outDir) {
-            return;
-        }
-        const pkgFile = formatPath(ps.join(outDir, 
-                '..',  // src
-                '..',  // cocos
-                '..',  // ets
-                '..',  // main
-                '..',  // src
-                '..',  // entry
-                'package.json',
-            ));
-
-        if (!fs.existsSync(pkgFile)) {
-            return;
-        }
-        const jsonObj = fs.readJSONSync(pkgFile);
-        console.log(jsonObj);
-        // TODO
     }
 }
