@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
 import * as ps from 'path';
 import { babel as Transformer } from '@ccbuild/transformer';
-import { addNamed } from '@babel/helper-module-imports';
 
 import BabelFile = Transformer.core.BabelFile;
 import t = Transformer.core.types;
+import addNamed = Transformer.helpers.addNamed;
 
 export class FieldDecoratorHelper {
     private _moduleName = 'CCBUILD_HELPER_MODULE';
