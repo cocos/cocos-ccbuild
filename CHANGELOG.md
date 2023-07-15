@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.2
+
+### Patch Changes
+
+- a8463a2: fix: circular reference && type merge && handle cache
+
 ## 2.0.3-alpha.1
 
 ### Patch Changes
