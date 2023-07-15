@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.3
+
+### Patch Changes
+
+- fix: dts files copy in naitve/external
+
 ## 2.0.3-alpha.2
 
 ### Patch Changes
