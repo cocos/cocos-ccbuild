@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.1
+
+### Patch Changes
+
+- 5df4c85: fix: circular reference while building ts engine
+
 ## 2.0.3-alpha.0
 
 ### Patch Changes
