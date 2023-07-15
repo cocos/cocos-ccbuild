@@ -101,3 +101,23 @@ describe('WASM', () => {
     await del(out, { force: true });
   });
 });
+
+describe('circular reference', function () {
+  test('circular reference', async function () {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
+    await engineBuilder.build({
+        root,
+        features: ['circular-reference'],
+        platform: 'OPEN_HARMONY',
+        mode: 'BUILD', 
+        flagConfig: {
+            DEBUG: true,
+        },
+        outDir: out,
+    });
+    // it should build successfully instead of waiting for the dep modules
+    await del(out, { force: true });
+  });
+});

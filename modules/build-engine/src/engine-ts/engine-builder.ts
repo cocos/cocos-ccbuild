@@ -69,6 +69,7 @@ export class EngineBuilder {
     private _excludeTransform = [
         /native\/external\//
     ];
+    private _handledCache: Record<string, boolean> = {}
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
@@ -76,7 +77,9 @@ export class EngineBuilder {
         const handleIdList = async (idList: string[]): Promise<void> => {
             for (const id of idList) {
                 const handleResult = await this._handleId(id);
-                this._buildResult[handleResult.file] = handleResult;
+                if (handleResult) {
+                    this._buildResult[handleResult.file] = handleResult;
+                }
             }
         };
         
@@ -201,7 +204,11 @@ export class EngineBuilder {
 
     }
 
-    private async _handleId (id: string, importer?: string): Promise<EngineBuilder.IHandleResult> {
+    private async _handleId (id: string, importer?: string): Promise<EngineBuilder.IHandleResult | void> {
+        if (this._handledCache[id]) {
+            return;
+        }
+        this._handledCache[id] = true;
         const resolvedId = await this._resolve(id, importer);
         if (typeof resolvedId === 'undefined') {
             throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);

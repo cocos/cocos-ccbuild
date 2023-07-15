@@ -22,6 +22,9 @@
         },
         "node-modules": {
             "modules": ["node-modules"]
+        },
+        "circular-reference": {
+            "modules": ["circular-reference"]
         }
     },
     "moduleOverrides": [{

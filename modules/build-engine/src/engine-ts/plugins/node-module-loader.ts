@@ -4,6 +4,7 @@ import { ITsEnginePlugin } from './interface';
 import rollup = Bundler.core;
 import rpCjs = Bundler.plugins.commonjs;
 import rpNodeResolve = Bundler.plugins.nodeResolve;
+import { formatPath } from '@ccbuild/utils';
 
 interface ResolvedModuleData {
     /**
@@ -29,11 +30,7 @@ export function nodeModuleLoaderFactory (): ITsEnginePlugin {
                 if (resolvedModuleMap[source]?.id) {
                     return resolvedModuleMap[source].id;
                 }
-                const resolvedPath =  require.resolve(source, {
-                    paths: [
-                        importer,
-                    ]
-                });
+                const resolvedPath =  formatPath(require.resolve(source, { paths: [importer] }));
                 resolvedModuleMap[source] ??= {
                     id: resolvedPath,
                 };
