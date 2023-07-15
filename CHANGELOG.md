@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.0
+
+### Patch Changes
+
+- f171c63: fix: use posix path to resolve id
+
 ## 2.0.2
 
 ### Patch Changes

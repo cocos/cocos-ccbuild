@@ -1,0 +1,10 @@
+{
+  "mode": "exit",
+  "tag": "alpha",
+  "initialVersions": {
+    "@cocos/ccbuild": "2.0.2"
+  },
+  "changesets": [
+    "new-clocks-flash"
+  ]
+}
