@@ -503,3 +503,17 @@ import * as c from "../node_modules/@cocos/cannon/cannon.js";
 console.log(db, c);
 export { db, c };"
 `;
+
+exports[`type build type merge 1`] = `
+[
+  "@types/consts.d.ts",
+  "@types/external-module.d.ts",
+  "@types/lib.dom.d.ts",
+  "cc.ts",
+  "exports/type-merge.ts",
+  "index.ts",
+  "system-cc.js",
+  "type-merge/type.jsb.ts",
+  "type-merge/type.web.ts",
+]
+`;

@@ -121,3 +121,24 @@ describe('circular reference', function () {
     await del(out, { force: true });
   });
 });
+
+
+describe('type build', function () {
+  test('type merge', async function () {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
+    await engineBuilder.build({
+        root,
+        features: ['type-merge'],
+        platform: 'OPEN_HARMONY',
+        mode: 'BUILD', 
+        flagConfig: {
+            DEBUG: true,
+        },
+        outDir: out,
+    });
+    expect(await getOutputDirStructure(out)).toMatchSnapshot();
+    await del(out, { force: true });
+  });
+});

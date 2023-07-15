@@ -100,6 +100,7 @@ export class EngineBuilder {
         // pass2: build web version for jsb type declarations
         console.log('[Build Engine]: pass2 - apply jsb interface info');
         console.time('pass2');
+        this._handledCache = {};  // clear cache
         while (this._entriesForPass2.size !== 0) {
             const entries2 = Array.from(this._entriesForPass2);
             this._entriesForPass2.clear();
@@ -109,7 +110,7 @@ export class EngineBuilder {
                 }
                 return result;
             }, {} as Record<string, string>);
-            handleIdList(entries2);
+            await handleIdList(entries2);
         }
         console.timeEnd('pass2');
 
@@ -204,21 +205,23 @@ export class EngineBuilder {
 
     }
 
-    private async _handleId (id: string, importer?: string): Promise<EngineBuilder.IHandleResult | void> {
-        if (this._handledCache[id]) {
+    private async _handleId (idOrSource: string, importer?: string): Promise<EngineBuilder.IHandleResult | void> {
+        const resolvedId = await this._resolve(idOrSource, importer);
+        if (typeof resolvedId === 'undefined') {
+            throw new Error(`Cannot resolve module: ${idOrSource} ${importer ? `in file ${importer}` : ''}`);
+        }
+        // In case circular reference
+        if (this._handledCache[resolvedId]) {
             return;
         }
-        this._handledCache[id] = true;
-        const resolvedId = await this._resolve(id, importer);
-        if (typeof resolvedId === 'undefined') {
-            throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
-        }
+        this._handledCache[resolvedId] = true;
+
         const code = await this._load(resolvedId);
         if (typeof code === 'undefined') {
             throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
 
-        const overrideId = this._getOverrideId(id, importer);
+        const overrideId = this._getOverrideId(idOrSource, importer);
 
         // handle output file
         let file = overrideId || resolvedId;
@@ -241,7 +244,7 @@ export class EngineBuilder {
         const handleResult = this._buildResult[file] = {
             code: transformResult.code,
             file,
-            originalId: id,
+            originalId: idOrSource,
             resolvedId,
             map: transformResult.map,
         };
