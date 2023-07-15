@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as ps from 'path';
 import { babel as Transformer } from '@ccbuild/transformer';
 import { StatsQuery } from '@ccbuild/stats-query';
-import { toExtensionLess, formatPath } from '@ccbuild/utils';
+import { toExtensionLess, formatPath, asserts } from '@ccbuild/utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
 import dedent from 'dedent';
@@ -67,8 +67,9 @@ export class EngineBuilder {
     private _fieldDecoratorHelper = new FieldDecoratorHelper();
     private _plugins: ITsEnginePlugin[] = [];
     private _excludeTransform = [
-        /external:/
+        /native\/external\//
     ];
+    private _handledCache: Record<string, boolean> = {}
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
@@ -76,7 +77,9 @@ export class EngineBuilder {
         const handleIdList = async (idList: string[]): Promise<void> => {
             for (const id of idList) {
                 const handleResult = await this._handleId(id);
-                this._buildResult[handleResult.file] = handleResult;
+                if (handleResult) {
+                    this._buildResult[handleResult.file] = handleResult;
+                }
             }
         };
         
@@ -97,6 +100,7 @@ export class EngineBuilder {
         // pass2: build web version for jsb type declarations
         console.log('[Build Engine]: pass2 - apply jsb interface info');
         console.time('pass2');
+        this._handledCache = {};  // clear cache
         while (this._entriesForPass2.size !== 0) {
             const entries2 = Array.from(this._entriesForPass2);
             this._entriesForPass2.clear();
@@ -106,7 +110,7 @@ export class EngineBuilder {
                 }
                 return result;
             }, {} as Record<string, string>);
-            handleIdList(entries2);
+            await handleIdList(entries2);
         }
         console.timeEnd('pass2');
 
@@ -144,6 +148,7 @@ export class EngineBuilder {
             nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,
+                outDir: options.outDir,
             }),
         );
     }
@@ -200,17 +205,23 @@ export class EngineBuilder {
 
     }
 
-    private async _handleId (id: string, importer?: string): Promise<EngineBuilder.IHandleResult> {
-        const resolvedId = await this._resolve(id, importer);
+    private async _handleId (idOrSource: string, importer?: string): Promise<EngineBuilder.IHandleResult | void> {
+        const resolvedId = await this._resolve(idOrSource, importer);
         if (typeof resolvedId === 'undefined') {
-            throw new Error(`Cannot resolve module id: ${id} ${importer ? `in file ${importer}` : ''}`);
+            throw new Error(`Cannot resolve module: ${idOrSource} ${importer ? `in file ${importer}` : ''}`);
         }
+        // In case circular reference
+        if (this._handledCache[resolvedId]) {
+            return;
+        }
+        this._handledCache[resolvedId] = true;
+
         const code = await this._load(resolvedId);
         if (typeof code === 'undefined') {
             throw new Error(`Cannot load module: ${resolvedId} ${importer ? `in file ${importer}` : ''}`);
         }
 
-        const overrideId = this._getOverrideId(id, importer);
+        const overrideId = this._getOverrideId(idOrSource, importer);
 
         // handle output file
         let file = overrideId || resolvedId;
@@ -233,7 +244,7 @@ export class EngineBuilder {
         const handleResult = this._buildResult[file] = {
             code: transformResult.code,
             file,
-            originalId: id,
+            originalId: idOrSource,
             resolvedId,
             map: transformResult.map,
         };
@@ -326,6 +337,12 @@ export class EngineBuilder {
 
     private _getDepIdList (file: string, code: string): string[] {
         const depIdList: string[] = [];
+        asserts(!file.includes('\\'), 'We should use posix path');
+        for (const ex of this._excludeTransform) {
+            if (ex.test(file)) {
+                return depIdList;
+            }
+        }
         // eg. zlib.js dependent on zlib.d.ts
         if (ps.extname(file) === '.js') {
             const dtsFile = toExtensionLess(file) + '.d.ts';
@@ -361,6 +378,7 @@ export class EngineBuilder {
 
     private async _transform (file: string, code: string): Promise<EngineBuilder.ITransformResult> {
         file = formatPath(file);
+        asserts(!file.includes('\\'), 'We should use posix path');
         for (const ex of this._excludeTransform) {
             if (ex.test(file)) {
                 return {
@@ -638,7 +656,9 @@ export class EngineBuilder {
         if (!outDir) {
             return;
         }
-        const dtsFiles = glob.sync(formatPath(ps.join(root, './@types/**/*.d.ts')));
+        let dtsFiles = glob.sync(formatPath(ps.join(root, './@types/**/*.d.ts')));
+        const externalDtsFiles = glob.sync(formatPath(ps.join(root, './native/external/**/*.d.ts')));
+        dtsFiles = dtsFiles.concat(externalDtsFiles);
         for (const file of dtsFiles) {
             const code = fs.readFileSync(file, 'utf8');
             const relativePath = ps.relative(root, file);

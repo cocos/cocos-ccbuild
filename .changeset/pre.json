@@ -1,0 +1,13 @@
+{
+  "mode": "exit",
+  "tag": "alpha",
+  "initialVersions": {
+    "@cocos/ccbuild": "2.0.3-alpha.2"
+  },
+  "changesets": [
+    "eleven-otters-judge",
+    "giant-cows-do",
+    "new-clocks-flash",
+    "wet-crabs-beam"
+  ]
+}

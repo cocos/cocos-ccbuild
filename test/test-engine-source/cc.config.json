@@ -22,9 +22,16 @@
         },
         "node-modules": {
             "modules": ["node-modules"]
+        },
+        "circular-reference": {
+            "modules": ["circular-reference"]
+        },
+        "type-merge": {
+            "modules": ["type-merge"]
         }
     },
-    "moduleOverrides": [{
+    "moduleOverrides": [
+        {
             "test": "true",
             "isVirtualModule": true,
             "overrides": {
@@ -37,17 +44,11 @@
             "overrides": {}
         },
         {
-            "test": "!context.buildTimeConstants.NATIVE",
-            "isVirtualModule": false,
-            "overrides": {
-                "cocos/2d/renderer/native-2d.ts": "cocos/2d/renderer/native-2d-empty.ts"
-            }
-        },
-        {
             "test": "context.buildTimeConstants.NATIVE",
             "isVirtualModule": false,
             "overrides": {
-                "./audio/module.ts": "./audio/module.native.ts"
+                "./audio/module.ts": "./audio/module.native.ts",
+                "./type-merge/type.web.ts": "./type-merge/type.jsb.ts"
             }
         },
         {

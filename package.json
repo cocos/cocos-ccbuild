@@ -1,14 +1,15 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.0.1",
+  "version": "2.0.3-alpha.3",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "change": "changeset add",
+    "version": "changeset version",
+    "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
     "build": "tsc",
     "deploy": "rush rebuild && node ./scripts/deploy.js",
-    "change": "rush change",
-    "version": "rush public -a",
     "api": "tsc && api-extractor run --local --verbose",
     "clean": "node ./scripts/clear.js",
     "test": "rush build && jest",
