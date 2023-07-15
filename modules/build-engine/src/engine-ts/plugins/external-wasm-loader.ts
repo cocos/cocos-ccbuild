@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import * as ps from 'path';
+import { posix as ps } from 'path';
 import { createHash } from 'crypto';
 import { ITsEnginePlugin } from './interface';
 import { formatPath } from '@ccbuild/utils';

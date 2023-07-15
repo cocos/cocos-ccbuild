@@ -1,6 +1,6 @@
 export * from './path';
 
-export function asserts(expr: unknown, message?: string): boolean {
+export function asserts(expr: boolean, message?: string): boolean {
     if (!expr) {
         throw new Error(message);
     }

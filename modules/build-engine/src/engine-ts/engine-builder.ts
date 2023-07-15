@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as ps from 'path';
 import { babel as Transformer } from '@ccbuild/transformer';
 import { StatsQuery } from '@ccbuild/stats-query';
-import { toExtensionLess, formatPath } from '@ccbuild/utils';
+import { toExtensionLess, formatPath, asserts } from '@ccbuild/utils';
 import * as json5 from 'json5';
 import { ESLint } from 'eslint';
 import dedent from 'dedent';
@@ -327,6 +327,7 @@ export class EngineBuilder {
 
     private _getDepIdList (file: string, code: string): string[] {
         const depIdList: string[] = [];
+        asserts(!file.includes('\\'), 'We should use posix path');
         for (const ex of this._excludeTransform) {
             if (ex.test(file)) {
                 return depIdList;
@@ -367,6 +368,7 @@ export class EngineBuilder {
 
     private async _transform (file: string, code: string): Promise<EngineBuilder.ITransformResult> {
         file = formatPath(file);
+        asserts(!file.includes('\\'), 'We should use posix path');
         for (const ex of this._excludeTransform) {
             if (ex.test(file)) {
                 return {
