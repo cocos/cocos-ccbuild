@@ -190,4 +190,23 @@ describe('engine-js', () => {
         expect(await getOutputContent(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
+
+    test('inline dynamic import for OH platform', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'OPEN_HARMONY',
+            features: ['wasm-test'],
+            flags: {
+                // force flag value to test inline dynamic import
+                WASM_SUPPORT_MODE: 1,
+                WASM_FALLBACK: true,
+            },
+            moduleFormat: 'esm',
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        await del(out, { force: true });
+    });
 });
