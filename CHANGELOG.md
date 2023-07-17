@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.16
+
+### Patch Changes
+
+- 40da2c0: fix: use inline dynamic imports on OH platform
+
 ## 1.1.15
 
 ### Patch Changes
