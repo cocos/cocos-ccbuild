@@ -131,7 +131,7 @@ describe('engine-js', () => {
         expect(buildResult).toMatchSnapshot('build result');
     });
 
-    test.only('enumerateAllDependents', async () => {
+    test('enumerateAllDependents', async () => {
         const out = ps.join(__dirname, './lib-js');
         const features = ['wasm-test'];
         const res = await buildEngine({
