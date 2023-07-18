@@ -180,6 +180,7 @@ class ExternalWasmModuleBundler {
             format: 'system',
             name: systemJsModuleId,
         });
+        await res.close();
         return output.output[0].code;
     }
 
@@ -301,14 +302,14 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
             }
         },
 
-        generateBundle (opts, bundles) {
+        async generateBundle (opts, bundles) {
             if (externalWasmModules.length !== 0) {
                 const bundler = new ExternalWasmModuleBundler({
                     ...options,
                     externalWasmModules,
                     outDir: opts.dir!,
                 });
-                const code = bundler.bundle();
+                const code = await bundler.bundle();
                 fs.outputFileSync(ps.join(opts.dir!, 'chunks/game.js'), code, 'utf8');
             }            
         },
