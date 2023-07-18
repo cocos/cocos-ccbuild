@@ -1,4 +1,5 @@
-import type * as rollup from 'rollup';
+import * as rollup from 'rollup';
+import rpCjs from '@rollup/plugin-commonjs';
 import { URL, fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
@@ -151,7 +152,7 @@ class ExternalWasmModuleBundler {
         return id;
     }
 
-    private _load (id: string): string {
+    private async _load (id: string): Promise<string> {
         for (const suffix in loadConfig) {
             if (id.endsWith(suffix)) {
                 const config = loadConfig[suffix];
@@ -160,12 +161,26 @@ class ExternalWasmModuleBundler {
                 } else if (config.shouldEmitAsset(this._options, id)) {
                     return this._emitAsset(id);
                 } else {
-                    return fs.readFileSync(id, 'utf8');
+                    return await this._transformSystemJs(id);
                 }
             }
         }
         // fallback
-        return fs.readFileSync(id, 'utf8');
+        return await this._transformSystemJs(id);
+    }
+
+    // NOTE: we use rollup to transform CommonJS / ES Module to SystemJs.
+    private async _transformSystemJs (id: string): Promise<string> {
+        const systemJsModuleId = externalOrigin + ps.relative(this._options.externalRoot, id).replace(/\\/g, '/');
+        const res = await rollup.rollup({
+            input: id,
+            plugins: [rpCjs()],
+        });
+        const output = await res.generate({
+            format: 'system',
+            name: systemJsModuleId,
+        });
+        return output.output[0].code;
     }
 
     private _emitAsset (id: string): string {
@@ -189,6 +204,10 @@ class ExternalWasmModuleBundler {
     }
 
     private _transform (id: string, code: string): string {
+        if (code.startsWith('System.register')) {
+            // NOTE: if it's already SystemJS module, we don't need to transform it again.
+            return code;
+        }
         const systemJsModuleId = externalOrigin + ps.relative(this._options.externalRoot, id).replace(/\\/g, '/');
         const res = babel.transformSync(code, {
             compact: true,  // remove error log
@@ -202,11 +221,11 @@ class ExternalWasmModuleBundler {
         return code;
     }
 
-    bundle (): string {
+    async bundle (): Promise<string> {
         // transform all external wasm modules
         for (const externalWasmModule of this._options.externalWasmModules) {
             const id = this._resolveId(externalWasmModule);
-            const code = this._load(id);
+            const code = await this._load(id);
             this._loadedChunkMap[id] = this._transform(id, code);
         }
 
