@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.18
+
+### Patch Changes
+
+- 84d16d6: feat: wasm subpackage support umd
+
 ## 1.1.17
 
 ### Patch Changes
