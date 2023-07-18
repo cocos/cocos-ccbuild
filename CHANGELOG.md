@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.17
+
+### Patch Changes
+
+- fix: enumerateAllDependents doesn't resolve featureUnits' dependent chunks' dependent asset
+
 ## 1.1.16
 
 ### Patch Changes
