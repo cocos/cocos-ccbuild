@@ -131,6 +131,24 @@ describe('engine-js', () => {
         expect(buildResult).toMatchSnapshot('build result');
     });
 
+    
+    test.only('enumerateAllDependents', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        const features = ['wasm-test'];
+        const res = await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features,
+            moduleFormat: 'system',
+            split: true,
+        });
+        
+        expect(buildEngine.enumerateAllDependents(res, features)).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
     test('build width option ammoJsWasm true', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildEngine({

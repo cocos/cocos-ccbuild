@@ -251,7 +251,9 @@ export namespace buildEngine {
         return false;
     }
 
-    function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
+    function _enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
+        const metaExports = meta.exports;
+        const metaDepGraph = meta.chunkDepGraph;
         const result: string[] = [];
         const visited = new Set<string>();
         const addChunk = (chunkFileName: string) => {
@@ -277,6 +279,19 @@ export namespace buildEngine {
         return result;
     }
 
+    function _enumerateDependentAssets (meta: buildEngine.Result, dependentChunks: string[]): string[] {
+        const metaDepAsset = meta.assetDepGraph;
+        let result: string[] = [];
+        for (const chunkName of dependentChunks) {
+            const depAssets = metaDepAsset[chunkName];
+            if (depAssets?.length > 0) {
+                result = result.concat(depAssets);
+            }
+
+        }
+        return result;
+    }
+
     /**
      * Enumerates all chunk files that used by specified feature units.
      * @param meta Metadata of build result.
@@ -285,7 +300,7 @@ export namespace buildEngine {
      * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
      */
     export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]) {
-        return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
+        return _enumerateDependentChunks(meta, featureUnits);
     }
 
     /**
@@ -294,8 +309,8 @@ export namespace buildEngine {
      * @param featureUnits Feature units.
      */
     export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]) {
-        const dependentChunks = enumerateDependentChunks(meta, featureUnits);
-        const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
+        const dependentChunks = _enumerateDependentChunks(meta, featureUnits);
+        const dependentAssets = _enumerateDependentAssets(meta, dependentChunks);
         return dependentAssets.concat(dependentChunks);
     }
 }
