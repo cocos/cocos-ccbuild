@@ -287,7 +287,6 @@ export namespace buildEngine {
             if (depAssets?.length > 0) {
                 result = result.concat(depAssets);
             }
-
         }
         return result;
     }
