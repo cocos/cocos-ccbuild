@@ -131,7 +131,7 @@ export namespace buildEngine {
         /**
          * Enable loose compilation.
          * 
-         * @deprecated since 1.1.20, we force using true.
+         * @deprecated since 1.1.20, we force using true internal.
          */
         loose?: boolean;
 
