@@ -11,6 +11,7 @@ function verifyCache (options: buildEngine.Options): boolean {
 
 function applyDefaultOptions (options: buildEngine.Options) {
     options.preserveType ??= false;
+    options.loose = true;  // force using true
 }
 
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
@@ -129,6 +130,8 @@ export namespace buildEngine {
 
         /**
          * Enable loose compilation.
+         * 
+         * @deprecated since 1.1.20, we force using true.
          */
         loose?: boolean;
 
