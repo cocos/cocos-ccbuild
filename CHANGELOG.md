@@ -1,5 +1,11 @@
 # @cocos/ccbuild
 
+## 1.1.20
+
+### Patch Changes
+
+- 1cb3389: dperecate: build engine loose option
+
 ## 1.1.19
 
 ### Patch Changes
