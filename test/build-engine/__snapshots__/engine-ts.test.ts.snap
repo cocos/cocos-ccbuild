@@ -241,9 +241,9 @@ export const WASM_SUBPACKAGE = false;",
   "audio/as-type.ts": {
     "code": "const a = 1;
 const b = 2;
-// this is a bug in babel
-const c = ((a as unknown as number) & b) as unknown as number;
-const d = (a & b) as unknown as number;",
+// TODO: this is a bug in babel
+// const c = ((a as unknown as number) & b) as unknown as number;
+// const d = (a & b) as unknown as number;",
   },
   "audio/dynamic-import.ts": {
     "code": "window.__cc_module_context__.import('./player');",
