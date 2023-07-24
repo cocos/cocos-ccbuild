@@ -10,7 +10,8 @@ function verifyCache (options: buildEngine.Options): boolean {
 }
 
 function applyDefaultOptions (options: buildEngine.Options): void {
-	options.preserveType ??= false;
+    options.preserveType ??= false;
+    options.loose = true;  // force using true
 }
 
 function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat): false | 'commonjs' | 'amd' | 'umd' | 'systemjs' | 'auto' {
@@ -22,32 +23,6 @@ function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat)
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     default: throw new Error(`Unknown module format ${moduleOptions}`);
     }
-}
-
-function _enumerateDependentFromDepGraph (metaExports: buildEngine.Result['exports'], metaDepGraph: buildEngine.Result['chunkDepGraph'] | buildEngine.Result['assetDepGraph'], featureUnits: string[]): string[] {
-    const result: string[] = [];
-    const visited = new Set<string>();
-    const addChunk = (chunkFileName: string): void => {
-        if (visited.has(chunkFileName)) {
-            return;
-        }
-        visited.add(chunkFileName);
-        result.push(chunkFileName);
-        if (metaDepGraph && chunkFileName in metaDepGraph) {
-            for (const dependencyChunk of metaDepGraph[chunkFileName]) {
-                addChunk(dependencyChunk);
-            }
-        }
-    };
-    for (const featureUnit of featureUnits) {
-        const chunkFileName = metaExports[featureUnit];
-        if (!chunkFileName) {
-            console.error(`Feature unit ${featureUnit} is not in build result!`);
-            continue;
-        }
-        addChunk(chunkFileName);
-    }
-    return result;
 }
 
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
@@ -166,6 +141,8 @@ export namespace buildEngine {
 
         /**
          * Enable loose compilation.
+         * 
+         * @deprecated since 1.1.20, we force using true internal.
          */
         loose?: boolean;
 
@@ -262,19 +239,59 @@ export namespace buildEngine {
         }
         for (const file of Object.keys(record)) {
             const mtime = record[file];
-        	try {
-        		/* eslint-disable-next-line no-await-in-loop */
-        		const mtimeNow = (await fs.stat(file)).mtimeMs;
-        		if (mtimeNow !== mtime) {
-        			console.debug(`Source ${file} in watch files record ${incrementalFile} has a different time stamp - rebuild is needed.`);
-        			return true;
-        		}
-        	} catch {
-    			console.debug(`Failed to read source ${file} in watch files record ${incrementalFile} - rebuild is needed.`);
-    			return true;
-    		}
-    	}
-    	return false;
+            try {
+                /* eslint-disable-next-line no-await-in-loop */
+                const mtimeNow = (await fs.stat(file)).mtimeMs;
+                if (mtimeNow !== mtime) {
+                    console.debug(`Source ${file} in watch files record ${incrementalFile} has a different time stamp - rebuild is needed.`);
+                    return true;
+                }
+            } catch {
+                console.debug(`Failed to read source ${file} in watch files record ${incrementalFile} - rebuild is needed.`);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function _enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
+        const metaExports = meta.exports;
+        const metaDepGraph = meta.chunkDepGraph;
+        const result: string[] = [];
+        const visited = new Set<string>();
+        const addChunk = (chunkFileName: string) => {
+            if (visited.has(chunkFileName)) {
+                return;
+            }
+            visited.add(chunkFileName);
+            result.push(chunkFileName);
+            if (metaDepGraph && chunkFileName in metaDepGraph) {
+                for (const dependencyChunk of metaDepGraph[chunkFileName]) {
+                    addChunk(dependencyChunk);
+                }
+            }
+        };
+        for (const featureUnit of featureUnits) {
+            const chunkFileName = metaExports[featureUnit];
+            if (!chunkFileName) {
+                console.error(`Feature unit ${featureUnit} is not in build result!`);
+                continue;
+            }
+            addChunk(chunkFileName);
+        }
+        return result;
+    }
+
+    function _enumerateDependentAssets (meta: buildEngine.Result, dependentChunks: string[]): string[] {
+        const metaDepAsset = meta.assetDepGraph;
+        let result: string[] = [];
+        for (const chunkName of dependentChunks) {
+            const depAssets = metaDepAsset[chunkName];
+            if (depAssets?.length > 0) {
+                result = result.concat(depAssets);
+            }
+        }
+        return result;
     }
 
     /**
@@ -285,7 +302,7 @@ export namespace buildEngine {
      * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
      */
     export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
-    	return _enumerateDependentFromDepGraph(meta.exports, meta.chunkDepGraph, featureUnits);
+        return _enumerateDependentChunks(meta, featureUnits);
     }
 
     /**
@@ -294,8 +311,8 @@ export namespace buildEngine {
      * @param featureUnits Feature units.
      */
     export function enumerateAllDependents (meta: buildEngine.Result, featureUnits: string[]): string[] {
-    	const dependentChunks = enumerateDependentChunks(meta, featureUnits);
-    	const dependentAssets = _enumerateDependentFromDepGraph(meta.exports, meta.assetDepGraph, featureUnits);
-    	return dependentAssets.concat(dependentChunks);
+        const dependentChunks = _enumerateDependentChunks(meta, featureUnits);
+        const dependentAssets = _enumerateDependentAssets(meta, dependentChunks);
+        return dependentAssets.concat(dependentChunks);
     }
 }
