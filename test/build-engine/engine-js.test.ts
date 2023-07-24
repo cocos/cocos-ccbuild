@@ -120,6 +120,23 @@ describe('engine-js', () => {
         expect(buildResult).toMatchSnapshot('build result');
     });
 
+    test('enumerateAllDependents', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        const features = ['wasm-test'];
+        const res = await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features,
+            moduleFormat: 'system',
+            split: true,
+        });
+        
+        expect(buildEngine.enumerateAllDependents(res, features)).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
     test('build width option ammoJsWasm true', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildEngine({
@@ -191,6 +208,25 @@ describe('engine-js', () => {
             moduleFormat: 'esm',
         });
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('inline dynamic import for OH platform', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'OPEN_HARMONY',
+            features: ['wasm-test'],
+            flags: {
+                // force flag value to test inline dynamic import
+                WASM_SUPPORT_MODE: 1,
+                WASM_FALLBACK: true,
+            },
+            moduleFormat: 'esm',
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
 });

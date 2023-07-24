@@ -414,6 +414,9 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         sourcemapFile: options.sourceMapFile,
         name: (rollupFormat === 'iife' ? 'ccm' : undefined),
         dir: options.out,
+        // NOTE: parallel dynamic import has some issue on SystemJS, especially on OH platform
+        // see: https://github.com/systemjs/systemjs/issues/2297
+        inlineDynamicImports: options.platform === 'OPEN_HARMONY',
         // minifyInternalExports: false,
         // preserveEntrySignatures: "allow-extension",
     };

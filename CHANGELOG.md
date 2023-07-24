@@ -55,6 +55,36 @@ Thu, 13 Jul 2023 15:30:27 GMT
 - fix dts types && fix fs-extra version
 - fix build ts engine with intrinsic flag
 
+## 1.1.20
+
+### Patch Changes
+
+- 1cb3389: dperecate: build engine loose option
+
+## 1.1.19
+
+### Patch Changes
+
+- bb5f1e5: fix: async bundle external wasm module
+
+## 1.1.18
+
+### Patch Changes
+
+- 84d16d6: feat: wasm subpackage support umd
+
+## 1.1.17
+
+### Patch Changes
+
+- fix: enumerateAllDependents doesn't resolve featureUnits' dependent chunks' dependent asset
+
+## 1.1.16
+
+### Patch Changes
+
+- 40da2c0: fix: use inline dynamic imports on OH platform
+
 ## 1.1.15
 
 ### Patch Changes
