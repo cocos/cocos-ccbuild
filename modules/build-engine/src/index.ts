@@ -10,7 +10,7 @@ function verifyCache (options: buildEngine.Options): boolean {
 }
 
 function applyDefaultOptions (options: buildEngine.Options): void {
-	options.preserveType ??= false;
+    options.preserveType ??= false;
     options.loose = true;  // force using true
 }
 
