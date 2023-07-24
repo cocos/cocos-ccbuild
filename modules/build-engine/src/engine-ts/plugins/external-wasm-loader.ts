@@ -135,7 +135,7 @@ export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Op
             if (source in source2Id) {
                 let id = source2Id[source];
                 const shasum = createHash('sha1');
-                shasum.update(fs.readFileSync(id));
+                shasum.update(fs.readFileSync(id, 'utf8').replace(/\r\n/g, '\n'));
                 const hash = shasum.digest('hex').slice(0, 5);
                 id = `${id}.${hash}.ts`;
                 return id;

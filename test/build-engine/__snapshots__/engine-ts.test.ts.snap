@@ -2,7 +2,7 @@
 
 exports[`WASM build WASM: file 2 code 1`] = `
 {
-  "native/external/wasm/emscripten/wasm_c.asm.js.421ea.ts": "
+  "native/external/wasm/emscripten/wasm_c.asm.js.36955.ts": "
 var Module = (() => {
   var _scriptDir = import.meta.url;
   
@@ -29,15 +29,15 @@ var C=c([null,N,O,M]);function D(){return g.byteLength/65536|0}return{"d":J,"e":
 );
 })();
 export default Module;",
-  "native/external/wasm/emscripten/wasm_c.js.mem.922b4.ts": "export default 'assets/wasm_c.js.mem';",
-  "native/external/wasm/emscripten/wasm_c.wasm.31498.ts": "export default '';",
-  "native/external/wasm/emscripten/wasm_c.wasm.js.f6ac4.ts": "export default function () {}",
+  "native/external/wasm/emscripten/wasm_c.js.mem.0e186.ts": "export default 'assets/wasm_c.js.mem';",
+  "native/external/wasm/emscripten/wasm_c.wasm.195b9.ts": "export default '';",
+  "native/external/wasm/emscripten/wasm_c.wasm.js.0e998.ts": "export default function () {}",
   "wasm/emscripten.ts": "import { WASM_FALLBACK, WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
 import { isSupportWASM } from './is-support-wasm';
-import wasmUrl from "../native/external/wasm/emscripten/wasm_c.wasm.31498";
-import wasmFactory from "../native/external/wasm/emscripten/wasm_c.wasm.js.f6ac4";
-import asmFactory from "../native/external/wasm/emscripten/wasm_c.asm.js.421ea";
-import asmJsMemUrl from "../native/external/wasm/emscripten/wasm_c.js.mem.922b4";
+import wasmUrl from "../native/external/wasm/emscripten/wasm_c.wasm.195b9";
+import wasmFactory from "../native/external/wasm/emscripten/wasm_c.wasm.js.0e998";
+import asmFactory from "../native/external/wasm/emscripten/wasm_c.asm.js.36955";
+import asmJsMemUrl from "../native/external/wasm/emscripten/wasm_c.js.mem.0e186";
 function initializeWasm(): Promise<any> {
   return new Promise((resolve, reject) => {
     if (WASM_FALLBACK) {
@@ -110,12 +110,12 @@ exports[`WASM build WASM: get output dir structure 1`] = `
   "cc.ts",
   "exports/wasm-test.ts",
   "index.ts",
-  "native/external/wasm/emscripten/wasm_c.asm.js.421ea.ts",
-  "native/external/wasm/emscripten/wasm_c.js.mem.922b4.ts",
-  "native/external/wasm/emscripten/wasm_c.wasm.31498.ts",
-  "native/external/wasm/emscripten/wasm_c.wasm.js.f6ac4.ts",
-  "native/external/wasm/wasm-pack/wasm_rust.js.bcb2c.ts",
-  "native/external/wasm/wasm-pack/wasm_rust.wasm.bf23d.ts",
+  "native/external/wasm/emscripten/wasm_c.asm.js.36955.ts",
+  "native/external/wasm/emscripten/wasm_c.js.mem.0e186.ts",
+  "native/external/wasm/emscripten/wasm_c.wasm.195b9.ts",
+  "native/external/wasm/emscripten/wasm_c.wasm.js.0e998.ts",
+  "native/external/wasm/wasm-pack/wasm_rust.js.ce353.ts",
+  "native/external/wasm/wasm-pack/wasm_rust.wasm.ba172.ts",
   "native/external/wasm/wasm-pack/wasm_rust.wasm.d.ts",
   "system-cc.js",
   "wasm/emscripten.ts",
