@@ -1,14 +1,13 @@
 # How to maintain this repo
 
+please use `npm v7.x` or newer version, because we need the npm's workspaces feature.
+
 ```sh
 # setup the dev environment
-rush update
+npm i
 
 # build all packages
-rush build
-
-# force build all package without cache
-rush rebuild
+npm run build
 ```
 
 ## unit test
