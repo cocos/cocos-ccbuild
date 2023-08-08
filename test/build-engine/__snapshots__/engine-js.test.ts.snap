@@ -157,7 +157,10 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
                   if ("executing" === state) throw new Error("Generator is already running");
                   if ("completed" === state) {
                     if ("throw" === method) throw arg;
-                    return doneResult();
+                    return {
+                      value: void 0,
+                      done: !0
+                    };
                   }
                   for (context.method = method, context.arg = arg;;) {
                     var delegate = context.delegate;
@@ -210,7 +213,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
                 }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
               }
               function values(iterable) {
-                if (iterable) {
+                if (iterable || "" === iterable) {
                   var iteratorMethod = iterable[iteratorSymbol];
                   if (iteratorMethod) return iteratorMethod.call(iterable);
                   if ("function" == typeof iterable.next) return iterable;
@@ -223,15 +226,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
                     return next.next = next;
                   }
                 }
-                return {
-                  next: doneResult
-                };
-              }
-              function doneResult() {
-                return {
-                  value: undefined,
-                  done: !0
-                };
+                throw new TypeError(typeof iterable + " is not iterable");
               }
               return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
                 value: GeneratorFunctionPrototype,
@@ -927,7 +922,10 @@ exports[`engine-js build WASM module on platform supporting WASM 2`] = `
                   if ("executing" === state) throw new Error("Generator is already running");
                   if ("completed" === state) {
                     if ("throw" === method) throw arg;
-                    return doneResult();
+                    return {
+                      value: void 0,
+                      done: !0
+                    };
                   }
                   for (context.method = method, context.arg = arg;;) {
                     var delegate = context.delegate;
@@ -980,7 +978,7 @@ exports[`engine-js build WASM module on platform supporting WASM 2`] = `
                 }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
               }
               function values(iterable) {
-                if (iterable) {
+                if (iterable || "" === iterable) {
                   var iteratorMethod = iterable[iteratorSymbol];
                   if (iteratorMethod) return iteratorMethod.call(iterable);
                   if ("function" == typeof iterable.next) return iterable;
@@ -993,15 +991,7 @@ exports[`engine-js build WASM module on platform supporting WASM 2`] = `
                     return next.next = next;
                   }
                 }
-                return {
-                  next: doneResult
-                };
-              }
-              function doneResult() {
-                return {
-                  value: undefined,
-                  done: !0
-                };
+                throw new TypeError(typeof iterable + " is not iterable");
               }
               return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
                 value: GeneratorFunctionPrototype,
