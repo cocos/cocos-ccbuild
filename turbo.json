@@ -1,0 +1,7 @@
+{
+    "$schema": "./turbo.schema.json",
+    "pipeline": {
+        "build": {
+        }
+    }
+}
