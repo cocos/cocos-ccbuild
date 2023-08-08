@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "",
-    "test": "rush build && jest"
+    "test": "turbo build && jest"
   },
   "author": "",
   "license": "ISC",

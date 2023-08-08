@@ -6,6 +6,7 @@ const absolutePath = absolutePathFuncFactory(__dirname);
 
 [
     absolutePath('../lib'),
+    absolutePath('../deploy'),
 ].forEach(async dir => {
     await del(dir, {force: true});
 });

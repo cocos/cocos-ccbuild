@@ -1,18 +1,20 @@
 const { formatPath, rebasePath } = require('@ccbuild/utils');
 const { babel: Transformer } = require('@ccbuild/transformer');
-const ps = require('path');
+const ps = require('path').posix;
 const fs = require('fs-extra');
-const JSON5 = require('json5');
 const glob = require('glob');
 
 const babel = Transformer.core;
 const pluginSyntaxTS = Transformer.plugins.syntaxTS;
 
 // init data
-const rushRootDir = ps.join(__dirname, '../');
-const deployDir = ps.join(rushRootDir, './deploy/');
-const rushProjects = JSON5.parse(fs.readFileSync(ps.join(rushRootDir, './rush.json'), 'utf8')).projects;
-const pkgFileList = rushProjects.map(project => ps.join(rushRootDir, project.projectFolder, 'package.json'));
+const rootDir = ps.join(__dirname, '../');
+const deployDir = ps.join(rootDir, './deploy/');
+const rootPackage = ps.join(rootDir, './package.json');
+const workspaces = JSON.parse(fs.readFileSync(rootPackage, 'utf8')).workspaces.map(ws => ps.join(ps.dirname(rootPackage), ws));
+const allPackages = workspaces.map(ws => glob.sync(ws)).flat(1);
+const pkgFileList = allPackages.map(package => ps.join(package, 'package.json'));
+pkgFileList.push(rootPackage);
 
 const pkgName2Main = {};
 const pkgName2Types = {};
@@ -56,16 +58,10 @@ pkgFileList.forEach(pkgFile => {
 
 });
 
-// clear deploy dir
-console.log('clear deploy dir');
-if (fs.existsSync(deployDir)) {
-    fs.rmdirSync(deployDir, { recursive: true });
-}
-
 // copy files
 console.log('copy files to deploy dir');
 filesToCopy.forEach(file => {
-    const copyTarget = rebasePath(file, rushRootDir, deployDir);
+    const copyTarget = rebasePath(file, rootDir, deployDir);
     const buffer = fs.readFileSync(file);
     fs.outputFileSync(copyTarget, buffer);
 });
@@ -85,7 +81,7 @@ for (const file of dtsFiles) {
                         if (sourcePath.node) {
                             const sourceValue = sourcePath.node.value;
                             if (sourceValue in pkgName2Types) {
-                                const deployTypesPath = rebasePath(pkgName2Types[sourceValue], rushRootDir, deployDir);
+                                const deployTypesPath = rebasePath(pkgName2Types[sourceValue], rootDir, deployDir);
                                 const replaceValue = formatPath(ps.relative(ps.dirname(file), deployTypesPath)).replace('.d.ts', '');
                                 sourcePath.replaceWith(babel.types.stringLiteral(replaceValue));
                             }
@@ -115,7 +111,7 @@ for (const file of jsFiles) {
                             const argPath = path.get('arguments')[0];
                             const argValue = argPath.node.value;
                             if (argValue in pkgName2Main) {
-                                const deployMainPath = rebasePath(pkgName2Main[argValue], rushRootDir, deployDir);
+                                const deployMainPath = rebasePath(pkgName2Main[argValue], rootDir, deployDir);
                                 const replaceValue = formatPath(ps.relative(ps.dirname(file), deployMainPath));
                                 argPath.replaceWith(babel.types.stringLiteral(replaceValue));
                             }
@@ -133,7 +129,7 @@ for (const file of jsFiles) {
 // generate package.json
 console.log('generate package.json');
 
-const rootPkgFile = ps.join(rushRootDir, 'package.json');
+const rootPkgFile = ps.join(rootDir, 'package.json');
 const rootPkg = JSON.parse(fs.readFileSync(rootPkgFile, 'utf8'));
 rootPkg.dependencies = allDeps;
 delete rootPkg.devDependencies;
