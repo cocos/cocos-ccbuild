@@ -30,11 +30,11 @@
     "json5": "^2.2.3",
     "resolve": "^1.22.1",
     "typescript": "^4.3.5",
-    "@ccbuild/stats-query": "workspace:*",
-    "@ccbuild/utils": "workspace:*",
-    "@ccbuild/transformer": "workspace:*",
+    "@ccbuild/stats-query": "*",
+    "@ccbuild/utils": "*",
+    "@ccbuild/transformer": "*",
     "semver": "~7.5.3",
-    "@ccbuild/bundler": "workspace:*"
+    "@ccbuild/bundler": "*"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",

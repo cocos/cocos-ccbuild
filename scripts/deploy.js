@@ -139,7 +139,7 @@ rootPkg.dependencies = allDeps;
 delete rootPkg.devDependencies;
 delete rootPkg.scripts;
 for (const dep in rootPkg.dependencies) {
-    if (rootPkg.dependencies[dep] === 'workspace:*') {
+    if (rootPkg.dependencies[dep] === '*') {
         delete rootPkg.dependencies[dep];
     }
 }

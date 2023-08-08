@@ -8,7 +8,6 @@
     "change": "changeset add",
     "version": "changeset version",
     "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
-    "build": "tsc",
     "deploy": "rush rebuild && node ./scripts/deploy.js",
     "api": "tsc && api-extractor run --local --verbose",
     "clean": "node ./scripts/clear.js",
@@ -31,6 +30,9 @@
     "build",
     "compile"
   ],
+  "workspaces": [
+    "./modules/*"
+  ],
   "author": "PP_Pro",
   "license": "MIT",
   "devDependencies": {
@@ -51,12 +53,12 @@
     "@rollup/plugin-typescript": "~11.1.2"
   },
   "dependencies": {
-    "@ccbuild/build-engine": "workspace:*",
-    "@ccbuild/stats-query": "workspace:*",
-    "@ccbuild/utils": "workspace:*",
-    "@ccbuild/transformer": "workspace:*",
-    "@ccbuild/modularize": "workspace:*",
-    "@ccbuild/bundler": "workspace:*",
+    "@ccbuild/build-engine": "*",
+    "@ccbuild/stats-query": "*",
+    "@ccbuild/utils": "*",
+    "@ccbuild/transformer": "*",
+    "@ccbuild/modularize": "*",
+    "@ccbuild/bundler": "*",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "dedent": "^0.7.0",

@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ccbuild/stats-query": "workspace:*",
-    "@ccbuild/build-engine": "workspace:*",
-    "@ccbuild/utils": "workspace:*",
+    "@ccbuild/stats-query": "*",
+    "@ccbuild/build-engine": "*",
+    "@ccbuild/utils": "*",
     "fs-extra": "~11.1.1"
   },
   "devDependencies": {
