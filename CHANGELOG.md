@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.5
+
+### Patch Changes
+
+- optimize: remove eslint deps on ts engine builder
+
 ## 2.0.3-alpha.4
 
 ### Patch Changes
