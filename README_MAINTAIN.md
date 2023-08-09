@@ -46,6 +46,7 @@ npm run version-alpha
 ## publish
 
 We used monorepo but only `@cocos/ccbuild` is public project, every time we need to publish, we need to deploy the project first.
+Please remember to version your package before you deploy and publish it.
 
 ```sh
 
