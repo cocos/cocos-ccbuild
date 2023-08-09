@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.4
+
+### Patch Changes
+
+- 673cb2d: fix: type error in CCBuildTsFieldDecoratorHelper
+
 ## 2.0.3-alpha.3
 
 ### Patch Changes
@@ -254,4 +260,3 @@ Thu, 13 Jul 2023 15:30:27 GMT
 
 - e49f97e: revert @rollup/plugin-node-resolve version to fix rollup issue https://github.com/rollup/plugins/issues/1464
 - e49f97e: fix wrong rullup version deps
-

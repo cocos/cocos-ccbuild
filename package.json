@@ -1,14 +1,14 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.0.3-alpha.3",
+  "version": "2.0.3-alpha.4",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "turbo build",
-    "change": "changeset add",
-    "version": "changeset version",
-    "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
+    "change": "node ./scripts/remove-workspaces.js && changeset add && node ./scripts/restore-workspaces.js",
+    "version": "node ./scripts/remove-workspaces.js && changeset version && node ./scripts/restore-workspaces.js",
+    "version-alpha": "node ./scripts/remove-workspaces.js && changeset pre enter alpha && changeset version && changeset pre exit && node ./scripts/restore-workspaces.js",
     "deploy": "npm run clean && turbo build --force && tsc && node ./scripts/deploy.js",
     "api": "tsc && api-extractor run --local --verbose",
     "clean": "node ./scripts/clear.js",
