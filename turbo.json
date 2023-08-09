@@ -2,6 +2,12 @@
     "$schema": "./turbo.schema.json",
     "pipeline": {
         "build": {
+            "inputs": [
+                "src/**"
+            ],
+            "outputs": [
+                "lib/**"
+            ]
         }
     }
 }
