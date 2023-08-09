@@ -6,7 +6,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "turbo build",
-    "change": "changeset add",
+    "change": "node ./scripts/remove-workspaces.js && changeset add && node ./scripts/restore-workspaces.js",
     "version": "changeset version",
     "version-alpha": "changeset pre enter alpha && changeset version && changeset pre exit",
     "deploy": "npm run clean && turbo build --force && tsc && node ./scripts/deploy.js",
