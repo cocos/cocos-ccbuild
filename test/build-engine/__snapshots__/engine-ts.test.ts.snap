@@ -142,7 +142,7 @@ exports[`engine-ts 1`] = `
  * @param factoryArgs if \`decoratorOrFactory\` is a factory, then we may need some arguments for this factory method.
  * @returns BabelPropertyDecorator
  */
-export function CCBuildTsFieldDecoratorHelper(decoratorOrFactory: Function, initializer: Function, ...factoryArgs: any[]): PropertyDecorator {
+export function CCBuildTsFieldDecoratorHelper(decoratorOrFactory: Function, initializer: Function | null, ...factoryArgs: any[]): PropertyDecorator {
   if (factoryArgs.length > 0) {
     const decorator = decoratorOrFactory(...factoryArgs);
     return (target, propertyKey) => {
