@@ -4,7 +4,6 @@ import { babel as Transformer } from '@ccbuild/transformer';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { toExtensionLess, formatPath, asserts } from '@ccbuild/utils';
 import * as json5 from 'json5';
-import { ESLint } from 'eslint';
 import dedent from 'dedent';
 import { glob } from 'glob';
 
@@ -69,7 +68,7 @@ export class EngineBuilder {
     private _excludeTransform = [
         /native\/external\//
     ];
-    private _handledCache: Record<string, boolean> = {}
+    private _handledCache: Record<string, boolean> = {};
 
     public async build (options: EngineBuilder.IBuildOptions): Promise<EngineBuilder.IBuildResult> {
         const { root } = options;
@@ -121,14 +120,6 @@ export class EngineBuilder {
                 const output = ps.join(options.outDir, ps.relative(root, file));
                 fs.outputFileSync(output, res.code, 'utf8');
             }
-
-            // pass3: post handle to lint import
-            console.log('[Build Engine]: pass3 - linting import statement');
-            console.time('pass3');
-            await this._lintImport([
-                formatPath(ps.join(options.outDir, '**/*.ts'))
-            ]);
-            console.timeEnd('pass3');
 
             this._buildIndex();
             await this._copyTypes();
@@ -593,31 +584,6 @@ export class EngineBuilder {
         return {
             code: transformResult?.code!,
         };
-    }
-
-    private async _lintImport (lintFiles: string[], verbose = false): Promise<void> {
-        const eslint = new ESLint({ fix: true, 
-            cwd: __dirname,  // fix not found parser issue
-            resolvePluginsRelativeTo: __dirname,  // fix not found plugins issue
-            useEslintrc: false,
-            baseConfig: {
-                parser: '@typescript-eslint/parser',
-                plugins: ['@typescript-eslint', 'unused-imports'],
-                rules: {
-                    '@typescript-eslint/consistent-type-imports': 'error',
-                    'unused-imports/no-unused-imports': 'error',
-                },
-        }});
-
-        const results = await eslint.lintFiles(lintFiles);
-
-        await ESLint.outputFixes(results);
-        
-        if (verbose) {
-            const formatter = await eslint.loadFormatter();
-            const resultText = formatter.format(results);
-            console.log(resultText);
-        }
     }
 
     private _buildIndex (): void {

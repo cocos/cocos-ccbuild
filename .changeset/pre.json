@@ -2,9 +2,10 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.3"
+    "@cocos/ccbuild": "2.0.3-alpha.4"
   },
   "changesets": [
+    "dirty-plums-design",
     "eleven-otters-judge",
     "giant-cows-do",
     "nasty-suits-punch",
