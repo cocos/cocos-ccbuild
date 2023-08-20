@@ -3,6 +3,7 @@ coverage/
 lib/
 lib-ts/
 lib-js/
+docs/
 .api-extractor/temp
 common/temp
 *.build.log

@@ -9,6 +9,7 @@ export { ConfigInterface };
 
 /**
  * Query any any stats of the engine.
+ * @group Merged Types
  */
 export class StatsQuery {
     /**
@@ -274,6 +275,9 @@ type ParsedIndexConfig = Omit<IndexConfig, 'modules'> & {
 };
 
 
+/**
+ * @group Merged Types
+ */
 export namespace StatsQuery {
     export namespace ConstantManager {
 

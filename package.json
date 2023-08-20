@@ -51,12 +51,13 @@
     "@types/resolve": "^1.20.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "del": "^6.1.1",
     "eslint": "^8.34.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "del": "^6.1.1",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3",
-    "turbo": "^1.10.12"
+    "turbo": "^1.10.12",
+    "typedoc": "^0.24.8"
   },
   "dependencies": {
     "@ccbuild/build-engine": "*",

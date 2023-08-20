@@ -25,6 +25,9 @@ function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat)
     }
 }
 
+/**
+ * @group Merged Types
+ */
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
 	applyDefaultOptions(options);
 
@@ -46,6 +49,9 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
 	}
 }
 
+/**
+ * @group Merged Types
+ */
 export namespace buildEngine {
     export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
     
