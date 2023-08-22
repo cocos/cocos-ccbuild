@@ -3,7 +3,7 @@ import * as ps from 'path';
 import * as fs from 'fs';
 import del from 'del';
 import { formatPath } from '@ccbuild/utils';
-import { getOutputContent, getOutputDirStructure, renameNodeModules } from './utils';
+import { getOutputContent, getOutputDirStructure } from '../utils';
 
 jest.setTimeout(10000);
 test('engine-ts', async () => {
@@ -36,21 +36,19 @@ test('node modules', async function () {
   const engineBuilder = new ccbuild.EngineBuilder();
   const out = formatPath(ps.join(__dirname, './lib-ts'));
 
-  await renameNodeModules(root, async () => {
-    await engineBuilder.build({
-        root,
-        features: ['node-modules'],
-        platform: 'OPEN_HARMONY',
-        mode: 'BUILD', 
-        flagConfig: {
-            DEBUG: true,
-        },
-        outDir: out,
-    });
-    expect(await getOutputDirStructure(out)).toMatchSnapshot();
-    expect(await getOutputContent(ps.join(out, './exports/node-modules.ts'))).toMatchSnapshot();
-    await del(out, { force: true });
+  await engineBuilder.build({
+      root,
+      features: ['node-modules'],
+      platform: 'OPEN_HARMONY',
+      mode: 'BUILD', 
+      flagConfig: {
+          DEBUG: true,
+      },
+      outDir: out,
   });
+  expect(await getOutputDirStructure(out)).toMatchSnapshot();
+  expect(await getOutputContent(ps.join(out, './exports/node-modules.ts'))).toMatchSnapshot();
+  await del(out, { force: true });
 });
 
 describe('build time constant', function () {

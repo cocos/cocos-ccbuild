@@ -28,6 +28,9 @@
         },
         "type-merge": {
             "modules": ["type-merge"]
+        },
+        "module-query": {
+            "modules": ["module-query"]
         }
     },
     "moduleOverrides": [

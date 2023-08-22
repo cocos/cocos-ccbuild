@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../modules/modularize/lib/module-config.schema.json",
+  "name": "@module-query/ambient-type",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "node": "./package.json",
+      "types": "./src/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@cocos/build-engine": "*"
+  }
+}

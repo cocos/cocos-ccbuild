@@ -11,7 +11,9 @@ import ConstantManager = StatsQuery.ConstantManager;
 import { FieldDecoratorHelper } from './field-decorator-helper';
 import { externalWasmLoaderFactory } from './plugins/external-wasm-loader';
 import { nodeModuleLoaderFactory } from './plugins/node-module-loader';
+import { moduleQueryPlugin } from './plugins/module-query-plugin';
 import { ITsEnginePlugin } from './plugins/interface';
+import { ModuleQuery } from '@ccbuild/modularize';
 
 import babel = Transformer.core;
 import t = babel.types;
@@ -82,8 +84,8 @@ export class EngineBuilder {
             }
         };
         
-        this._initPlugins(options);
         await this._initOptions(options);
+        await this._initPlugins(options);
 
         for (const plugin of this._plugins) {
             if (plugin.buildStart) {
@@ -134,8 +136,13 @@ export class EngineBuilder {
         return this._buildResult;
     }
 
-    private _initPlugins (options: EngineBuilder.IBuildOptions): void {
+    private async _initPlugins (options: EngineBuilder.IBuildOptions): Promise<void> {
+        const moduleQuery = new ModuleQuery({
+            engine: options.root,
+            platform: options.platform,
+        });
         this._plugins.push(
+            await moduleQueryPlugin(moduleQuery),
             nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,

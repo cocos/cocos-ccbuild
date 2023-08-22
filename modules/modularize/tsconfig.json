@@ -8,7 +8,7 @@
     "./src/index.ts"
   ],
   "exclude": [
-    "./test/",
+    "../../test/test",
     "./lib/",
     "./static/"
   ]

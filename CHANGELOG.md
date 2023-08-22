@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.6
+
+### Patch Changes
+
+- 2c4e7a8: support typescript in Transformer module
+
 ## 2.0.3-alpha.5
 
 ### Patch Changes

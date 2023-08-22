@@ -5,6 +5,7 @@ import dedent from 'dedent';
 import { Config, Context, Feature, IndexConfig, Test, IConstantConfig, IConstantInfo } from './config-interface';
 
 import * as ConfigInterface from './config-interface';
+import { MinigamePlatform, NativePlatform, WebPlatform } from '@ccbuild/modularize';
 export { ConfigInterface };
 
 /**
@@ -15,7 +16,7 @@ export class StatsQuery {
     /**
      * @param engine Path to the engine root.
      */
-    public static async create (engine: string) {
+    public static async create (engine: string): Promise<StatsQuery> {
         const configFile = ps.join(engine, 'cc.config.json');
         const config: Config = JSON5.parse(await fs.readFile(configFile, 'utf8'));
         // @ts-expect-error we should delete this property
@@ -33,28 +34,28 @@ export class StatsQuery {
     /**
      * Gets the path to the engine root.
      */
-    get path () {
+    get path (): string {
         return this._engine;
     }
 
     /**
      * Gets the path to tsconfig.
      */
-    get tsConfigPath () {
+    get tsConfigPath (): string {
         return ps.join(this._engine, 'tsconfig.json');
     }
     
     /**
      * Gets all optimzie decorators
      */
-    public getOptimizeDecorators () {
+    public getOptimizeDecorators (): ConfigInterface.IOptimizeDecorators {
         return this._config.optimizeDecorators;
     }
 
     /**
      * Gets all features defined.
      */
-    public getFeatures () {
+    public getFeatures (): string[] {
         return Object.keys(this._features);
     }
 
@@ -62,7 +63,7 @@ export class StatsQuery {
      * Returns if the specified feature is defined.
      * @param feature Feature ID.
      */
-    public hasFeature (feature: string) {
+    public hasFeature (feature: string): boolean {
         return !!this._features[feature];
     }
 
@@ -75,7 +76,7 @@ export class StatsQuery {
      * Gets all feature units included in specified features.
      * @param featureIds Feature ID.
      */
-    public getUnitsOfFeatures (featureIds: string[]) {
+    public getUnitsOfFeatures (featureIds: string[]): string[] {
         const units = new Set<string>();
         for (const featureId of featureIds) {
             this._features[featureId]?.modules.forEach((entry) => units.add(entry));
@@ -83,7 +84,7 @@ export class StatsQuery {
         return Array.from(units);
     }
 
-    public getIntrinsicFlagsOfFeatures (featureIds: string[]) {
+    public getIntrinsicFlagsOfFeatures (featureIds: string[]): Record<string, number | boolean | string> {
         const flags: Record<string, unknown> = {};
         for (const featureId of featureIds) {
             const featureFlags = this._features[featureId]?.intrinsicFlags;
@@ -97,7 +98,7 @@ export class StatsQuery {
     /**
      * Gets all feature units in their names.
      */
-    public getFeatureUnits () {
+    public getFeatureUnits (): string[] {
         return Object.keys(this._featureUnits);
     }
 
@@ -105,14 +106,14 @@ export class StatsQuery {
      * Gets the path to source file of the feature unit.
      * @param moduleId Name of the feature unit.
      */
-    public getFeatureUnitFile (featureUnit: string) {
+    public getFeatureUnitFile (featureUnit: string): string {
         return this._featureUnits[featureUnit];
     }
 
     /**
      * Gets all editor public modules in their names.
      */
-    public getEditorPublicModules () {
+    public getEditorPublicModules (): string[] {
         return Object.keys(this._editorPublicModules);
     }
 
@@ -120,7 +121,7 @@ export class StatsQuery {
      * Gets the path to source file of the editor-public module.
      * @param moduleName Name of the public module.
      */
-    public getEditorPublicModuleFile (moduleName: string) {
+    public getEditorPublicModuleFile (moduleName: string): string {
         return this._editorPublicModules[moduleName];
     }
 
@@ -129,7 +130,7 @@ export class StatsQuery {
      * @param featureUnits Involved feature units.
      * @param mapper If exists, map the feature unit name into another module request.
      */
-    public evaluateIndexModuleSource (featureUnits: string[], mapper?: (featureUnit: string) => string) {
+    public evaluateIndexModuleSource (featureUnits: string[], mapper?: (featureUnit: string) => string): string {
         return featureUnits.map((featureUnit) => {
             const indexInfo = this._index.modules[featureUnit];
             const ns = indexInfo?.ns;
@@ -147,7 +148,7 @@ export class StatsQuery {
      * Evaluates the source of `'internal-constants'`(`'cc/env'`),
      * @param context
      */
-    public evaluateEnvModuleSourceFromRecord (record: Record<string, unknown>) {
+    public evaluateEnvModuleSourceFromRecord (record: Record<string, unknown>): string {
         return Object.entries(record).map(([k, v]) => `export const ${k} = ${v};`).join('\n');
     }
 
@@ -155,9 +156,10 @@ export class StatsQuery {
      * Evaluates module overrides under specified context.
      * @param context
      */
-    public evaluateModuleOverrides (context: Context) {
+    public evaluateModuleOverrides (context: Context): Record<string, string> {
         const overrides: Record<string, string> = {};
 
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         const addModuleOverrides = (moduleOverrides: Record<string, string>, isVirtualModule: boolean) => {
             // eslint-disable-next-line prefer-const
             for (let [source, override] of Object.entries(moduleOverrides)) {
@@ -177,7 +179,7 @@ export class StatsQuery {
         return overrides;
     }
 
-    private static async _readModulesInDir (exportsDir: string, mapper: (baseName: string) => string) {
+    private static async _readModulesInDir (exportsDir: string, mapper: (baseName: string) => string): Promise<Record<string, string>> {
         const result: Record<string, string> = {};
         for (const entryFileName of await fs.readdir(exportsDir)) {
             const entryExtName = ps.extname(entryFileName);
@@ -192,11 +194,11 @@ export class StatsQuery {
         return result;
     }
 
-    private static _baseNameToFeatureUnitName (baseName: string) {
+    private static _baseNameToFeatureUnitName (baseName: string): string {
         return `${baseName}`;
     }
 
-    private static _editorBaseNameToModuleName (baseName: string) {
+    private static _editorBaseNameToModuleName (baseName: string): string {
         return `cc/editor/${baseName}`;
     }
 
@@ -206,7 +208,7 @@ export class StatsQuery {
         this.constantManager = new StatsQuery.ConstantManager(engine);
     }
 
-    private _evalTest<T> (test: Test, context: Context) {
+    private _evalTest<T> (test: Test, context: Context): T {
         // eslint-disable-next-line @typescript-eslint/no-implied-eval,no-new-func
         const result = new Function('context', `return ${test}`)(context) as T;
         // console.debug(`Eval "${test}" to ${result}`);
@@ -226,7 +228,7 @@ export class StatsQuery {
         return resultPath;
     }
 
-    private async _initialize () {
+    private async _initialize (): Promise<void> {
         const { _config: config, _engine: engine } = this;
 
         const featureUnits = this._featureUnits = await StatsQuery._readModulesInDir(
@@ -281,23 +283,11 @@ type ParsedIndexConfig = Omit<IndexConfig, 'modules'> & {
 export namespace StatsQuery {
     export namespace ConstantManager {
 
-        export interface IPlatformConfig {
-            HTML5: boolean; 
-            NATIVE: boolean; 
-            WECHAT: boolean; 
-            BAIDU: boolean; 
-            XIAOMI: boolean; 
-            ALIPAY: boolean; 
-            BYTEDANCE: boolean; 
-            OPPO: boolean; 
-            VIVO: boolean; 
-            HUAWEI: boolean; 
-            COCOSPLAY: boolean; 
-            QTT: boolean; 
-            LINKSURE: boolean;
-            OPEN_HARMONY: boolean;
-            TAOBAO_MINIGAME: boolean,
-        }
+        // keep compatibility for 'HTML5' and 'NATIVE'
+        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE';
+        export type IPlatformConfig = {
+            [key in PlatformType]: boolean;
+        };
         
         export interface IInternalFlagConfig {
             SERVER_MODE: boolean; 
@@ -346,7 +336,6 @@ export namespace StatsQuery {
             flagConfig: IFlagConfig;
         }
         
-        export type PlatformType = keyof IPlatformConfig | string;
         export type ModeType = keyof IModeConfig;
         export type FlagType = keyof IFlagConfig; 
         
@@ -582,7 +571,7 @@ export namespace StatsQuery {
             return config;
         }
 
-        private _hasCCGlobal (config: IConstantConfig) {
+        private _hasCCGlobal (config: IConstantConfig): boolean {
             for (const key in config) {
                 const info = config[key];
                 if (info.ccGlobal) {
@@ -592,7 +581,7 @@ export namespace StatsQuery {
             return false;
         }
 
-        private _hasDynamic (config: IConstantConfig) {
+        private _hasDynamic (config: IConstantConfig): boolean {
             for (const key in config) {
                 const info = config[key];
                 if (info.dynamic) {
@@ -622,7 +611,7 @@ export namespace StatsQuery {
             return evalFn(config);
         }
 
-        private _applyOptionsToConfig (config: IConstantConfig, options: ConstantManager.ConstantOptions) {
+        private _applyOptionsToConfig (config: IConstantConfig, options: ConstantManager.ConstantOptions): void {
             const { mode, platform, flags } = options;
 
             // update value

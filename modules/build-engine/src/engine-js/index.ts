@@ -4,6 +4,7 @@ import { babel as Transformer } from '@ccbuild/transformer';
 import { rollup as Bundler } from '@ccbuild/bundler';
 import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
+import moduleQueryPlugin from './rollup-plugins/module-query-plugin';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
 import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
@@ -28,6 +29,7 @@ import resolve = Bundler.plugins.nodeResolve;
 import commonjs = Bundler.plugins.commonjs;
 import rpTerser = Bundler.plugins.terser.terser;
 import rpVirtual = Bundler.plugins.virtual;
+import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
 // import * as decoratorRecorder from './babel-plugins/decorator-parser';
@@ -56,6 +58,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const rollupFormat = options.moduleFormat ?? 'iife';
 
     const statsQuery = await StatsQuery.create(engineRoot);
+    const moduleQuery = new ModuleQuery({
+        engine: engineRoot,
+        platform: options.platform, 
+    });
 
     if (options.features) {
         for (const feature of options.features) {
@@ -264,6 +270,8 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         },
 
         rpVirtual(rpVirtualOptions),
+
+        await moduleQueryPlugin(moduleQuery),
 
         tsConfigPaths({
             configFileName: ps.resolve(options.engine, 'tsconfig.json'),
