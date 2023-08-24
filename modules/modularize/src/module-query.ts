@@ -81,7 +81,7 @@ export class ModuleQuery {
     }
 
     /**
-     * Resolve module entry path of '.' conditional export by import source.
+     * Resolve module entry path by import source.
      */
     public async resolveExport (source: string): Promise<string | void> {
         if (this._resolvedCache[source]) {
