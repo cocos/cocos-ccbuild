@@ -13,8 +13,7 @@
     "deploy": "npm run clean && turbo build --force && tsc && node ./scripts/deploy.js",
     "api": "npm run build && node ./scripts/update-api.js",
     "clean": "node ./scripts/clear.js",
-    "test": "turbo build && jest",
-    "init-module": "node ./modules/modularize/lib/cli.js init"
+    "test": "node ./scripts/setup-test.js && turbo build && jest"
   },
   "files": [
     "lib/src/**/*",
@@ -51,6 +50,7 @@
     "@types/resolve": "^1.20.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "chalk": "^4.1.2",
     "del": "^6.1.1",
     "eslint": "^8.34.0",
     "eslint-plugin-unused-imports": "^2.0.0",
