@@ -1,13 +1,25 @@
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 
+export function dirname (path: string): string {
+    return formatPath(ps.dirname(path));
+}
+
+export function join (...args: string[]): string {
+    return formatPath(ps.join(...args));
+}
+
+export function relative (from: string, to: string): string {
+    return formatPath(ps.relative(from, to));
+}
+
 export function formatPath (path: string): string {
     return path.replace(/\\/g, '/');
 }
 
 export function absolutePathFuncFactory (dirname: string): (relativePath: string) => string {
     return function absolutePath (relativePath: string) {
-        return ps.join(dirname, relativePath);
+        return join(dirname, relativePath);
     };
 }
 
@@ -16,7 +28,7 @@ export function replaceExtname (path: string, extname: string): string {
 }
 
 export function rebasePath (path: string, originDir: string, rebaseDir: string): string {
-    return ps.join(rebaseDir, ps.relative(originDir, path));
+    return join(rebaseDir, ps.relative(originDir, path));
 }
 
 export function filePathToModuleRequest (path: string): string {
@@ -31,7 +43,7 @@ export async function readdirR (item: string, reduceOutput: string[]): Promise<v
     if ((await fs.stat(item)).isDirectory()) {
         const dirItems = await fs.readdir(item);
         for (const subItem of dirItems) {
-            await readdirR(ps.join(item, subItem), reduceOutput);
+            await readdirR(join(item, subItem), reduceOutput);
         }
     } else {
         reduceOutput.push(item);

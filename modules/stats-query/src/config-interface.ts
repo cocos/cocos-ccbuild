@@ -1,4 +1,4 @@
-// NOTE: This is the source code to generate cc.config.json
+// NOTE: This is the source code to generate cc.config.schema.json
 
 export interface Config {
     /**

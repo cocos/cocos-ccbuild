@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get all modules and config 1`] = `
+[
+  "@module-query/ambient-type",
+  "@module-query/env",
+  "@module-query/utils",
+]
+`;
+
+exports[`get all modules and config 2`] = `
+{
+  "$schema": "../../../../../modules/modularize/lib/module-config.schema.json",
+  "description": "",
+  "exports": {
+    ".": {
+      "node": "./package.json",
+      "types": "./src/index.ts",
+    },
+  },
+  "license": "MIT",
+  "name": "@module-query/utils",
+  "scripts": {},
+  "version": "1.0.0",
+}
+`;
+
+exports[`resolve custom export 1`] = `"packages/@module-query/env/src/custom/env2.ts"`;
+
+exports[`resolve package json 1`] = `"packages/@module-query/env/package.json"`;
+
+exports[`resolve platform export 1`] = `"packages/@module-query/env/src/web/env.ts"`;
+
+exports[`resolve platform export 2`] = `"packages/@module-query/env/src/web/env.ts"`;
+
+exports[`resolve platform export 3`] = `"packages/@module-query/env/src/minigame/env.ts"`;
+
+exports[`resolve platform export 4`] = `"packages/@module-query/env/src/runtime/env.ts"`;
+
+exports[`resolve platform export 5`] = `"packages/@module-query/env/src/native/env.ts"`;
+
+exports[`resolve platform export 6`] = `"packages/@module-query/env/src/native/env.ts"`;
+
+exports[`resolve types export 1`] = `"packages/@module-query/utils/src/index.ts"`;

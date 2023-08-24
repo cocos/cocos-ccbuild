@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.4"
+    "@cocos/ccbuild": "2.0.3-alpha.5"
   },
   "changesets": [
     "dirty-plums-design",
@@ -10,6 +10,7 @@
     "giant-cows-do",
     "nasty-suits-punch",
     "new-clocks-flash",
+    "strong-geckos-look",
     "wet-crabs-beam"
   ]
 }

@@ -1,9 +1,8 @@
-import { formatPath, readdirR } from '@ccbuild/utils';
 import { buildEngine } from '@ccbuild/build-engine';
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 import del from 'del';
-import { getOutputContent, getOutputDirStructure } from './utils';
+import { getOutputContent, getOutputDirStructure } from '../utils';
 
 jest.setTimeout(10000);
 
