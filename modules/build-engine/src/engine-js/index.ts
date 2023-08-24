@@ -271,7 +271,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
         rpVirtual(rpVirtualOptions),
 
-        await moduleQueryPlugin(moduleQuery),
+        moduleQueryPlugin(moduleQuery),
 
         tsConfigPaths({
             configFileName: ps.resolve(options.engine, 'tsconfig.json'),

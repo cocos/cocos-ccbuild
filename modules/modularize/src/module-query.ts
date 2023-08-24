@@ -81,22 +81,39 @@ export class ModuleQuery {
     }
 
     /**
-     * Resolve module entry path of '.' conditional export by module name.
+     * Resolve module entry path of '.' conditional export by import source.
      */
-    public async resolveExport (moduleName: string): Promise<string> {
-        if (this._resolvedCache[moduleName]) {
-            return this._resolvedCache[moduleName];
+    public async resolveExport (source: string): Promise<string | void> {
+        if (this._resolvedCache[source]) {
+            return this._resolvedCache[source];
+        }
+        if (source.startsWith('.')) {
+            // no relative path resolve
+            return;
+        }
+        const allModules = await this.getAllModules();
+        const moduleName = allModules.find(moduleName => source.startsWith(moduleName));
+        if (!moduleName) {
+            return;
+        }
+        let exportPort: string = '.';
+        if (ps.relative(moduleName, source) !== '') {
+            exportPort = './' + ps.relative(moduleName, source);
         }
 
         const moduleRootDir = ps.dirname(this.resolvePackageJson(moduleName));
         const config = await this.getConfig(moduleName);
-        const rootExport = config.exports['.'];
+        // NOTE: '.' export port can cover all export ports.
+        const rootExport = config.exports[exportPort as '.'];
+        if (!rootExport) {
+            return;
+        }
 
         // custom condition
         if (this._context.customExportConditions) {
             for (const condition of this._context.customExportConditions) {
                 if (typeof rootExport[condition] === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport[condition]);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport[condition]);
                 }
             }
         }
@@ -105,41 +122,41 @@ export class ModuleQuery {
         const platform = this._context.platform.toLowerCase();
         if (this._isWebPlatform(platform)) {
             if (typeof rootExport.web === 'string') {
-                return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.web);
+                return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.web);
             } else if (typeof rootExport.web === 'object') {
                 if (typeof rootExport.web[platform] === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.web[platform]!);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.web[platform]!);
                 } else if (typeof rootExport.web.default === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.web.default);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.web.default);
                 }
             }
         } else if (this._isMiniGamePlatform(platform)) {
             if (typeof rootExport.minigame === 'string') {
-                return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.minigame);
+                return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.minigame);
             } else if (typeof rootExport.minigame === 'object') {
                 if (typeof rootExport.minigame[platform] === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.minigame[platform]!);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.minigame[platform]!);
                 } else if (typeof rootExport.minigame.default === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.minigame.default);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.minigame.default);
                 }
             }
         } else if (this._isNativePlatform(platform)) {
             if (typeof rootExport.native === 'string') {
-                return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.native);
+                return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.native);
             } else if (typeof rootExport.native === 'object') {
                 if (typeof rootExport.native[platform] === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.native[platform]!);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.native[platform]!);
                 } else if (typeof rootExport.native.default === 'string') {
-                    return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.native.default);
+                    return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.native.default);
                 }
             }
         }
 
         // types condition
         if (typeof rootExport.types === 'string') {
-            return this._resolvedCache[moduleName] = ps.join(moduleRootDir, rootExport.types);
+            return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.types);
         } else {
-            throw new Error(`Please specify a least a types export for module: '${moduleName}'.`);
+            throw new Error(`Please specify a least a types export for module: '${source}'.`);
         }
     }
 

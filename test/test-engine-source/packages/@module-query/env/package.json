@@ -20,6 +20,13 @@
       },
       "custom1": "./src/custom/env1.ts",
       "custom2": "./src/custom/env2.ts"
+    },
+    "./editor": {
+      "types": "./src/editor-export/env.ts"
+    },
+    "./internal": {
+      "types": "./src/internal-export/env.ts",
+      "minigame": "./src/internal-minigame-export/env.ts"
     }
   }
 }
