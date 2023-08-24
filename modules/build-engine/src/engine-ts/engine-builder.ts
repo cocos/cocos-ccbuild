@@ -142,7 +142,7 @@ export class EngineBuilder {
             platform: options.platform,
         });
         this._plugins.push(
-            await moduleQueryPlugin(moduleQuery),
+            moduleQueryPlugin(moduleQuery),
             nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,

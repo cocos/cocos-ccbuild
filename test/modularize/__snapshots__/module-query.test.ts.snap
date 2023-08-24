@@ -27,6 +27,12 @@ exports[`get all modules and config 2`] = `
 
 exports[`resolve custom export 1`] = `"packages/@module-query/env/src/custom/env2.ts"`;
 
+exports[`resolve editor and internal export 1`] = `"packages/@module-query/env/src/editor-export/env.ts"`;
+
+exports[`resolve editor and internal export 2`] = `"packages/@module-query/env/src/internal-minigame-export/env.ts"`;
+
+exports[`resolve editor and internal export 3`] = `"packages/@module-query/env/src/internal-export/env.ts"`;
+
 exports[`resolve package json 1`] = `"packages/@module-query/env/package.json"`;
 
 exports[`resolve platform export 1`] = `"packages/@module-query/env/src/web/env.ts"`;

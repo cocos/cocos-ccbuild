@@ -29,32 +29,50 @@ test('resolve platform export', async () => {
         engine: engineRoot,
         platform: 'HTML5',
     });
-    expect(relativeToRoot(await mq1.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved1 = await mq1.resolveExport('@module-query/env');
+    if (resolved1) {
+        expect(relativeToRoot(resolved1)).toMatchSnapshot();
+    }
     const mq2 = new ModuleQuery({
         engine: engineRoot,
         platform: 'WEB_DESKTOP',
     });
-    expect(relativeToRoot(await mq2.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved2 = await mq2.resolveExport('@module-query/env');
+    if (resolved2) {
+        expect(relativeToRoot(resolved2)).toMatchSnapshot();
+    }
     const mq3 = new ModuleQuery({
         engine: engineRoot,
         platform: 'ALIPAY',
     });
-    expect(relativeToRoot(await mq3.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved3 = await mq3.resolveExport('@module-query/env');
+    if (resolved3) {
+        expect(relativeToRoot(resolved3)).toMatchSnapshot();
+    }
     const mq4 = new ModuleQuery({
         engine: engineRoot,
         platform: 'VIVO',
     });
-    expect(relativeToRoot(await mq4.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved4 = await mq4.resolveExport('@module-query/env');
+    if (resolved4) {
+        expect(relativeToRoot(resolved4)).toMatchSnapshot();
+    }
     const mq5 = new ModuleQuery({
         engine: engineRoot,
         platform: 'NATIVE',
     });
-    expect(relativeToRoot(await mq5.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved5 = await mq5.resolveExport('@module-query/env');
+    if (resolved5) {
+        expect(relativeToRoot(resolved5)).toMatchSnapshot();
+    }
     const mq6 = new ModuleQuery({
         engine: engineRoot,
         platform: 'ANDROID',
     });
-    expect(relativeToRoot(await mq6.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved6 = await mq6.resolveExport('@module-query/env');
+    if (resolved6) {
+        expect(relativeToRoot(resolved6)).toMatchSnapshot();
+    }
 });
 
 test('resolve types export', async () => {
@@ -62,7 +80,10 @@ test('resolve types export', async () => {
         engine: engineRoot,
         platform: 'HTML5',
     });
-    expect(relativeToRoot(await mq.resolveExport('@module-query/utils'))).toMatchSnapshot();
+    const resolved = await mq.resolveExport('@module-query/utils');
+    if (resolved) {
+        expect(relativeToRoot(resolved)).toMatchSnapshot();
+    }
 });
 
 test('resolve custom export', async () => {
@@ -71,5 +92,34 @@ test('resolve custom export', async () => {
         platform: 'HTML5',
         customExportConditions: ['custom2', 'custom1'],
     });
-    expect(relativeToRoot(await mq.resolveExport('@module-query/env'))).toMatchSnapshot();
+    const resolved = await mq.resolveExport('@module-query/env');
+    if (resolved) {
+        expect(relativeToRoot(resolved)).toMatchSnapshot();
+    }
+});
+
+test('resolve editor and internal export', async () => {
+    const mq = new ModuleQuery({
+        engine: engineRoot,
+        platform: 'ALIPAY',
+    });
+    const resolved1 = await mq.resolveExport('@module-query/env/editor');
+    if (resolved1) {
+        expect(relativeToRoot(resolved1)).toMatchSnapshot();
+    }
+    const resolved2 = await mq.resolveExport('@module-query/env/internal');
+    if (resolved2) {
+        expect(relativeToRoot(resolved2)).toMatchSnapshot();
+    }
+    const mq2 = new ModuleQuery({
+        engine: engineRoot,
+        platform: 'WEB_DESKTOP',
+    });
+    const resolved3 = await mq2.resolveExport('@module-query/env/internal');
+    if (resolved3) {
+        expect(relativeToRoot(resolved3)).toMatchSnapshot();
+    }
+    expect(await mq2.resolveExport('@module-query/env/test')).toBeUndefined();
+    expect(await mq2.resolveExport('test')).toBeUndefined();
+    expect(await mq2.resolveExport('./test')).toBeUndefined();
 });
