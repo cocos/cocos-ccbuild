@@ -5,8 +5,10 @@ const del = require('del');
 const chalk = require('chalk');
 
 (async function () {
+    const targetNodeModules = ps.join(__dirname, '../test/test-engine-source/node_modules');
+    const installNodeModules = ps.join(__dirname, '../test/test-engine-source/node-modules-to-install');
     console.log(chalk.green('Removing test node_modules...'));
-    await del(ps.join(__dirname, '../test/test-engine-source/node_modules'), {force: true});
+    await del(targetNodeModules, {force: true});
 
     console.log(chalk.green('Linking test node_modules...'));
     spawnSync(
@@ -18,5 +20,5 @@ const chalk = require('chalk');
     );
     
     console.log(chalk.green('Copying test node_modules...'));
-    await fs.copy(ps.join(__dirname, '../test/test-engine-source/copy-to-node-modules'), ps.join(__dirname, '../test/test-engine-source/node_modules'));
+    await fs.copy(installNodeModules, targetNodeModules);
 })();

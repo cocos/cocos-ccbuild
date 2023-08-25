@@ -13,7 +13,7 @@
     "deploy": "npm run clean && turbo build --force && tsc && node ./scripts/deploy.js",
     "api": "npm run build && node ./scripts/update-api.js",
     "clean": "node ./scripts/clear.js",
-    "test": "node ./scripts/setup-test.js && turbo build && jest"
+    "test": "turbo build && node ./scripts/setup-test.js && jest"
   },
   "files": [
     "lib/src/**/*",
