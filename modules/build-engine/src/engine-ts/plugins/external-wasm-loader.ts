@@ -3,6 +3,10 @@ import { posix as ps } from 'path';
 import { createHash } from 'crypto';
 import { ITsEnginePlugin } from './interface';
 import { formatPath } from '@ccbuild/utils';
+import { rollup as Bundler } from '@ccbuild/bundler';
+
+import rollup = Bundler.core;
+const rpCjs = Bundler.plugins.commonjs;
 
 const externalOrigin = 'external:';
 function resolveExternalProtocol (options: externalWasmLoaderFactory.Options, source: string): string {
@@ -67,7 +71,7 @@ const loadConfig: ILoadConfig = {
         shouldEmitAsset (options: externalWasmLoaderFactory.Options, id: string): boolean {
             return false;
         },
-        cullingContent: `export default function () {}`,
+        cullingContent: `let $: any;export default $;`,
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
@@ -98,6 +102,19 @@ const loadConfig: ILoadConfig = {
     },
 };
 
+// NOTE: we use rollup to transform CommonJS to ES Module.
+async function _transformESM (id: string): Promise<string> {
+    const res = await rollup.rollup({
+        input: id,
+        plugins: [rpCjs()],
+    });
+    const output = await res.generate({
+        format: 'esm',
+    });
+    await res.close();
+    return '// @ts-nocheck\n' + output.output[0].code;
+}
+
 export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Options): ITsEnginePlugin {
     const id2Source: Record<string, string> = {};
     const source2Id: Record<string, string> = {};
@@ -122,7 +139,7 @@ export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Op
                         } else if (config.shouldEmitAsset(options, id)) {
                             return emitAsset(options, id);
                         } else {
-                            return fs.readFileSync(id, 'utf8');
+                            return await _transformESM(id);
                         }
                     }
                 }
@@ -140,7 +157,7 @@ export function externalWasmLoaderFactory (options: externalWasmLoaderFactory.Op
                 id = `${id}.${hash}.ts`;
                 return id;
             }
-        }
+        },
     };
 
     return externalWasmLoader;

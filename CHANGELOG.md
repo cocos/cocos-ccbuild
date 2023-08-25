@@ -1,5 +1,16 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.7
+
+### Patch Changes
+
+- be67053: remove api-extractor and use tfig as api report tool
+- 5cf707e: feat: support editor internal export
+- fix: build ts engine with asm.js in CJS
+- be67053: designed module config schema
+- be67053: fix: add babel types
+- be67053: add Modularize module to support engine modularization
+
 ## 2.0.3-alpha.6
 
 ### Patch Changes
