@@ -2,15 +2,21 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.5"
+    "@cocos/ccbuild": "2.0.3-alpha.6"
   },
   "changesets": [
     "dirty-plums-design",
     "eleven-otters-judge",
+    "fifty-mails-draw",
     "giant-cows-do",
+    "hungry-rockets-provide",
     "nasty-suits-punch",
     "new-clocks-flash",
+    "polite-books-kick",
+    "quick-insects-exist",
+    "spicy-clocks-join",
     "strong-geckos-look",
+    "two-emus-heal",
     "wet-crabs-beam"
   ]
 }
