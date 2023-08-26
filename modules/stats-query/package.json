@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ccbuild/modularize": "*",
     "@types/resolve": "^1.20.2",
     "dedent": "^0.7.0",
     "fs-extra": "~11.1.1",

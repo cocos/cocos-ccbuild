@@ -1,5 +1,7 @@
-import rollup from 'rollup';
+import { rollup as Bundler } from '@ccbuild/bundler';
 import { ModuleQuery } from '@ccbuild/modularize';
+
+import rollup = Bundler.core;
 
 export default function moduleQueryPlugin (moduleQuery: ModuleQuery): rollup.Plugin {
     return {

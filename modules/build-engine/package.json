@@ -27,10 +27,11 @@
     "resolve": "^1.22.1",
     "typescript": "^4.3.5",
     "@ccbuild/stats-query": "*",
-    "@ccbuild/utils": "*",
     "@ccbuild/transformer": "*",
+    "@ccbuild/utils": "*",
     "semver": "~7.5.3",
-    "@ccbuild/bundler": "*"
+    "@ccbuild/bundler": "*",
+    "@ccbuild/modularize": "*"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",

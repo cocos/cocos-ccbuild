@@ -1,5 +1,9 @@
 {
     "editor.codeActionsOnSave": {
         "source.fixAll": true
-    }
+    },
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "ccbuild"
+    ]
 }

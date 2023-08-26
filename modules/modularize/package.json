@@ -22,6 +22,7 @@
   "author": "PP",
   "license": "ISC",
   "dependencies": {
+    "@ccbuild/stats-query": "*",
     "@ccbuild/utils": "*",
     "commander": "~11.0.0",
     "ejs": "~3.1.9",
