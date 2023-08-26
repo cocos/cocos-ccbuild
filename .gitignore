@@ -9,3 +9,4 @@ common/temp
 *.build.log
 deploy/
 .turbo/
+/graph.png
