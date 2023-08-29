@@ -1,6 +1,5 @@
-import { MinigamePlatformConfig, ModuleConfig, NativePlatformConfig, WebPlatformConfig } from './module-config';
+import { MinigamePlatformConfig, ModuleConfig, NativePlatformConfig, PlatformType, WebPlatformConfig } from './module-config';
 import fs from 'fs-extra';
-import { StatsQuery } from '@ccbuild/stats-query';
 import { MinigamePlatform, NativePlatform, WebPlatform } from './platform-config';
 import glob from 'glob';
 import { ps } from '@ccbuild/utils';
@@ -13,7 +12,7 @@ export interface ModuleQueryContext {
     /**
      * The platform to resolve conditional export.
      */
-    platform: StatsQuery.ConstantManager.PlatformType;
+    platform: PlatformType;
     /**
      * The custom export condition.
      * The higher the array is sorted, the higher the priority is.
