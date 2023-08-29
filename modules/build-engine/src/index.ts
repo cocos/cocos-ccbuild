@@ -260,12 +260,13 @@ export namespace buildEngine {
         return false;
     }
 
+    // eslint-disable-next-line no-inner-declarations
     function _enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
         const metaExports = meta.exports;
         const metaDepGraph = meta.chunkDepGraph;
         const result: string[] = [];
         const visited = new Set<string>();
-        const addChunk = (chunkFileName: string) => {
+        const addChunk = (chunkFileName: string): void => {
             if (visited.has(chunkFileName)) {
                 return;
             }
@@ -288,6 +289,7 @@ export namespace buildEngine {
         return result;
     }
 
+    // eslint-disable-next-line no-inner-declarations
     function _enumerateDependentAssets (meta: buildEngine.Result, dependentChunks: string[]): string[] {
         const metaDepAsset = meta.assetDepGraph;
         let result: string[] = [];
@@ -304,11 +306,19 @@ export namespace buildEngine {
      * Enumerates all chunk files that used by specified feature units.
      * @param meta Metadata of build result.
      * @param featureUnits Feature units.
-     * 
-     * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
      */
     export function enumerateDependentChunks (meta: buildEngine.Result, featureUnits: string[]): string[] {
         return _enumerateDependentChunks(meta, featureUnits);
+    }
+
+    /**
+     * Enumerates all asset files that used by specified feature units.
+     * @param meta Metadata of build result.
+     * @param featureUnits Feature units.
+     */
+    export function enumerateDependentAssets (meta: buildEngine.Result, featureUnits: string[]): string[] {
+        const dependentChunks = _enumerateDependentChunks(meta, featureUnits);
+        return _enumerateDependentAssets(meta, dependentChunks);
     }
 
     /**
