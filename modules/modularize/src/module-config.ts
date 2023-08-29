@@ -12,6 +12,9 @@ export type WebPlatformConfig = {
     [key in Lowercase<keyof typeof WebPlatform>]?: string;
 };
 
+// keep compatibility for 'HTML5' and 'NATIVE'
+export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE';
+
 /**
  * Abstract platform export, like `web`, `native` and `minigame`.
  * Usually this is used for PAL modules.

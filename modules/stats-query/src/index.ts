@@ -5,7 +5,7 @@ import dedent from 'dedent';
 import { Config, Context, Feature, IndexConfig, Test, IConstantConfig, IConstantInfo } from './config-interface';
 
 import * as ConfigInterface from './config-interface';
-import { MinigamePlatform, NativePlatform, WebPlatform } from '@ccbuild/modularize';
+import { PlatformType as _PlatformType } from '@ccbuild/modularize';
 export { ConfigInterface };
 
 /**
@@ -283,8 +283,7 @@ type ParsedIndexConfig = Omit<IndexConfig, 'modules'> & {
 export namespace StatsQuery {
     export namespace ConstantManager {
 
-        // keep compatibility for 'HTML5' and 'NATIVE'
-        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE';
+        export type PlatformType = _PlatformType;
         export type IPlatformConfig = {
             [key in PlatformType]: boolean;
         };

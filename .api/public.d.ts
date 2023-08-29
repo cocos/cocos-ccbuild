@@ -12,10 +12,14 @@ declare module "@cocos/ccbuild" {
          * Enumerates all chunk files that used by specified feature units.
          * @param meta Metadata of build result.
          * @param featureUnits Feature units.
-         *
-         * @deprecated since 1.1.11, please use `enumerateAllDependents` instead.
          */
         function enumerateDependentChunks(meta: buildEngine.Result, featureUnits: string[]): string[];
+        /**
+         * Enumerates all asset files that used by specified feature units.
+         * @param meta Metadata of build result.
+         * @param featureUnits Feature units.
+         */
+        function enumerateDependentAssets(meta: buildEngine.Result, featureUnits: string[]): string[];
         /**
          * Enumerates all chunk files and asset files that used by specified feature units.
          * @param meta Metadata of build result.
@@ -234,7 +238,7 @@ declare module "@cocos/ccbuild" {
             genCCEnv(): string;
         }
         export namespace ConstantManager {
-            export type PlatformType = Uppercase<keyof typeof Modularize.WebPlatform | keyof typeof Modularize.MinigamePlatform | keyof typeof Modularize.NativePlatform> | "HTML5" | "NATIVE";
+            export type PlatformType = Modularize.PlatformType;
             export type IPlatformConfig = {
                 [key in PlatformType]: boolean;
             };
@@ -14854,6 +14858,7 @@ declare module "@cocos/ccbuild" {
         export type WebPlatformConfig = {
             [key in Lowercase<keyof typeof WebPlatform>]?: string;
         };
+        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE";
         export interface ModuleConfig {
             [key: string]: unknown;
             /**
@@ -14904,7 +14909,7 @@ declare module "@cocos/ccbuild" {
             /**
              * The platform to resolve conditional export.
              */
-            platform: StatsQuery.ConstantManager.PlatformType;
+            platform: PlatformType;
             /**
              * The custom export condition.
              * The higher the array is sorted, the higher the priority is.
@@ -14934,9 +14939,9 @@ declare module "@cocos/ccbuild" {
              */
             getConfig(moduleName: string): Promise<ModuleConfig>;
             /**
-             * Resolve module entry path of '.' conditional export by module name.
+             * Resolve module entry path by import source.
              */
-            resolveExport(moduleName: string): Promise<string>;
+            resolveExport(source: string): Promise<string | void>;
         }
         export enum MinigamePlatform {
             WECHAT = 0,

@@ -2,14 +2,17 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.6"
+    "@cocos/ccbuild": "2.0.3-alpha.7"
   },
   "changesets": [
+    "angry-jobs-move",
     "dirty-plums-design",
     "eleven-otters-judge",
     "fifty-mails-draw",
     "giant-cows-do",
+    "good-llamas-joke",
     "hungry-rockets-provide",
+    "lovely-drinks-battle",
     "nasty-suits-punch",
     "new-clocks-flash",
     "polite-books-kick",
