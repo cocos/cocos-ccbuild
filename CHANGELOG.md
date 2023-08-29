@@ -1,5 +1,13 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.8
+
+### Patch Changes
+
+- a294f8b: remove dep of Modularize on StatsQuery
+- fe1f559: feat: support enumerateDependentAssets and remove deprecation of enumerateDependentChunks
+- 17fecf1: workflow: support gen module graph
+
 ## 2.0.3-alpha.7
 
 ### Patch Changes
