@@ -2594,12 +2594,26 @@ console.log(FORCE_BANNING_BULLET_WASM);
 "
 `;
 
-exports[`engine-js enumerateAllDependents 1`] = `
+exports[`engine-js enumerate dependents 1`] = `
 [
   "assets/wasm_rust-404aff2f.wasm",
   "assets/wasm_c-8515ca89.wasm",
   "wasm-test.js",
   "module",
+]
+`;
+
+exports[`engine-js enumerate dependents 2`] = `
+[
+  "wasm-test.js",
+  "module",
+]
+`;
+
+exports[`engine-js enumerate dependents 3`] = `
+[
+  "assets/wasm_rust-404aff2f.wasm",
+  "assets/wasm_c-8515ca89.wasm",
 ]
 `;
 

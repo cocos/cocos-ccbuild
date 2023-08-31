@@ -119,7 +119,7 @@ describe('engine-js', () => {
         expect(buildResult).toMatchSnapshot('build result');
     });
 
-    test('enumerateAllDependents', async () => {
+    test('enumerate dependents', async () => {
         const out = ps.join(__dirname, './lib-js');
         const features = ['wasm-test'];
         const res = await buildEngine({
@@ -133,6 +133,8 @@ describe('engine-js', () => {
         });
         
         expect(buildEngine.enumerateAllDependents(res, features)).toMatchSnapshot();
+        expect(buildEngine.enumerateDependentChunks(res, features)).toMatchSnapshot();
+        expect(buildEngine.enumerateDependentAssets(res, features)).toMatchSnapshot();
         await del(out, { force: true });
     });
 
