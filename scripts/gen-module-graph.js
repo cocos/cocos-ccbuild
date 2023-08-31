@@ -7,7 +7,9 @@ const graph = viz.digraph('ccbuild');
 const rootPkg = ps.join(__dirname, '../package.json');
 const rootPkgJson = fs.readJsonSync(rootPkg);
 
-const data = {};
+const depMap = {};
+const devDepMap = {};
+const peerDepMap = {};
 
 const modules = [];
 for (const w of rootPkgJson.workspaces) {
@@ -23,22 +25,52 @@ for (const m of modules) {
     const pkgJson = fs.readJsonSync(m);
     if (pkgJson.dependencies) {
         for (const [k, v] of Object.entries(pkgJson.dependencies)) {
-            data[pkgJson.name] = data[pkgJson.name] ?? [];;
+            depMap[pkgJson.name] = depMap[pkgJson.name] ?? [];;
             if (v === '*') {
-                data[pkgJson.name].push(k);
+                depMap[pkgJson.name].push(k);
+            }
+        }
+    }
+    if (pkgJson.devDependencies) {
+        for (const [k, v] of Object.entries(pkgJson.devDependencies)) {
+            devDepMap[pkgJson.name] = devDepMap[pkgJson.name] ?? [];;
+            if (v === '*') {
+                devDepMap[pkgJson.name].push(k);
+            }
+        }
+    }
+    if (pkgJson.peerDependencies) {
+        for (const [k, v] of Object.entries(pkgJson.peerDependencies)) {
+            peerDepMap[pkgJson.name] = peerDepMap[pkgJson.name] ?? [];;
+            if (v === '*') {
+                peerDepMap[pkgJson.name].push(k);
             }
         }
     }
 }
 
-for (const k in data) {
-    const node = graph.addNode(k);
-    node.set('shape', 'rect');
+for (const map of [depMap, devDepMap, peerDepMap]) {
+    for (const k in map) {
+        const node = graph.from(k);
+        node.set('shape', 'rect');
+    }
 }
 
-for (const [moduleName, deps] of Object.entries(data)) {
+for (const [moduleName, deps] of Object.entries(depMap)) {
     for (const dep of deps) {
         graph.addEdge(moduleName, dep);
+    }
+}
+for (const [moduleName, deps] of Object.entries(devDepMap)) {
+    for (const dep of deps) {
+        const edge = graph.addEdge(moduleName, dep);
+        edge.set('color', 'gray');
+    }
+}
+for (const [moduleName, deps] of Object.entries(peerDepMap)) {
+    for (const dep of deps) {
+        const edge = graph.addEdge(moduleName, dep);
+        edge.set('color', 'blue');
     }
 }
 
