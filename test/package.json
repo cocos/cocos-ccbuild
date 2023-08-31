@@ -11,6 +11,7 @@
   "dependencies": {
     "@ccbuild/stats-query": "*",
     "@ccbuild/build-engine": "*",
+    "@ccbuild/modularize": "*",
     "@ccbuild/utils": "*",
     "fs-extra": "~11.1.1"
   },
