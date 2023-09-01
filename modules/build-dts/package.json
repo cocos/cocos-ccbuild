@@ -1,0 +1,28 @@
+{
+  "name": "@ccbuild/build-dts",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "./lib/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tfig": "^3.3.1",
+    "fs-extra": "~11.1.1",
+    "@ccbuild/stats-query": "*",
+    "@ccbuild/transformer": "*",
+    "@ccbuild/utils": "*"
+  }
+}

@@ -1,6 +1,10 @@
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 
+export function resolve (...args: string[]): string {
+    return formatPath(ps.resolve(...args));
+}
+
 export function dirname (path: string): string {
     return formatPath(ps.dirname(path));
 }
