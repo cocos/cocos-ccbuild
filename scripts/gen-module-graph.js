@@ -70,7 +70,7 @@ for (const [moduleName, deps] of Object.entries(devDepMap)) {
 for (const [moduleName, deps] of Object.entries(peerDepMap)) {
     for (const dep of deps) {
         const edge = graph.addEdge(moduleName, dep);
-        edge.set('color', 'blue');
+        edge.set('color', 'purple');
     }
 }
 

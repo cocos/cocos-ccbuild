@@ -14885,6 +14885,14 @@ declare module "@cocos/ccbuild" {
              */
             devDependencies?: Record<string, string>;
             /**
+             * The dependencies between modules form a tree-structured dependency graph.
+             * The correct dependency relationship should be that the upper module depends on the lower module one-way, and the reverse is wrong.
+             * However, it is normal for modules at the same layer to depend on each other, and such dependencies should be declared as `peerDependencies`.
+             * Otherwise the Turbo pipeline will report an error due to module circular dependencies.
+             * see: https://github.com/vercel/turbo/issues/1480
+             */
+            peerDependencies?: Record<string, string>;
+            /**
              * This is a CC-specific item difference from the node package.json standard specification.
              */
             cc?: {

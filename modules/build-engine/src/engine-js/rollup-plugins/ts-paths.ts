@@ -1,8 +1,9 @@
 
 import { rollup as Bundler } from '@ccbuild/bundler';
-import ts from 'typescript';
+import { typescript as Transformer } from '@ccbuild/transformer';
 import ps from 'path';
 
+import ts = Transformer.core;
 import rollup = Bundler.core;
 
 export default function ({
