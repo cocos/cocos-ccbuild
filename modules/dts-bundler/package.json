@@ -1,5 +1,5 @@
 {
-  "name": "@ccbuild/build-dts",
+  "name": "@ccbuild/dts-bundler",
   "version": "1.0.0",
   "description": "",
   "scripts": {

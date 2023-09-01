@@ -64,7 +64,7 @@
     "typedoc": "^0.24.8"
   },
   "dependencies": {
-    "@ccbuild/build-dts": "*",
+    "@ccbuild/dts-bundler": "*",
     "@ccbuild/build-engine": "*",
     "@ccbuild/bundler": "*",
     "@ccbuild/modularize": "*",
