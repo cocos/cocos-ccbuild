@@ -14995,15 +14995,5 @@ declare module "@cocos/ccbuild" {
             WEB_DESKTOP = 2
         }
     }
-    export namespace dtsBundler {
-        export function build(options: Options): Promise<boolean>;
-        export interface Options {
-            engine: string;
-            outDir: string;
-            withIndex: boolean;
-            withExports: boolean;
-            withEditorExports: boolean;
-        }
-    }
     export {};
 }
