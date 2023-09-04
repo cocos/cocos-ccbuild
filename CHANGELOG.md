@@ -1,5 +1,13 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.9
+
+### Patch Changes
+
+- 2c600f4: add peerDependencies for module config
+- 08afa0f: feat: support buildDTS
+- 354cc12: feat: support cc.editor.d.ts build
+
 ## 2.0.3-alpha.8
 
 ### Patch Changes

@@ -2,10 +2,12 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.7"
+    "@cocos/ccbuild": "2.0.3-alpha.8"
   },
   "changesets": [
     "angry-jobs-move",
+    "cold-peas-fold",
+    "dirty-islands-promise",
     "dirty-plums-design",
     "eleven-otters-judge",
     "fifty-mails-draw",
@@ -17,6 +19,7 @@
     "new-clocks-flash",
     "polite-books-kick",
     "quick-insects-exist",
+    "seven-foxes-raise",
     "spicy-clocks-join",
     "strong-geckos-look",
     "two-emus-heal",
