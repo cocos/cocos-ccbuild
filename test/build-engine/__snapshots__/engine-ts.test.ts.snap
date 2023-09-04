@@ -248,7 +248,7 @@ const b = 2;
 // const d = (a & b) as unknown as number;",
   },
   "audio/dynamic-import.ts": {
-    "code": "window.__cc_module_context__.import('./player');",
+    "code": "window.__cc_module_context__.import('./player.js');",
   },
   "audio/index.ts": {
     "code": "import debugInfo from '../debug-info';
@@ -403,7 +403,7 @@ const POSTFIX_FORMERLY_SERIALIZED_AS: string = \`\${DELIMITER}formerlySerialized
 };",
   },
   "decorators.ts": {
-    "code": "export function testDecorator() {}",
+    "code": "export const testDecorator: any = function () {};",
   },
   "exports/animation.ts": {
     "code": "export * from '../animation';",

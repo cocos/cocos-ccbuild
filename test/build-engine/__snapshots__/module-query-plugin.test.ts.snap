@@ -7,20 +7,20 @@ exports[`module query plugin js engine 1`] = `
         execute: (function () {
 
             exports({
-                testEnv: testEnv$2,
-                testEnvEditor: testEnv$1,
-                testEnvInternal: testEnv
+                testEditorExport: testEditorExport,
+                testEnv: testEnv,
+                testInternalExport: testInternalExport
             });
 
-            function testEnv$2() {
+            function testEnv() {
               return 'minigame env';
             }
 
-            function testEnv$1() {
+            function testEditorExport() {
               return 'editor-export env';
             }
 
-            function testEnv() {
+            function testInternalExport() {
               return 'internal-minigame-export env';
             }
 
@@ -43,6 +43,6 @@ exports[`module query plugin ts engine 1`] = `
 exports[`module query plugin ts engine 2`] = `
 "import { testEnv } from "../packages/@module-query/env/src/native/env";
 export { testEnv };
-export { testEnv as testEnvEditor } from "../packages/@module-query/env/src/editor-export/env";
-export { testEnv as testEnvInternal } from "../packages/@module-query/env/src/internal-export/env";"
+export { testEditorExport } from "../packages/@module-query/env/src/editor-export/env";
+export { testInternalExport } from "../packages/@module-query/env/src/internal-export/env";"
 `;

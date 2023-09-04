@@ -1,1 +1,1 @@
-export function testDecorator (){}
+export const testDecorator: any = function(){}

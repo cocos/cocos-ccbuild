@@ -1,6 +1,8 @@
 import * as ps from 'path';
 import * as fs from 'fs-extra';
 
+export const isAbsolute: (path: string) => boolean = ps.isAbsolute;
+
 export function resolve (...args: string[]): string {
     return formatPath(ps.resolve(...args));
 }

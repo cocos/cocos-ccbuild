@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bundle dts: cc.editor.d.ts content 1`] = `
+"declare module "cc/editor/animation" {
+    export class EditorAnimation {
+        play(): void;
+    }
+    export { Animation } from "cc";
+    export {};
+}
+declare module "cc/editor/audio" {
+    export class EditorPlayer {
+        play(): void;
+    }
+    export { Player, player, testConsoleLog } from "cc";
+    export {};
+}
+declare module "cc/editor/env" {
+    export function testEditorExport(): string;
+    export {};
+}
+"
+`;
+
+exports[`bundle dts: director structure 1`] = `
+[
+  "cc.d.ts",
+  "cc.editor.d.ts",
+]
+`;
