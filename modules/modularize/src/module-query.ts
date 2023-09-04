@@ -30,8 +30,11 @@ export interface ModuleQueryContext {
  */
 export class ModuleQuery {
     private _context: ModuleQueryContext;
+
+    // cache
     private _cachedAllModules?: string[];
     private _resolvedCache: Record<string, string> = {};  // module name to module entry file path
+    private _cachedHasEditorSpecificExport: Record<string, boolean> = {};
 
     constructor (context: ModuleQueryContext) {
         this._context = context;
@@ -159,6 +162,19 @@ export class ModuleQuery {
         }
     }
 
+    /**
+     * To detect whether the module has a './editor' export.
+     * @param moduleName 
+     */
+    public async hasEditorSpecificExport (moduleName: string): Promise<boolean> {
+        if (typeof this._cachedHasEditorSpecificExport[moduleName] === 'boolean') {
+            return this._cachedHasEditorSpecificExport[moduleName];
+        }
+        const pkgJson = this.resolvePackageJson(moduleName);
+        const pkg = await fs.readJson(pkgJson) as ModuleConfig;
+        return this._cachedHasEditorSpecificExport[moduleName] = typeof (pkg.exports?.['./editor']) !== 'undefined';
+    }
+ 
     private _isWebPlatform (platform: string): platform is keyof WebPlatformConfig {
         return platform.toUpperCase() in WebPlatform || platform.toUpperCase() === 'HTML5';
     }

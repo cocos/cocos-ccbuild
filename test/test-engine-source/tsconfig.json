@@ -3,6 +3,7 @@
     "target": "es6",
     "lib": ["es2015", "es2017", "dom"],
     "module": "commonjs",
+    "moduleResolution": "NodeNext",
     "sourceMap": true,
     "outDir": "./bin/.ts",
     "rootDir": "./",
@@ -12,7 +13,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
@@ -21,23 +22,8 @@
         ]
     },
     "types": [
-      "./@types/external-module",
-      "./@types/globals",
       "./@types/consts",
-      "./@types/jsb",
-      "./@types/editor-extends",
-      "./@types/webGL.extras",
-      "./@types/webGL2.extras",
-      "./@types/url",
-
-      // pal
-      "./@types/pal/system-info",
-      "./@types/pal/screen-adapter",
-      "./@types/pal/minigame",
-      "./@types/pal/audio",
-      "./@types/pal/input",
-      "./@types/pal/env",
-      "./@types/pal/pacer",
+      "./@types/external-module"
     ]
   },
   "include": [

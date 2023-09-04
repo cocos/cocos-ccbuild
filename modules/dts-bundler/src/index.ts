@@ -3,6 +3,8 @@ import * as gift from 'tfig';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { ps } from '@ccbuild/utils';
 import { typescript as Transformer } from '@ccbuild/transformer';
+import { ModuleQuery } from '@ccbuild/modularize';
+
 
 import ts = Transformer.core;
 
@@ -14,9 +16,6 @@ const REMOVE_UNBUNDLED_CACHE = !DEBUG;
 export interface Options {
     engine: string;
     outDir: string;
-    withIndex: boolean;
-    withExports: boolean;
-    withEditorExports: boolean;
 }
 
 export async function build (options: Options): Promise<boolean> {
@@ -25,17 +24,24 @@ export async function build (options: Options): Promise<boolean> {
     const {
         engine,
         outDir,
-        withIndex = true,
-        withExports = false,
-        withEditorExports = false,
     } = options;
     await fs.ensureDir(outDir);
+
+    // TODO: should this be a build options ?
+    const withIndex = true;
+    const withExports = false;
+    const withEditorExports = true;
 
     console.debug(`With index: ${withIndex}`);
     console.debug(`With exports: ${withExports}`);
     console.debug(`With editor exports: ${withEditorExports}`);
 
     const statsQuery = await StatsQuery.create(engine);
+    const moduleQuery = new ModuleQuery({
+        engine,
+        platform: 'WEB_EDITOR',  // what ever platform is OK
+    });
+    const allModules = await moduleQuery.getAllModules();
 
     const tsConfigPath = statsQuery.tsConfigPath;
 
@@ -152,6 +158,9 @@ export async function build (options: Options): Promise<boolean> {
             if (isBareSpecifier) {
                 file = require.resolve(`@types/${file.slice(0, -'.d.ts'.length)}`);
             }
+            if (!ps.isAbsolute(file)) {
+                file = ps.join(ps.dirname(tsConfigPath), file);
+            }
             giftInputs.push(file);
         }
     }
@@ -171,6 +180,21 @@ export async function build (options: Options): Promise<boolean> {
     await listGiftInputs(unbundledOutDirNormalized);
 
     const giftEntries: Record<string, string> = { };
+    for (const moduleName of allModules) {
+        const moduleEntry = await moduleQuery.resolveExport(moduleName);
+        if (moduleEntry) {
+            // update inputs
+            giftInputs.push(moduleEntry);
+        }
+        if (await moduleQuery.hasEditorSpecificExport(moduleName)) {
+            const editorExport = moduleName + '/editor';
+            const editorEntry = await moduleQuery.resolveExport(editorExport);
+            if (editorEntry) {
+                // update inputs
+                giftInputs.push(editorEntry);
+            }
+        }
+    }
 
     const getModuleNameInTsOutFile = (moduleFile: string): string => {
         const path = ps.relative(statsQuery.path, moduleFile);
@@ -191,6 +215,16 @@ export async function build (options: Options): Promise<boolean> {
             giftEntries[editorExportModule] = getModuleNameInTsOutFile(
                 statsQuery.getEditorPublicModuleFile(editorExportModule),
             );
+        }
+        for (const moduleName of allModules) {
+            if (await moduleQuery.hasEditorSpecificExport(moduleName)) {
+                const editorExport = moduleName + '/editor';
+                const editorEntry = await moduleQuery.resolveExport(editorExport);
+                const editorModuleName = transformToEditorModuleName(moduleName);
+                if (editorEntry) {
+                    giftEntries[editorModuleName] = editorEntry;
+                }
+            }
         }
     }
 
@@ -263,4 +297,16 @@ function buildIndexModule (featureUnits: string[], statsQuery: StatsQuery): stri
             .map((line) => `    ${line}`)
             .join('\n')
     }\n}`;
+}
+
+/**
+ * '@cocos/moduleName' -> 'cc/editor/moduleName'
+ * '@cocos/moduleName/editor' -> 'cc/editor/moduleName'
+ * 'moduleName' -> 'cc/editor/moduleName'
+ * @param moduleName 
+ */
+function transformToEditorModuleName (moduleName: string): string {
+    const split = moduleName.split('/');
+    moduleName = split.length > 1 ? split[1] : split[0];
+    return `cc/editor/${moduleName}`;
 }
