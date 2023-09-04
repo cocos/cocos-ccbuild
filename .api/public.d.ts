@@ -14950,6 +14950,11 @@ declare module "@cocos/ccbuild" {
              * Resolve module entry path by import source.
              */
             resolveExport(source: string): Promise<string | void>;
+            /**
+             * To detect whether the module has a './editor' export.
+             * @param moduleName
+             */
+            hasEditorSpecificExport(moduleName: string): Promise<boolean>;
         }
         export enum MinigamePlatform {
             WECHAT = 0,
@@ -14993,6 +14998,16 @@ declare module "@cocos/ccbuild" {
             WEB_EDITOR = 0,
             WEB_MOBILE = 1,
             WEB_DESKTOP = 2
+        }
+    }
+    export namespace dtsBundler {
+        export function build(options: Options): Promise<boolean>;
+        export interface Options {
+            engine: string;
+            outDir: string;
+            withIndex: boolean;
+            withExports: boolean;
+            withEditorExports: boolean;
         }
     }
     export {};
