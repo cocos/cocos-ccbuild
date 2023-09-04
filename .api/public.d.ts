@@ -15005,9 +15005,6 @@ declare module "@cocos/ccbuild" {
         export interface Options {
             engine: string;
             outDir: string;
-            withIndex: boolean;
-            withExports: boolean;
-            withEditorExports: boolean;
         }
     }
     export {};

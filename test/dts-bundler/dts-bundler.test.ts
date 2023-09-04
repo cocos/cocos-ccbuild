@@ -9,9 +9,6 @@ test('bundle dts', async () => {
     await build({
         engine: entry,
         outDir: out,
-        withIndex: true,
-        withEditorExports: true,
-        withExports: false,
     });
 
     expect(await getOutputDirStructure(out)).toMatchSnapshot('director structure');

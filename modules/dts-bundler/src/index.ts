@@ -16,9 +16,6 @@ const REMOVE_UNBUNDLED_CACHE = !DEBUG;
 export interface Options {
     engine: string;
     outDir: string;
-    withIndex: boolean;
-    withExports: boolean;
-    withEditorExports: boolean;
 }
 
 export async function build (options: Options): Promise<boolean> {
@@ -27,11 +24,13 @@ export async function build (options: Options): Promise<boolean> {
     const {
         engine,
         outDir,
-        withIndex = true,
-        withExports = false,
-        withEditorExports = false,
     } = options;
     await fs.ensureDir(outDir);
+
+    // TODO: should this be a build options ?
+    const withIndex = true;
+    const withExports = false;
+    const withEditorExports = true;
 
     console.debug(`With index: ${withIndex}`);
     console.debug(`With exports: ${withExports}`);
