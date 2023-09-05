@@ -56,7 +56,21 @@ export class ModuleQuery {
                 }));
             }
         }
+        pkgFiles = pkgFiles.map(file => {
+            if (fs.statSync(file).isDirectory()) {
+                const pkgFile = ps.join(file, 'package.json');
+                if (fs.existsSync(pkgFile)) {
+                    return pkgFile;
+                }
+            }
+            return file;
+        });
         pkgFiles = pkgFiles.filter(file => file.endsWith('package.json'));
+        pkgFiles = pkgFiles.filter((file, index) => pkgFiles.indexOf(file) === index);
+        pkgFiles = pkgFiles.filter(file => {
+            const pkgJson = fs.readJSONSync(file) as ModuleConfig;
+            return (pkgJson.exports?.['.'].node === './package.json');
+        });
         const moduleNames: string[] = [];
         for (const pkg of pkgFiles) {
             const name = (await fs.readJson(pkg)).name;
