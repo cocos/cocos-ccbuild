@@ -230,4 +230,38 @@ describe('engine-js', () => {
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
         await del(out, { force: true });
     });
+
+    test('cull meshopt', async () => {
+        const out = ps.join(__dirname, './lib-js');
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['cull-meshopt'],
+            moduleFormat: 'system',
+            flags: {
+                CULL_MESHOPT: true,
+            },
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('with wasm support');
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot('with wasm support');
+        await del(out, { force: true });
+
+        
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'BYTEDANCE',
+            features: ['cull-meshopt'],
+            moduleFormat: 'system',
+            flags: {
+                CULL_MESHOPT: true,
+            },
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('without wasm support');
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot('without wasm support');
+        await del(out, { force: true });
+    });
 });

@@ -74,10 +74,14 @@ function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string)
     return options.wasmSupportMode !== 0 && options.cullAsmJsModule;
 }
 
+function shouldCullMeshoptModule (options: externalWasmLoader.Options, id: string): boolean {
+    return options.cullMeshopt && id.includes('meshopt');
+}
+
 const loadConfig: ILoadConfig = {
     '.wasm': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id);
+            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id) || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -86,7 +90,7 @@ const loadConfig: ILoadConfig = {
     },
     '.js.mem': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id);
+            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id) || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -95,7 +99,7 @@ const loadConfig: ILoadConfig = {
     },
     '.wasm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id);
+            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id) || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -104,7 +108,7 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id);
+            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id) || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -345,6 +349,10 @@ export declare namespace externalWasmLoader {
          * Whether cull asm js module.
          */
         cullAsmJsModule: boolean;
+        /**
+         * Whether cull meshopt module, including wasm and asm.js.
+         */
+        cullMeshopt: boolean;
         /**
          * Build external wasm module as minigame subpackage.
          * This feature is for minigame platforms.

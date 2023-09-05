@@ -110,6 +110,8 @@ export const WASM_FALLBACK = false;
 
 export const WASM_SUBPACKAGE = false;
 
+export const CULL_MESHOPT = false;
+
 "
 `;
 
@@ -230,6 +232,8 @@ export const WASM_FALLBACK = false;
 
 export const WASM_SUBPACKAGE = false;
 
+export const CULL_MESHOPT = false;
+
 "
 `;
 
@@ -242,6 +246,7 @@ exports[`genBuildTimeConstants 1`] = `
   "BYTEDANCE": false,
   "COCOSPLAY": false,
   "CULL_ASM_JS_MODULE": true,
+  "CULL_MESHOPT": false,
   "DEBUG": false,
   "DEV": true,
   "EDITOR": false,
@@ -731,6 +736,11 @@ exports[`generateInternalConstants 1`] = `
 	 * This is useful when we need to reduce code size.
 	 */
 	export const WASM_SUBPACKAGE: boolean;
+
+	/**
+	 * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
+	 */
+	export const CULL_MESHOPT: boolean;
 
 }
 "

@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.12
+
+### Patch Changes
+
+- feat: support CULL_MESHOPT build flag
+
 ## 2.0.3-alpha.11
 
 ### Patch Changes

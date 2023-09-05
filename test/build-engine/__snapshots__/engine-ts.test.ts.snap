@@ -127,6 +127,26 @@ exports[`WASM build WASM: get output dir structure 1`] = `
 ]
 `;
 
+exports[`WASM cull meshopt: asm module content 1`] = `"let $: any;export default $;"`;
+
+exports[`WASM cull meshopt: output dir structure 1`] = `
+[
+  "@types/consts.d.ts",
+  "@types/external-module.d.ts",
+  "@types/lib.dom.d.ts",
+  "__virtual__/internal_constants.ts",
+  "cc.ts",
+  "cull-meshopt/index.ts",
+  "exports/cull-meshopt.ts",
+  "index.ts",
+  "native/external/wasm/emscripten/meshopt/meshopt_decoder.asm.js.af2bd.ts",
+  "native/external/wasm/emscripten/meshopt/meshopt_decoder.wasm.js.bd175.ts",
+  "native/external/wasm/emscripten/meshopt/meshopt_decoder.wasm.wasm.d3d07.ts",
+  "native/external/wasm/wasm-pack/wasm_rust.wasm.d.ts",
+  "system-cc.js",
+]
+`;
+
 exports[`build time constant intrinsic flag 1`] = `
 [
   "intrinsic-flag/intrinsic-flag-true.ts",
@@ -230,7 +250,8 @@ export const EDITOR_NOT_IN_PREVIEW = false;
 export const FORCE_BANNING_BULLET_WASM = false;
 export const CULL_ASM_JS_MODULE = false;
 export const WASM_FALLBACK = false;
-export const WASM_SUBPACKAGE = false;",
+export const WASM_SUBPACKAGE = false;
+export const CULL_MESHOPT = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {

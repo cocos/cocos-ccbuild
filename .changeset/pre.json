@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.10"
+    "@cocos/ccbuild": "2.0.3-alpha.11"
   },
   "changesets": [
     "angry-jobs-move",
@@ -21,6 +21,7 @@
     "polite-books-kick",
     "quick-insects-exist",
     "seven-foxes-raise",
+    "sour-shoes-teach",
     "spicy-clocks-join",
     "strong-geckos-look",
     "two-emus-heal",
