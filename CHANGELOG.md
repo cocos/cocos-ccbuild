@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.11
+
+### Patch Changes
+
+- optimize: get all modules with node exporting package.json
+
 ## 2.0.3-alpha.10
 
 ### Patch Changes

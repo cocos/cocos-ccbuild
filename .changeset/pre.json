@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.9"
+    "@cocos/ccbuild": "2.0.3-alpha.10"
   },
   "changesets": [
     "angry-jobs-move",
@@ -17,6 +17,7 @@
     "lovely-drinks-battle",
     "nasty-suits-punch",
     "new-clocks-flash",
+    "nine-olives-raise",
     "polite-books-kick",
     "quick-insects-exist",
     "seven-foxes-raise",
