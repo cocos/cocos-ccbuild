@@ -1,9 +1,9 @@
 import * as ccbuild from '../../modules/build-engine/src/engine-ts/engine-builder';
-import * as ps from 'path';
 import * as fs from 'fs';
 import del from 'del';
-import { formatPath } from '@ccbuild/utils';
+import { formatPath, ps } from '@ccbuild/utils';
 import { getOutputContent, getOutputDirStructure } from '../utils';
+import { buildEngine } from '@ccbuild/build-engine';
 
 jest.setTimeout(10000);
 test('engine-ts', async () => {
@@ -96,6 +96,30 @@ describe('WASM', () => {
     }
     expect(outputDirStructure).toMatchSnapshot('get output dir structure');
     expect(file2Code).toMatchSnapshot('file 2 code');
+    await del(out, { force: true });
+  });
+
+  
+  test('cull meshopt', async () => {
+    const out = ps.join(__dirname, './lib-ts');
+    await buildEngine({
+        engine: ps.join(__dirname, '../test-engine-source'),
+        out,
+        mode: 'BUILD',
+        platform: 'OPEN_HARMONY',
+        preserveType: true,
+        features: ['cull-meshopt'],
+        moduleFormat: 'system',
+        flags: {
+            CULL_MESHOPT: true,
+        },
+    });
+    const outputDirStructure = await getOutputDirStructure(out);
+    expect(outputDirStructure).toMatchSnapshot('output dir structure');
+    const asmModule = outputDirStructure.find(file => file.includes('meshopt_decoder.asm.js'));
+    if (asmModule) {
+      expect(await getOutputContent(ps.join(out, asmModule))).toMatchSnapshot('asm module content');
+    }
     await del(out, { force: true });
   });
 });

@@ -44,6 +44,9 @@ interface ILoadConfig {
     }
 }
 
+function shouldCullMeshoptModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
+    return options.cullMeshopt && id.includes('meshopt');
+}
 
 const loadConfig: ILoadConfig = {
     '.wasm': {
@@ -57,7 +60,7 @@ const loadConfig: ILoadConfig = {
     },
     '.js.mem': {
         shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
-            return false;  // we can only use asm.js on OH platform
+            return shouldCullMeshoptModule(options, id);  // we can only use asm.js on OH platform
         },
         shouldEmitAsset (options: externalWasmLoaderFactory.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -75,12 +78,12 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
-            return false;  // we can only use asm.js on OH platform
+            return shouldCullMeshoptModule(options, id);  // we can only use asm.js on OH platform
         },
         shouldEmitAsset (options: externalWasmLoaderFactory.Options, id: string): boolean {
             return false;
         },
-        cullingContent: `export default function () {}`,
+        cullingContent: `let $: any;export default $;`,
     },
     '.wasm.fallback': {
         shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
@@ -167,5 +170,9 @@ export declare namespace externalWasmLoaderFactory {
     export interface Options {
         engineRoot: string;
         outDir?: string;
+        /**
+         * Whether cull meshopt module, including wasm and asm.js.
+         */
+        cullMeshopt: boolean;
     }
 }

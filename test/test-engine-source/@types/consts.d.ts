@@ -211,4 +211,9 @@ declare module 'internal:constants'{
      * This is useful when we use wasm on different version of Safari browsers.
      */
     export const WASM_FALLBACK: boolean;
+
+    /**
+     * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
+     */
+    export const CULL_MESHOPT: boolean;
 }

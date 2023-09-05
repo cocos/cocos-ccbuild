@@ -147,6 +147,7 @@ export class EngineBuilder {
             externalWasmLoaderFactory({
                 engineRoot: options.root,
                 outDir: options.outDir,
+                cullMeshopt: options.flagConfig.CULL_MESHOPT ?? false,
             }),
         );
     }

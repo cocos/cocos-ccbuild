@@ -244,6 +244,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             wasmSupportMode: buildTimeConstants.WASM_SUPPORT_MODE,
             forceBanningBulletWasm,
             cullAsmJsModule: buildTimeConstants.CULL_ASM_JS_MODULE,
+            cullMeshopt: buildTimeConstants.CULL_MESHOPT,
             format: 'relative-from-chunk',
             wasmFallback: buildTimeConstants.WASM_FALLBACK,
             wasmSubpackage: buildTimeConstants.WASM_SUBPACKAGE,
