@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.10
+
+### Patch Changes
+
+- 7bb3ea2: fix: getAllModules in ModuleQuery
+
 ## 2.0.3-alpha.9
 
 ### Patch Changes
