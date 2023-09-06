@@ -1,2 +1,4 @@
 const promise = import('@module-query/env');
-export { promise };
+type TsImportTypes = typeof import('@module-query/env');
+
+export { promise, TsImportTypes };

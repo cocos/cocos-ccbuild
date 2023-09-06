@@ -159,7 +159,8 @@ exports[`build time constant intrinsic flag 1`] = `
 
 exports[`dynamic import: index content 1`] = `
 "const promise = window.__cc_module_context__.import("../packages/@module-query/env/src/native/env");
-export { promise };"
+type TsImportTypes = typeof import("../packages/@module-query/env/src/native/env");
+export { promise, TsImportTypes };"
 `;
 
 exports[`dynamic import: output dir structure 1`] = `
