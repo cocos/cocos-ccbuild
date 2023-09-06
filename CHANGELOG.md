@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.13
+
+### Patch Changes
+
+- fix: build ts engine with dynamic import
+
 ## 2.0.3-alpha.12
 
 ### Patch Changes
