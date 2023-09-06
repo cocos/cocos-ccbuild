@@ -335,7 +335,7 @@ export class EngineBuilder {
     }
 
     private _getDepIdList (file: string, code: string): string[] {
-        const depIdList: string[] = [];
+        let depIdList: string[] = [];
         asserts(!file.includes('\\'), 'We should use posix path');
         for (const ex of this._excludeTransform) {
             if (ex.test(file)) {
@@ -371,7 +371,22 @@ export class EngineBuilder {
         babel.traverse(res, {
             ImportDeclaration: importExportVisitor,
             ExportDeclaration: importExportVisitor,
+            CallExpression: (path) => {
+                if (path.node.callee.type === 'Import') {
+                    const arg0 = path.node.arguments[0];
+                    if (arg0.type === 'StringLiteral') {
+                        depIdList.push(arg0.value);
+                    }
+                }
+            },
+            TSImportType: (path) => {
+                const specifier = path.node.argument.value;
+                depIdList.push(specifier);
+            },
         });
+
+        depIdList = depIdList.filter((id, index) => depIdList.indexOf(id) === index);
+
         return depIdList;
     }
 
@@ -486,7 +501,7 @@ export class EngineBuilder {
                                 ImportDeclaration: importExportVisitor,
                                 ExportDeclaration: importExportVisitor,
                                 // TODO: here we rename class Rect and Path
-                                CallExpression (path): void {
+                                CallExpression: (path) => {
                                     if (path.node.callee.type === 'MemberExpression') {
                                         const memberExpressionPath = path.get('callee') as babel.NodePath<t.MemberExpression>;
                                         const objectPath = memberExpressionPath.get('object') as babel.NodePath<t.Identifier>;
@@ -516,6 +531,50 @@ export class EngineBuilder {
                                             ),
                                             path.node.arguments,
                                         ));
+
+                                        const arg0 = path.node.arguments[0];
+                                        if (arg0.type === 'StringLiteral') {
+                                            const specifier = arg0.value;
+                                            // transform import/export declaration if needed
+                                            const overrideId = this._getOverrideId(specifier, file);
+                                            if (overrideId) {
+                                                let relativePath = formatPath(ps.relative(ps.dirname(file), overrideId));
+                                                if (!relativePath.startsWith('.')) {
+                                                    relativePath = './' + relativePath;
+                                                }
+                                                if (ps.extname(relativePath) === '.ts') {
+                                                    relativePath = relativePath.slice(0, -3);  // remove '.ts'
+                                                }
+                                                
+                                                traverse(path.node, {
+                                                    StringLiteral (path: babel.NodePath<babel.types.StringLiteral>): void {
+                                                        path.replaceWith(babel.types.stringLiteral(relativePath));
+                                                        path.skip();
+                                                    },
+                                                }, path.scope);
+                                            }
+                                        }
+                                    }
+                                },
+                                TSImportType: (path) => {
+                                    const specifier = path.node.argument.value;
+                                    // transform import/export declaration if needed
+                                    const overrideId = this._getOverrideId(specifier, file);
+                                    if (overrideId) {
+                                        let relativePath = formatPath(ps.relative(ps.dirname(file), overrideId));
+                                        if (!relativePath.startsWith('.')) {
+                                            relativePath = './' + relativePath;
+                                        }
+                                        if (ps.extname(relativePath) === '.ts') {
+                                            relativePath = relativePath.slice(0, -3);  // remove '.ts'
+                                        }
+                                        
+                                        traverse(path.node, {
+                                            StringLiteral (path: babel.NodePath<babel.types.StringLiteral>): void {
+                                                path.replaceWith(babel.types.stringLiteral(relativePath));
+                                                path.skip();
+                                            },
+                                        }, path.scope);
                                     }
                                 },
                                 ClassDeclaration (path): void {
@@ -622,7 +681,6 @@ export class EngineBuilder {
             fs.outputFileSync(ccFile, ccContent, 'utf8');
             fs.outputFileSync(systemCCFile, systemCCContent, 'utf8');
         }
-
     }
 
     private async _copyTypes (): Promise<void> {

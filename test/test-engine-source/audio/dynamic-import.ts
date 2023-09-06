@@ -1,1 +1,2 @@
-import('./player.js')
+// @ts-expect-error ignore
+import('./player');

@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.11"
+    "@cocos/ccbuild": "2.0.3-alpha.12"
   },
   "changesets": [
     "angry-jobs-move",
@@ -23,6 +23,7 @@
     "seven-foxes-raise",
     "sour-shoes-teach",
     "spicy-clocks-join",
+    "strange-colts-grow",
     "strong-geckos-look",
     "two-emus-heal",
     "wet-crabs-beam",
