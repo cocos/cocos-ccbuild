@@ -164,3 +164,25 @@ describe('type build', function () {
     await del(out, { force: true });
   });
 });
+
+test('dynamic import', async function () {
+  const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+  const out = formatPath(ps.join(__dirname, './lib-ts'));
+  await buildEngine({
+      engine: root,
+      out,
+      mode: 'BUILD',
+      platform: 'OPEN_HARMONY',
+      preserveType: true,
+      features: ['dynamic-import'],
+  });
+  const outputDirStructure = await getOutputDirStructure(out);
+  expect(outputDirStructure).toMatchSnapshot('output dir structure');
+  let indexFile = outputDirStructure.find(file => file.includes('dynamic-import/index.ts'));
+  if (indexFile) {
+    indexFile = ps.join(out, indexFile);
+    const indexContent = fs.readFileSync(indexFile, 'utf8');
+    expect(indexContent).toMatchSnapshot('index content');
+  }
+  await del(out, { force: true });
+});
