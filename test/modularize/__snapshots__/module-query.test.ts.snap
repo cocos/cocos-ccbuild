@@ -2,7 +2,6 @@
 
 exports[`get all modules and config 1`] = `
 [
-  "@module-query/ambient-type",
   "@module-query/env",
   "@module-query/utils",
 ]

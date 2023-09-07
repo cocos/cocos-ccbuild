@@ -688,9 +688,8 @@ export class EngineBuilder {
         if (!outDir) {
             return;
         }
-        let dtsFiles = glob.sync(formatPath(ps.join(root, './@types/**/*.d.ts')));
-        const externalDtsFiles = glob.sync(formatPath(ps.join(root, './native/external/**/*.d.ts')));
-        dtsFiles = dtsFiles.concat(externalDtsFiles);
+        const ccAmbientTypesQuery = this._requireEngineModules('@types/cc-ambient-types/query') as { getDtsFiles():string[] };
+        const dtsFiles = ccAmbientTypesQuery.getDtsFiles();
         for (const file of dtsFiles) {
             const code = fs.readFileSync(file, 'utf8');
             const relativePath = ps.relative(root, file);
@@ -703,5 +702,12 @@ export class EngineBuilder {
         const targetDomDts = formatPath(ps.join(outDir, '@types/lib.dom.d.ts'));
         const code = fs.readFileSync(originalDomDts, 'utf8');
         fs.outputFileSync(targetDomDts, code, 'utf8');
+    }
+
+    private _requireEngineModules (moduleName: string): unknown {
+        const modulePath = require.resolve(moduleName, {
+            paths: [this._options.root],
+        });
+        return require(modulePath);
     }
 }
