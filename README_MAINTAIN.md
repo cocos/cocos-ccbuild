@@ -32,6 +32,22 @@ Every time you make a change in the repo, please generate a changeset in the fol
 npm run change
 ```
 
+## API generation
+
+Remember to update the public API every time you change the interface.
+
+```sh
+# generate API report in '.api' directory
+npm run api
+```
+
+You can generate API document in this way:
+
+```sh
+# use typedoc to generate API document
+npm run doc
+```
+
 ## version the package
 
 Please version the package before you publish.

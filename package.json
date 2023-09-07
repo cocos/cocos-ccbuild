@@ -12,6 +12,7 @@
     "version-snapshot": "node ./scripts/remove-workspaces.js && changeset version --snapshot test && node ./scripts/restore-workspaces.js",
     "deploy": "npm run clean && turbo build --force && tsc && node ./scripts/deploy.js",
     "api": "npm run build && node ./scripts/update-api.js",
+    "doc": "typedoc",
     "clean": "node ./scripts/clear.js",
     "test": "turbo build && node ./scripts/setup-test.js && jest",
     "gen-module-graph": "node ./scripts/gen-module-graph.js"
