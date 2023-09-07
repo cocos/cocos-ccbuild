@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../../modules/modularize/lib/module-config.schema.json",
+  "$schema": "../../../../modules/modularize/lib/module-config.schema.json",
   "name": "@types/cc-ambient-types",
   "version": "1.0.0",
   "description": "",
