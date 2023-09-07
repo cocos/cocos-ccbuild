@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.14
+
+### Patch Changes
+
+- optimize: integrate '@types/cc-ambient-types/query' to build dts files
+
 ## 2.0.3-alpha.13
 
 ### Patch Changes

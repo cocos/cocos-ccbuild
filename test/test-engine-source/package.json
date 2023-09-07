@@ -1,6 +1,7 @@
 {
     "name": "cc-test",
     "workspaces": [
+        "@types/*",
         "packages/@module-query/*"
     ]
 }

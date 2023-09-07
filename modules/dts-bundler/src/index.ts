@@ -156,7 +156,9 @@ export async function build (options: Options): Promise<boolean> {
         for (let file of types) {
             const isBareSpecifier = !file.includes('/');
             if (isBareSpecifier) {
-                file = require.resolve(`@types/${file.slice(0, -'.d.ts'.length)}`);
+                file = require.resolve(`@types/${file.slice(0, -'.d.ts'.length)}`, {
+                    paths: [engine]
+                });
             }
             if (!ps.isAbsolute(file)) {
                 file = ps.join(ps.dirname(tsConfigPath), file);

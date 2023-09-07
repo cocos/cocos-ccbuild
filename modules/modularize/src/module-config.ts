@@ -84,6 +84,11 @@ interface ConditionalExports {
      * - the `web_editor` or `native_editor` platform export is an editor version of implementation of interfaces defined in `types` field which should be cross-platform.
      */
     './editor'?: ExportCondition<{}>,
+
+    /**
+     * This export provide a the path of javascript module which exports some method to query the info of module.
+     */
+    './query'?: string,
 }
 
 interface Migration {

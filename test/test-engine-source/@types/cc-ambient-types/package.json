@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../modules/modularize/lib/module-config.schema.json",
-  "name": "@module-query/ambient-type",
+  "name": "@types/cc-ambient-types",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,8 +8,9 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "node": "./package.json",
+      "node": "./src/index.d.ts",
       "types": "./src/index.d.ts"
-    }
+    },
+    "./query": "./scripts/query.js"
   }
 }
