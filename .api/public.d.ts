@@ -256,6 +256,12 @@ declare module "@cocos/ccbuild" {
                  */
                 CULL_ASM_JS_MODULE: boolean;
                 /**
+                 * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
+                 *
+                 * @default false
+                 */
+                CULL_MESHOPT: boolean;
+                /**
                  * An internal constant to indicate whether need a fallback of wasm.
                  * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
                  * This is useful when we use wasm on different version of Safari browsers.
@@ -14941,7 +14947,7 @@ declare module "@cocos/ccbuild" {
             /**
              * Resolve module package.json path by module name.
              */
-            resolvePackageJson(moduleName: string): string;
+            resolvePackageJson(moduleName: string): Promise<string>;
             /**
              * Get module config by module name.
              */
