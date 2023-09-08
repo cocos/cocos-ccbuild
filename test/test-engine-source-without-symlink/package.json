@@ -1,5 +1,5 @@
 {
-    "name": "cc-test",
+    "name": "cc-test2",
     "workspaces": [
         "@types/*",
         "packages/*"
