@@ -50,6 +50,7 @@ export namespace EngineBuilder {
 
 export class EngineBuilder {
     private _options!: EngineBuilder.IBuildOptions;
+    private _moduleQuery!: ModuleQuery;
     private _entries: string[] = [];
     private _entriesForPass2: Set<string> = new Set<string>();
     private _virtual2code: Record<string, string> = {};
@@ -137,12 +138,12 @@ export class EngineBuilder {
     }
 
     private async _initPlugins (options: EngineBuilder.IBuildOptions): Promise<void> {
-        const moduleQuery = new ModuleQuery({
+        this._moduleQuery = new ModuleQuery({
             engine: options.root,
             platform: options.platform,
         });
         this._plugins.push(
-            moduleQueryPlugin(moduleQuery),
+            moduleQueryPlugin(this._moduleQuery),
             nodeModuleLoaderFactory(),
             externalWasmLoaderFactory({
                 engineRoot: options.root,
@@ -690,7 +691,7 @@ export class EngineBuilder {
         }
         let dtsFiles: string[];
         try {
-            const ccAmbientTypesQuery = this._requireEngineModules('@types/cc-ambient-types/query') as { getDtsFiles():string[] };
+            const ccAmbientTypesQuery = await this._requireEngineModules('@types/cc-ambient-types/query') as { getDtsFiles():string[] };
             dtsFiles = ccAmbientTypesQuery.getDtsFiles();
         } catch (e) {
             // NOTE: if failed to resolve '@types/cc-ambient-types', we use the legacy way to copy dts files.
@@ -712,10 +713,11 @@ export class EngineBuilder {
         fs.outputFileSync(targetDomDts, code, 'utf8');
     }
 
-    private _requireEngineModules (moduleName: string): unknown {
-        const modulePath = require.resolve(moduleName, {
-            paths: [this._options.root],
-        });
-        return require(modulePath);
+    private async _requireEngineModules (moduleName: string): Promise<unknown> {
+        const resolvedPath = await this._moduleQuery.resolveExport(moduleName);
+        if (!resolvedPath) {
+            throw new Error(`Can't resolve engine module: ${moduleName}.`);
+        }
+        return require(resolvedPath);
     }
 }

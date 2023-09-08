@@ -32,7 +32,7 @@ export class ModuleQuery {
     private _context: ModuleQueryContext;
 
     // cache
-    private _cachedAllModules?: string[];
+    private _cachedModuleName2PkgJson?: Record<string, string>;
     private _resolvedCache: Record<string, string> = {};  // module name to module entry file path
     private _cachedHasEditorSpecificExport: Record<string, boolean> = {};
 
@@ -44,55 +44,36 @@ export class ModuleQuery {
      * Get all modules' name defined in engine workspaces.
      */
     public async getAllModules (): Promise<string[]> {
-        if (this._cachedAllModules) {
-            return this._cachedAllModules;
+        await this._ensureModuleName2PkgJson();
+        if (!this._cachedModuleName2PkgJson) {
+            throw new Error(`Failed to resolve engine modules.`);
         }
-        const enginePkg = await fs.readJson(ps.join(this._context.engine, 'package.json'));
-        let pkgFiles: string[] = [];
-        if (enginePkg.workspaces) {
-            for (const ws of enginePkg.workspaces) {
-                pkgFiles.push(...glob.sync(ps.join(this._context.engine, ws), {
-                    ignore: '**/node_modules/**/*',
-                }));
-            }
-        }
-        pkgFiles = pkgFiles.map(file => {
-            if (fs.statSync(file).isDirectory()) {
-                const pkgFile = ps.join(file, 'package.json');
-                if (fs.existsSync(pkgFile)) {
-                    return pkgFile;
-                }
-            }
-            return file;
-        });
-        pkgFiles = pkgFiles.filter(file => file.endsWith('package.json'));
-        pkgFiles = pkgFiles.filter((file, index) => pkgFiles.indexOf(file) === index);
-        pkgFiles = pkgFiles.filter(file => {
-            const pkgJson = fs.readJSONSync(file) as ModuleConfig;
-            return (pkgJson.exports?.['.'].node === './package.json');
-        });
-        const moduleNames: string[] = [];
-        for (const pkg of pkgFiles) {
-            const name = (await fs.readJson(pkg)).name;
-            moduleNames.push(name);
-        }
-        return this._cachedAllModules = moduleNames;
+        return Object.keys(this._cachedModuleName2PkgJson);
     }
 
     /**
      * Resolve module package.json path by module name.
      */
-    public resolvePackageJson (moduleName: string): string {
-        return require.resolve(moduleName, {
-            paths: [this._context.engine],
-        });
+    public async resolvePackageJson (moduleName: string): Promise<string> {
+        await this._ensureModuleName2PkgJson();
+        if (!this._cachedModuleName2PkgJson) {
+            throw new Error(`Failed to resolve engine modules.`);
+        }
+        const pkgJson = this._cachedModuleName2PkgJson[moduleName];
+        if (!pkgJson) {
+            throw new Error(`Failed resolve package json of module: ${moduleName}.`);
+        }
+        return pkgJson;
     }
 
     /**
      * Get module config by module name.
      */
     public async getConfig (moduleName: string): Promise<ModuleConfig> {
-        const modulePath = this.resolvePackageJson(moduleName);
+        const modulePath = await this.resolvePackageJson(moduleName);
+        if (!modulePath) {
+            throw new Error(`Failed to resolve engine module: ${moduleName}.`);
+        }
         return await fs.readJson(modulePath) as ModuleConfig;
     }
 
@@ -117,7 +98,7 @@ export class ModuleQuery {
             exportPort = './' + ps.relative(moduleName, source);
         }
 
-        const moduleRootDir = ps.dirname(this.resolvePackageJson(moduleName));
+        const moduleRootDir = ps.dirname(await this.resolvePackageJson(moduleName));
         const config = await this.getConfig(moduleName);
         // NOTE: '.' export port can cover all export ports.
         const rootExport = config.exports[exportPort as '.'];
@@ -171,8 +152,10 @@ export class ModuleQuery {
         // types condition
         if (typeof rootExport.types === 'string') {
             return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.types);
+        } else if (typeof rootExport === 'string') {
+            return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport);
         } else {
-            throw new Error(`Please specify a least a types export for module: '${source}'.`);
+            throw new Error(`Cannot resolve export: '${source}'.`);
         }
     }
 
@@ -184,9 +167,40 @@ export class ModuleQuery {
         if (typeof this._cachedHasEditorSpecificExport[moduleName] === 'boolean') {
             return this._cachedHasEditorSpecificExport[moduleName];
         }
-        const pkgJson = this.resolvePackageJson(moduleName);
+        const pkgJson = await this.resolvePackageJson(moduleName);
         const pkg = await fs.readJson(pkgJson) as ModuleConfig;
         return this._cachedHasEditorSpecificExport[moduleName] = typeof (pkg.exports?.['./editor']) !== 'undefined';
+    }
+
+    private async _ensureModuleName2PkgJson (): Promise<void> {
+        if (this._cachedModuleName2PkgJson) {
+            return;
+        }
+        const enginePkg = await fs.readJson(ps.join(this._context.engine, 'package.json'));
+        let pkgFiles: string[] = [];
+        if (enginePkg.workspaces) {
+            for (const ws of enginePkg.workspaces) {
+                pkgFiles.push(...glob.sync(ps.join(this._context.engine, ws), {
+                    ignore: '**/node_modules/**/*',
+                }));
+            }
+        }
+        pkgFiles = pkgFiles.map(file => {
+            if (fs.statSync(file).isDirectory()) {
+                const pkgFile = ps.join(file, 'package.json');
+                if (fs.existsSync(pkgFile)) {
+                    return pkgFile;
+                }
+            }
+            return file;
+        });
+        pkgFiles = pkgFiles.filter(file => file.endsWith('package.json'));
+        pkgFiles = pkgFiles.filter((file, index) => pkgFiles.indexOf(file) === index);
+        this._cachedModuleName2PkgJson = {};
+        for (const pkg of pkgFiles) {
+            const name = (await fs.readJson(pkg)).name;
+            this._cachedModuleName2PkgJson[name] = pkg;
+        }
     }
  
     private _isWebPlatform (platform: string): platform is keyof WebPlatformConfig {

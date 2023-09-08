@@ -2,6 +2,7 @@
 
 exports[`get all modules and config 1`] = `
 [
+  "@types/cc-ambient-types",
   "@module-query/env",
   "@module-query/utils",
 ]
