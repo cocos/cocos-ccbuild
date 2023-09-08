@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../../modules/modularize/lib/module-config.schema.json",
+  "name": "@module-query/env2",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "node": "./package.json",
+      "types": "./src/index.d.ts",
+      "native": "./src/native/env.ts",
+      "web": "./src/web/env.ts",
+      "minigame": {
+        "default": "./src/minigame/env.ts",
+        "oppo": "./src/runtime/env.ts",
+        "vivo": "./src/runtime/env.ts",
+        "huawei": "./src/runtime/env.ts"
+      },
+      "custom1": "./src/custom/env1.ts",
+      "custom2": "./src/custom/env2.ts"
+    },
+    "./editor": {
+      "types": "./src/editor-export/env.ts"
+    },
+    "./internal": {
+      "types": "./src/internal-export/env.ts",
+      "minigame": "./src/internal-minigame-export/env.ts"
+    }
+  }
+}

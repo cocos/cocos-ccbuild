@@ -1,0 +1,8 @@
+{
+    "name": "cc-test",
+    "workspaces": [
+        "@types/*",
+        "packages/*"
+    ]
+}
+  

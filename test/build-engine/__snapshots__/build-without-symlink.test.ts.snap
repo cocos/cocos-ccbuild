@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`engine-js: output content 1`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports({
+                testEditorExport: testEditorExport,
+                testEnv: testEnv,
+                testInternalExport: testInternalExport
+            });
+
+            function testEnv() {
+              return 'minigame env';
+            }
+
+            function testEditorExport() {
+              return 'editor-export env';
+            }
+
+            function testInternalExport() {
+              return 'internal-minigame-export env';
+            }
+
+            var test = exports('test', 'this is a module for testing no symlink');
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js: output dir structure 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-ts: output dir structure 1`] = `
+[
+  "@types/cc-ambient-types/src/index.d.ts",
+  "@types/cc-ambient-types/src/test-type.d.ts",
+  "@types/lib.dom.d.ts",
+  "cc.ts",
+  "exports/no-symlink.ts",
+  "index.ts",
+  "no-symlink.ts",
+  "packages/env/src/editor-export/env.ts",
+  "packages/env/src/internal-export/env.ts",
+  "packages/env/src/native/env.ts",
+  "system-cc.js",
+]
+`;
+
+exports[`engine-ts: output no-symlink.ts content 1`] = `
+"export const test = 'this is a module for testing no symlink';
+import { testEnv } from "./packages/env/src/native/env";
+export { testEnv };
+export { testEditorExport } from "./packages/env/src/editor-export/env";
+export { testInternalExport } from "./packages/env/src/internal-export/env";"
+`;
