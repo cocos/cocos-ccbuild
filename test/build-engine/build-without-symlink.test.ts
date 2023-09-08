@@ -1,7 +1,5 @@
-/**********************************************************************************
- * We need to make sure the engine build tools can still works without symlink,   *
- * so that we can fix the issue that the symlink is not cross-platform.           *
- **********************************************************************************/
+// We need to make sure the engine build tools can still works without symlink,
+// so that we can fix the issue that the symlink is not cross-platform.
 
 import { buildEngine } from '@ccbuild/build-engine';
 import { ps } from '@ccbuild/utils';

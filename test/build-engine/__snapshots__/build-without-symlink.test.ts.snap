@@ -42,6 +42,7 @@ exports[`engine-ts: output dir structure 1`] = `
 [
   "@types/cc-ambient-types/src/index.d.ts",
   "@types/cc-ambient-types/src/test-type.d.ts",
+  "@types/legacy-compatibility.d.ts",
   "@types/lib.dom.d.ts",
   "cc.ts",
   "exports/no-symlink.ts",
