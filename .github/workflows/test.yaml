@@ -3,7 +3,9 @@ run-name: ${{ github.actor }} - test
 on: [pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runs-on: [windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
