@@ -1,0 +1,21 @@
+name: api-check
+run-name: ${{ github.actor }}'s api check
+on: [pull_request]
+jobs:
+  api-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+
+      - run: npm ci
+
+      - name: Copy old public.d.ts
+        run: mv ./.api/public.d.ts ./.api/public_old.d.ts
+
+      - run: npm run api
+
+      - name: Compare api
+        run: node ./.github/workflows/scripts/api-check.js
