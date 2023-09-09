@@ -1,5 +1,5 @@
 name: api-check
-run-name: ${{ github.actor }}'s api check
+run-name: ${{ github.actor }} - api check
 on: [pull_request]
 jobs:
   api-check:
