@@ -1,5 +1,5 @@
 name: test
-run-name: ${{ github.actor }} - test
+run-name: ${{ github.actor }} - test ${{ matrix.os }}
 on: [pull_request]
 jobs:
   test:
