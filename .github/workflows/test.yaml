@@ -1,0 +1,19 @@
+name: test
+run-name: ${{ github.actor }} - test
+on: [pull_request]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+
+      - run: npm ci
+
+      - run: npm test

@@ -5,8 +5,6 @@ import { getOutputContent, getOutputDirStructure } from '../utils';
 import del from 'del';
 import fs from 'fs-extra';
 
-jest.setTimeout(10000);
-
 describe('module query plugin', () => {
     const engineRoot = ps.join(__dirname, '../test-engine-source');
 

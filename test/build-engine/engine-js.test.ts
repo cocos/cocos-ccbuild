@@ -4,8 +4,6 @@ import * as fs from 'fs-extra';
 import del from 'del';
 import { getOutputContent, getOutputDirStructure } from '../utils';
 
-jest.setTimeout(10000);
-
 describe('engine-js', () => {
     test('build WASM module on platform supporting WASM', async () => {
         const out = ps.join(__dirname, './lib-js');
