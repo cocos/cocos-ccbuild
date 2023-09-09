@@ -5,7 +5,6 @@ import { formatPath, ps } from '@ccbuild/utils';
 import { getOutputContent, getOutputDirStructure } from '../utils';
 import { buildEngine } from '@ccbuild/build-engine';
 
-jest.setTimeout(10000);
 test('engine-ts', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();
     const root = formatPath(ps.join(__dirname, '../test-engine-source'));

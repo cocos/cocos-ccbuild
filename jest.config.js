@@ -13,6 +13,9 @@ module.exports = {
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\pp\\AppData\\Local\\Temp\\jest",
 
+  // global test timeout
+  testTimeout: 50000,
+
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 

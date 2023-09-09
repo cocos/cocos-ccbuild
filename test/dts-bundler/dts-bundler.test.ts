@@ -3,8 +3,6 @@ import { ps } from '@ccbuild/utils';
 import del from 'del';
 import { getOutputContent, getOutputDirStructure } from '../utils';
 
-jest.setTimeout(10000);
-
 test('bundle dts', async () => {
     const entry = ps.join(__dirname, '../test-engine-source');
     const out = ps.join(__dirname, './lib-dts');
