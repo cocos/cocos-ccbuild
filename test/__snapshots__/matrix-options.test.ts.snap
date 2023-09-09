@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matrix options 1`] = `
+[
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:ALIPAY;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:ALIPAY;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:ALIPAY;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:ALIPAY;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:HTML5;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:HTML5;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:HTML5;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source;out:./lib-matrix-options;platform:HTML5;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:ALIPAY;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:ALIPAY;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:ALIPAY;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:ALIPAY;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "ALIPAY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:OPEN_HARMONY;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "OPEN_HARMONY",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:HTML5;mode:BUILD;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:HTML5;mode:BUILD;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "BUILD",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": true,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:HTML5;mode:PREVIEW;preserveType:false;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": false,
+    },
+  },
+  {
+    "name": "engine:./test-engine-source-without-symlink;out:./lib-matrix-options;platform:HTML5;mode:PREVIEW;preserveType:true;",
+    "options": {
+      "engine": "./test-engine-source-without-symlink",
+      "mode": "PREVIEW",
+      "out": "./lib-matrix-options",
+      "platform": "HTML5",
+      "preserveType": true,
+    },
+  },
+]
+`;
