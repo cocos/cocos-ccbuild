@@ -2,15 +2,17 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.13"
+    "@cocos/ccbuild": "2.0.3-alpha.14"
   },
   "changesets": [
     "angry-jobs-move",
+    "brown-ties-pay",
     "cold-peas-fold",
     "dirty-islands-promise",
     "dirty-plums-design",
     "eleven-otters-judge",
     "fifty-mails-draw",
+    "funny-singers-unite",
     "giant-cows-do",
     "good-llamas-joke",
     "hungry-rockets-provide",

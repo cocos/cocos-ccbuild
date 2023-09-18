@@ -36,7 +36,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/traverse": "^7.20.13",
     "@cocos/babel-plugin-dynamic-import-vars": "^1.0.2",
-    "@cocos/creator-programming-babel-preset-cc": "1.0.1-alpha.4",
+    "@cocos/creator-programming-babel-preset-cc": "1.0.1-alpha.5",
     "@types/resolve": "^1.20.2",
     "dedent": "^0.7.0",
     "fs-extra": "~11.1.1",
