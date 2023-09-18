@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`get all modules and config 1`] = `
+exports[`query test: get @module-query/env exports 1`] = `
+[
+  "@module-query/env",
+  "@module-query/env/editor",
+  "@module-query/env/internal",
+]
+`;
+
+exports[`query test: get all modules 1`] = `
 [
   "@types/cc-ambient-types",
   "@module-query/env",
@@ -8,7 +16,18 @@ exports[`get all modules and config 1`] = `
 ]
 `;
 
-exports[`get all modules and config 2`] = `
+exports[`query test: get all modules exports 1`] = `
+[
+  "@types/cc-ambient-types",
+  "@types/cc-ambient-types/query",
+  "@module-query/env",
+  "@module-query/env/editor",
+  "@module-query/env/internal",
+  "@module-query/utils",
+]
+`;
+
+exports[`query test: get config 1`] = `
 {
   "$schema": "../../../../../modules/modularize/lib/module-config.schema.json",
   "description": "",
@@ -22,6 +41,17 @@ exports[`get all modules and config 2`] = `
   "name": "@module-query/utils",
   "scripts": {},
   "version": "1.0.0",
+}
+`;
+
+exports[`query test: get export map 1`] = `
+{
+  "@module-query/env": "packages/@module-query/env/src/web/env.ts",
+  "@module-query/env/editor": "packages/@module-query/env/src/editor-export/env.ts",
+  "@module-query/env/internal": "packages/@module-query/env/src/internal-export/env.ts",
+  "@module-query/utils": "packages/@module-query/utils/src/index.ts",
+  "@types/cc-ambient-types": "@types/cc-ambient-types/src/index.d.ts",
+  "@types/cc-ambient-types/query": "@types/cc-ambient-types/scripts/query.js",
 }
 `;
 
