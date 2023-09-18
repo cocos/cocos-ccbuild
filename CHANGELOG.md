@@ -1,5 +1,12 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.15
+
+### Patch Changes
+
+- 0beceb0: feat: build-engine don't rely on symlink
+- fix: if there is no decorator left after culling editor only decorators
+
 ## 2.0.3-alpha.14
 
 ### Patch Changes
