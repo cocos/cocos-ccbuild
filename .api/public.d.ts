@@ -14880,7 +14880,7 @@ declare module "@cocos/ccbuild" {
             /**
              * The config for conditional exports.
              */
-            exports: __private.___modules_modularize_lib_module_config__ConditionalExports;
+            exports?: __private.___modules_modularize_lib_module_config__ConditionalExports;
             /**
              * Specify the module dependencies is required if this module import another one.
              * We need this field to generate the module dependency graph.
