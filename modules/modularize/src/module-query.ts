@@ -83,6 +83,9 @@ export class ModuleQuery {
         return allExports;
     }
 
+    /**
+     * Get the map from module name to module path.
+     */
     public async getExportMap (): Promise<Record<string, string>> {
         const allExports = await this.getAllExports();
         const map: Record<string, string> = {};

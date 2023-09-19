@@ -808,7 +808,7 @@ declare module "@cocos/ccbuild" {
                 }
                 export namespace types {
                     export const ACCESSOR_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export const ALIAS_KEYS: Partial<Record<NodeTypesWithoutComment, string[]>>;
+                    export const ALIAS_KEYS: Partial<Record<__private.___node_modules_babel_types_lib_index__NodeTypesWithoutComment, string[]>>;
                     export const ASSIGNMENT_OPERATORS: string[];
                     export type Accessor = ClassAccessorProperty;
                     export interface Aliases {
@@ -863,28 +863,28 @@ declare module "@cocos/ccbuild" {
                         TSBaseType: TSBaseType;
                         ModuleDeclaration: ModuleDeclaration;
                     }
-                    export interface AnyTypeAnnotation extends BaseNode {
+                    export interface AnyTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "AnyTypeAnnotation";
                     }
-                    export interface ArgumentPlaceholder extends BaseNode {
+                    export interface ArgumentPlaceholder extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ArgumentPlaceholder";
                     }
-                    export interface ArrayExpression extends BaseNode {
+                    export interface ArrayExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ArrayExpression";
                         elements: Array<null | Expression | SpreadElement>;
                     }
-                    export interface ArrayPattern extends BaseNode {
+                    export interface ArrayPattern extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ArrayPattern";
                         elements: Array<null | PatternLike | LVal>;
                         decorators?: Array<Decorator> | null;
                         optional?: boolean | null;
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                     }
-                    export interface ArrayTypeAnnotation extends BaseNode {
+                    export interface ArrayTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ArrayTypeAnnotation";
                         elementType: FlowType;
                     }
-                    export interface ArrowFunctionExpression extends BaseNode {
+                    export interface ArrowFunctionExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ArrowFunctionExpression";
                         params: Array<Identifier | Pattern | RestElement>;
                         body: BlockStatement | Expression;
@@ -895,13 +895,13 @@ declare module "@cocos/ccbuild" {
                         returnType?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface AssignmentExpression extends BaseNode {
+                    export interface AssignmentExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "AssignmentExpression";
                         operator: string;
                         left: LVal;
                         right: Expression;
                     }
-                    export interface AssignmentPattern extends BaseNode {
+                    export interface AssignmentPattern extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "AssignmentPattern";
                         left: Identifier | ObjectPattern | ArrayPattern | MemberExpression | TSAsExpression | TSSatisfiesExpression | TSTypeAssertion | TSNonNullExpression;
                         right: Expression;
@@ -909,7 +909,7 @@ declare module "@cocos/ccbuild" {
                         optional?: boolean | null;
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                     }
-                    export interface AwaitExpression extends BaseNode {
+                    export interface AwaitExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "AwaitExpression";
                         argument: Expression;
                     }
@@ -922,41 +922,41 @@ declare module "@cocos/ccbuild" {
                     export const BOOLEAN_NUMBER_BINARY_OPERATORS: string[];
                     export const BOOLEAN_UNARY_OPERATORS: string[];
                     export const BUILDER_KEYS: Record<string, string[]>;
-                    export interface BigIntLiteral extends BaseNode {
+                    export interface BigIntLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BigIntLiteral";
                         value: string;
                     }
                     export type Binary = BinaryExpression | LogicalExpression;
-                    export interface BinaryExpression extends BaseNode {
+                    export interface BinaryExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BinaryExpression";
                         operator: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=" | "|>";
                         left: Expression | PrivateName;
                         right: Expression;
                     }
-                    export interface BindExpression extends BaseNode {
+                    export interface BindExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BindExpression";
                         object: Expression;
                         callee: Expression;
                     }
                     export type Block = BlockStatement | Program | TSModuleBlock;
                     export type BlockParent = BlockStatement | CatchClause | DoWhileStatement | ForInStatement | ForStatement | FunctionDeclaration | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement | ArrowFunctionExpression | ForOfStatement | ClassMethod | ClassPrivateMethod | StaticBlock | TSModuleBlock;
-                    export interface BlockStatement extends BaseNode {
+                    export interface BlockStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BlockStatement";
                         body: Array<Statement>;
                         directives: Array<Directive>;
                     }
-                    export interface BooleanLiteral extends BaseNode {
+                    export interface BooleanLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BooleanLiteral";
                         value: boolean;
                     }
-                    export interface BooleanLiteralTypeAnnotation extends BaseNode {
+                    export interface BooleanLiteralTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BooleanLiteralTypeAnnotation";
                         value: boolean;
                     }
-                    export interface BooleanTypeAnnotation extends BaseNode {
+                    export interface BooleanTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BooleanTypeAnnotation";
                     }
-                    export interface BreakStatement extends BaseNode {
+                    export interface BreakStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "BreakStatement";
                         label?: Identifier | null;
                     }
@@ -969,7 +969,7 @@ declare module "@cocos/ccbuild" {
                     export const COMPARISON_BINARY_OPERATORS: string[];
                     export const COMPLETIONSTATEMENT_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const CONDITIONAL_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface CallExpression extends BaseNode {
+                    export interface CallExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "CallExpression";
                         callee: Expression | Super | V8IntrinsicIdentifier;
                         arguments: Array<Expression | SpreadElement | JSXNamespacedName | ArgumentPlaceholder>;
@@ -977,13 +977,13 @@ declare module "@cocos/ccbuild" {
                         typeArguments?: TypeParameterInstantiation | null;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface CatchClause extends BaseNode {
+                    export interface CatchClause extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "CatchClause";
                         param?: Identifier | ArrayPattern | ObjectPattern | null;
                         body: BlockStatement;
                     }
                     export type Class = ClassExpression | ClassDeclaration;
-                    export interface ClassAccessorProperty extends BaseNode {
+                    export interface ClassAccessorProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassAccessorProperty";
                         key: Identifier | StringLiteral | NumericLiteral | BigIntLiteral | Expression | PrivateName;
                         value?: Expression | null;
@@ -1000,11 +1000,11 @@ declare module "@cocos/ccbuild" {
                         readonly?: boolean | null;
                         variance?: Variance | null;
                     }
-                    export interface ClassBody extends BaseNode {
+                    export interface ClassBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassBody";
                         body: Array<ClassMethod | ClassPrivateMethod | ClassProperty | ClassPrivateProperty | ClassAccessorProperty | TSDeclareMethod | TSIndexSignature | StaticBlock>;
                     }
-                    export interface ClassDeclaration extends BaseNode {
+                    export interface ClassDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassDeclaration";
                         id: Identifier;
                         superClass?: Expression | null;
@@ -1017,7 +1017,7 @@ declare module "@cocos/ccbuild" {
                         superTypeParameters?: TypeParameterInstantiation | TSTypeParameterInstantiation | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface ClassExpression extends BaseNode {
+                    export interface ClassExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassExpression";
                         id?: Identifier | null;
                         superClass?: Expression | null;
@@ -1028,12 +1028,12 @@ declare module "@cocos/ccbuild" {
                         superTypeParameters?: TypeParameterInstantiation | TSTypeParameterInstantiation | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface ClassImplements extends BaseNode {
+                    export interface ClassImplements extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassImplements";
                         id: Identifier;
                         typeParameters?: TypeParameterInstantiation | null;
                     }
-                    export interface ClassMethod extends BaseNode {
+                    export interface ClassMethod extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassMethod";
                         kind: "get" | "set" | "method" | "constructor";
                         key: Identifier | StringLiteral | NumericLiteral | BigIntLiteral | Expression;
@@ -1052,7 +1052,7 @@ declare module "@cocos/ccbuild" {
                         returnType?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface ClassPrivateMethod extends BaseNode {
+                    export interface ClassPrivateMethod extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassPrivateMethod";
                         kind: "get" | "set" | "method";
                         key: PrivateName;
@@ -1071,7 +1071,7 @@ declare module "@cocos/ccbuild" {
                         returnType?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface ClassPrivateProperty extends BaseNode {
+                    export interface ClassPrivateProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassPrivateProperty";
                         key: PrivateName;
                         value?: Expression | null;
@@ -1082,7 +1082,7 @@ declare module "@cocos/ccbuild" {
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         variance?: Variance | null;
                     }
-                    export interface ClassProperty extends BaseNode {
+                    export interface ClassProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ClassProperty";
                         key: Identifier | StringLiteral | NumericLiteral | BigIntLiteral | Expression;
                         value?: Expression | null;
@@ -1100,22 +1100,22 @@ declare module "@cocos/ccbuild" {
                         variance?: Variance | null;
                     }
                     export type Comment = CommentBlock | CommentLine;
-                    export interface CommentBlock extends BaseComment {
+                    export interface CommentBlock extends __private.___node_modules_babel_types_lib_index__BaseComment {
                         type: "CommentBlock";
                     }
-                    export interface CommentLine extends BaseComment {
+                    export interface CommentLine extends __private.___node_modules_babel_types_lib_index__BaseComment {
                         type: "CommentLine";
                     }
                     export type CommentTypeShorthand = "leading" | "inner" | "trailing";
                     export type CompletionStatement = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement;
                     export type Conditional = ConditionalExpression | IfStatement;
-                    export interface ConditionalExpression extends BaseNode {
+                    export interface ConditionalExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ConditionalExpression";
                         test: Expression;
                         consequent: Expression;
                         alternate: Expression;
                     }
-                    export interface ContinueStatement extends BaseNode {
+                    export interface ContinueStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ContinueStatement";
                         label?: Identifier | null;
                     }
@@ -1123,16 +1123,16 @@ declare module "@cocos/ccbuild" {
                     export const DEPRECATED_ALIASES: {
                         ModuleDeclaration: string;
                     };
-                    export const DEPRECATED_KEYS: Record<string, NodeTypesWithoutComment>;
-                    export interface DebuggerStatement extends BaseNode {
+                    export const DEPRECATED_KEYS: Record<string, __private.___node_modules_babel_types_lib_index__NodeTypesWithoutComment>;
+                    export interface DebuggerStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DebuggerStatement";
                     }
-                    export interface DecimalLiteral extends BaseNode {
+                    export interface DecimalLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DecimalLiteral";
                         value: string;
                     }
                     export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareModuleExports | DeclareTypeAlias | DeclareOpaqueType | DeclareVariable | DeclareExportDeclaration | DeclareExportAllDeclaration | InterfaceDeclaration | OpaqueType | TypeAlias | EnumDeclaration | TSDeclareFunction | TSInterfaceDeclaration | TSTypeAliasDeclaration | TSEnumDeclaration | TSModuleDeclaration;
-                    export interface DeclareClass extends BaseNode {
+                    export interface DeclareClass extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareClass";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
@@ -1141,80 +1141,80 @@ declare module "@cocos/ccbuild" {
                         implements?: Array<ClassImplements> | null;
                         mixins?: Array<InterfaceExtends> | null;
                     }
-                    export interface DeclareExportAllDeclaration extends BaseNode {
+                    export interface DeclareExportAllDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareExportAllDeclaration";
                         source: StringLiteral;
                         exportKind?: "type" | "value" | null;
                     }
-                    export interface DeclareExportDeclaration extends BaseNode {
+                    export interface DeclareExportDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareExportDeclaration";
                         declaration?: Flow | null;
                         specifiers?: Array<ExportSpecifier | ExportNamespaceSpecifier> | null;
                         source?: StringLiteral | null;
                         default?: boolean | null;
                     }
-                    export interface DeclareFunction extends BaseNode {
+                    export interface DeclareFunction extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareFunction";
                         id: Identifier;
                         predicate?: DeclaredPredicate | null;
                     }
-                    export interface DeclareInterface extends BaseNode {
+                    export interface DeclareInterface extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareInterface";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         extends?: Array<InterfaceExtends> | null;
                         body: ObjectTypeAnnotation;
                     }
-                    export interface DeclareModule extends BaseNode {
+                    export interface DeclareModule extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareModule";
                         id: Identifier | StringLiteral;
                         body: BlockStatement;
                         kind?: "CommonJS" | "ES" | null;
                     }
-                    export interface DeclareModuleExports extends BaseNode {
+                    export interface DeclareModuleExports extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareModuleExports";
                         typeAnnotation: TypeAnnotation;
                     }
-                    export interface DeclareOpaqueType extends BaseNode {
+                    export interface DeclareOpaqueType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareOpaqueType";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         supertype?: FlowType | null;
                         impltype?: FlowType | null;
                     }
-                    export interface DeclareTypeAlias extends BaseNode {
+                    export interface DeclareTypeAlias extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareTypeAlias";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         right: FlowType;
                     }
-                    export interface DeclareVariable extends BaseNode {
+                    export interface DeclareVariable extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclareVariable";
                         id: Identifier;
                     }
-                    export interface DeclaredPredicate extends BaseNode {
+                    export interface DeclaredPredicate extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DeclaredPredicate";
                         value: Flow;
                     }
-                    export interface Decorator extends BaseNode {
+                    export interface Decorator extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Decorator";
                         expression: Expression;
                     }
                     export type DeprecatedAliases = NumberLiteral | RegexLiteral | RestProperty | SpreadProperty;
-                    export interface Directive extends BaseNode {
+                    export interface Directive extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Directive";
                         value: DirectiveLiteral;
                     }
-                    export interface DirectiveLiteral extends BaseNode {
+                    export interface DirectiveLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DirectiveLiteral";
                         value: string;
                     }
-                    export interface DoExpression extends BaseNode {
+                    export interface DoExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DoExpression";
                         body: BlockStatement;
                         async: boolean;
                     }
-                    export interface DoWhileStatement extends BaseNode {
+                    export interface DoWhileStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "DoWhileStatement";
                         test: Expression;
                         body: Statement;
@@ -1225,65 +1225,65 @@ declare module "@cocos/ccbuild" {
                     export const EXPORTDECLARATION_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const EXPRESSIONWRAPPER_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const EXPRESSION_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface EmptyStatement extends BaseNode {
+                    export interface EmptyStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EmptyStatement";
                     }
-                    export interface EmptyTypeAnnotation extends BaseNode {
+                    export interface EmptyTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EmptyTypeAnnotation";
                     }
                     export type EnumBody = EnumBooleanBody | EnumNumberBody | EnumStringBody | EnumSymbolBody;
-                    export interface EnumBooleanBody extends BaseNode {
+                    export interface EnumBooleanBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumBooleanBody";
                         members: Array<EnumBooleanMember>;
                         explicitType: boolean;
                         hasUnknownMembers: boolean;
                     }
-                    export interface EnumBooleanMember extends BaseNode {
+                    export interface EnumBooleanMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumBooleanMember";
                         id: Identifier;
                         init: BooleanLiteral;
                     }
-                    export interface EnumDeclaration extends BaseNode {
+                    export interface EnumDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumDeclaration";
                         id: Identifier;
                         body: EnumBooleanBody | EnumNumberBody | EnumStringBody | EnumSymbolBody;
                     }
-                    export interface EnumDefaultedMember extends BaseNode {
+                    export interface EnumDefaultedMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumDefaultedMember";
                         id: Identifier;
                     }
                     export type EnumMember = EnumBooleanMember | EnumNumberMember | EnumStringMember | EnumDefaultedMember;
-                    export interface EnumNumberBody extends BaseNode {
+                    export interface EnumNumberBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumNumberBody";
                         members: Array<EnumNumberMember>;
                         explicitType: boolean;
                         hasUnknownMembers: boolean;
                     }
-                    export interface EnumNumberMember extends BaseNode {
+                    export interface EnumNumberMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumNumberMember";
                         id: Identifier;
                         init: NumericLiteral;
                     }
-                    export interface EnumStringBody extends BaseNode {
+                    export interface EnumStringBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumStringBody";
                         members: Array<EnumStringMember | EnumDefaultedMember>;
                         explicitType: boolean;
                         hasUnknownMembers: boolean;
                     }
-                    export interface EnumStringMember extends BaseNode {
+                    export interface EnumStringMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumStringMember";
                         id: Identifier;
                         init: StringLiteral;
                     }
-                    export interface EnumSymbolBody extends BaseNode {
+                    export interface EnumSymbolBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "EnumSymbolBody";
                         members: Array<EnumDefaultedMember>;
                         hasUnknownMembers: boolean;
                     }
-                    export interface ExistsTypeAnnotation extends BaseNode {
+                    export interface ExistsTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExistsTypeAnnotation";
                     }
-                    export interface ExportAllDeclaration extends BaseNode {
+                    export interface ExportAllDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportAllDeclaration";
                         source: StringLiteral;
                         assertions?: Array<ImportAttribute> | null;
@@ -1291,16 +1291,16 @@ declare module "@cocos/ccbuild" {
                         exportKind?: "type" | "value" | null;
                     }
                     export type ExportDeclaration = ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration;
-                    export interface ExportDefaultDeclaration extends BaseNode {
+                    export interface ExportDefaultDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportDefaultDeclaration";
                         declaration: TSDeclareFunction | FunctionDeclaration | ClassDeclaration | Expression;
                         exportKind?: "value" | null;
                     }
-                    export interface ExportDefaultSpecifier extends BaseNode {
+                    export interface ExportDefaultSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportDefaultSpecifier";
                         exported: Identifier;
                     }
-                    export interface ExportNamedDeclaration extends BaseNode {
+                    export interface ExportNamedDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportNamedDeclaration";
                         declaration?: Declaration | null;
                         specifiers: Array<ExportSpecifier | ExportDefaultSpecifier | ExportNamespaceSpecifier>;
@@ -1309,24 +1309,24 @@ declare module "@cocos/ccbuild" {
                         attributes?: Array<ImportAttribute> | null;
                         exportKind?: "type" | "value" | null;
                     }
-                    export interface ExportNamespaceSpecifier extends BaseNode {
+                    export interface ExportNamespaceSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportNamespaceSpecifier";
                         exported: Identifier;
                     }
-                    export interface ExportSpecifier extends BaseNode {
+                    export interface ExportSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExportSpecifier";
                         local: Identifier;
                         exported: Identifier | StringLiteral;
                         exportKind?: "type" | "value" | null;
                     }
                     export type Expression = ArrayExpression | AssignmentExpression | BinaryExpression | CallExpression | ConditionalExpression | FunctionExpression | Identifier | StringLiteral | NumericLiteral | NullLiteral | BooleanLiteral | RegExpLiteral | LogicalExpression | MemberExpression | NewExpression | ObjectExpression | SequenceExpression | ParenthesizedExpression | ThisExpression | UnaryExpression | UpdateExpression | ArrowFunctionExpression | ClassExpression | MetaProperty | Super | TaggedTemplateExpression | TemplateLiteral | YieldExpression | AwaitExpression | Import | BigIntLiteral | OptionalMemberExpression | OptionalCallExpression | TypeCastExpression | JSXElement | JSXFragment | BindExpression | DoExpression | RecordExpression | TupleExpression | DecimalLiteral | ModuleExpression | TopicReference | PipelineTopicExpression | PipelineBareFunction | PipelinePrimaryTopicReference | TSInstantiationExpression | TSAsExpression | TSSatisfiesExpression | TSTypeAssertion | TSNonNullExpression;
-                    export interface ExpressionStatement extends BaseNode {
+                    export interface ExpressionStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ExpressionStatement";
                         expression: Expression;
                     }
                     export type ExpressionWrapper = ExpressionStatement | ParenthesizedExpression | TypeCastExpression;
                     export const FLATTENABLE_KEYS: string[];
-                    export const FLIPPED_ALIAS_KEYS: Record<string, NodeTypesWithoutComment[]>;
+                    export const FLIPPED_ALIAS_KEYS: Record<string, __private.___node_modules_babel_types_lib_index__NodeTypesWithoutComment[]>;
                     export const FLOWBASEANNOTATION_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const FLOWDECLARATION_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const FLOWPREDICATE_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
@@ -1342,9 +1342,9 @@ declare module "@cocos/ccbuild" {
                         ];
                         optional?: boolean;
                         deprecated?: boolean;
-                        validate?: Validator;
+                        validate?: __private.___node_modules_babel_types_lib_index__Validator;
                     };
-                    export interface File extends BaseNode {
+                    export interface File extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "File";
                         program: Program;
                         comments?: Array<CommentBlock | CommentLine> | null;
@@ -1356,20 +1356,20 @@ declare module "@cocos/ccbuild" {
                     export type FlowPredicate = DeclaredPredicate | InferredPredicate;
                     export type FlowType = AnyTypeAnnotation | ArrayTypeAnnotation | BooleanTypeAnnotation | BooleanLiteralTypeAnnotation | NullLiteralTypeAnnotation | ExistsTypeAnnotation | FunctionTypeAnnotation | GenericTypeAnnotation | InterfaceTypeAnnotation | IntersectionTypeAnnotation | MixedTypeAnnotation | EmptyTypeAnnotation | NullableTypeAnnotation | NumberLiteralTypeAnnotation | NumberTypeAnnotation | ObjectTypeAnnotation | StringLiteralTypeAnnotation | StringTypeAnnotation | SymbolTypeAnnotation | ThisTypeAnnotation | TupleTypeAnnotation | TypeofTypeAnnotation | UnionTypeAnnotation | VoidTypeAnnotation | IndexedAccessType | OptionalIndexedAccessType;
                     export type For = ForInStatement | ForStatement | ForOfStatement;
-                    export interface ForInStatement extends BaseNode {
+                    export interface ForInStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ForInStatement";
                         left: VariableDeclaration | LVal;
                         right: Expression;
                         body: Statement;
                     }
-                    export interface ForOfStatement extends BaseNode {
+                    export interface ForOfStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ForOfStatement";
                         left: VariableDeclaration | LVal;
                         right: Expression;
                         body: Statement;
                         await: boolean;
                     }
-                    export interface ForStatement extends BaseNode {
+                    export interface ForStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ForStatement";
                         init?: VariableDeclaration | Expression | null;
                         test?: Expression | null;
@@ -1378,7 +1378,7 @@ declare module "@cocos/ccbuild" {
                     }
                     export type ForXStatement = ForInStatement | ForOfStatement;
                     export type Function = FunctionDeclaration | FunctionExpression | ObjectMethod | ArrowFunctionExpression | ClassMethod | ClassPrivateMethod;
-                    export interface FunctionDeclaration extends BaseNode {
+                    export interface FunctionDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "FunctionDeclaration";
                         id?: Identifier | null;
                         params: Array<Identifier | Pattern | RestElement>;
@@ -1390,7 +1390,7 @@ declare module "@cocos/ccbuild" {
                         returnType?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface FunctionExpression extends BaseNode {
+                    export interface FunctionExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "FunctionExpression";
                         id?: Identifier | null;
                         params: Array<Identifier | Pattern | RestElement>;
@@ -1402,7 +1402,7 @@ declare module "@cocos/ccbuild" {
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
                     export type FunctionParent = FunctionDeclaration | FunctionExpression | ObjectMethod | ArrowFunctionExpression | ClassMethod | ClassPrivateMethod | StaticBlock | TSModuleBlock;
-                    export interface FunctionTypeAnnotation extends BaseNode {
+                    export interface FunctionTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "FunctionTypeAnnotation";
                         typeParameters?: TypeParameterDeclaration | null;
                         params: Array<FunctionTypeParam>;
@@ -1410,13 +1410,13 @@ declare module "@cocos/ccbuild" {
                         returnType: FlowType;
                         this?: FunctionTypeParam | null;
                     }
-                    export interface FunctionTypeParam extends BaseNode {
+                    export interface FunctionTypeParam extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "FunctionTypeParam";
                         name?: Identifier | null;
                         typeAnnotation: FlowType;
                         optional?: boolean | null;
                     }
-                    export interface GenericTypeAnnotation extends BaseNode {
+                    export interface GenericTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "GenericTypeAnnotation";
                         id: Identifier | QualifiedTypeIdentifier;
                         typeParameters?: TypeParameterInstantiation | null;
@@ -1435,29 +1435,29 @@ declare module "@cocos/ccbuild" {
                             "end"
                         ];
                     };
-                    export interface Identifier extends BaseNode {
+                    export interface Identifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Identifier";
                         name: string;
                         decorators?: Array<Decorator> | null;
                         optional?: boolean | null;
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                     }
-                    export interface IfStatement extends BaseNode {
+                    export interface IfStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "IfStatement";
                         test: Expression;
                         consequent: Statement;
                         alternate?: Statement | null;
                     }
                     export type Immutable = StringLiteral | NumericLiteral | NullLiteral | BooleanLiteral | BigIntLiteral | JSXAttribute | JSXClosingElement | JSXElement | JSXExpressionContainer | JSXSpreadChild | JSXOpeningElement | JSXText | JSXFragment | JSXOpeningFragment | JSXClosingFragment | DecimalLiteral;
-                    export interface Import extends BaseNode {
+                    export interface Import extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Import";
                     }
-                    export interface ImportAttribute extends BaseNode {
+                    export interface ImportAttribute extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ImportAttribute";
                         key: Identifier | StringLiteral;
                         value: StringLiteral;
                     }
-                    export interface ImportDeclaration extends BaseNode {
+                    export interface ImportDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ImportDeclaration";
                         specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
                         source: StringLiteral;
@@ -1466,120 +1466,120 @@ declare module "@cocos/ccbuild" {
                         importKind?: "type" | "typeof" | "value" | null;
                         module?: boolean | null;
                     }
-                    export interface ImportDefaultSpecifier extends BaseNode {
+                    export interface ImportDefaultSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ImportDefaultSpecifier";
                         local: Identifier;
                     }
-                    export interface ImportNamespaceSpecifier extends BaseNode {
+                    export interface ImportNamespaceSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ImportNamespaceSpecifier";
                         local: Identifier;
                     }
                     export type ImportOrExportDeclaration = ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration;
-                    export interface ImportSpecifier extends BaseNode {
+                    export interface ImportSpecifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ImportSpecifier";
                         local: Identifier;
                         imported: Identifier | StringLiteral;
                         importKind?: "type" | "typeof" | "value" | null;
                     }
-                    export interface IndexedAccessType extends BaseNode {
+                    export interface IndexedAccessType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "IndexedAccessType";
                         objectType: FlowType;
                         indexType: FlowType;
                     }
-                    export interface InferredPredicate extends BaseNode {
+                    export interface InferredPredicate extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "InferredPredicate";
                     }
-                    export interface InterfaceDeclaration extends BaseNode {
+                    export interface InterfaceDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "InterfaceDeclaration";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         extends?: Array<InterfaceExtends> | null;
                         body: ObjectTypeAnnotation;
                     }
-                    export interface InterfaceExtends extends BaseNode {
+                    export interface InterfaceExtends extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "InterfaceExtends";
                         id: Identifier | QualifiedTypeIdentifier;
                         typeParameters?: TypeParameterInstantiation | null;
                     }
-                    export interface InterfaceTypeAnnotation extends BaseNode {
+                    export interface InterfaceTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "InterfaceTypeAnnotation";
                         extends?: Array<InterfaceExtends> | null;
                         body: ObjectTypeAnnotation;
                     }
-                    export interface InterpreterDirective extends BaseNode {
+                    export interface InterpreterDirective extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "InterpreterDirective";
                         value: string;
                     }
-                    export interface IntersectionTypeAnnotation extends BaseNode {
+                    export interface IntersectionTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "IntersectionTypeAnnotation";
                         types: Array<FlowType>;
                     }
                     export type JSX = JSXAttribute | JSXClosingElement | JSXElement | JSXEmptyExpression | JSXExpressionContainer | JSXSpreadChild | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXSpreadAttribute | JSXText | JSXFragment | JSXOpeningFragment | JSXClosingFragment;
-                    export interface JSXAttribute extends BaseNode {
+                    export interface JSXAttribute extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXAttribute";
                         name: JSXIdentifier | JSXNamespacedName;
                         value?: JSXElement | JSXFragment | StringLiteral | JSXExpressionContainer | null;
                     }
-                    export interface JSXClosingElement extends BaseNode {
+                    export interface JSXClosingElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXClosingElement";
                         name: JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
                     }
-                    export interface JSXClosingFragment extends BaseNode {
+                    export interface JSXClosingFragment extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXClosingFragment";
                     }
-                    export interface JSXElement extends BaseNode {
+                    export interface JSXElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXElement";
                         openingElement: JSXOpeningElement;
                         closingElement?: JSXClosingElement | null;
                         children: Array<JSXText | JSXExpressionContainer | JSXSpreadChild | JSXElement | JSXFragment>;
                         selfClosing?: boolean | null;
                     }
-                    export interface JSXEmptyExpression extends BaseNode {
+                    export interface JSXEmptyExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXEmptyExpression";
                     }
-                    export interface JSXExpressionContainer extends BaseNode {
+                    export interface JSXExpressionContainer extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXExpressionContainer";
                         expression: Expression | JSXEmptyExpression;
                     }
-                    export interface JSXFragment extends BaseNode {
+                    export interface JSXFragment extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXFragment";
                         openingFragment: JSXOpeningFragment;
                         closingFragment: JSXClosingFragment;
                         children: Array<JSXText | JSXExpressionContainer | JSXSpreadChild | JSXElement | JSXFragment>;
                     }
-                    export interface JSXIdentifier extends BaseNode {
+                    export interface JSXIdentifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXIdentifier";
                         name: string;
                     }
-                    export interface JSXMemberExpression extends BaseNode {
+                    export interface JSXMemberExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXMemberExpression";
                         object: JSXMemberExpression | JSXIdentifier;
                         property: JSXIdentifier;
                     }
-                    export interface JSXNamespacedName extends BaseNode {
+                    export interface JSXNamespacedName extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXNamespacedName";
                         namespace: JSXIdentifier;
                         name: JSXIdentifier;
                     }
-                    export interface JSXOpeningElement extends BaseNode {
+                    export interface JSXOpeningElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXOpeningElement";
                         name: JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
                         attributes: Array<JSXAttribute | JSXSpreadAttribute>;
                         selfClosing: boolean;
                         typeParameters?: TypeParameterInstantiation | TSTypeParameterInstantiation | null;
                     }
-                    export interface JSXOpeningFragment extends BaseNode {
+                    export interface JSXOpeningFragment extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXOpeningFragment";
                     }
-                    export interface JSXSpreadAttribute extends BaseNode {
+                    export interface JSXSpreadAttribute extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXSpreadAttribute";
                         argument: Expression;
                     }
-                    export interface JSXSpreadChild extends BaseNode {
+                    export interface JSXSpreadChild extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXSpreadChild";
                         expression: Expression;
                     }
-                    export interface JSXText extends BaseNode {
+                    export interface JSXText extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "JSXText";
                         value: string;
                     }
@@ -1589,13 +1589,13 @@ declare module "@cocos/ccbuild" {
                     export const LOOP_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const LVAL_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export type LVal = Identifier | MemberExpression | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern | TSParameterProperty | TSAsExpression | TSSatisfiesExpression | TSTypeAssertion | TSNonNullExpression;
-                    export interface LabeledStatement extends BaseNode {
+                    export interface LabeledStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "LabeledStatement";
                         label: Identifier;
                         body: Statement;
                     }
                     export type Literal = StringLiteral | NumericLiteral | NullLiteral | BooleanLiteral | RegExpLiteral | TemplateLiteral | BigIntLiteral | DecimalLiteral;
-                    export interface LogicalExpression extends BaseNode {
+                    export interface LogicalExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "LogicalExpression";
                         operator: "||" | "&&" | "??";
                         left: Expression;
@@ -1609,35 +1609,35 @@ declare module "@cocos/ccbuild" {
                      */
                     export const MODULEDECLARATION_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const MODULESPECIFIER_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface MemberExpression extends BaseNode {
+                    export interface MemberExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "MemberExpression";
                         object: Expression | Super;
                         property: Expression | Identifier | PrivateName;
                         computed: boolean;
                         optional?: true | false | null;
                     }
-                    export interface MetaProperty extends BaseNode {
+                    export interface MetaProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "MetaProperty";
                         meta: Identifier;
                         property: Identifier;
                     }
                     export type Method = ObjectMethod | ClassMethod | ClassPrivateMethod;
                     export type Miscellaneous = Noop | Placeholder | V8IntrinsicIdentifier;
-                    export interface MixedTypeAnnotation extends BaseNode {
+                    export interface MixedTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "MixedTypeAnnotation";
                     }
                     export type ModuleDeclaration = ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ImportDeclaration;
-                    export interface ModuleExpression extends BaseNode {
+                    export interface ModuleExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ModuleExpression";
                         body: Program;
                     }
                     export type ModuleSpecifier = ExportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier | ImportSpecifier | ExportNamespaceSpecifier | ExportDefaultSpecifier;
-                    export const NODE_FIELDS: Record<string, FieldDefinitions>;
-                    export const NODE_PARENT_VALIDATIONS: Record<string, Validator>;
+                    export const NODE_FIELDS: Record<string, __private.___node_modules_babel_types_lib_index__FieldDefinitions>;
+                    export const NODE_PARENT_VALIDATIONS: Record<string, __private.___node_modules_babel_types_lib_index__Validator>;
                     export const NOT_LOCAL_BINDING: unique symbol;
                     export const NUMBER_BINARY_OPERATORS: string[];
                     export const NUMBER_UNARY_OPERATORS: string[];
-                    export interface NewExpression extends BaseNode {
+                    export interface NewExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NewExpression";
                         callee: Expression | Super | V8IntrinsicIdentifier;
                         arguments: Array<Expression | SpreadElement | JSXNamespacedName | ArgumentPlaceholder>;
@@ -1646,44 +1646,44 @@ declare module "@cocos/ccbuild" {
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
                     export type Node = AnyTypeAnnotation | ArgumentPlaceholder | ArrayExpression | ArrayPattern | ArrayTypeAnnotation | ArrowFunctionExpression | AssignmentExpression | AssignmentPattern | AwaitExpression | BigIntLiteral | BinaryExpression | BindExpression | BlockStatement | BooleanLiteral | BooleanLiteralTypeAnnotation | BooleanTypeAnnotation | BreakStatement | CallExpression | CatchClause | ClassAccessorProperty | ClassBody | ClassDeclaration | ClassExpression | ClassImplements | ClassMethod | ClassPrivateMethod | ClassPrivateProperty | ClassProperty | ConditionalExpression | ContinueStatement | DebuggerStatement | DecimalLiteral | DeclareClass | DeclareExportAllDeclaration | DeclareExportDeclaration | DeclareFunction | DeclareInterface | DeclareModule | DeclareModuleExports | DeclareOpaqueType | DeclareTypeAlias | DeclareVariable | DeclaredPredicate | Decorator | Directive | DirectiveLiteral | DoExpression | DoWhileStatement | EmptyStatement | EmptyTypeAnnotation | EnumBooleanBody | EnumBooleanMember | EnumDeclaration | EnumDefaultedMember | EnumNumberBody | EnumNumberMember | EnumStringBody | EnumStringMember | EnumSymbolBody | ExistsTypeAnnotation | ExportAllDeclaration | ExportDefaultDeclaration | ExportDefaultSpecifier | ExportNamedDeclaration | ExportNamespaceSpecifier | ExportSpecifier | ExpressionStatement | File | ForInStatement | ForOfStatement | ForStatement | FunctionDeclaration | FunctionExpression | FunctionTypeAnnotation | FunctionTypeParam | GenericTypeAnnotation | Identifier | IfStatement | Import | ImportAttribute | ImportDeclaration | ImportDefaultSpecifier | ImportNamespaceSpecifier | ImportSpecifier | IndexedAccessType | InferredPredicate | InterfaceDeclaration | InterfaceExtends | InterfaceTypeAnnotation | InterpreterDirective | IntersectionTypeAnnotation | JSXAttribute | JSXClosingElement | JSXClosingFragment | JSXElement | JSXEmptyExpression | JSXExpressionContainer | JSXFragment | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXOpeningFragment | JSXSpreadAttribute | JSXSpreadChild | JSXText | LabeledStatement | LogicalExpression | MemberExpression | MetaProperty | MixedTypeAnnotation | ModuleExpression | NewExpression | Noop | NullLiteral | NullLiteralTypeAnnotation | NullableTypeAnnotation | NumberLiteral | NumberLiteralTypeAnnotation | NumberTypeAnnotation | NumericLiteral | ObjectExpression | ObjectMethod | ObjectPattern | ObjectProperty | ObjectTypeAnnotation | ObjectTypeCallProperty | ObjectTypeIndexer | ObjectTypeInternalSlot | ObjectTypeProperty | ObjectTypeSpreadProperty | OpaqueType | OptionalCallExpression | OptionalIndexedAccessType | OptionalMemberExpression | ParenthesizedExpression | PipelineBareFunction | PipelinePrimaryTopicReference | PipelineTopicExpression | Placeholder | PrivateName | Program | QualifiedTypeIdentifier | RecordExpression | RegExpLiteral | RegexLiteral | RestElement | RestProperty | ReturnStatement | SequenceExpression | SpreadElement | SpreadProperty | StaticBlock | StringLiteral | StringLiteralTypeAnnotation | StringTypeAnnotation | Super | SwitchCase | SwitchStatement | SymbolTypeAnnotation | TSAnyKeyword | TSArrayType | TSAsExpression | TSBigIntKeyword | TSBooleanKeyword | TSCallSignatureDeclaration | TSConditionalType | TSConstructSignatureDeclaration | TSConstructorType | TSDeclareFunction | TSDeclareMethod | TSEnumDeclaration | TSEnumMember | TSExportAssignment | TSExpressionWithTypeArguments | TSExternalModuleReference | TSFunctionType | TSImportEqualsDeclaration | TSImportType | TSIndexSignature | TSIndexedAccessType | TSInferType | TSInstantiationExpression | TSInterfaceBody | TSInterfaceDeclaration | TSIntersectionType | TSIntrinsicKeyword | TSLiteralType | TSMappedType | TSMethodSignature | TSModuleBlock | TSModuleDeclaration | TSNamedTupleMember | TSNamespaceExportDeclaration | TSNeverKeyword | TSNonNullExpression | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSOptionalType | TSParameterProperty | TSParenthesizedType | TSPropertySignature | TSQualifiedName | TSRestType | TSSatisfiesExpression | TSStringKeyword | TSSymbolKeyword | TSThisType | TSTupleType | TSTypeAliasDeclaration | TSTypeAnnotation | TSTypeAssertion | TSTypeLiteral | TSTypeOperator | TSTypeParameter | TSTypeParameterDeclaration | TSTypeParameterInstantiation | TSTypePredicate | TSTypeQuery | TSTypeReference | TSUndefinedKeyword | TSUnionType | TSUnknownKeyword | TSVoidKeyword | TaggedTemplateExpression | TemplateElement | TemplateLiteral | ThisExpression | ThisTypeAnnotation | ThrowStatement | TopicReference | TryStatement | TupleExpression | TupleTypeAnnotation | TypeAlias | TypeAnnotation | TypeCastExpression | TypeParameter | TypeParameterDeclaration | TypeParameterInstantiation | TypeofTypeAnnotation | UnaryExpression | UnionTypeAnnotation | UpdateExpression | V8IntrinsicIdentifier | VariableDeclaration | VariableDeclarator | Variance | VoidTypeAnnotation | WhileStatement | WithStatement | YieldExpression;
-                    export interface Noop extends BaseNode {
+                    export interface Noop extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Noop";
                     }
-                    export interface NullLiteral extends BaseNode {
+                    export interface NullLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NullLiteral";
                     }
-                    export interface NullLiteralTypeAnnotation extends BaseNode {
+                    export interface NullLiteralTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NullLiteralTypeAnnotation";
                     }
-                    export interface NullableTypeAnnotation extends BaseNode {
+                    export interface NullableTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NullableTypeAnnotation";
                         typeAnnotation: FlowType;
                     }
                     /**
                      * @deprecated Use `NumericLiteral`
                      */
-                    export interface NumberLiteral extends BaseNode {
+                    export interface NumberLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NumberLiteral";
                         value: number;
                     }
-                    export interface NumberLiteralTypeAnnotation extends BaseNode {
+                    export interface NumberLiteralTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NumberLiteralTypeAnnotation";
                         value: number;
                     }
-                    export interface NumberTypeAnnotation extends BaseNode {
+                    export interface NumberTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NumberTypeAnnotation";
                     }
-                    export interface NumericLiteral extends BaseNode {
+                    export interface NumericLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "NumericLiteral";
                         value: number;
                     }
                     export const OBJECTMEMBER_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface ObjectExpression extends BaseNode {
+                    export interface ObjectExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectExpression";
                         properties: Array<ObjectMethod | ObjectProperty | SpreadElement>;
                     }
                     export type ObjectMember = ObjectMethod | ObjectProperty;
-                    export interface ObjectMethod extends BaseNode {
+                    export interface ObjectMethod extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectMethod";
                         kind: "method" | "get" | "set";
                         key: Expression | Identifier | StringLiteral | NumericLiteral | BigIntLiteral;
@@ -1696,14 +1696,14 @@ declare module "@cocos/ccbuild" {
                         returnType?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                         typeParameters?: TypeParameterDeclaration | TSTypeParameterDeclaration | Noop | null;
                     }
-                    export interface ObjectPattern extends BaseNode {
+                    export interface ObjectPattern extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectPattern";
                         properties: Array<RestElement | ObjectProperty>;
                         decorators?: Array<Decorator> | null;
                         optional?: boolean | null;
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                     }
-                    export interface ObjectProperty extends BaseNode {
+                    export interface ObjectProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectProperty";
                         key: Expression | Identifier | StringLiteral | NumericLiteral | BigIntLiteral | DecimalLiteral | PrivateName;
                         value: Expression | PatternLike;
@@ -1711,7 +1711,7 @@ declare module "@cocos/ccbuild" {
                         shorthand: boolean;
                         decorators?: Array<Decorator> | null;
                     }
-                    export interface ObjectTypeAnnotation extends BaseNode {
+                    export interface ObjectTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeAnnotation";
                         properties: Array<ObjectTypeProperty | ObjectTypeSpreadProperty>;
                         indexers?: Array<ObjectTypeIndexer>;
@@ -1720,12 +1720,12 @@ declare module "@cocos/ccbuild" {
                         exact: boolean;
                         inexact?: boolean | null;
                     }
-                    export interface ObjectTypeCallProperty extends BaseNode {
+                    export interface ObjectTypeCallProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeCallProperty";
                         value: FlowType;
                         static: boolean;
                     }
-                    export interface ObjectTypeIndexer extends BaseNode {
+                    export interface ObjectTypeIndexer extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeIndexer";
                         id?: Identifier | null;
                         key: FlowType;
@@ -1733,7 +1733,7 @@ declare module "@cocos/ccbuild" {
                         variance?: Variance | null;
                         static: boolean;
                     }
-                    export interface ObjectTypeInternalSlot extends BaseNode {
+                    export interface ObjectTypeInternalSlot extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeInternalSlot";
                         id: Identifier;
                         value: FlowType;
@@ -1741,7 +1741,7 @@ declare module "@cocos/ccbuild" {
                         static: boolean;
                         method: boolean;
                     }
-                    export interface ObjectTypeProperty extends BaseNode {
+                    export interface ObjectTypeProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeProperty";
                         key: Identifier | StringLiteral;
                         value: FlowType;
@@ -1752,18 +1752,18 @@ declare module "@cocos/ccbuild" {
                         proto: boolean;
                         static: boolean;
                     }
-                    export interface ObjectTypeSpreadProperty extends BaseNode {
+                    export interface ObjectTypeSpreadProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ObjectTypeSpreadProperty";
                         argument: FlowType;
                     }
-                    export interface OpaqueType extends BaseNode {
+                    export interface OpaqueType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "OpaqueType";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         supertype?: FlowType | null;
                         impltype: FlowType;
                     }
-                    export interface OptionalCallExpression extends BaseNode {
+                    export interface OptionalCallExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "OptionalCallExpression";
                         callee: Expression;
                         arguments: Array<Expression | SpreadElement | JSXNamespacedName | ArgumentPlaceholder>;
@@ -1771,13 +1771,13 @@ declare module "@cocos/ccbuild" {
                         typeArguments?: TypeParameterInstantiation | null;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface OptionalIndexedAccessType extends BaseNode {
+                    export interface OptionalIndexedAccessType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "OptionalIndexedAccessType";
                         objectType: FlowType;
                         indexType: FlowType;
                         optional: boolean;
                     }
-                    export interface OptionalMemberExpression extends BaseNode {
+                    export interface OptionalMemberExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "OptionalMemberExpression";
                         object: Expression;
                         property: Expression | Identifier;
@@ -2058,34 +2058,34 @@ declare module "@cocos/ccbuild" {
                         WithStatement: BlockStatement | DoWhileStatement | ForInStatement | ForOfStatement | ForStatement | IfStatement | LabeledStatement | Program | StaticBlock | SwitchCase | TSModuleBlock | WhileStatement | WithStatement;
                         YieldExpression: ArrayExpression | ArrowFunctionExpression | AssignmentExpression | AssignmentPattern | AwaitExpression | BinaryExpression | BindExpression | CallExpression | ClassAccessorProperty | ClassDeclaration | ClassExpression | ClassMethod | ClassPrivateProperty | ClassProperty | ConditionalExpression | Decorator | DoWhileStatement | ExportDefaultDeclaration | ExpressionStatement | ForInStatement | ForOfStatement | ForStatement | IfStatement | JSXExpressionContainer | JSXSpreadAttribute | JSXSpreadChild | LogicalExpression | MemberExpression | NewExpression | ObjectMethod | ObjectProperty | OptionalCallExpression | OptionalMemberExpression | ParenthesizedExpression | PipelineBareFunction | PipelineTopicExpression | ReturnStatement | SequenceExpression | SpreadElement | SwitchCase | SwitchStatement | TSAsExpression | TSDeclareMethod | TSEnumDeclaration | TSEnumMember | TSExportAssignment | TSInstantiationExpression | TSMethodSignature | TSNonNullExpression | TSPropertySignature | TSSatisfiesExpression | TSTypeAssertion | TaggedTemplateExpression | TemplateLiteral | ThrowStatement | TupleExpression | TypeCastExpression | UnaryExpression | UpdateExpression | VariableDeclarator | WhileStatement | WithStatement | YieldExpression;
                     }
-                    export interface ParenthesizedExpression extends BaseNode {
+                    export interface ParenthesizedExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ParenthesizedExpression";
                         expression: Expression;
                     }
                     export type Pattern = AssignmentPattern | ArrayPattern | ObjectPattern;
                     export type PatternLike = Identifier | RestElement | AssignmentPattern | ArrayPattern | ObjectPattern | TSAsExpression | TSSatisfiesExpression | TSTypeAssertion | TSNonNullExpression;
-                    export interface PipelineBareFunction extends BaseNode {
+                    export interface PipelineBareFunction extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "PipelineBareFunction";
                         callee: Expression;
                     }
-                    export interface PipelinePrimaryTopicReference extends BaseNode {
+                    export interface PipelinePrimaryTopicReference extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "PipelinePrimaryTopicReference";
                     }
-                    export interface PipelineTopicExpression extends BaseNode {
+                    export interface PipelineTopicExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "PipelineTopicExpression";
                         expression: Expression;
                     }
-                    export interface Placeholder extends BaseNode {
+                    export interface Placeholder extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Placeholder";
                         expectedNode: "Identifier" | "StringLiteral" | "Expression" | "Statement" | "Declaration" | "BlockStatement" | "ClassBody" | "Pattern";
                         name: Identifier;
                     }
                     export type Private = ClassPrivateProperty | ClassPrivateMethod | PrivateName;
-                    export interface PrivateName extends BaseNode {
+                    export interface PrivateName extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "PrivateName";
                         id: Identifier;
                     }
-                    export interface Program extends BaseNode {
+                    export interface Program extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Program";
                         body: Array<Statement>;
                         directives: Array<Directive>;
@@ -2095,16 +2095,16 @@ declare module "@cocos/ccbuild" {
                     }
                     export type Property = ObjectProperty | ClassProperty | ClassAccessorProperty | ClassPrivateProperty;
                     export type Pureish = FunctionDeclaration | FunctionExpression | StringLiteral | NumericLiteral | NullLiteral | BooleanLiteral | RegExpLiteral | ArrowFunctionExpression | BigIntLiteral | DecimalLiteral;
-                    export interface QualifiedTypeIdentifier extends BaseNode {
+                    export interface QualifiedTypeIdentifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "QualifiedTypeIdentifier";
                         id: Identifier;
                         qualification: Identifier | QualifiedTypeIdentifier;
                     }
-                    export interface RecordExpression extends BaseNode {
+                    export interface RecordExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "RecordExpression";
                         properties: Array<ObjectProperty | SpreadElement>;
                     }
-                    export interface RegExpLiteral extends BaseNode {
+                    export interface RegExpLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "RegExpLiteral";
                         pattern: string;
                         flags: string;
@@ -2112,7 +2112,7 @@ declare module "@cocos/ccbuild" {
                     /**
                      * @deprecated Use `RegExpLiteral`
                      */
-                    export interface RegexLiteral extends BaseNode {
+                    export interface RegexLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "RegexLiteral";
                         pattern: string;
                         flags: string;
@@ -2120,7 +2120,7 @@ declare module "@cocos/ccbuild" {
                     export type RemovePropertiesOptions = {
                         preserveComments?: boolean;
                     };
-                    export interface RestElement extends BaseNode {
+                    export interface RestElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "RestElement";
                         argument: LVal;
                         decorators?: Array<Decorator> | null;
@@ -2130,14 +2130,14 @@ declare module "@cocos/ccbuild" {
                     /**
                      * @deprecated Use `RestElement`
                      */
-                    export interface RestProperty extends BaseNode {
+                    export interface RestProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "RestProperty";
                         argument: LVal;
                         decorators?: Array<Decorator> | null;
                         optional?: boolean | null;
                         typeAnnotation?: TypeAnnotation | TSTypeAnnotation | Noop | null;
                     }
-                    export interface ReturnStatement extends BaseNode {
+                    export interface ReturnStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ReturnStatement";
                         argument?: Expression | null;
                     }
@@ -2147,108 +2147,108 @@ declare module "@cocos/ccbuild" {
                     export const STATEMENT_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const STRING_UNARY_OPERATORS: string[];
                     export type Scopable = BlockStatement | CatchClause | DoWhileStatement | ForInStatement | ForStatement | FunctionDeclaration | FunctionExpression | Program | ObjectMethod | SwitchStatement | WhileStatement | ArrowFunctionExpression | ClassExpression | ClassDeclaration | ForOfStatement | ClassMethod | ClassPrivateMethod | StaticBlock | TSModuleBlock;
-                    export interface SequenceExpression extends BaseNode {
+                    export interface SequenceExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SequenceExpression";
                         expressions: Array<Expression>;
                     }
                     export interface SourceLocation {
-                        start: Position;
-                        end: Position;
+                        start: __private.___node_modules_babel_types_lib_index__Position;
+                        end: __private.___node_modules_babel_types_lib_index__Position;
                         filename: string;
                         identifierName: string | undefined | null;
                     }
-                    export interface SpreadElement extends BaseNode {
+                    export interface SpreadElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SpreadElement";
                         argument: Expression;
                     }
                     /**
                      * @deprecated Use `SpreadElement`
                      */
-                    export interface SpreadProperty extends BaseNode {
+                    export interface SpreadProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SpreadProperty";
                         argument: Expression;
                     }
                     export type Standardized = ArrayExpression | AssignmentExpression | BinaryExpression | InterpreterDirective | Directive | DirectiveLiteral | BlockStatement | BreakStatement | CallExpression | CatchClause | ConditionalExpression | ContinueStatement | DebuggerStatement | DoWhileStatement | EmptyStatement | ExpressionStatement | File | ForInStatement | ForStatement | FunctionDeclaration | FunctionExpression | Identifier | IfStatement | LabeledStatement | StringLiteral | NumericLiteral | NullLiteral | BooleanLiteral | RegExpLiteral | LogicalExpression | MemberExpression | NewExpression | Program | ObjectExpression | ObjectMethod | ObjectProperty | RestElement | ReturnStatement | SequenceExpression | ParenthesizedExpression | SwitchCase | SwitchStatement | ThisExpression | ThrowStatement | TryStatement | UnaryExpression | UpdateExpression | VariableDeclaration | VariableDeclarator | WhileStatement | WithStatement | AssignmentPattern | ArrayPattern | ArrowFunctionExpression | ClassBody | ClassExpression | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ExportSpecifier | ForOfStatement | ImportDeclaration | ImportDefaultSpecifier | ImportNamespaceSpecifier | ImportSpecifier | MetaProperty | ClassMethod | ObjectPattern | SpreadElement | Super | TaggedTemplateExpression | TemplateElement | TemplateLiteral | YieldExpression | AwaitExpression | Import | BigIntLiteral | ExportNamespaceSpecifier | OptionalMemberExpression | OptionalCallExpression | ClassProperty | ClassAccessorProperty | ClassPrivateProperty | ClassPrivateMethod | PrivateName | StaticBlock;
                     export type Statement = BlockStatement | BreakStatement | ContinueStatement | DebuggerStatement | DoWhileStatement | EmptyStatement | ExpressionStatement | ForInStatement | ForStatement | FunctionDeclaration | IfStatement | LabeledStatement | ReturnStatement | SwitchStatement | ThrowStatement | TryStatement | VariableDeclaration | WhileStatement | WithStatement | ClassDeclaration | ExportAllDeclaration | ExportDefaultDeclaration | ExportNamedDeclaration | ForOfStatement | ImportDeclaration | DeclareClass | DeclareFunction | DeclareInterface | DeclareModule | DeclareModuleExports | DeclareTypeAlias | DeclareOpaqueType | DeclareVariable | DeclareExportDeclaration | DeclareExportAllDeclaration | InterfaceDeclaration | OpaqueType | TypeAlias | EnumDeclaration | TSDeclareFunction | TSInterfaceDeclaration | TSTypeAliasDeclaration | TSEnumDeclaration | TSModuleDeclaration | TSImportEqualsDeclaration | TSExportAssignment | TSNamespaceExportDeclaration;
-                    export interface StaticBlock extends BaseNode {
+                    export interface StaticBlock extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "StaticBlock";
                         body: Array<Statement>;
                     }
-                    export interface StringLiteral extends BaseNode {
+                    export interface StringLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "StringLiteral";
                         value: string;
                     }
-                    export interface StringLiteralTypeAnnotation extends BaseNode {
+                    export interface StringLiteralTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "StringLiteralTypeAnnotation";
                         value: string;
                     }
-                    export interface StringTypeAnnotation extends BaseNode {
+                    export interface StringTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "StringTypeAnnotation";
                     }
-                    export interface Super extends BaseNode {
+                    export interface Super extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Super";
                     }
-                    export interface SwitchCase extends BaseNode {
+                    export interface SwitchCase extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SwitchCase";
                         test?: Expression | null;
                         consequent: Array<Statement>;
                     }
-                    export interface SwitchStatement extends BaseNode {
+                    export interface SwitchStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SwitchStatement";
                         discriminant: Expression;
                         cases: Array<SwitchCase>;
                     }
-                    export interface SymbolTypeAnnotation extends BaseNode {
+                    export interface SymbolTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "SymbolTypeAnnotation";
                     }
                     export const TERMINATORLESS_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface TSAnyKeyword extends BaseNode {
+                    export interface TSAnyKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSAnyKeyword";
                     }
-                    export interface TSArrayType extends BaseNode {
+                    export interface TSArrayType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSArrayType";
                         elementType: TSType;
                     }
-                    export interface TSAsExpression extends BaseNode {
+                    export interface TSAsExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSAsExpression";
                         expression: Expression;
                         typeAnnotation: TSType;
                     }
                     export const TSBASETYPE_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export type TSBaseType = TSAnyKeyword | TSBooleanKeyword | TSBigIntKeyword | TSIntrinsicKeyword | TSNeverKeyword | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSStringKeyword | TSSymbolKeyword | TSUndefinedKeyword | TSUnknownKeyword | TSVoidKeyword | TSThisType | TSLiteralType;
-                    export interface TSBigIntKeyword extends BaseNode {
+                    export interface TSBigIntKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSBigIntKeyword";
                     }
-                    export interface TSBooleanKeyword extends BaseNode {
+                    export interface TSBooleanKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSBooleanKeyword";
                     }
-                    export interface TSCallSignatureDeclaration extends BaseNode {
+                    export interface TSCallSignatureDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSCallSignatureDeclaration";
                         typeParameters?: TSTypeParameterDeclaration | null;
                         parameters: Array<Identifier | RestElement>;
                         typeAnnotation?: TSTypeAnnotation | null;
                     }
-                    export interface TSConditionalType extends BaseNode {
+                    export interface TSConditionalType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSConditionalType";
                         checkType: TSType;
                         extendsType: TSType;
                         trueType: TSType;
                         falseType: TSType;
                     }
-                    export interface TSConstructSignatureDeclaration extends BaseNode {
+                    export interface TSConstructSignatureDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSConstructSignatureDeclaration";
                         typeParameters?: TSTypeParameterDeclaration | null;
                         parameters: Array<Identifier | RestElement>;
                         typeAnnotation?: TSTypeAnnotation | null;
                     }
-                    export interface TSConstructorType extends BaseNode {
+                    export interface TSConstructorType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSConstructorType";
                         typeParameters?: TSTypeParameterDeclaration | null;
                         parameters: Array<Identifier | RestElement>;
                         typeAnnotation?: TSTypeAnnotation | null;
                         abstract?: boolean | null;
                     }
-                    export interface TSDeclareFunction extends BaseNode {
+                    export interface TSDeclareFunction extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSDeclareFunction";
                         id?: Identifier | null;
                         typeParameters?: TSTypeParameterDeclaration | Noop | null;
@@ -2258,7 +2258,7 @@ declare module "@cocos/ccbuild" {
                         declare?: boolean | null;
                         generator?: boolean;
                     }
-                    export interface TSDeclareMethod extends BaseNode {
+                    export interface TSDeclareMethod extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSDeclareMethod";
                         decorators?: Array<Decorator> | null;
                         key: Identifier | StringLiteral | NumericLiteral | BigIntLiteral | Expression;
@@ -2278,7 +2278,7 @@ declare module "@cocos/ccbuild" {
                     }
                     export const TSENTITYNAME_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export type TSEntityName = Identifier | TSQualifiedName;
-                    export interface TSEnumDeclaration extends BaseNode {
+                    export interface TSEnumDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSEnumDeclaration";
                         id: Identifier;
                         members: Array<TSEnumMember>;
@@ -2286,69 +2286,69 @@ declare module "@cocos/ccbuild" {
                         declare?: boolean | null;
                         initializer?: Expression | null;
                     }
-                    export interface TSEnumMember extends BaseNode {
+                    export interface TSEnumMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSEnumMember";
                         id: Identifier | StringLiteral;
                         initializer?: Expression | null;
                     }
-                    export interface TSExportAssignment extends BaseNode {
+                    export interface TSExportAssignment extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSExportAssignment";
                         expression: Expression;
                     }
-                    export interface TSExpressionWithTypeArguments extends BaseNode {
+                    export interface TSExpressionWithTypeArguments extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSExpressionWithTypeArguments";
                         expression: TSEntityName;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface TSExternalModuleReference extends BaseNode {
+                    export interface TSExternalModuleReference extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSExternalModuleReference";
                         expression: StringLiteral;
                     }
-                    export interface TSFunctionType extends BaseNode {
+                    export interface TSFunctionType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSFunctionType";
                         typeParameters?: TSTypeParameterDeclaration | null;
                         parameters: Array<Identifier | RestElement>;
                         typeAnnotation?: TSTypeAnnotation | null;
                     }
-                    export interface TSImportEqualsDeclaration extends BaseNode {
+                    export interface TSImportEqualsDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSImportEqualsDeclaration";
                         id: Identifier;
                         moduleReference: TSEntityName | TSExternalModuleReference;
                         importKind?: "type" | "value" | null;
                         isExport: boolean;
                     }
-                    export interface TSImportType extends BaseNode {
+                    export interface TSImportType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSImportType";
                         argument: StringLiteral;
                         qualifier?: TSEntityName | null;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface TSIndexSignature extends BaseNode {
+                    export interface TSIndexSignature extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSIndexSignature";
                         parameters: Array<Identifier>;
                         typeAnnotation?: TSTypeAnnotation | null;
                         readonly?: boolean | null;
                         static?: boolean | null;
                     }
-                    export interface TSIndexedAccessType extends BaseNode {
+                    export interface TSIndexedAccessType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSIndexedAccessType";
                         objectType: TSType;
                         indexType: TSType;
                     }
-                    export interface TSInferType extends BaseNode {
+                    export interface TSInferType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSInferType";
                         typeParameter: TSTypeParameter;
                     }
-                    export interface TSInstantiationExpression extends BaseNode {
+                    export interface TSInstantiationExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSInstantiationExpression";
                         expression: Expression;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface TSInterfaceBody extends BaseNode {
+                    export interface TSInterfaceBody extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSInterfaceBody";
                         body: Array<TSTypeElement>;
                     }
-                    export interface TSInterfaceDeclaration extends BaseNode {
+                    export interface TSInterfaceDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSInterfaceDeclaration";
                         id: Identifier;
                         typeParameters?: TSTypeParameterDeclaration | null;
@@ -2356,18 +2356,18 @@ declare module "@cocos/ccbuild" {
                         body: TSInterfaceBody;
                         declare?: boolean | null;
                     }
-                    export interface TSIntersectionType extends BaseNode {
+                    export interface TSIntersectionType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSIntersectionType";
                         types: Array<TSType>;
                     }
-                    export interface TSIntrinsicKeyword extends BaseNode {
+                    export interface TSIntrinsicKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSIntrinsicKeyword";
                     }
-                    export interface TSLiteralType extends BaseNode {
+                    export interface TSLiteralType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSLiteralType";
                         literal: NumericLiteral | StringLiteral | BooleanLiteral | BigIntLiteral | TemplateLiteral | UnaryExpression;
                     }
-                    export interface TSMappedType extends BaseNode {
+                    export interface TSMappedType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSMappedType";
                         typeParameter: TSTypeParameter;
                         typeAnnotation?: TSType | null;
@@ -2375,7 +2375,7 @@ declare module "@cocos/ccbuild" {
                         optional?: true | false | "+" | "-" | null;
                         readonly?: true | false | "+" | "-" | null;
                     }
-                    export interface TSMethodSignature extends BaseNode {
+                    export interface TSMethodSignature extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSMethodSignature";
                         key: Expression;
                         typeParameters?: TSTypeParameterDeclaration | null;
@@ -2385,48 +2385,48 @@ declare module "@cocos/ccbuild" {
                         kind: "method" | "get" | "set";
                         optional?: boolean | null;
                     }
-                    export interface TSModuleBlock extends BaseNode {
+                    export interface TSModuleBlock extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSModuleBlock";
                         body: Array<Statement>;
                     }
-                    export interface TSModuleDeclaration extends BaseNode {
+                    export interface TSModuleDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSModuleDeclaration";
                         id: Identifier | StringLiteral;
                         body: TSModuleBlock | TSModuleDeclaration;
                         declare?: boolean | null;
                         global?: boolean | null;
                     }
-                    export interface TSNamedTupleMember extends BaseNode {
+                    export interface TSNamedTupleMember extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNamedTupleMember";
                         label: Identifier;
                         elementType: TSType;
                         optional: boolean;
                     }
-                    export interface TSNamespaceExportDeclaration extends BaseNode {
+                    export interface TSNamespaceExportDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNamespaceExportDeclaration";
                         id: Identifier;
                     }
-                    export interface TSNeverKeyword extends BaseNode {
+                    export interface TSNeverKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNeverKeyword";
                     }
-                    export interface TSNonNullExpression extends BaseNode {
+                    export interface TSNonNullExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNonNullExpression";
                         expression: Expression;
                     }
-                    export interface TSNullKeyword extends BaseNode {
+                    export interface TSNullKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNullKeyword";
                     }
-                    export interface TSNumberKeyword extends BaseNode {
+                    export interface TSNumberKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSNumberKeyword";
                     }
-                    export interface TSObjectKeyword extends BaseNode {
+                    export interface TSObjectKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSObjectKeyword";
                     }
-                    export interface TSOptionalType extends BaseNode {
+                    export interface TSOptionalType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSOptionalType";
                         typeAnnotation: TSType;
                     }
-                    export interface TSParameterProperty extends BaseNode {
+                    export interface TSParameterProperty extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSParameterProperty";
                         parameter: Identifier | AssignmentPattern;
                         accessibility?: "public" | "private" | "protected" | null;
@@ -2434,11 +2434,11 @@ declare module "@cocos/ccbuild" {
                         override?: boolean | null;
                         readonly?: boolean | null;
                     }
-                    export interface TSParenthesizedType extends BaseNode {
+                    export interface TSParenthesizedType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSParenthesizedType";
                         typeAnnotation: TSType;
                     }
-                    export interface TSPropertySignature extends BaseNode {
+                    export interface TSPropertySignature extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSPropertySignature";
                         key: Expression;
                         typeAnnotation?: TSTypeAnnotation | null;
@@ -2448,63 +2448,63 @@ declare module "@cocos/ccbuild" {
                         optional?: boolean | null;
                         readonly?: boolean | null;
                     }
-                    export interface TSQualifiedName extends BaseNode {
+                    export interface TSQualifiedName extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSQualifiedName";
                         left: TSEntityName;
                         right: Identifier;
                     }
-                    export interface TSRestType extends BaseNode {
+                    export interface TSRestType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSRestType";
                         typeAnnotation: TSType;
                     }
-                    export interface TSSatisfiesExpression extends BaseNode {
+                    export interface TSSatisfiesExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSSatisfiesExpression";
                         expression: Expression;
                         typeAnnotation: TSType;
                     }
-                    export interface TSStringKeyword extends BaseNode {
+                    export interface TSStringKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSStringKeyword";
                     }
-                    export interface TSSymbolKeyword extends BaseNode {
+                    export interface TSSymbolKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSSymbolKeyword";
                     }
                     export const TSTYPEELEMENT_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export const TSTYPE_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface TSThisType extends BaseNode {
+                    export interface TSThisType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSThisType";
                     }
-                    export interface TSTupleType extends BaseNode {
+                    export interface TSTupleType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTupleType";
                         elementTypes: Array<TSType | TSNamedTupleMember>;
                     }
                     export type TSType = TSAnyKeyword | TSBooleanKeyword | TSBigIntKeyword | TSIntrinsicKeyword | TSNeverKeyword | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSStringKeyword | TSSymbolKeyword | TSUndefinedKeyword | TSUnknownKeyword | TSVoidKeyword | TSThisType | TSFunctionType | TSConstructorType | TSTypeReference | TSTypePredicate | TSTypeQuery | TSTypeLiteral | TSArrayType | TSTupleType | TSOptionalType | TSRestType | TSUnionType | TSIntersectionType | TSConditionalType | TSInferType | TSParenthesizedType | TSTypeOperator | TSIndexedAccessType | TSMappedType | TSLiteralType | TSExpressionWithTypeArguments | TSImportType;
-                    export interface TSTypeAliasDeclaration extends BaseNode {
+                    export interface TSTypeAliasDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeAliasDeclaration";
                         id: Identifier;
                         typeParameters?: TSTypeParameterDeclaration | null;
                         typeAnnotation: TSType;
                         declare?: boolean | null;
                     }
-                    export interface TSTypeAnnotation extends BaseNode {
+                    export interface TSTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeAnnotation";
                         typeAnnotation: TSType;
                     }
-                    export interface TSTypeAssertion extends BaseNode {
+                    export interface TSTypeAssertion extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeAssertion";
                         typeAnnotation: TSType;
                         expression: Expression;
                     }
                     export type TSTypeElement = TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSPropertySignature | TSMethodSignature | TSIndexSignature;
-                    export interface TSTypeLiteral extends BaseNode {
+                    export interface TSTypeLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeLiteral";
                         members: Array<TSTypeElement>;
                     }
-                    export interface TSTypeOperator extends BaseNode {
+                    export interface TSTypeOperator extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeOperator";
                         typeAnnotation: TSType;
                         operator: string;
                     }
-                    export interface TSTypeParameter extends BaseNode {
+                    export interface TSTypeParameter extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeParameter";
                         constraint?: TSType | null;
                         default?: TSType | null;
@@ -2513,52 +2513,52 @@ declare module "@cocos/ccbuild" {
                         in?: boolean | null;
                         out?: boolean | null;
                     }
-                    export interface TSTypeParameterDeclaration extends BaseNode {
+                    export interface TSTypeParameterDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeParameterDeclaration";
                         params: Array<TSTypeParameter>;
                     }
-                    export interface TSTypeParameterInstantiation extends BaseNode {
+                    export interface TSTypeParameterInstantiation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeParameterInstantiation";
                         params: Array<TSType>;
                     }
-                    export interface TSTypePredicate extends BaseNode {
+                    export interface TSTypePredicate extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypePredicate";
                         parameterName: Identifier | TSThisType;
                         typeAnnotation?: TSTypeAnnotation | null;
                         asserts?: boolean | null;
                     }
-                    export interface TSTypeQuery extends BaseNode {
+                    export interface TSTypeQuery extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeQuery";
                         exprName: TSEntityName | TSImportType;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface TSTypeReference extends BaseNode {
+                    export interface TSTypeReference extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSTypeReference";
                         typeName: TSEntityName;
                         typeParameters?: TSTypeParameterInstantiation | null;
                     }
-                    export interface TSUndefinedKeyword extends BaseNode {
+                    export interface TSUndefinedKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSUndefinedKeyword";
                     }
-                    export interface TSUnionType extends BaseNode {
+                    export interface TSUnionType extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSUnionType";
                         types: Array<TSType>;
                     }
-                    export interface TSUnknownKeyword extends BaseNode {
+                    export interface TSUnknownKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSUnknownKeyword";
                     }
-                    export interface TSVoidKeyword extends BaseNode {
+                    export interface TSVoidKeyword extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TSVoidKeyword";
                     }
                     export const TYPES: Array<string>;
                     export const TYPESCRIPT_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface TaggedTemplateExpression extends BaseNode {
+                    export interface TaggedTemplateExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TaggedTemplateExpression";
                         tag: Expression;
                         quasi: TemplateLiteral;
                         typeParameters?: TypeParameterInstantiation | TSTypeParameterInstantiation | null;
                     }
-                    export interface TemplateElement extends BaseNode {
+                    export interface TemplateElement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TemplateElement";
                         value: {
                             raw: string;
@@ -2566,23 +2566,23 @@ declare module "@cocos/ccbuild" {
                         };
                         tail: boolean;
                     }
-                    export interface TemplateLiteral extends BaseNode {
+                    export interface TemplateLiteral extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TemplateLiteral";
                         quasis: Array<TemplateElement>;
                         expressions: Array<Expression | TSType>;
                     }
                     export type Terminatorless = BreakStatement | ContinueStatement | ReturnStatement | ThrowStatement | YieldExpression | AwaitExpression;
-                    export interface ThisExpression extends BaseNode {
+                    export interface ThisExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ThisExpression";
                     }
-                    export interface ThisTypeAnnotation extends BaseNode {
+                    export interface ThisTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ThisTypeAnnotation";
                     }
-                    export interface ThrowStatement extends BaseNode {
+                    export interface ThrowStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "ThrowStatement";
                         argument: Expression;
                     }
-                    export interface TopicReference extends BaseNode {
+                    export interface TopicReference extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TopicReference";
                     }
                     //# sourceMappingURL=getOuterBindingIdentifiers.d.ts.map
@@ -2596,52 +2596,52 @@ declare module "@cocos/ccbuild" {
                         enter?: TraversalHandler<T>;
                         exit?: TraversalHandler<T>;
                     };
-                    export interface TryStatement extends BaseNode {
+                    export interface TryStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TryStatement";
                         block: BlockStatement;
                         handler?: CatchClause | null;
                         finalizer?: BlockStatement | null;
                     }
-                    export interface TupleExpression extends BaseNode {
+                    export interface TupleExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TupleExpression";
                         elements: Array<Expression | SpreadElement>;
                     }
-                    export interface TupleTypeAnnotation extends BaseNode {
+                    export interface TupleTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TupleTypeAnnotation";
                         types: Array<FlowType>;
                     }
-                    export interface TypeAlias extends BaseNode {
+                    export interface TypeAlias extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeAlias";
                         id: Identifier;
                         typeParameters?: TypeParameterDeclaration | null;
                         right: FlowType;
                     }
-                    export interface TypeAnnotation extends BaseNode {
+                    export interface TypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeAnnotation";
                         typeAnnotation: FlowType;
                     }
-                    export interface TypeCastExpression extends BaseNode {
+                    export interface TypeCastExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeCastExpression";
                         expression: Expression;
                         typeAnnotation: TypeAnnotation;
                     }
-                    export interface TypeParameter extends BaseNode {
+                    export interface TypeParameter extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeParameter";
                         bound?: TypeAnnotation | null;
                         default?: FlowType | null;
                         variance?: Variance | null;
                         name: string;
                     }
-                    export interface TypeParameterDeclaration extends BaseNode {
+                    export interface TypeParameterDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeParameterDeclaration";
                         params: Array<TypeParameter>;
                     }
-                    export interface TypeParameterInstantiation extends BaseNode {
+                    export interface TypeParameterInstantiation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeParameterInstantiation";
                         params: Array<FlowType>;
                     }
                     export type TypeScript = TSParameterProperty | TSDeclareFunction | TSDeclareMethod | TSQualifiedName | TSCallSignatureDeclaration | TSConstructSignatureDeclaration | TSPropertySignature | TSMethodSignature | TSIndexSignature | TSAnyKeyword | TSBooleanKeyword | TSBigIntKeyword | TSIntrinsicKeyword | TSNeverKeyword | TSNullKeyword | TSNumberKeyword | TSObjectKeyword | TSStringKeyword | TSSymbolKeyword | TSUndefinedKeyword | TSUnknownKeyword | TSVoidKeyword | TSThisType | TSFunctionType | TSConstructorType | TSTypeReference | TSTypePredicate | TSTypeQuery | TSTypeLiteral | TSArrayType | TSTupleType | TSOptionalType | TSRestType | TSNamedTupleMember | TSUnionType | TSIntersectionType | TSConditionalType | TSInferType | TSParenthesizedType | TSTypeOperator | TSIndexedAccessType | TSMappedType | TSLiteralType | TSExpressionWithTypeArguments | TSInterfaceDeclaration | TSInterfaceBody | TSTypeAliasDeclaration | TSInstantiationExpression | TSAsExpression | TSSatisfiesExpression | TSTypeAssertion | TSEnumDeclaration | TSEnumMember | TSModuleDeclaration | TSModuleBlock | TSImportType | TSImportEqualsDeclaration | TSExternalModuleReference | TSNonNullExpression | TSExportAssignment | TSNamespaceExportDeclaration | TSTypeAnnotation | TSTypeParameterInstantiation | TSTypeParameterDeclaration | TSTypeParameter;
-                    export interface TypeofTypeAnnotation extends BaseNode {
+                    export interface TypeofTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "TypeofTypeAnnotation";
                         argument: FlowType;
                     }
@@ -2649,62 +2649,62 @@ declare module "@cocos/ccbuild" {
                     export const UNARY_OPERATORS: string[];
                     export const UPDATE_OPERATORS: string[];
                     export const USERWHITESPACABLE_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
-                    export interface UnaryExpression extends BaseNode {
+                    export interface UnaryExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "UnaryExpression";
                         operator: "void" | "throw" | "delete" | "!" | "+" | "-" | "~" | "typeof";
                         argument: Expression;
                         prefix: boolean;
                     }
                     export type UnaryLike = UnaryExpression | SpreadElement;
-                    export interface UnionTypeAnnotation extends BaseNode {
+                    export interface UnionTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "UnionTypeAnnotation";
                         types: Array<FlowType>;
                     }
-                    export interface UpdateExpression extends BaseNode {
+                    export interface UpdateExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "UpdateExpression";
                         operator: "++" | "--";
                         argument: Expression;
                         prefix: boolean;
                     }
                     export type UserWhitespacable = ObjectMethod | ObjectProperty | ObjectTypeInternalSlot | ObjectTypeCallProperty | ObjectTypeIndexer | ObjectTypeProperty | ObjectTypeSpreadProperty;
-                    export interface V8IntrinsicIdentifier extends BaseNode {
+                    export interface V8IntrinsicIdentifier extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "V8IntrinsicIdentifier";
                         name: string;
                     }
                     //# sourceMappingURL=valueToNode.d.ts.map
                     export const VISITOR_KEYS: Record<string, string[]>;
-                    export interface VariableDeclaration extends BaseNode {
+                    export interface VariableDeclaration extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "VariableDeclaration";
                         kind: "var" | "let" | "const" | "using" | "await using";
                         declarations: Array<VariableDeclarator>;
                         declare?: boolean | null;
                     }
-                    export interface VariableDeclarator extends BaseNode {
+                    export interface VariableDeclarator extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "VariableDeclarator";
                         id: LVal;
                         init?: Expression | null;
                         definite?: boolean | null;
                     }
-                    export interface Variance extends BaseNode {
+                    export interface Variance extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "Variance";
                         kind: "minus" | "plus";
                     }
-                    export interface VoidTypeAnnotation extends BaseNode {
+                    export interface VoidTypeAnnotation extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "VoidTypeAnnotation";
                     }
                     export const WHILE_TYPES: ("AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXIdentifier" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "JSXText" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "NumericLiteral" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteral" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
                     export type While = DoWhileStatement | WhileStatement;
-                    export interface WhileStatement extends BaseNode {
+                    export interface WhileStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "WhileStatement";
                         test: Expression;
                         body: Statement;
                     }
-                    export interface WithStatement extends BaseNode {
+                    export interface WithStatement extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "WithStatement";
                         object: Expression;
                         body: Statement;
                     }
-                    export interface YieldExpression extends BaseNode {
+                    export interface YieldExpression extends __private.___node_modules_babel_types_lib_index__BaseNode {
                         type: "YieldExpression";
                         argument?: Expression | null;
                         delegate: boolean;
@@ -3255,354 +3255,354 @@ declare module "@cocos/ccbuild" {
                     }>>(type: T, n: Node | null | undefined, required: Partial<P>): n is P;
                     function is<P extends Node>(type: string, node: Node | null | undefined, opts: Partial<P>): node is P;
                     function is(type: string, node: Node | null | undefined, opts?: Partial<Node>): node is Node;
-                    function isAccessor(node: Node | null | undefined, opts?: Opts<Accessor> | null): node is Accessor;
-                    function isAnyTypeAnnotation(node: Node | null | undefined, opts?: Opts<AnyTypeAnnotation> | null): node is AnyTypeAnnotation;
-                    function isArgumentPlaceholder(node: Node | null | undefined, opts?: Opts<ArgumentPlaceholder> | null): node is ArgumentPlaceholder;
-                    function isArrayExpression(node: Node | null | undefined, opts?: Opts<ArrayExpression> | null): node is ArrayExpression;
-                    function isArrayPattern(node: Node | null | undefined, opts?: Opts<ArrayPattern> | null): node is ArrayPattern;
-                    function isArrayTypeAnnotation(node: Node | null | undefined, opts?: Opts<ArrayTypeAnnotation> | null): node is ArrayTypeAnnotation;
-                    function isArrowFunctionExpression(node: Node | null | undefined, opts?: Opts<ArrowFunctionExpression> | null): node is ArrowFunctionExpression;
-                    function isAssignmentExpression(node: Node | null | undefined, opts?: Opts<AssignmentExpression> | null): node is AssignmentExpression;
-                    function isAssignmentPattern(node: Node | null | undefined, opts?: Opts<AssignmentPattern> | null): node is AssignmentPattern;
-                    function isAwaitExpression(node: Node | null | undefined, opts?: Opts<AwaitExpression> | null): node is AwaitExpression;
-                    function isBigIntLiteral(node: Node | null | undefined, opts?: Opts<BigIntLiteral> | null): node is BigIntLiteral;
-                    function isBinary(node: Node | null | undefined, opts?: Opts<Binary> | null): node is Binary;
-                    function isBinaryExpression(node: Node | null | undefined, opts?: Opts<BinaryExpression> | null): node is BinaryExpression;
-                    function isBindExpression(node: Node | null | undefined, opts?: Opts<BindExpression> | null): node is BindExpression;
+                    function isAccessor(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Accessor> | null): node is Accessor;
+                    function isAnyTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<AnyTypeAnnotation> | null): node is AnyTypeAnnotation;
+                    function isArgumentPlaceholder(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ArgumentPlaceholder> | null): node is ArgumentPlaceholder;
+                    function isArrayExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ArrayExpression> | null): node is ArrayExpression;
+                    function isArrayPattern(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ArrayPattern> | null): node is ArrayPattern;
+                    function isArrayTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ArrayTypeAnnotation> | null): node is ArrayTypeAnnotation;
+                    function isArrowFunctionExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ArrowFunctionExpression> | null): node is ArrowFunctionExpression;
+                    function isAssignmentExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<AssignmentExpression> | null): node is AssignmentExpression;
+                    function isAssignmentPattern(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<AssignmentPattern> | null): node is AssignmentPattern;
+                    function isAwaitExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<AwaitExpression> | null): node is AwaitExpression;
+                    function isBigIntLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BigIntLiteral> | null): node is BigIntLiteral;
+                    function isBinary(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Binary> | null): node is Binary;
+                    function isBinaryExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BinaryExpression> | null): node is BinaryExpression;
+                    function isBindExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BindExpression> | null): node is BindExpression;
                     /**
                      * Check if the input `node` is a binding identifier.
                      */
                     function isBinding(node: Node, parent: Node, grandparent?: Node): boolean;
-                    function isBlock(node: Node | null | undefined, opts?: Opts<Block> | null): node is Block;
-                    function isBlockParent(node: Node | null | undefined, opts?: Opts<BlockParent> | null): node is BlockParent;
+                    function isBlock(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Block> | null): node is Block;
+                    function isBlockParent(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BlockParent> | null): node is BlockParent;
                     /**
                      * Check if the input `node` is block scoped.
                      */
                     function isBlockScoped(node: Node): boolean;
-                    function isBlockStatement(node: Node | null | undefined, opts?: Opts<BlockStatement> | null): node is BlockStatement;
-                    function isBooleanLiteral(node: Node | null | undefined, opts?: Opts<BooleanLiteral> | null): node is BooleanLiteral;
-                    function isBooleanLiteralTypeAnnotation(node: Node | null | undefined, opts?: Opts<BooleanLiteralTypeAnnotation> | null): node is BooleanLiteralTypeAnnotation;
-                    function isBooleanTypeAnnotation(node: Node | null | undefined, opts?: Opts<BooleanTypeAnnotation> | null): node is BooleanTypeAnnotation;
-                    function isBreakStatement(node: Node | null | undefined, opts?: Opts<BreakStatement> | null): node is BreakStatement;
-                    function isCallExpression(node: Node | null | undefined, opts?: Opts<CallExpression> | null): node is CallExpression;
-                    function isCatchClause(node: Node | null | undefined, opts?: Opts<CatchClause> | null): node is CatchClause;
-                    function isClass(node: Node | null | undefined, opts?: Opts<Class> | null): node is Class;
-                    function isClassAccessorProperty(node: Node | null | undefined, opts?: Opts<ClassAccessorProperty> | null): node is ClassAccessorProperty;
-                    function isClassBody(node: Node | null | undefined, opts?: Opts<ClassBody> | null): node is ClassBody;
-                    function isClassDeclaration(node: Node | null | undefined, opts?: Opts<ClassDeclaration> | null): node is ClassDeclaration;
-                    function isClassExpression(node: Node | null | undefined, opts?: Opts<ClassExpression> | null): node is ClassExpression;
-                    function isClassImplements(node: Node | null | undefined, opts?: Opts<ClassImplements> | null): node is ClassImplements;
-                    function isClassMethod(node: Node | null | undefined, opts?: Opts<ClassMethod> | null): node is ClassMethod;
-                    function isClassPrivateMethod(node: Node | null | undefined, opts?: Opts<ClassPrivateMethod> | null): node is ClassPrivateMethod;
-                    function isClassPrivateProperty(node: Node | null | undefined, opts?: Opts<ClassPrivateProperty> | null): node is ClassPrivateProperty;
-                    function isClassProperty(node: Node | null | undefined, opts?: Opts<ClassProperty> | null): node is ClassProperty;
-                    function isCompletionStatement(node: Node | null | undefined, opts?: Opts<CompletionStatement> | null): node is CompletionStatement;
-                    function isConditional(node: Node | null | undefined, opts?: Opts<Conditional> | null): node is Conditional;
-                    function isConditionalExpression(node: Node | null | undefined, opts?: Opts<ConditionalExpression> | null): node is ConditionalExpression;
-                    function isContinueStatement(node: Node | null | undefined, opts?: Opts<ContinueStatement> | null): node is ContinueStatement;
-                    function isDebuggerStatement(node: Node | null | undefined, opts?: Opts<DebuggerStatement> | null): node is DebuggerStatement;
-                    function isDecimalLiteral(node: Node | null | undefined, opts?: Opts<DecimalLiteral> | null): node is DecimalLiteral;
-                    function isDeclaration(node: Node | null | undefined, opts?: Opts<Declaration> | null): node is Declaration;
-                    function isDeclareClass(node: Node | null | undefined, opts?: Opts<DeclareClass> | null): node is DeclareClass;
-                    function isDeclareExportAllDeclaration(node: Node | null | undefined, opts?: Opts<DeclareExportAllDeclaration> | null): node is DeclareExportAllDeclaration;
-                    function isDeclareExportDeclaration(node: Node | null | undefined, opts?: Opts<DeclareExportDeclaration> | null): node is DeclareExportDeclaration;
-                    function isDeclareFunction(node: Node | null | undefined, opts?: Opts<DeclareFunction> | null): node is DeclareFunction;
-                    function isDeclareInterface(node: Node | null | undefined, opts?: Opts<DeclareInterface> | null): node is DeclareInterface;
-                    function isDeclareModule(node: Node | null | undefined, opts?: Opts<DeclareModule> | null): node is DeclareModule;
-                    function isDeclareModuleExports(node: Node | null | undefined, opts?: Opts<DeclareModuleExports> | null): node is DeclareModuleExports;
-                    function isDeclareOpaqueType(node: Node | null | undefined, opts?: Opts<DeclareOpaqueType> | null): node is DeclareOpaqueType;
-                    function isDeclareTypeAlias(node: Node | null | undefined, opts?: Opts<DeclareTypeAlias> | null): node is DeclareTypeAlias;
-                    function isDeclareVariable(node: Node | null | undefined, opts?: Opts<DeclareVariable> | null): node is DeclareVariable;
-                    function isDeclaredPredicate(node: Node | null | undefined, opts?: Opts<DeclaredPredicate> | null): node is DeclaredPredicate;
-                    function isDecorator(node: Node | null | undefined, opts?: Opts<Decorator> | null): node is Decorator;
-                    function isDirective(node: Node | null | undefined, opts?: Opts<Directive> | null): node is Directive;
-                    function isDirectiveLiteral(node: Node | null | undefined, opts?: Opts<DirectiveLiteral> | null): node is DirectiveLiteral;
-                    function isDoExpression(node: Node | null | undefined, opts?: Opts<DoExpression> | null): node is DoExpression;
-                    function isDoWhileStatement(node: Node | null | undefined, opts?: Opts<DoWhileStatement> | null): node is DoWhileStatement;
-                    function isEmptyStatement(node: Node | null | undefined, opts?: Opts<EmptyStatement> | null): node is EmptyStatement;
-                    function isEmptyTypeAnnotation(node: Node | null | undefined, opts?: Opts<EmptyTypeAnnotation> | null): node is EmptyTypeAnnotation;
-                    function isEnumBody(node: Node | null | undefined, opts?: Opts<EnumBody> | null): node is EnumBody;
-                    function isEnumBooleanBody(node: Node | null | undefined, opts?: Opts<EnumBooleanBody> | null): node is EnumBooleanBody;
-                    function isEnumBooleanMember(node: Node | null | undefined, opts?: Opts<EnumBooleanMember> | null): node is EnumBooleanMember;
-                    function isEnumDeclaration(node: Node | null | undefined, opts?: Opts<EnumDeclaration> | null): node is EnumDeclaration;
-                    function isEnumDefaultedMember(node: Node | null | undefined, opts?: Opts<EnumDefaultedMember> | null): node is EnumDefaultedMember;
-                    function isEnumMember(node: Node | null | undefined, opts?: Opts<EnumMember> | null): node is EnumMember;
-                    function isEnumNumberBody(node: Node | null | undefined, opts?: Opts<EnumNumberBody> | null): node is EnumNumberBody;
-                    function isEnumNumberMember(node: Node | null | undefined, opts?: Opts<EnumNumberMember> | null): node is EnumNumberMember;
-                    function isEnumStringBody(node: Node | null | undefined, opts?: Opts<EnumStringBody> | null): node is EnumStringBody;
-                    function isEnumStringMember(node: Node | null | undefined, opts?: Opts<EnumStringMember> | null): node is EnumStringMember;
-                    function isEnumSymbolBody(node: Node | null | undefined, opts?: Opts<EnumSymbolBody> | null): node is EnumSymbolBody;
-                    function isExistsTypeAnnotation(node: Node | null | undefined, opts?: Opts<ExistsTypeAnnotation> | null): node is ExistsTypeAnnotation;
-                    function isExportAllDeclaration(node: Node | null | undefined, opts?: Opts<ExportAllDeclaration> | null): node is ExportAllDeclaration;
-                    function isExportDeclaration(node: Node | null | undefined, opts?: Opts<ExportDeclaration> | null): node is ExportDeclaration;
-                    function isExportDefaultDeclaration(node: Node | null | undefined, opts?: Opts<ExportDefaultDeclaration> | null): node is ExportDefaultDeclaration;
-                    function isExportDefaultSpecifier(node: Node | null | undefined, opts?: Opts<ExportDefaultSpecifier> | null): node is ExportDefaultSpecifier;
-                    function isExportNamedDeclaration(node: Node | null | undefined, opts?: Opts<ExportNamedDeclaration> | null): node is ExportNamedDeclaration;
-                    function isExportNamespaceSpecifier(node: Node | null | undefined, opts?: Opts<ExportNamespaceSpecifier> | null): node is ExportNamespaceSpecifier;
-                    function isExportSpecifier(node: Node | null | undefined, opts?: Opts<ExportSpecifier> | null): node is ExportSpecifier;
-                    function isExpression(node: Node | null | undefined, opts?: Opts<Expression> | null): node is Expression;
-                    function isExpressionStatement(node: Node | null | undefined, opts?: Opts<ExpressionStatement> | null): node is ExpressionStatement;
-                    function isExpressionWrapper(node: Node | null | undefined, opts?: Opts<ExpressionWrapper> | null): node is ExpressionWrapper;
-                    function isFile(node: Node | null | undefined, opts?: Opts<File> | null): node is File;
-                    function isFlow(node: Node | null | undefined, opts?: Opts<Flow> | null): node is Flow;
-                    function isFlowBaseAnnotation(node: Node | null | undefined, opts?: Opts<FlowBaseAnnotation> | null): node is FlowBaseAnnotation;
-                    function isFlowDeclaration(node: Node | null | undefined, opts?: Opts<FlowDeclaration> | null): node is FlowDeclaration;
-                    function isFlowPredicate(node: Node | null | undefined, opts?: Opts<FlowPredicate> | null): node is FlowPredicate;
-                    function isFlowType(node: Node | null | undefined, opts?: Opts<FlowType> | null): node is FlowType;
-                    function isFor(node: Node | null | undefined, opts?: Opts<For> | null): node is For;
-                    function isForInStatement(node: Node | null | undefined, opts?: Opts<ForInStatement> | null): node is ForInStatement;
-                    function isForOfStatement(node: Node | null | undefined, opts?: Opts<ForOfStatement> | null): node is ForOfStatement;
-                    function isForStatement(node: Node | null | undefined, opts?: Opts<ForStatement> | null): node is ForStatement;
-                    function isForXStatement(node: Node | null | undefined, opts?: Opts<ForXStatement> | null): node is ForXStatement;
-                    function isFunction(node: Node | null | undefined, opts?: Opts<Function> | null): node is Function;
-                    function isFunctionDeclaration(node: Node | null | undefined, opts?: Opts<FunctionDeclaration> | null): node is FunctionDeclaration;
-                    function isFunctionExpression(node: Node | null | undefined, opts?: Opts<FunctionExpression> | null): node is FunctionExpression;
-                    function isFunctionParent(node: Node | null | undefined, opts?: Opts<FunctionParent> | null): node is FunctionParent;
-                    function isFunctionTypeAnnotation(node: Node | null | undefined, opts?: Opts<FunctionTypeAnnotation> | null): node is FunctionTypeAnnotation;
-                    function isFunctionTypeParam(node: Node | null | undefined, opts?: Opts<FunctionTypeParam> | null): node is FunctionTypeParam;
-                    function isGenericTypeAnnotation(node: Node | null | undefined, opts?: Opts<GenericTypeAnnotation> | null): node is GenericTypeAnnotation;
-                    function isIdentifier(node: Node | null | undefined, opts?: Opts<Identifier> | null): node is Identifier;
-                    function isIfStatement(node: Node | null | undefined, opts?: Opts<IfStatement> | null): node is IfStatement;
+                    function isBlockStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BlockStatement> | null): node is BlockStatement;
+                    function isBooleanLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BooleanLiteral> | null): node is BooleanLiteral;
+                    function isBooleanLiteralTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BooleanLiteralTypeAnnotation> | null): node is BooleanLiteralTypeAnnotation;
+                    function isBooleanTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BooleanTypeAnnotation> | null): node is BooleanTypeAnnotation;
+                    function isBreakStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<BreakStatement> | null): node is BreakStatement;
+                    function isCallExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<CallExpression> | null): node is CallExpression;
+                    function isCatchClause(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<CatchClause> | null): node is CatchClause;
+                    function isClass(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Class> | null): node is Class;
+                    function isClassAccessorProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassAccessorProperty> | null): node is ClassAccessorProperty;
+                    function isClassBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassBody> | null): node is ClassBody;
+                    function isClassDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassDeclaration> | null): node is ClassDeclaration;
+                    function isClassExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassExpression> | null): node is ClassExpression;
+                    function isClassImplements(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassImplements> | null): node is ClassImplements;
+                    function isClassMethod(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassMethod> | null): node is ClassMethod;
+                    function isClassPrivateMethod(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassPrivateMethod> | null): node is ClassPrivateMethod;
+                    function isClassPrivateProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassPrivateProperty> | null): node is ClassPrivateProperty;
+                    function isClassProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ClassProperty> | null): node is ClassProperty;
+                    function isCompletionStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<CompletionStatement> | null): node is CompletionStatement;
+                    function isConditional(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Conditional> | null): node is Conditional;
+                    function isConditionalExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ConditionalExpression> | null): node is ConditionalExpression;
+                    function isContinueStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ContinueStatement> | null): node is ContinueStatement;
+                    function isDebuggerStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DebuggerStatement> | null): node is DebuggerStatement;
+                    function isDecimalLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DecimalLiteral> | null): node is DecimalLiteral;
+                    function isDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Declaration> | null): node is Declaration;
+                    function isDeclareClass(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareClass> | null): node is DeclareClass;
+                    function isDeclareExportAllDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareExportAllDeclaration> | null): node is DeclareExportAllDeclaration;
+                    function isDeclareExportDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareExportDeclaration> | null): node is DeclareExportDeclaration;
+                    function isDeclareFunction(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareFunction> | null): node is DeclareFunction;
+                    function isDeclareInterface(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareInterface> | null): node is DeclareInterface;
+                    function isDeclareModule(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareModule> | null): node is DeclareModule;
+                    function isDeclareModuleExports(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareModuleExports> | null): node is DeclareModuleExports;
+                    function isDeclareOpaqueType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareOpaqueType> | null): node is DeclareOpaqueType;
+                    function isDeclareTypeAlias(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareTypeAlias> | null): node is DeclareTypeAlias;
+                    function isDeclareVariable(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclareVariable> | null): node is DeclareVariable;
+                    function isDeclaredPredicate(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DeclaredPredicate> | null): node is DeclaredPredicate;
+                    function isDecorator(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Decorator> | null): node is Decorator;
+                    function isDirective(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Directive> | null): node is Directive;
+                    function isDirectiveLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DirectiveLiteral> | null): node is DirectiveLiteral;
+                    function isDoExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DoExpression> | null): node is DoExpression;
+                    function isDoWhileStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<DoWhileStatement> | null): node is DoWhileStatement;
+                    function isEmptyStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EmptyStatement> | null): node is EmptyStatement;
+                    function isEmptyTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EmptyTypeAnnotation> | null): node is EmptyTypeAnnotation;
+                    function isEnumBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumBody> | null): node is EnumBody;
+                    function isEnumBooleanBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumBooleanBody> | null): node is EnumBooleanBody;
+                    function isEnumBooleanMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumBooleanMember> | null): node is EnumBooleanMember;
+                    function isEnumDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumDeclaration> | null): node is EnumDeclaration;
+                    function isEnumDefaultedMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumDefaultedMember> | null): node is EnumDefaultedMember;
+                    function isEnumMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumMember> | null): node is EnumMember;
+                    function isEnumNumberBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumNumberBody> | null): node is EnumNumberBody;
+                    function isEnumNumberMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumNumberMember> | null): node is EnumNumberMember;
+                    function isEnumStringBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumStringBody> | null): node is EnumStringBody;
+                    function isEnumStringMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumStringMember> | null): node is EnumStringMember;
+                    function isEnumSymbolBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<EnumSymbolBody> | null): node is EnumSymbolBody;
+                    function isExistsTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExistsTypeAnnotation> | null): node is ExistsTypeAnnotation;
+                    function isExportAllDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportAllDeclaration> | null): node is ExportAllDeclaration;
+                    function isExportDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportDeclaration> | null): node is ExportDeclaration;
+                    function isExportDefaultDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportDefaultDeclaration> | null): node is ExportDefaultDeclaration;
+                    function isExportDefaultSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportDefaultSpecifier> | null): node is ExportDefaultSpecifier;
+                    function isExportNamedDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportNamedDeclaration> | null): node is ExportNamedDeclaration;
+                    function isExportNamespaceSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportNamespaceSpecifier> | null): node is ExportNamespaceSpecifier;
+                    function isExportSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExportSpecifier> | null): node is ExportSpecifier;
+                    function isExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Expression> | null): node is Expression;
+                    function isExpressionStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExpressionStatement> | null): node is ExpressionStatement;
+                    function isExpressionWrapper(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ExpressionWrapper> | null): node is ExpressionWrapper;
+                    function isFile(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<File> | null): node is File;
+                    function isFlow(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Flow> | null): node is Flow;
+                    function isFlowBaseAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FlowBaseAnnotation> | null): node is FlowBaseAnnotation;
+                    function isFlowDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FlowDeclaration> | null): node is FlowDeclaration;
+                    function isFlowPredicate(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FlowPredicate> | null): node is FlowPredicate;
+                    function isFlowType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FlowType> | null): node is FlowType;
+                    function isFor(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<For> | null): node is For;
+                    function isForInStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ForInStatement> | null): node is ForInStatement;
+                    function isForOfStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ForOfStatement> | null): node is ForOfStatement;
+                    function isForStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ForStatement> | null): node is ForStatement;
+                    function isForXStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ForXStatement> | null): node is ForXStatement;
+                    function isFunction(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Function> | null): node is Function;
+                    function isFunctionDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FunctionDeclaration> | null): node is FunctionDeclaration;
+                    function isFunctionExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FunctionExpression> | null): node is FunctionExpression;
+                    function isFunctionParent(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FunctionParent> | null): node is FunctionParent;
+                    function isFunctionTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FunctionTypeAnnotation> | null): node is FunctionTypeAnnotation;
+                    function isFunctionTypeParam(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<FunctionTypeParam> | null): node is FunctionTypeParam;
+                    function isGenericTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<GenericTypeAnnotation> | null): node is GenericTypeAnnotation;
+                    function isIdentifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Identifier> | null): node is Identifier;
+                    function isIfStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<IfStatement> | null): node is IfStatement;
                     /**
                      * Check if the input `node` is definitely immutable.
                      */
                     function isImmutable(node: Node): boolean;
-                    function isImport(node: Node | null | undefined, opts?: Opts<Import> | null): node is Import;
-                    function isImportAttribute(node: Node | null | undefined, opts?: Opts<ImportAttribute> | null): node is ImportAttribute;
-                    function isImportDeclaration(node: Node | null | undefined, opts?: Opts<ImportDeclaration> | null): node is ImportDeclaration;
-                    function isImportDefaultSpecifier(node: Node | null | undefined, opts?: Opts<ImportDefaultSpecifier> | null): node is ImportDefaultSpecifier;
-                    function isImportNamespaceSpecifier(node: Node | null | undefined, opts?: Opts<ImportNamespaceSpecifier> | null): node is ImportNamespaceSpecifier;
-                    function isImportOrExportDeclaration(node: Node | null | undefined, opts?: Opts<ImportOrExportDeclaration> | null): node is ImportOrExportDeclaration;
-                    function isImportSpecifier(node: Node | null | undefined, opts?: Opts<ImportSpecifier> | null): node is ImportSpecifier;
-                    function isIndexedAccessType(node: Node | null | undefined, opts?: Opts<IndexedAccessType> | null): node is IndexedAccessType;
-                    function isInferredPredicate(node: Node | null | undefined, opts?: Opts<InferredPredicate> | null): node is InferredPredicate;
-                    function isInterfaceDeclaration(node: Node | null | undefined, opts?: Opts<InterfaceDeclaration> | null): node is InterfaceDeclaration;
-                    function isInterfaceExtends(node: Node | null | undefined, opts?: Opts<InterfaceExtends> | null): node is InterfaceExtends;
-                    function isInterfaceTypeAnnotation(node: Node | null | undefined, opts?: Opts<InterfaceTypeAnnotation> | null): node is InterfaceTypeAnnotation;
-                    function isInterpreterDirective(node: Node | null | undefined, opts?: Opts<InterpreterDirective> | null): node is InterpreterDirective;
-                    function isIntersectionTypeAnnotation(node: Node | null | undefined, opts?: Opts<IntersectionTypeAnnotation> | null): node is IntersectionTypeAnnotation;
-                    function isJSX(node: Node | null | undefined, opts?: Opts<JSX> | null): node is JSX;
-                    function isJSXAttribute(node: Node | null | undefined, opts?: Opts<JSXAttribute> | null): node is JSXAttribute;
-                    function isJSXClosingElement(node: Node | null | undefined, opts?: Opts<JSXClosingElement> | null): node is JSXClosingElement;
-                    function isJSXClosingFragment(node: Node | null | undefined, opts?: Opts<JSXClosingFragment> | null): node is JSXClosingFragment;
-                    function isJSXElement(node: Node | null | undefined, opts?: Opts<JSXElement> | null): node is JSXElement;
-                    function isJSXEmptyExpression(node: Node | null | undefined, opts?: Opts<JSXEmptyExpression> | null): node is JSXEmptyExpression;
-                    function isJSXExpressionContainer(node: Node | null | undefined, opts?: Opts<JSXExpressionContainer> | null): node is JSXExpressionContainer;
-                    function isJSXFragment(node: Node | null | undefined, opts?: Opts<JSXFragment> | null): node is JSXFragment;
-                    function isJSXIdentifier(node: Node | null | undefined, opts?: Opts<JSXIdentifier> | null): node is JSXIdentifier;
-                    function isJSXMemberExpression(node: Node | null | undefined, opts?: Opts<JSXMemberExpression> | null): node is JSXMemberExpression;
-                    function isJSXNamespacedName(node: Node | null | undefined, opts?: Opts<JSXNamespacedName> | null): node is JSXNamespacedName;
-                    function isJSXOpeningElement(node: Node | null | undefined, opts?: Opts<JSXOpeningElement> | null): node is JSXOpeningElement;
-                    function isJSXOpeningFragment(node: Node | null | undefined, opts?: Opts<JSXOpeningFragment> | null): node is JSXOpeningFragment;
-                    function isJSXSpreadAttribute(node: Node | null | undefined, opts?: Opts<JSXSpreadAttribute> | null): node is JSXSpreadAttribute;
-                    function isJSXSpreadChild(node: Node | null | undefined, opts?: Opts<JSXSpreadChild> | null): node is JSXSpreadChild;
-                    function isJSXText(node: Node | null | undefined, opts?: Opts<JSXText> | null): node is JSXText;
-                    function isLVal(node: Node | null | undefined, opts?: Opts<LVal> | null): node is LVal;
-                    function isLabeledStatement(node: Node | null | undefined, opts?: Opts<LabeledStatement> | null): node is LabeledStatement;
+                    function isImport(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Import> | null): node is Import;
+                    function isImportAttribute(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportAttribute> | null): node is ImportAttribute;
+                    function isImportDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportDeclaration> | null): node is ImportDeclaration;
+                    function isImportDefaultSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportDefaultSpecifier> | null): node is ImportDefaultSpecifier;
+                    function isImportNamespaceSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportNamespaceSpecifier> | null): node is ImportNamespaceSpecifier;
+                    function isImportOrExportDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportOrExportDeclaration> | null): node is ImportOrExportDeclaration;
+                    function isImportSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ImportSpecifier> | null): node is ImportSpecifier;
+                    function isIndexedAccessType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<IndexedAccessType> | null): node is IndexedAccessType;
+                    function isInferredPredicate(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<InferredPredicate> | null): node is InferredPredicate;
+                    function isInterfaceDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<InterfaceDeclaration> | null): node is InterfaceDeclaration;
+                    function isInterfaceExtends(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<InterfaceExtends> | null): node is InterfaceExtends;
+                    function isInterfaceTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<InterfaceTypeAnnotation> | null): node is InterfaceTypeAnnotation;
+                    function isInterpreterDirective(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<InterpreterDirective> | null): node is InterpreterDirective;
+                    function isIntersectionTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<IntersectionTypeAnnotation> | null): node is IntersectionTypeAnnotation;
+                    function isJSX(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSX> | null): node is JSX;
+                    function isJSXAttribute(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXAttribute> | null): node is JSXAttribute;
+                    function isJSXClosingElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXClosingElement> | null): node is JSXClosingElement;
+                    function isJSXClosingFragment(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXClosingFragment> | null): node is JSXClosingFragment;
+                    function isJSXElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXElement> | null): node is JSXElement;
+                    function isJSXEmptyExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXEmptyExpression> | null): node is JSXEmptyExpression;
+                    function isJSXExpressionContainer(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXExpressionContainer> | null): node is JSXExpressionContainer;
+                    function isJSXFragment(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXFragment> | null): node is JSXFragment;
+                    function isJSXIdentifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXIdentifier> | null): node is JSXIdentifier;
+                    function isJSXMemberExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXMemberExpression> | null): node is JSXMemberExpression;
+                    function isJSXNamespacedName(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXNamespacedName> | null): node is JSXNamespacedName;
+                    function isJSXOpeningElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXOpeningElement> | null): node is JSXOpeningElement;
+                    function isJSXOpeningFragment(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXOpeningFragment> | null): node is JSXOpeningFragment;
+                    function isJSXSpreadAttribute(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXSpreadAttribute> | null): node is JSXSpreadAttribute;
+                    function isJSXSpreadChild(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXSpreadChild> | null): node is JSXSpreadChild;
+                    function isJSXText(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<JSXText> | null): node is JSXText;
+                    function isLVal(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<LVal> | null): node is LVal;
+                    function isLabeledStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<LabeledStatement> | null): node is LabeledStatement;
                     /**
                      * Check if the input `node` is a `let` variable declaration.
                      */
                     function isLet(node: Node): boolean;
-                    function isLiteral(node: Node | null | undefined, opts?: Opts<Literal> | null): node is Literal;
-                    function isLogicalExpression(node: Node | null | undefined, opts?: Opts<LogicalExpression> | null): node is LogicalExpression;
-                    function isLoop(node: Node | null | undefined, opts?: Opts<Loop> | null): node is Loop;
-                    function isMemberExpression(node: Node | null | undefined, opts?: Opts<MemberExpression> | null): node is MemberExpression;
-                    function isMetaProperty(node: Node | null | undefined, opts?: Opts<MetaProperty> | null): node is MetaProperty;
-                    function isMethod(node: Node | null | undefined, opts?: Opts<Method> | null): node is Method;
-                    function isMiscellaneous(node: Node | null | undefined, opts?: Opts<Miscellaneous> | null): node is Miscellaneous;
-                    function isMixedTypeAnnotation(node: Node | null | undefined, opts?: Opts<MixedTypeAnnotation> | null): node is MixedTypeAnnotation;
+                    function isLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Literal> | null): node is Literal;
+                    function isLogicalExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<LogicalExpression> | null): node is LogicalExpression;
+                    function isLoop(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Loop> | null): node is Loop;
+                    function isMemberExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<MemberExpression> | null): node is MemberExpression;
+                    function isMetaProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<MetaProperty> | null): node is MetaProperty;
+                    function isMethod(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Method> | null): node is Method;
+                    function isMiscellaneous(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Miscellaneous> | null): node is Miscellaneous;
+                    function isMixedTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<MixedTypeAnnotation> | null): node is MixedTypeAnnotation;
                     /**
                      * @deprecated Use `isImportOrExportDeclaration`
                      */
-                    function isModuleDeclaration(node: Node | null | undefined, opts?: Opts<ModuleDeclaration> | null): node is ImportOrExportDeclaration;
-                    function isModuleExpression(node: Node | null | undefined, opts?: Opts<ModuleExpression> | null): node is ModuleExpression;
-                    function isModuleSpecifier(node: Node | null | undefined, opts?: Opts<ModuleSpecifier> | null): node is ModuleSpecifier;
-                    function isNewExpression(node: Node | null | undefined, opts?: Opts<NewExpression> | null): node is NewExpression;
+                    function isModuleDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ModuleDeclaration> | null): node is ImportOrExportDeclaration;
+                    function isModuleExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ModuleExpression> | null): node is ModuleExpression;
+                    function isModuleSpecifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ModuleSpecifier> | null): node is ModuleSpecifier;
+                    function isNewExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NewExpression> | null): node is NewExpression;
                     function isNode(node: any): node is Node;
                     /**
                      * Check if two nodes are equivalent
                      */
                     function isNodesEquivalent<T extends Partial<Node>>(a: T, b: any): b is T;
-                    function isNoop(node: Node | null | undefined, opts?: Opts<Noop> | null): node is Noop;
-                    function isNullLiteral(node: Node | null | undefined, opts?: Opts<NullLiteral> | null): node is NullLiteral;
-                    function isNullLiteralTypeAnnotation(node: Node | null | undefined, opts?: Opts<NullLiteralTypeAnnotation> | null): node is NullLiteralTypeAnnotation;
-                    function isNullableTypeAnnotation(node: Node | null | undefined, opts?: Opts<NullableTypeAnnotation> | null): node is NullableTypeAnnotation;
+                    function isNoop(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Noop> | null): node is Noop;
+                    function isNullLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NullLiteral> | null): node is NullLiteral;
+                    function isNullLiteralTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NullLiteralTypeAnnotation> | null): node is NullLiteralTypeAnnotation;
+                    function isNullableTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NullableTypeAnnotation> | null): node is NullableTypeAnnotation;
                     /**
                      * @deprecated Use `isNumericLiteral`
                      */
-                    function isNumberLiteral(node: Node | null | undefined, opts?: Opts<NumberLiteral> | null): boolean;
-                    function isNumberLiteralTypeAnnotation(node: Node | null | undefined, opts?: Opts<NumberLiteralTypeAnnotation> | null): node is NumberLiteralTypeAnnotation;
-                    function isNumberTypeAnnotation(node: Node | null | undefined, opts?: Opts<NumberTypeAnnotation> | null): node is NumberTypeAnnotation;
-                    function isNumericLiteral(node: Node | null | undefined, opts?: Opts<NumericLiteral> | null): node is NumericLiteral;
-                    function isObjectExpression(node: Node | null | undefined, opts?: Opts<ObjectExpression> | null): node is ObjectExpression;
-                    function isObjectMember(node: Node | null | undefined, opts?: Opts<ObjectMember> | null): node is ObjectMember;
-                    function isObjectMethod(node: Node | null | undefined, opts?: Opts<ObjectMethod> | null): node is ObjectMethod;
-                    function isObjectPattern(node: Node | null | undefined, opts?: Opts<ObjectPattern> | null): node is ObjectPattern;
-                    function isObjectProperty(node: Node | null | undefined, opts?: Opts<ObjectProperty> | null): node is ObjectProperty;
-                    function isObjectTypeAnnotation(node: Node | null | undefined, opts?: Opts<ObjectTypeAnnotation> | null): node is ObjectTypeAnnotation;
-                    function isObjectTypeCallProperty(node: Node | null | undefined, opts?: Opts<ObjectTypeCallProperty> | null): node is ObjectTypeCallProperty;
-                    function isObjectTypeIndexer(node: Node | null | undefined, opts?: Opts<ObjectTypeIndexer> | null): node is ObjectTypeIndexer;
-                    function isObjectTypeInternalSlot(node: Node | null | undefined, opts?: Opts<ObjectTypeInternalSlot> | null): node is ObjectTypeInternalSlot;
-                    function isObjectTypeProperty(node: Node | null | undefined, opts?: Opts<ObjectTypeProperty> | null): node is ObjectTypeProperty;
-                    function isObjectTypeSpreadProperty(node: Node | null | undefined, opts?: Opts<ObjectTypeSpreadProperty> | null): node is ObjectTypeSpreadProperty;
-                    function isOpaqueType(node: Node | null | undefined, opts?: Opts<OpaqueType> | null): node is OpaqueType;
-                    function isOptionalCallExpression(node: Node | null | undefined, opts?: Opts<OptionalCallExpression> | null): node is OptionalCallExpression;
-                    function isOptionalIndexedAccessType(node: Node | null | undefined, opts?: Opts<OptionalIndexedAccessType> | null): node is OptionalIndexedAccessType;
-                    function isOptionalMemberExpression(node: Node | null | undefined, opts?: Opts<OptionalMemberExpression> | null): node is OptionalMemberExpression;
-                    function isParenthesizedExpression(node: Node | null | undefined, opts?: Opts<ParenthesizedExpression> | null): node is ParenthesizedExpression;
-                    function isPattern(node: Node | null | undefined, opts?: Opts<Pattern> | null): node is Pattern;
-                    function isPatternLike(node: Node | null | undefined, opts?: Opts<PatternLike> | null): node is PatternLike;
-                    function isPipelineBareFunction(node: Node | null | undefined, opts?: Opts<PipelineBareFunction> | null): node is PipelineBareFunction;
-                    function isPipelinePrimaryTopicReference(node: Node | null | undefined, opts?: Opts<PipelinePrimaryTopicReference> | null): node is PipelinePrimaryTopicReference;
-                    function isPipelineTopicExpression(node: Node | null | undefined, opts?: Opts<PipelineTopicExpression> | null): node is PipelineTopicExpression;
-                    function isPlaceholder(node: Node | null | undefined, opts?: Opts<Placeholder> | null): node is Placeholder;
+                    function isNumberLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NumberLiteral> | null): boolean;
+                    function isNumberLiteralTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NumberLiteralTypeAnnotation> | null): node is NumberLiteralTypeAnnotation;
+                    function isNumberTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NumberTypeAnnotation> | null): node is NumberTypeAnnotation;
+                    function isNumericLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<NumericLiteral> | null): node is NumericLiteral;
+                    function isObjectExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectExpression> | null): node is ObjectExpression;
+                    function isObjectMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectMember> | null): node is ObjectMember;
+                    function isObjectMethod(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectMethod> | null): node is ObjectMethod;
+                    function isObjectPattern(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectPattern> | null): node is ObjectPattern;
+                    function isObjectProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectProperty> | null): node is ObjectProperty;
+                    function isObjectTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeAnnotation> | null): node is ObjectTypeAnnotation;
+                    function isObjectTypeCallProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeCallProperty> | null): node is ObjectTypeCallProperty;
+                    function isObjectTypeIndexer(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeIndexer> | null): node is ObjectTypeIndexer;
+                    function isObjectTypeInternalSlot(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeInternalSlot> | null): node is ObjectTypeInternalSlot;
+                    function isObjectTypeProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeProperty> | null): node is ObjectTypeProperty;
+                    function isObjectTypeSpreadProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ObjectTypeSpreadProperty> | null): node is ObjectTypeSpreadProperty;
+                    function isOpaqueType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<OpaqueType> | null): node is OpaqueType;
+                    function isOptionalCallExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<OptionalCallExpression> | null): node is OptionalCallExpression;
+                    function isOptionalIndexedAccessType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<OptionalIndexedAccessType> | null): node is OptionalIndexedAccessType;
+                    function isOptionalMemberExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<OptionalMemberExpression> | null): node is OptionalMemberExpression;
+                    function isParenthesizedExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ParenthesizedExpression> | null): node is ParenthesizedExpression;
+                    function isPattern(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Pattern> | null): node is Pattern;
+                    function isPatternLike(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<PatternLike> | null): node is PatternLike;
+                    function isPipelineBareFunction(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<PipelineBareFunction> | null): node is PipelineBareFunction;
+                    function isPipelinePrimaryTopicReference(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<PipelinePrimaryTopicReference> | null): node is PipelinePrimaryTopicReference;
+                    function isPipelineTopicExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<PipelineTopicExpression> | null): node is PipelineTopicExpression;
+                    function isPlaceholder(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Placeholder> | null): node is Placeholder;
                     /**
                      * Test if a `placeholderType` is a `targetType` or if `targetType` is an alias of `placeholderType`.
                      */
                     function isPlaceholderType(placeholderType: string, targetType: string): boolean;
-                    function isPrivate(node: Node | null | undefined, opts?: Opts<Private> | null): node is Private;
-                    function isPrivateName(node: Node | null | undefined, opts?: Opts<PrivateName> | null): node is PrivateName;
-                    function isProgram(node: Node | null | undefined, opts?: Opts<Program> | null): node is Program;
-                    function isProperty(node: Node | null | undefined, opts?: Opts<Property> | null): node is Property;
-                    function isPureish(node: Node | null | undefined, opts?: Opts<Pureish> | null): node is Pureish;
-                    function isQualifiedTypeIdentifier(node: Node | null | undefined, opts?: Opts<QualifiedTypeIdentifier> | null): node is QualifiedTypeIdentifier;
-                    function isRecordExpression(node: Node | null | undefined, opts?: Opts<RecordExpression> | null): node is RecordExpression;
+                    function isPrivate(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Private> | null): node is Private;
+                    function isPrivateName(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<PrivateName> | null): node is PrivateName;
+                    function isProgram(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Program> | null): node is Program;
+                    function isProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Property> | null): node is Property;
+                    function isPureish(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Pureish> | null): node is Pureish;
+                    function isQualifiedTypeIdentifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<QualifiedTypeIdentifier> | null): node is QualifiedTypeIdentifier;
+                    function isRecordExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<RecordExpression> | null): node is RecordExpression;
                     /**
                      * Check if the input `node` is a reference to a bound variable.
                      */
                     function isReferenced(node: Node, parent: Node, grandparent?: Node): boolean;
-                    function isRegExpLiteral(node: Node | null | undefined, opts?: Opts<RegExpLiteral> | null): node is RegExpLiteral;
+                    function isRegExpLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<RegExpLiteral> | null): node is RegExpLiteral;
                     /**
                      * @deprecated Use `isRegExpLiteral`
                      */
-                    function isRegexLiteral(node: Node | null | undefined, opts?: Opts<RegexLiteral> | null): boolean;
-                    function isRestElement(node: Node | null | undefined, opts?: Opts<RestElement> | null): node is RestElement;
+                    function isRegexLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<RegexLiteral> | null): boolean;
+                    function isRestElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<RestElement> | null): node is RestElement;
                     /**
                      * @deprecated Use `isRestElement`
                      */
-                    function isRestProperty(node: Node | null | undefined, opts?: Opts<RestProperty> | null): boolean;
-                    function isReturnStatement(node: Node | null | undefined, opts?: Opts<ReturnStatement> | null): node is ReturnStatement;
-                    function isScopable(node: Node | null | undefined, opts?: Opts<Scopable> | null): node is Scopable;
+                    function isRestProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<RestProperty> | null): boolean;
+                    function isReturnStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ReturnStatement> | null): node is ReturnStatement;
+                    function isScopable(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Scopable> | null): node is Scopable;
                     /**
                      * Check if the input `node` is a scope.
                      */
                     function isScope(node: Node, parent: Node): boolean;
-                    function isSequenceExpression(node: Node | null | undefined, opts?: Opts<SequenceExpression> | null): node is SequenceExpression;
+                    function isSequenceExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SequenceExpression> | null): node is SequenceExpression;
                     /**
                      * Check if the input `specifier` is a `default` import or export.
                      */
                     function isSpecifierDefault(specifier: ModuleSpecifier): boolean;
-                    function isSpreadElement(node: Node | null | undefined, opts?: Opts<SpreadElement> | null): node is SpreadElement;
+                    function isSpreadElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SpreadElement> | null): node is SpreadElement;
                     /**
                      * @deprecated Use `isSpreadElement`
                      */
-                    function isSpreadProperty(node: Node | null | undefined, opts?: Opts<SpreadProperty> | null): boolean;
-                    function isStandardized(node: Node | null | undefined, opts?: Opts<Standardized> | null): node is Standardized;
-                    function isStatement(node: Node | null | undefined, opts?: Opts<Statement> | null): node is Statement;
-                    function isStaticBlock(node: Node | null | undefined, opts?: Opts<StaticBlock> | null): node is StaticBlock;
-                    function isStringLiteral(node: Node | null | undefined, opts?: Opts<StringLiteral> | null): node is StringLiteral;
-                    function isStringLiteralTypeAnnotation(node: Node | null | undefined, opts?: Opts<StringLiteralTypeAnnotation> | null): node is StringLiteralTypeAnnotation;
-                    function isStringTypeAnnotation(node: Node | null | undefined, opts?: Opts<StringTypeAnnotation> | null): node is StringTypeAnnotation;
-                    function isSuper(node: Node | null | undefined, opts?: Opts<Super> | null): node is Super;
-                    function isSwitchCase(node: Node | null | undefined, opts?: Opts<SwitchCase> | null): node is SwitchCase;
-                    function isSwitchStatement(node: Node | null | undefined, opts?: Opts<SwitchStatement> | null): node is SwitchStatement;
-                    function isSymbolTypeAnnotation(node: Node | null | undefined, opts?: Opts<SymbolTypeAnnotation> | null): node is SymbolTypeAnnotation;
-                    function isTSAnyKeyword(node: Node | null | undefined, opts?: Opts<TSAnyKeyword> | null): node is TSAnyKeyword;
-                    function isTSArrayType(node: Node | null | undefined, opts?: Opts<TSArrayType> | null): node is TSArrayType;
-                    function isTSAsExpression(node: Node | null | undefined, opts?: Opts<TSAsExpression> | null): node is TSAsExpression;
-                    function isTSBaseType(node: Node | null | undefined, opts?: Opts<TSBaseType> | null): node is TSBaseType;
-                    function isTSBigIntKeyword(node: Node | null | undefined, opts?: Opts<TSBigIntKeyword> | null): node is TSBigIntKeyword;
-                    function isTSBooleanKeyword(node: Node | null | undefined, opts?: Opts<TSBooleanKeyword> | null): node is TSBooleanKeyword;
-                    function isTSCallSignatureDeclaration(node: Node | null | undefined, opts?: Opts<TSCallSignatureDeclaration> | null): node is TSCallSignatureDeclaration;
-                    function isTSConditionalType(node: Node | null | undefined, opts?: Opts<TSConditionalType> | null): node is TSConditionalType;
-                    function isTSConstructSignatureDeclaration(node: Node | null | undefined, opts?: Opts<TSConstructSignatureDeclaration> | null): node is TSConstructSignatureDeclaration;
-                    function isTSConstructorType(node: Node | null | undefined, opts?: Opts<TSConstructorType> | null): node is TSConstructorType;
-                    function isTSDeclareFunction(node: Node | null | undefined, opts?: Opts<TSDeclareFunction> | null): node is TSDeclareFunction;
-                    function isTSDeclareMethod(node: Node | null | undefined, opts?: Opts<TSDeclareMethod> | null): node is TSDeclareMethod;
-                    function isTSEntityName(node: Node | null | undefined, opts?: Opts<TSEntityName> | null): node is TSEntityName;
-                    function isTSEnumDeclaration(node: Node | null | undefined, opts?: Opts<TSEnumDeclaration> | null): node is TSEnumDeclaration;
-                    function isTSEnumMember(node: Node | null | undefined, opts?: Opts<TSEnumMember> | null): node is TSEnumMember;
-                    function isTSExportAssignment(node: Node | null | undefined, opts?: Opts<TSExportAssignment> | null): node is TSExportAssignment;
-                    function isTSExpressionWithTypeArguments(node: Node | null | undefined, opts?: Opts<TSExpressionWithTypeArguments> | null): node is TSExpressionWithTypeArguments;
-                    function isTSExternalModuleReference(node: Node | null | undefined, opts?: Opts<TSExternalModuleReference> | null): node is TSExternalModuleReference;
-                    function isTSFunctionType(node: Node | null | undefined, opts?: Opts<TSFunctionType> | null): node is TSFunctionType;
-                    function isTSImportEqualsDeclaration(node: Node | null | undefined, opts?: Opts<TSImportEqualsDeclaration> | null): node is TSImportEqualsDeclaration;
-                    function isTSImportType(node: Node | null | undefined, opts?: Opts<TSImportType> | null): node is TSImportType;
-                    function isTSIndexSignature(node: Node | null | undefined, opts?: Opts<TSIndexSignature> | null): node is TSIndexSignature;
-                    function isTSIndexedAccessType(node: Node | null | undefined, opts?: Opts<TSIndexedAccessType> | null): node is TSIndexedAccessType;
-                    function isTSInferType(node: Node | null | undefined, opts?: Opts<TSInferType> | null): node is TSInferType;
-                    function isTSInstantiationExpression(node: Node | null | undefined, opts?: Opts<TSInstantiationExpression> | null): node is TSInstantiationExpression;
-                    function isTSInterfaceBody(node: Node | null | undefined, opts?: Opts<TSInterfaceBody> | null): node is TSInterfaceBody;
-                    function isTSInterfaceDeclaration(node: Node | null | undefined, opts?: Opts<TSInterfaceDeclaration> | null): node is TSInterfaceDeclaration;
-                    function isTSIntersectionType(node: Node | null | undefined, opts?: Opts<TSIntersectionType> | null): node is TSIntersectionType;
-                    function isTSIntrinsicKeyword(node: Node | null | undefined, opts?: Opts<TSIntrinsicKeyword> | null): node is TSIntrinsicKeyword;
-                    function isTSLiteralType(node: Node | null | undefined, opts?: Opts<TSLiteralType> | null): node is TSLiteralType;
-                    function isTSMappedType(node: Node | null | undefined, opts?: Opts<TSMappedType> | null): node is TSMappedType;
-                    function isTSMethodSignature(node: Node | null | undefined, opts?: Opts<TSMethodSignature> | null): node is TSMethodSignature;
-                    function isTSModuleBlock(node: Node | null | undefined, opts?: Opts<TSModuleBlock> | null): node is TSModuleBlock;
-                    function isTSModuleDeclaration(node: Node | null | undefined, opts?: Opts<TSModuleDeclaration> | null): node is TSModuleDeclaration;
-                    function isTSNamedTupleMember(node: Node | null | undefined, opts?: Opts<TSNamedTupleMember> | null): node is TSNamedTupleMember;
-                    function isTSNamespaceExportDeclaration(node: Node | null | undefined, opts?: Opts<TSNamespaceExportDeclaration> | null): node is TSNamespaceExportDeclaration;
-                    function isTSNeverKeyword(node: Node | null | undefined, opts?: Opts<TSNeverKeyword> | null): node is TSNeverKeyword;
-                    function isTSNonNullExpression(node: Node | null | undefined, opts?: Opts<TSNonNullExpression> | null): node is TSNonNullExpression;
-                    function isTSNullKeyword(node: Node | null | undefined, opts?: Opts<TSNullKeyword> | null): node is TSNullKeyword;
-                    function isTSNumberKeyword(node: Node | null | undefined, opts?: Opts<TSNumberKeyword> | null): node is TSNumberKeyword;
-                    function isTSObjectKeyword(node: Node | null | undefined, opts?: Opts<TSObjectKeyword> | null): node is TSObjectKeyword;
-                    function isTSOptionalType(node: Node | null | undefined, opts?: Opts<TSOptionalType> | null): node is TSOptionalType;
-                    function isTSParameterProperty(node: Node | null | undefined, opts?: Opts<TSParameterProperty> | null): node is TSParameterProperty;
-                    function isTSParenthesizedType(node: Node | null | undefined, opts?: Opts<TSParenthesizedType> | null): node is TSParenthesizedType;
-                    function isTSPropertySignature(node: Node | null | undefined, opts?: Opts<TSPropertySignature> | null): node is TSPropertySignature;
-                    function isTSQualifiedName(node: Node | null | undefined, opts?: Opts<TSQualifiedName> | null): node is TSQualifiedName;
-                    function isTSRestType(node: Node | null | undefined, opts?: Opts<TSRestType> | null): node is TSRestType;
-                    function isTSSatisfiesExpression(node: Node | null | undefined, opts?: Opts<TSSatisfiesExpression> | null): node is TSSatisfiesExpression;
-                    function isTSStringKeyword(node: Node | null | undefined, opts?: Opts<TSStringKeyword> | null): node is TSStringKeyword;
-                    function isTSSymbolKeyword(node: Node | null | undefined, opts?: Opts<TSSymbolKeyword> | null): node is TSSymbolKeyword;
-                    function isTSThisType(node: Node | null | undefined, opts?: Opts<TSThisType> | null): node is TSThisType;
-                    function isTSTupleType(node: Node | null | undefined, opts?: Opts<TSTupleType> | null): node is TSTupleType;
-                    function isTSType(node: Node | null | undefined, opts?: Opts<TSType> | null): node is TSType;
-                    function isTSTypeAliasDeclaration(node: Node | null | undefined, opts?: Opts<TSTypeAliasDeclaration> | null): node is TSTypeAliasDeclaration;
-                    function isTSTypeAnnotation(node: Node | null | undefined, opts?: Opts<TSTypeAnnotation> | null): node is TSTypeAnnotation;
-                    function isTSTypeAssertion(node: Node | null | undefined, opts?: Opts<TSTypeAssertion> | null): node is TSTypeAssertion;
-                    function isTSTypeElement(node: Node | null | undefined, opts?: Opts<TSTypeElement> | null): node is TSTypeElement;
-                    function isTSTypeLiteral(node: Node | null | undefined, opts?: Opts<TSTypeLiteral> | null): node is TSTypeLiteral;
-                    function isTSTypeOperator(node: Node | null | undefined, opts?: Opts<TSTypeOperator> | null): node is TSTypeOperator;
-                    function isTSTypeParameter(node: Node | null | undefined, opts?: Opts<TSTypeParameter> | null): node is TSTypeParameter;
-                    function isTSTypeParameterDeclaration(node: Node | null | undefined, opts?: Opts<TSTypeParameterDeclaration> | null): node is TSTypeParameterDeclaration;
-                    function isTSTypeParameterInstantiation(node: Node | null | undefined, opts?: Opts<TSTypeParameterInstantiation> | null): node is TSTypeParameterInstantiation;
-                    function isTSTypePredicate(node: Node | null | undefined, opts?: Opts<TSTypePredicate> | null): node is TSTypePredicate;
-                    function isTSTypeQuery(node: Node | null | undefined, opts?: Opts<TSTypeQuery> | null): node is TSTypeQuery;
-                    function isTSTypeReference(node: Node | null | undefined, opts?: Opts<TSTypeReference> | null): node is TSTypeReference;
-                    function isTSUndefinedKeyword(node: Node | null | undefined, opts?: Opts<TSUndefinedKeyword> | null): node is TSUndefinedKeyword;
-                    function isTSUnionType(node: Node | null | undefined, opts?: Opts<TSUnionType> | null): node is TSUnionType;
-                    function isTSUnknownKeyword(node: Node | null | undefined, opts?: Opts<TSUnknownKeyword> | null): node is TSUnknownKeyword;
-                    function isTSVoidKeyword(node: Node | null | undefined, opts?: Opts<TSVoidKeyword> | null): node is TSVoidKeyword;
-                    function isTaggedTemplateExpression(node: Node | null | undefined, opts?: Opts<TaggedTemplateExpression> | null): node is TaggedTemplateExpression;
-                    function isTemplateElement(node: Node | null | undefined, opts?: Opts<TemplateElement> | null): node is TemplateElement;
-                    function isTemplateLiteral(node: Node | null | undefined, opts?: Opts<TemplateLiteral> | null): node is TemplateLiteral;
-                    function isTerminatorless(node: Node | null | undefined, opts?: Opts<Terminatorless> | null): node is Terminatorless;
-                    function isThisExpression(node: Node | null | undefined, opts?: Opts<ThisExpression> | null): node is ThisExpression;
-                    function isThisTypeAnnotation(node: Node | null | undefined, opts?: Opts<ThisTypeAnnotation> | null): node is ThisTypeAnnotation;
-                    function isThrowStatement(node: Node | null | undefined, opts?: Opts<ThrowStatement> | null): node is ThrowStatement;
-                    function isTopicReference(node: Node | null | undefined, opts?: Opts<TopicReference> | null): node is TopicReference;
-                    function isTryStatement(node: Node | null | undefined, opts?: Opts<TryStatement> | null): node is TryStatement;
-                    function isTupleExpression(node: Node | null | undefined, opts?: Opts<TupleExpression> | null): node is TupleExpression;
-                    function isTupleTypeAnnotation(node: Node | null | undefined, opts?: Opts<TupleTypeAnnotation> | null): node is TupleTypeAnnotation;
+                    function isSpreadProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SpreadProperty> | null): boolean;
+                    function isStandardized(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Standardized> | null): node is Standardized;
+                    function isStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Statement> | null): node is Statement;
+                    function isStaticBlock(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<StaticBlock> | null): node is StaticBlock;
+                    function isStringLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<StringLiteral> | null): node is StringLiteral;
+                    function isStringLiteralTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<StringLiteralTypeAnnotation> | null): node is StringLiteralTypeAnnotation;
+                    function isStringTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<StringTypeAnnotation> | null): node is StringTypeAnnotation;
+                    function isSuper(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Super> | null): node is Super;
+                    function isSwitchCase(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SwitchCase> | null): node is SwitchCase;
+                    function isSwitchStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SwitchStatement> | null): node is SwitchStatement;
+                    function isSymbolTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<SymbolTypeAnnotation> | null): node is SymbolTypeAnnotation;
+                    function isTSAnyKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSAnyKeyword> | null): node is TSAnyKeyword;
+                    function isTSArrayType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSArrayType> | null): node is TSArrayType;
+                    function isTSAsExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSAsExpression> | null): node is TSAsExpression;
+                    function isTSBaseType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSBaseType> | null): node is TSBaseType;
+                    function isTSBigIntKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSBigIntKeyword> | null): node is TSBigIntKeyword;
+                    function isTSBooleanKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSBooleanKeyword> | null): node is TSBooleanKeyword;
+                    function isTSCallSignatureDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSCallSignatureDeclaration> | null): node is TSCallSignatureDeclaration;
+                    function isTSConditionalType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSConditionalType> | null): node is TSConditionalType;
+                    function isTSConstructSignatureDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSConstructSignatureDeclaration> | null): node is TSConstructSignatureDeclaration;
+                    function isTSConstructorType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSConstructorType> | null): node is TSConstructorType;
+                    function isTSDeclareFunction(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSDeclareFunction> | null): node is TSDeclareFunction;
+                    function isTSDeclareMethod(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSDeclareMethod> | null): node is TSDeclareMethod;
+                    function isTSEntityName(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSEntityName> | null): node is TSEntityName;
+                    function isTSEnumDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSEnumDeclaration> | null): node is TSEnumDeclaration;
+                    function isTSEnumMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSEnumMember> | null): node is TSEnumMember;
+                    function isTSExportAssignment(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSExportAssignment> | null): node is TSExportAssignment;
+                    function isTSExpressionWithTypeArguments(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSExpressionWithTypeArguments> | null): node is TSExpressionWithTypeArguments;
+                    function isTSExternalModuleReference(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSExternalModuleReference> | null): node is TSExternalModuleReference;
+                    function isTSFunctionType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSFunctionType> | null): node is TSFunctionType;
+                    function isTSImportEqualsDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSImportEqualsDeclaration> | null): node is TSImportEqualsDeclaration;
+                    function isTSImportType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSImportType> | null): node is TSImportType;
+                    function isTSIndexSignature(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSIndexSignature> | null): node is TSIndexSignature;
+                    function isTSIndexedAccessType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSIndexedAccessType> | null): node is TSIndexedAccessType;
+                    function isTSInferType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSInferType> | null): node is TSInferType;
+                    function isTSInstantiationExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSInstantiationExpression> | null): node is TSInstantiationExpression;
+                    function isTSInterfaceBody(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSInterfaceBody> | null): node is TSInterfaceBody;
+                    function isTSInterfaceDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSInterfaceDeclaration> | null): node is TSInterfaceDeclaration;
+                    function isTSIntersectionType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSIntersectionType> | null): node is TSIntersectionType;
+                    function isTSIntrinsicKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSIntrinsicKeyword> | null): node is TSIntrinsicKeyword;
+                    function isTSLiteralType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSLiteralType> | null): node is TSLiteralType;
+                    function isTSMappedType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSMappedType> | null): node is TSMappedType;
+                    function isTSMethodSignature(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSMethodSignature> | null): node is TSMethodSignature;
+                    function isTSModuleBlock(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSModuleBlock> | null): node is TSModuleBlock;
+                    function isTSModuleDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSModuleDeclaration> | null): node is TSModuleDeclaration;
+                    function isTSNamedTupleMember(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNamedTupleMember> | null): node is TSNamedTupleMember;
+                    function isTSNamespaceExportDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNamespaceExportDeclaration> | null): node is TSNamespaceExportDeclaration;
+                    function isTSNeverKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNeverKeyword> | null): node is TSNeverKeyword;
+                    function isTSNonNullExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNonNullExpression> | null): node is TSNonNullExpression;
+                    function isTSNullKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNullKeyword> | null): node is TSNullKeyword;
+                    function isTSNumberKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSNumberKeyword> | null): node is TSNumberKeyword;
+                    function isTSObjectKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSObjectKeyword> | null): node is TSObjectKeyword;
+                    function isTSOptionalType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSOptionalType> | null): node is TSOptionalType;
+                    function isTSParameterProperty(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSParameterProperty> | null): node is TSParameterProperty;
+                    function isTSParenthesizedType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSParenthesizedType> | null): node is TSParenthesizedType;
+                    function isTSPropertySignature(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSPropertySignature> | null): node is TSPropertySignature;
+                    function isTSQualifiedName(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSQualifiedName> | null): node is TSQualifiedName;
+                    function isTSRestType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSRestType> | null): node is TSRestType;
+                    function isTSSatisfiesExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSSatisfiesExpression> | null): node is TSSatisfiesExpression;
+                    function isTSStringKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSStringKeyword> | null): node is TSStringKeyword;
+                    function isTSSymbolKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSSymbolKeyword> | null): node is TSSymbolKeyword;
+                    function isTSThisType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSThisType> | null): node is TSThisType;
+                    function isTSTupleType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTupleType> | null): node is TSTupleType;
+                    function isTSType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSType> | null): node is TSType;
+                    function isTSTypeAliasDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeAliasDeclaration> | null): node is TSTypeAliasDeclaration;
+                    function isTSTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeAnnotation> | null): node is TSTypeAnnotation;
+                    function isTSTypeAssertion(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeAssertion> | null): node is TSTypeAssertion;
+                    function isTSTypeElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeElement> | null): node is TSTypeElement;
+                    function isTSTypeLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeLiteral> | null): node is TSTypeLiteral;
+                    function isTSTypeOperator(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeOperator> | null): node is TSTypeOperator;
+                    function isTSTypeParameter(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeParameter> | null): node is TSTypeParameter;
+                    function isTSTypeParameterDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeParameterDeclaration> | null): node is TSTypeParameterDeclaration;
+                    function isTSTypeParameterInstantiation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeParameterInstantiation> | null): node is TSTypeParameterInstantiation;
+                    function isTSTypePredicate(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypePredicate> | null): node is TSTypePredicate;
+                    function isTSTypeQuery(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeQuery> | null): node is TSTypeQuery;
+                    function isTSTypeReference(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSTypeReference> | null): node is TSTypeReference;
+                    function isTSUndefinedKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSUndefinedKeyword> | null): node is TSUndefinedKeyword;
+                    function isTSUnionType(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSUnionType> | null): node is TSUnionType;
+                    function isTSUnknownKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSUnknownKeyword> | null): node is TSUnknownKeyword;
+                    function isTSVoidKeyword(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TSVoidKeyword> | null): node is TSVoidKeyword;
+                    function isTaggedTemplateExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TaggedTemplateExpression> | null): node is TaggedTemplateExpression;
+                    function isTemplateElement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TemplateElement> | null): node is TemplateElement;
+                    function isTemplateLiteral(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TemplateLiteral> | null): node is TemplateLiteral;
+                    function isTerminatorless(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Terminatorless> | null): node is Terminatorless;
+                    function isThisExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ThisExpression> | null): node is ThisExpression;
+                    function isThisTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ThisTypeAnnotation> | null): node is ThisTypeAnnotation;
+                    function isThrowStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<ThrowStatement> | null): node is ThrowStatement;
+                    function isTopicReference(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TopicReference> | null): node is TopicReference;
+                    function isTryStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TryStatement> | null): node is TryStatement;
+                    function isTupleExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TupleExpression> | null): node is TupleExpression;
+                    function isTupleTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TupleTypeAnnotation> | null): node is TupleTypeAnnotation;
                     function isType<T extends Node["type"]>(nodeType: string, targetType: T): nodeType is T;
                     function isType(nodeType: string | null | undefined, targetType: string): boolean;
-                    function isTypeAlias(node: Node | null | undefined, opts?: Opts<TypeAlias> | null): node is TypeAlias;
-                    function isTypeAnnotation(node: Node | null | undefined, opts?: Opts<TypeAnnotation> | null): node is TypeAnnotation;
-                    function isTypeCastExpression(node: Node | null | undefined, opts?: Opts<TypeCastExpression> | null): node is TypeCastExpression;
-                    function isTypeParameter(node: Node | null | undefined, opts?: Opts<TypeParameter> | null): node is TypeParameter;
-                    function isTypeParameterDeclaration(node: Node | null | undefined, opts?: Opts<TypeParameterDeclaration> | null): node is TypeParameterDeclaration;
-                    function isTypeParameterInstantiation(node: Node | null | undefined, opts?: Opts<TypeParameterInstantiation> | null): node is TypeParameterInstantiation;
-                    function isTypeScript(node: Node | null | undefined, opts?: Opts<TypeScript> | null): node is TypeScript;
-                    function isTypeofTypeAnnotation(node: Node | null | undefined, opts?: Opts<TypeofTypeAnnotation> | null): node is TypeofTypeAnnotation;
-                    function isUnaryExpression(node: Node | null | undefined, opts?: Opts<UnaryExpression> | null): node is UnaryExpression;
-                    function isUnaryLike(node: Node | null | undefined, opts?: Opts<UnaryLike> | null): node is UnaryLike;
-                    function isUnionTypeAnnotation(node: Node | null | undefined, opts?: Opts<UnionTypeAnnotation> | null): node is UnionTypeAnnotation;
-                    function isUpdateExpression(node: Node | null | undefined, opts?: Opts<UpdateExpression> | null): node is UpdateExpression;
-                    function isUserWhitespacable(node: Node | null | undefined, opts?: Opts<UserWhitespacable> | null): node is UserWhitespacable;
-                    function isV8IntrinsicIdentifier(node: Node | null | undefined, opts?: Opts<V8IntrinsicIdentifier> | null): node is V8IntrinsicIdentifier;
+                    function isTypeAlias(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeAlias> | null): node is TypeAlias;
+                    function isTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeAnnotation> | null): node is TypeAnnotation;
+                    function isTypeCastExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeCastExpression> | null): node is TypeCastExpression;
+                    function isTypeParameter(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeParameter> | null): node is TypeParameter;
+                    function isTypeParameterDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeParameterDeclaration> | null): node is TypeParameterDeclaration;
+                    function isTypeParameterInstantiation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeParameterInstantiation> | null): node is TypeParameterInstantiation;
+                    function isTypeScript(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeScript> | null): node is TypeScript;
+                    function isTypeofTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<TypeofTypeAnnotation> | null): node is TypeofTypeAnnotation;
+                    function isUnaryExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<UnaryExpression> | null): node is UnaryExpression;
+                    function isUnaryLike(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<UnaryLike> | null): node is UnaryLike;
+                    function isUnionTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<UnionTypeAnnotation> | null): node is UnionTypeAnnotation;
+                    function isUpdateExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<UpdateExpression> | null): node is UpdateExpression;
+                    function isUserWhitespacable(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<UserWhitespacable> | null): node is UserWhitespacable;
+                    function isV8IntrinsicIdentifier(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<V8IntrinsicIdentifier> | null): node is V8IntrinsicIdentifier;
                     /**
                      * Check if the input `name` is a valid identifier name according to the ES3 specification.
                      *
@@ -3618,14 +3618,14 @@ declare module "@cocos/ccbuild" {
                      * Check if the input `node` is a variable declaration.
                      */
                     function isVar(node: Node): boolean;
-                    function isVariableDeclaration(node: Node | null | undefined, opts?: Opts<VariableDeclaration> | null): node is VariableDeclaration;
-                    function isVariableDeclarator(node: Node | null | undefined, opts?: Opts<VariableDeclarator> | null): node is VariableDeclarator;
-                    function isVariance(node: Node | null | undefined, opts?: Opts<Variance> | null): node is Variance;
-                    function isVoidTypeAnnotation(node: Node | null | undefined, opts?: Opts<VoidTypeAnnotation> | null): node is VoidTypeAnnotation;
-                    function isWhile(node: Node | null | undefined, opts?: Opts<While> | null): node is While;
-                    function isWhileStatement(node: Node | null | undefined, opts?: Opts<WhileStatement> | null): node is WhileStatement;
-                    function isWithStatement(node: Node | null | undefined, opts?: Opts<WithStatement> | null): node is WithStatement;
-                    function isYieldExpression(node: Node | null | undefined, opts?: Opts<YieldExpression> | null): node is YieldExpression;
+                    function isVariableDeclaration(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<VariableDeclaration> | null): node is VariableDeclaration;
+                    function isVariableDeclarator(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<VariableDeclarator> | null): node is VariableDeclarator;
+                    function isVariance(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<Variance> | null): node is Variance;
+                    function isVoidTypeAnnotation(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<VoidTypeAnnotation> | null): node is VoidTypeAnnotation;
+                    function isWhile(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<While> | null): node is While;
+                    function isWhileStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<WhileStatement> | null): node is WhileStatement;
+                    function isWithStatement(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<WithStatement> | null): node is WithStatement;
+                    function isYieldExpression(node: Node | null | undefined, opts?: __private.___node_modules_babel_types_lib_index__Opts<YieldExpression> | null): node is YieldExpression;
                     function jSXAttribute(name: JSXIdentifier | JSXNamespacedName, value?: JSXElement | JSXFragment | StringLiteral | JSXExpressionContainer | null): JSXAttribute;
                     function jSXClosingElement(name: JSXIdentifier | JSXMemberExpression | JSXNamespacedName): JSXClosingElement;
                     function jSXClosingFragment(): JSXClosingFragment;
@@ -3693,8 +3693,8 @@ declare module "@cocos/ccbuild" {
                     function qualifiedTypeIdentifier(id: Identifier, qualification: Identifier | QualifiedTypeIdentifier): QualifiedTypeIdentifier;
                     export const react: {
                         isReactComponent: (member: Node) => boolean;
-                        isCompatTag: typeof isCompatTag;
-                        buildChildren: typeof buildChildren;
+                        isCompatTag: typeof __private.___node_modules_babel_types_lib_index__isCompatTag;
+                        buildChildren: typeof __private.___node_modules_babel_types_lib_index__buildChildren;
                     };
                     function recordExpression(properties: Array<ObjectProperty | SpreadElement>): RecordExpression;
                     function regExpLiteral(pattern: string, flags?: string): RegExpLiteral;
@@ -3971,7 +3971,7 @@ declare module "@cocos/ccbuild" {
                     export import tsUnknownKeyword = types.tSUnknownKeyword;
                     export import tsVoidKeyword = types.tSVoidKeyword;
                 }
-                export const template: DefaultTemplateBuilder;
+                export const template: __private.___node_modules_types_babel__template_index__DefaultTemplateBuilder;
                 export const traverse: {
                     <S>(parent: types.Node | types.Node[] | null | undefined, opts: babel.traverse.TraverseOptions<S>, scope: babel.traverse.Scope | undefined, state: S, parentPath?: babel.traverse.NodePath): void;
                     (parent: types.Node | types.Node[] | null | undefined, opts?: babel.traverse.TraverseOptions, scope?: babel.traverse.Scope, state?: any, parentPath?: babel.traverse.NodePath): void;
@@ -4175,7 +4175,7 @@ declare module "@cocos/ccbuild" {
                      *
                      * Default: `null`
                      */
-                    inputSourceMap?: InputSourceMap | null | undefined;
+                    inputSourceMap?: __private.___node_modules_types_babel__core_index__InputSourceMap | null | undefined;
                     /**
                      * Should the output be minified (not printing last semicolons in blocks, printing literal string values instead of escaped ones, stripping `()` from `new` when safe)
                      *
@@ -4548,7 +4548,7 @@ declare module "@cocos/ccbuild" {
                 export type ParseResult<Result> = Result & {
                     errors: ParseError[];
                 };
-                export type ParserPlugin = PluginConfig;
+                export type ParserPlugin = __private.___node_modules_babel_parser_typings_babel_parser__PluginConfig;
                 export type ParserPluginWithOptions = [
                     "decorators",
                     DecoratorsPluginOptions
@@ -5604,11 +5604,11 @@ declare module "@cocos/ccbuild" {
                 export interface VisitNodeObject<S, P extends core.types.Node> {
                     enter?: VisitNodeFunction<S, P> | undefined;
                     exit?: VisitNodeFunction<S, P> | undefined;
-                    denylist?: NodeType[] | undefined;
+                    denylist?: __private.___node_modules_types_babel__traverse_index__NodeType[] | undefined;
                     /**
                      * @deprecated will be removed in Babel 8
                      */
-                    blacklist?: NodeType[] | undefined;
+                    blacklist?: __private.___node_modules_types_babel__traverse_index__NodeType[] | undefined;
                 }
                 export type NodePaths<T extends core.types.Node | readonly core.types.Node[]> = T extends readonly core.types.Node[] ? {
                     -readonly [K in keyof T]: NodePath<Extract<T[K], core.types.Node>>;
@@ -5738,7 +5738,7 @@ declare module "@cocos/ccbuild" {
                 export const transformForOf: any;
                 export function cocosDynamicImportVars({ types }: typeof core): core.PluginObj<{
                     filename?: string;
-                    opts?: Options;
+                    opts?: __private.___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__Options;
                 }>;
                 export const transformModulesSystemjs: any;
             }
@@ -14756,12 +14756,12 @@ declare module "@cocos/ccbuild" {
                          * A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should operate on. When relying on Babel configuration files you cannot include files already excluded there.
                          * @default undefined;
                          */
-                        include?: FilterPattern;
+                        include?: __private.___node_modules_rollup_pluginutils_types_index__FilterPattern;
                         /**
                          * A picomatch pattern, or array of patterns, which specifies the files in the build the plugin should ignore. When relaying on Babel configuration files you can only exclude additional files with this option, you cannot override what you have configured for Babel itself.
                          * @default undefined;
                          */
-                        exclude?: FilterPattern;
+                        exclude?: __private.___node_modules_rollup_pluginutils_types_index__FilterPattern;
                         /**
                          * Custom filter function can be used to determine whether or not certain modules should be operated upon.
                          * Example:
@@ -14771,7 +14771,7 @@ declare module "@cocos/ccbuild" {
                          *   const filter = createFilter(include, exclude, {});
                          * @default undefined;
                          */
-                        filter?: ReturnType<CreateFilter>;
+                        filter?: ReturnType<__private.___node_modules_rollup_pluginutils_types_index__CreateFilter>;
                         /**
                          * An array of file extensions that Babel should transpile. If you want to transpile TypeScript files with this plugin it's essential to include .ts and .tsx in this option.
                          * @default ['.js', '.jsx', '.es6', '.es', '.mjs']
@@ -14834,23 +14834,23 @@ declare module "@cocos/ccbuild" {
                 /**
                  * Convert .json files to ES6 modules
                  */
-                export function json(options?: RollupJsonOptions): core.Plugin;
+                export function json(options?: __private.___node_modules_rollup_plugin_json_types_index__RollupJsonOptions): core.Plugin;
                 /**
                  * Locate modules using the Node resolution algorithm, for using third party modules in node_modules
                  */
-                export function nodeResolve(options?: Options): core.Plugin;
+                export function nodeResolve(options?: __private.___node_modules_rollup_plugin_node_resolve_types_index__Options): core.Plugin;
                 /**
                  * Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
                  */
-                export function commonjs(options?: RollupCommonJSOptions): core.Plugin;
+                export function commonjs(options?: __private.___node_modules_rollup_plugin_commonjs_types_index__RollupCommonJSOptions): core.Plugin;
                 /**
                  * A Rollup plugin which loads virtual modules from memory.
                  */
-                export function virtual(modules: RollupVirtualOptions): core.Plugin;
+                export function virtual(modules: __private.___node_modules_rollup_plugin_virtual_types_index__RollupVirtualOptions): core.Plugin;
                 /**
                  * Seamless integration between Rollup and Typescript.
                  */
-                export function typescript(options?: RollupTypescriptOptions): core.Plugin;
+                export function typescript(options?: __private.___node_modules_rollup_plugin_typescript_types_index__RollupTypescriptOptions): core.Plugin;
             }
         }
     }
@@ -14880,7 +14880,7 @@ declare module "@cocos/ccbuild" {
             /**
              * The config for conditional exports.
              */
-            exports: ConditionalExports;
+            exports: __private.___modules_modularize_lib_module_config__ConditionalExports;
             /**
              * Specify the module dependencies is required if this module import another one.
              * We need this field to generate the module dependency graph.
@@ -14912,7 +14912,7 @@ declare module "@cocos/ccbuild" {
                  * Module override could support to do this job.
                  * - eg. { "test": "context.mode === 'BUILD'", "overrides": { "/path/to/dev.ts": "/path/to/build.ts" } }
                  */
-                moduleOverrides?: ModuleOverride[];
+                moduleOverrides?: __private.___modules_modularize_lib_module_config__ModuleOverride[];
             };
         }
         export interface ModuleQueryContext {
@@ -14944,6 +14944,18 @@ declare module "@cocos/ccbuild" {
              * Get all modules' name defined in engine workspaces.
              */
             getAllModules(): Promise<string[]>;
+            /**
+             * Get modules' all exports by module name.
+             */
+            getExports(moduleName: string): Promise<string[]>;
+            /**
+             * Get all the modules' exports.
+             */
+            getAllExports(): Promise<string[]>;
+            /**
+             * Get the map from module name to module path.
+             */
+            getExportMap(): Promise<Record<string, string>>;
             /**
              * Resolve module package.json path by module name.
              */
@@ -15011,6 +15023,591 @@ declare module "@cocos/ccbuild" {
         export interface Options {
             engine: string;
             outDir: string;
+        }
+    }
+    export namespace __private {
+        export type ___node_modules_babel_types_lib_index__NodeTypesWithoutComment = Transformer.babel.core.types.Node["type"] | keyof Transformer.babel.core.types.Aliases;
+        export interface ___node_modules_babel_types_lib_index__BaseNode {
+            type: Transformer.babel.core.types.Node["type"];
+            leadingComments?: Transformer.babel.core.types.Comment[] | null;
+            innerComments?: Transformer.babel.core.types.Comment[] | null;
+            trailingComments?: Transformer.babel.core.types.Comment[] | null;
+            start?: number | null;
+            end?: number | null;
+            loc?: Transformer.babel.core.types.SourceLocation | null;
+            range?: [
+                number,
+                number
+            ];
+            extra?: Record<string, unknown>;
+        }
+        export interface ___node_modules_babel_types_lib_index__BaseComment {
+            value: string;
+            start?: number;
+            end?: number;
+            loc?: Transformer.babel.core.types.SourceLocation;
+            ignore?: boolean;
+            type: "CommentBlock" | "CommentLine";
+        }
+        function ___node_modules_babel_types_lib_index__getType(val: any): "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function" | "null" | "array";
+        export type ___node_modules_babel_types_lib_index__PrimitiveTypes = ReturnType<typeof ___node_modules_babel_types_lib_index__getType>;
+        export type ___node_modules_babel_types_lib_index__NodeTypes = ___node_modules_babel_types_lib_index__NodeTypesWithoutComment | Transformer.babel.core.types.Comment["type"];
+        export type ___node_modules_babel_types_lib_index__Validator = ({
+            type: ___node_modules_babel_types_lib_index__PrimitiveTypes;
+        } | {
+            each: ___node_modules_babel_types_lib_index__Validator;
+        } | {
+            chainOf: ___node_modules_babel_types_lib_index__Validator[];
+        } | {
+            oneOf: any[];
+        } | {
+            oneOfNodeTypes: ___node_modules_babel_types_lib_index__NodeTypes[];
+        } | {
+            oneOfNodeOrValueTypes: (___node_modules_babel_types_lib_index__NodeTypes | ___node_modules_babel_types_lib_index__PrimitiveTypes)[];
+        } | {
+            shapeOf: {
+                [x: string]: Transformer.babel.core.types.FieldOptions;
+            };
+        } | {}) & ((node: Transformer.babel.core.types.Node, key: string, val: any) => void);
+        export type ___node_modules_babel_types_lib_index__FieldDefinitions = {
+            [x: string]: Transformer.babel.core.types.FieldOptions;
+        };
+        export interface ___node_modules_babel_types_lib_index__Position {
+            line: number;
+            column: number;
+            index: number;
+        }
+        export type ___node_modules_babel_types_lib_index__Opts<Obj> = Partial<{
+            [Prop in keyof Obj]: Obj[Prop] extends Transformer.babel.core.types.Node ? Transformer.babel.core.types.Node : Obj[Prop] extends Transformer.babel.core.types.Node[] ? Transformer.babel.core.types.Node[] : Obj[Prop];
+        }>;
+        function ___node_modules_babel_types_lib_index__isCompatTag(tagName?: string): boolean;
+        export type ___node_modules_babel_types_lib_index__ReturnedChild = Transformer.babel.core.types.JSXSpreadChild | Transformer.babel.core.types.JSXElement | Transformer.babel.core.types.JSXFragment | Transformer.babel.core.types.Expression;
+        function ___node_modules_babel_types_lib_index__buildChildren(node: Transformer.babel.core.types.JSXElement | Transformer.babel.core.types.JSXFragment): ___node_modules_babel_types_lib_index__ReturnedChild[];
+        export interface ___node_modules_types_babel__template_index__TemplateBuilderOptions extends Transformer.babel.core.ParserOptions {
+            /**
+             * A set of placeholder names to automatically accept.
+             * Items in this list do not need to match `placeholderPattern`.
+             *
+             * This option cannot be used when using `%%foo%%` style placeholders.
+             */
+            placeholderWhitelist?: Set<string> | null | undefined;
+            /**
+             * A pattern to search for when looking for `Identifier` and `StringLiteral`
+             * nodes that should be considered as placeholders.
+             *
+             * `false` will disable placeholder searching placeholders, leaving only
+             * the `placeholderWhitelist` value to find replacements.
+             *
+             * This option cannot be used when using `%%foo%%` style placeholders.
+             *
+             * @default /^[_$A-Z0-9]+$/
+             */
+            placeholderPattern?: RegExp | false | null | undefined;
+            /**
+             * Set this to `true` to preserve comments from the template string
+             * into the resulting AST, or `false` to automatically discard comments.
+             *
+             * @default false
+             */
+            preserveComments?: boolean | null | undefined;
+            /**
+             * Set to `true` to use `%%foo%%` style placeholders, `false` to use legacy placeholders
+             * described by `placeholderPattern` or `placeholderWhitelist`.
+             *
+             * When it is not set, it behaves as `true` if there are syntactic placeholders, otherwise as `false`.
+             *
+             * @since 7.4.0
+             */
+            syntacticPlaceholders?: boolean | null | undefined;
+        }
+        export type ___node_modules_types_babel__template_index__PublicReplacements = {
+            [index: string]: unknown;
+        } | unknown[];
+        export interface ___node_modules_types_babel__template_index__TemplateBuilder<T> {
+            /**
+             * Build a new builder, merging the given options with the previous ones.
+             */
+            (opts: ___node_modules_types_babel__template_index__TemplateBuilderOptions): ___node_modules_types_babel__template_index__TemplateBuilder<T>;
+            /**
+             * Building from a string produces an AST builder function by default.
+             */
+            (code: string, opts?: ___node_modules_types_babel__template_index__TemplateBuilderOptions): (arg?: ___node_modules_types_babel__template_index__PublicReplacements) => T;
+            /**
+             * Building from a template literal produces an AST builder function by default.
+             */
+            (tpl: TemplateStringsArray, ...args: unknown[]): (arg?: ___node_modules_types_babel__template_index__PublicReplacements) => T;
+            /**
+             * Allow users to explicitly create templates that produce ASTs,
+             * skipping the need for an intermediate function.
+             *
+             * Does not allow `%%foo%%` style placeholders.
+             */
+            ast: {
+                (tpl: string, opts?: ___node_modules_types_babel__template_index__TemplateBuilderOptions): T;
+                (tpl: TemplateStringsArray, ...args: unknown[]): T;
+            };
+        }
+        export const ___node_modules_types_babel__template_index__smart: ___node_modules_types_babel__template_index__TemplateBuilder<Transformer.babel.core.types.Statement | Transformer.babel.core.types.Statement[]>;
+        export const ___node_modules_types_babel__template_index__statement: ___node_modules_types_babel__template_index__TemplateBuilder<Transformer.babel.core.types.Statement>;
+        export const ___node_modules_types_babel__template_index__statements: ___node_modules_types_babel__template_index__TemplateBuilder<Transformer.babel.core.types.Statement[]>;
+        export const ___node_modules_types_babel__template_index__expression: ___node_modules_types_babel__template_index__TemplateBuilder<Transformer.babel.core.types.Expression>;
+        export const ___node_modules_types_babel__template_index__program: ___node_modules_types_babel__template_index__TemplateBuilder<Transformer.babel.core.types.Program>;
+        export type ___node_modules_types_babel__template_index__DefaultTemplateBuilder = typeof ___node_modules_types_babel__template_index__smart & {
+            smart: typeof ___node_modules_types_babel__template_index__smart;
+            statement: typeof ___node_modules_types_babel__template_index__statement;
+            statements: typeof ___node_modules_types_babel__template_index__statements;
+            expression: typeof ___node_modules_types_babel__template_index__expression;
+            program: typeof ___node_modules_types_babel__template_index__program;
+            ast: typeof ___node_modules_types_babel__template_index__smart.ast;
+        };
+        /**
+         * Source map standard format as to revision 3
+         * @see {@link https://sourcemaps.info/spec.html}
+         * @see {@link https://github.com/mozilla/source-map/blob/HEAD/source-map.d.ts}
+         */
+        export interface ___node_modules_types_babel__core_index__InputSourceMap {
+            version: number;
+            sources: string[];
+            names: string[];
+            sourceRoot?: string | undefined;
+            sourcesContent?: string[] | undefined;
+            mappings: string;
+            file: string;
+        }
+        export type ___node_modules_babel_parser_typings_babel_parser__Plugin = "asyncDoExpressions" | "asyncGenerators" | "bigInt" | "classPrivateMethods" | "classPrivateProperties" | "classProperties" | "classStaticBlock" | "decimal" | "decorators-legacy" | "decoratorAutoAccessors" | "destructuringPrivate" | "doExpressions" | "dynamicImport" | "explicitResourceManagement" | "exportDefaultFrom" | "exportNamespaceFrom" | "flow" | "flowComments" | "functionBind" | "functionSent" | "importMeta" | "jsx" | "logicalAssignment" | "importAssertions" | "importAttributes" | "importReflection" | "moduleBlocks" | "moduleStringNames" | "nullishCoalescingOperator" | "numericSeparator" | "objectRestSpread" | "optionalCatchBinding" | "optionalChaining" | "partialApplication" | "placeholders" | "privateIn" | "regexpUnicodeSets" | "throwExpressions" | "topLevelAwait" | "v8intrinsic" | Transformer.babel.parser.ParserPluginWithOptions[0];
+        export type ___node_modules_babel_parser_typings_babel_parser__PluginConfig = ___node_modules_babel_parser_typings_babel_parser__Plugin | Transformer.babel.parser.ParserPluginWithOptions;
+        export type ___node_modules_types_babel__traverse_index__NodeType = Transformer.babel.core.types.Node["type"] | keyof Transformer.babel.core.types.Aliases;
+        export interface ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_default_resolve__Options {
+            /**
+             * For example:
+             * ```js
+             * {
+             *   '.js': ['.js', '.ts', '.tsx'], // Specifiers ended with '.js' will resolved to, '.ts', '.tsx'.
+             * }
+             * ```
+             */
+            extMap?: Record<string, string[]>;
+            /**
+             * If import(`./*.js`) is resolved as `./x.ts`,
+             * should we use:
+             * - `import('./x.js')` (as-is),
+             * - `import('x.ts')` (resolved), or
+             * - `import('./x')` (drop)?
+             */
+            forwardExt?: "drop" | "resolved" | "keep-with-test";
+        }
+        /**
+         * Parts of a specifier. `null` implies a non-string-literal part.
+         * The `string`s and `null`s are interleaved.
+         */
+        export type ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_decompose_dynamic_import_vars__SpecifierParts = Array<string | null>;
+        export type ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__SpecifierCandidate = string | [
+            string,
+            string
+        ];
+        /**
+         * Custom specifier resolution.
+         * @param specifierParts Specifier parts.
+         * @param fileName The source file name(provided by babel).
+         * @returns If `undefined` or empty array is returned, this plugin won't do nothing.
+         */
+        export type ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__CustomResolve = (specifierParts: ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_decompose_dynamic_import_vars__SpecifierParts, fileName: string) => ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__SpecifierCandidate[] | undefined;
+        export interface ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__Options {
+            /**
+             * Either the options to configure the default resolver or supply a custom resolver.
+             */
+            resolve?: ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_default_resolve__Options | ___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__CustomResolve;
+        }
+        /**
+         * A valid `picomatch` glob pattern, or array of patterns.
+         */
+        export type ___node_modules_rollup_pluginutils_types_index__FilterPattern = ReadonlyArray<string | RegExp> | string | RegExp | null;
+        /**
+         * Constructs a filter function which can be used to determine whether or not
+         * certain modules should be operated upon.
+         * @param include If `include` is omitted or has zero length, filter will return `true` by default.
+         * @param exclude ID must not match any of the `exclude` patterns.
+         * @param options Optionally resolves the patterns against a directory other than `process.cwd()`.
+         * If a `string` is specified, then the value will be used as the base directory.
+         * Relative paths will be resolved against `process.cwd()` first.
+         * If `false`, then the patterns will not be resolved against any directory.
+         * This can be useful if you want to create a filter for virtual module names.
+         */
+        export function ___node_modules_rollup_pluginutils_types_index__createFilter(include?: ___node_modules_rollup_pluginutils_types_index__FilterPattern, exclude?: ___node_modules_rollup_pluginutils_types_index__FilterPattern, options?: {
+            resolve?: string | false | null;
+        }): (id: string | unknown) => boolean;
+        export type ___node_modules_rollup_pluginutils_types_index__CreateFilter = typeof ___node_modules_rollup_pluginutils_types_index__createFilter;
+        /**
+         * A valid `minimatch` pattern, or array of patterns.
+         */
+        export type ___node_modules_rollup_plugin_json_node_modules_rollup_pluginutils_types_index__FilterPattern = ReadonlyArray<string | RegExp> | string | RegExp | null;
+        export interface ___node_modules_rollup_plugin_json_types_index__RollupJsonOptions {
+            /**
+             * All JSON files will be parsed by default,
+             * but you can also specifically include files
+             */
+            include?: ___node_modules_rollup_plugin_json_node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * All JSON files will be parsed by default,
+             * but you can also specifically exclude files
+             */
+            exclude?: ___node_modules_rollup_plugin_json_node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * For tree-shaking, properties will be declared as variables, using
+             * either `var` or `const`.
+             * @default false
+             */
+            preferConst?: boolean;
+            /**
+             * Specify indentation for the generated default export
+             * @default '\t'
+             */
+            indent?: string;
+            /**
+             * Ignores indent and generates the smallest code
+             * @default false
+             */
+            compact?: boolean;
+            /**
+             * Generate a named export for every property of the JSON object
+             * @default true
+             */
+            namedExports?: boolean;
+        }
+        export interface ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index_resolve__Opts {
+            /** directory to begin resolving from (defaults to __dirname) */
+            basedir?: string;
+            /** package.json data applicable to the module being loaded */
+            package?: any;
+            /** array of file extensions to search in order (defaults to ['.js']) */
+            extensions?: string | ReadonlyArray<string>;
+            /** transform the parsed package.json contents before looking at the "main" field */
+            packageFilter?: (pkg: any, pkgfile: string) => any;
+            /** transform a path within a package */
+            pathFilter?: (pkg: any, path: string, relativePath: string) => string;
+            /** require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this) */
+            paths?: string | ReadonlyArray<string>;
+            /** directory (or directories) in which to recursively look for modules. (default to 'node_modules') */
+            moduleDirectory?: string | ReadonlyArray<string>;
+            /**
+             * if true, doesn't resolve `basedir` to real path before resolving.
+             * This is the way Node resolves dependencies when executed with the --preserve-symlinks flag.
+             *
+             * Note: this property is currently true by default but it will be changed to false in the next major version because Node's resolution
+             * algorithm does not preserve symlinks by default.
+             */
+            preserveSymlinks?: boolean;
+        }
+        /**
+         * Callback invoked when reading a file
+         *
+         * @param error
+         * @param isFile If the given file exists
+         */
+        export type ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index__readFileCallback = (err: Error | null, file?: Buffer) => void;
+        /**
+         * Callback invoked when checking if a file exists
+         *
+         * @param error
+         * @param isFile If the given file exists
+         */
+        export type ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index__isFileCallback = (err: Error | null, isFile?: boolean) => void;
+        export interface ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index_resolve__AsyncOpts extends ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index_resolve__Opts {
+            /** how to read files asynchronously (defaults to fs.readFile) */
+            readFile?: (file: string, cb: ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index__readFileCallback) => void;
+            /** function to asynchronously test whether a file exists */
+            isFile?: (file: string, cb: ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index__isFileCallback) => void;
+        }
+        export interface ___node_modules_rollup_plugin_node_resolve_types_index__Options {
+            /**
+             * If `true`, instructs the plugin to use the `"browser"` property in `package.json`
+             * files to specify alternative files to load for bundling. This is useful when
+             * bundling for a browser environment. Alternatively, a value of `'browser'` can be
+             * added to the `mainFields` option. If `false`, any `"browser"` properties in
+             * package files will be ignored. This option takes precedence over `mainFields`.
+             * @default false
+             */
+            browser?: boolean;
+            /**
+             * An `Object` that specifies additional options that should be passed through to `node-resolve`.
+             */
+            customResolveOptions?: ___node_modules_rollup_plugin_node_resolve_node_modules_types_resolve_index_resolve__AsyncOpts;
+            /**
+             * An `Array` of modules names, which instructs the plugin to force resolving for the
+             * specified modules to the root `node_modules`. Helps to prevent bundling the same
+             * package multiple times if package is imported from dependencies.
+             */
+            dedupe?: string[] | ((importee: string) => boolean);
+            /**
+             * Specifies the extensions of files that the plugin will operate on.
+             * @default [ '.mjs', '.js', '.json', '.node' ]
+             */
+            extensions?: readonly string[];
+            /**
+             * Locks the module search within specified path (e.g. chroot). Modules defined
+             * outside this path will be marked as external.
+             * @default '/'
+             */
+            jail?: string;
+            /**
+             * Specifies the properties to scan within a `package.json`, used to determine the
+             * bundle entry point.
+             * @default ['module', 'main']
+             */
+            mainFields?: readonly string[];
+            /**
+             * If `true`, inspect resolved files to assert that they are ES2015 modules.
+             * @default false
+             */
+            modulesOnly?: boolean;
+            /**
+             * @deprecated use "resolveOnly" instead
+             * @default null
+             */
+            only?: ReadonlyArray<string | RegExp> | null;
+            /**
+             * If `true`, the plugin will prefer built-in modules (e.g. `fs`, `path`). If `false`,
+             * the plugin will look for locally installed modules of the same name.
+             * @default true
+             */
+            preferBuiltins?: boolean;
+            /**
+             * An `Array` which instructs the plugin to limit module resolution to those whose
+             * names match patterns in the array.
+             * @default []
+             */
+            resolveOnly?: ReadonlyArray<string | RegExp> | null;
+            /**
+             * Specifies the root directory from which to resolve modules. Typically used when
+             * resolving entry-point imports, and when resolving deduplicated modules.
+             * @default process.cwd()
+             */
+            rootDir?: string;
+        }
+        /**
+         * A valid `minimatch` pattern, or array of patterns.
+         */
+        export type ___node_modules_rollup_plugin_commonjs_node_modules_rollup_pluginutils_types_index__FilterPattern = ReadonlyArray<string | RegExp> | string | RegExp | null;
+        export interface ___node_modules_rollup_plugin_commonjs_types_index__RollupCommonJSOptions {
+            /**
+             * non-CommonJS modules will be ignored, but you can also
+             * specifically include/exclude files
+             * @default undefined
+             */
+            include?: ___node_modules_rollup_plugin_commonjs_node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * non-CommonJS modules will be ignored, but you can also
+             * specifically include/exclude files
+             * @default undefined
+             */
+            exclude?: ___node_modules_rollup_plugin_commonjs_node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * search for files other than .js files (must already
+             * be transpiled by a previous plugin!)
+             * @default [ '.js' ]
+             */
+            extensions?: ReadonlyArray<string | RegExp>;
+            /**
+             * if true then uses of `global` won't be dealt with by this plugin
+             * @default false
+             */
+            ignoreGlobal?: boolean;
+            /**
+             * if false then skip sourceMap generation for CommonJS modules
+             * @default true
+             */
+            sourceMap?: boolean;
+            /**
+             * explicitly specify unresolvable named exports
+             * ([see below for more details](https://github.com/rollup/plugins/tree/master/packages/commonjs#named-exports))
+             * @default undefined
+             */
+            namedExports?: {
+                [package: string]: ReadonlyArray<string>;
+            };
+            /**
+             * sometimes you have to leave require statements
+             * unconverted. Pass an array containing the IDs
+             * or a `id => boolean` function. Only use this
+             * option if you know what you're doing!
+             */
+            ignore?: ReadonlyArray<string | ((id: string) => boolean)>;
+            /**
+             * Some modules contain dynamic `require` calls, or require modules that contain
+             *   circular dependencies, which are not handled well by static imports.
+             * Including those modules as `dynamicRequireTargets` will simulate a CommonJS (NodeJS-like)
+             *   environment for them with support for dynamic and circular dependencies.
+             *
+             * Note: In extreme cases, this feature may result in some paths being rendered as
+             *   absolute in the final bundle. The plugin tries to avoid exposing paths from
+             *   the local machine, but if you are `dynamicRequirePaths` with paths that are
+             *   far away from your project's folder, that may require replacing strings
+             *   like `"/Users/John/Desktop/foo-project/"` -> `"/"`.
+             */
+            dynamicRequireTargets?: string | ReadonlyArray<string>;
+        }
+        export interface ___node_modules_rollup_plugin_virtual_types_index__RollupVirtualOptions {
+            [id: string]: string;
+        }
+        export type ___node_modules_rollup_plugin_typescript_types_index__TransformerStage = keyof Transformer.typescript.core.CustomTransformers;
+        export type ___node_modules_rollup_plugin_typescript_types_index__ElementType<T extends Array<any> | undefined> = T extends (infer U)[] ? U : never;
+        export type ___node_modules_rollup_plugin_typescript_types_index__StagedTransformerFactory<T extends ___node_modules_rollup_plugin_typescript_types_index__TransformerStage> = ___node_modules_rollup_plugin_typescript_types_index__ElementType<Transformer.typescript.core.CustomTransformers[T]>;
+        export interface ___node_modules_rollup_plugin_typescript_types_index__ProgramTransformerFactory<T extends ___node_modules_rollup_plugin_typescript_types_index__TransformerStage> {
+            type: "program";
+            factory(program: Transformer.typescript.core.Program): ___node_modules_rollup_plugin_typescript_types_index__StagedTransformerFactory<T>;
+        }
+        export interface ___node_modules_rollup_plugin_typescript_types_index__TypeCheckerTransformerFactory<T extends ___node_modules_rollup_plugin_typescript_types_index__TransformerStage> {
+            type: "typeChecker";
+            factory(typeChecker: Transformer.typescript.core.TypeChecker): ___node_modules_rollup_plugin_typescript_types_index__StagedTransformerFactory<T>;
+        }
+        export type ___node_modules_rollup_plugin_typescript_types_index__TransformerFactory<T extends ___node_modules_rollup_plugin_typescript_types_index__TransformerStage> = ___node_modules_rollup_plugin_typescript_types_index__StagedTransformerFactory<T> | ___node_modules_rollup_plugin_typescript_types_index__ProgramTransformerFactory<T> | ___node_modules_rollup_plugin_typescript_types_index__TypeCheckerTransformerFactory<T>;
+        export type ___node_modules_rollup_plugin_typescript_types_index__CustomTransformerFactories = {
+            [stage in ___node_modules_rollup_plugin_typescript_types_index__TransformerStage]?: Array<___node_modules_rollup_plugin_typescript_types_index__TransformerFactory<stage>>;
+        };
+        export interface ___node_modules_rollup_plugin_typescript_types_index__FlexibleCompilerOptions extends Transformer.typescript.core.CompilerOptions {
+            [option: string]: Transformer.typescript.core.CompilerOptionsValue | Transformer.typescript.core.TsConfigSourceFile | undefined | any;
+        }
+        /** Properties of `CompilerOptions` that are normally enums */
+        export type ___node_modules_rollup_plugin_typescript_types_index__EnumCompilerOptions = "module" | "moduleResolution" | "newLine" | "jsx" | "target";
+        /** JSON representation of Typescript compiler options */
+        export type ___node_modules_rollup_plugin_typescript_types_index__JsonCompilerOptions = Omit<___node_modules_rollup_plugin_typescript_types_index__FlexibleCompilerOptions, ___node_modules_rollup_plugin_typescript_types_index__EnumCompilerOptions> & Record<___node_modules_rollup_plugin_typescript_types_index__EnumCompilerOptions, string>;
+        /** Compiler options set by the plugin user. */
+        export type ___node_modules_rollup_plugin_typescript_types_index__PartialCompilerOptions = Partial<___node_modules_rollup_plugin_typescript_types_index__FlexibleCompilerOptions> | Partial<___node_modules_rollup_plugin_typescript_types_index__JsonCompilerOptions>;
+        export interface ___node_modules_rollup_plugin_typescript_types_index__RollupTypescriptPluginOptions {
+            /**
+             * If using incremental this is the folder where the cached
+             * files will be created and kept for Typescript incremental
+             * compilation.
+             */
+            cacheDir?: string;
+            /**
+             * Determine which files are transpiled by Typescript (all `.ts` and
+             * `.tsx` files by default).
+             */
+            include?: ___node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * Determine which files are ignored by Typescript
+             */
+            exclude?: ___node_modules_rollup_pluginutils_types_index__FilterPattern;
+            /**
+             * Sets the `resolve` value for the underlying filter function.  If not set will use the `rootDir` property
+             * @see {@link https://github.com/rollup/plugins/tree/master/packages/pluginutils#createfilter} @rollup/pluginutils `createFilter`
+             */
+            filterRoot?: string | false;
+            /**
+             * When set to false, ignores any options specified in the config file.
+             * If set to a string that corresponds to a file path, the specified file
+             * will be used as config file.
+             */
+            tsconfig?: string | false;
+            /**
+             * Overrides TypeScript used for transpilation
+             */
+            typescript?: typeof Bundler.rollup.plugins.terser;
+            /**
+             * Overrides the injected TypeScript helpers with a custom version.
+             */
+            tslib?: Promise<string> | string;
+            /**
+             * TypeScript custom transformers
+             */
+            transformers?: ___node_modules_rollup_plugin_typescript_types_index__CustomTransformerFactories;
+            /**
+             * When set to false, force non-cached files to always be emitted in the output directory.output
+             * If not set, will default to true with a warning.
+             */
+            outputToFilesystem?: boolean;
+            /**
+             * Pass additional compiler options to the plugin.
+             */
+            compilerOptions?: ___node_modules_rollup_plugin_typescript_types_index__PartialCompilerOptions;
+            /**
+             * Override force setting of `noEmit` and `emitDeclarationOnly` and use what is defined in `tsconfig.json`
+             */
+            noForceEmit?: boolean;
+        }
+        export type ___node_modules_rollup_plugin_typescript_types_index__RollupTypescriptOptions = ___node_modules_rollup_plugin_typescript_types_index__RollupTypescriptPluginOptions & ___node_modules_rollup_plugin_typescript_types_index__PartialCompilerOptions;
+        /**
+         * Abstract platform export, like `web`, `native` and `minigame`.
+         * Usually this is used for PAL modules.
+         * The build tools resolve the relative platform as entry according to the build platform config.
+         * - The value can be a `string` or a `object` which requires a default item.
+         * eg. { "web": "/path/to/index.ts" } is equals to { "web": { default: "/path/to/index.ts" } }.
+         * - We can also specify the exact platform like
+         * { "web": {default: "/path/to/index.ts", "web-desktop": "/path/to/index.ts" } }.
+         */
+        export type ___modules_modularize_lib_module_config__AbstractPlatformExport<T> = ({
+            /**
+             * Default platform export for unspecified platforms.
+             */
+            default: string;
+        } & T) | string;
+        /**
+         * The export condition. `types` fields are required.
+         */
+        export type ___modules_modularize_lib_module_config__ExportCondition<T> = {
+            /**
+             * This is the main module export condition.
+             * - The dts bundle tools resolve this condition as entry.
+             * - The API doc tools resolve this condition as entry.
+             * - If no platform export is specified, the build tools resolve this condition as entry.
+             */
+            types: string;
+            /**
+             * The custom condition, for example:
+             * - For gfx module: {"webgl1": "/path/to/webgl1/index.ts", "webgl2": "/path/to/webgl2/index.ts"}
+             * - For physics module {"cannon": "/path/to/cannon/index.ts", "physX": "/path/to/physX/index.ts"}
+             */
+            [customCondition: string]: string;
+        } & T;
+        export interface ___modules_modularize_lib_module_config__ConditionalExports {
+            /**
+             * This is exported to the game runtime.
+             * Also we build the `cc.d.ts` with this export condition's `types` field.
+             * `node` field is required to resolve the path of package.json for build tools.
+             */
+            ".": ___modules_modularize_lib_module_config__ExportCondition<{
+                /**
+                 * `node` should be specified as './package.json' to resolve the path of package.json for build tools.
+                 */
+                node: "./package.json";
+                minigame?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.MinigamePlatformConfig>;
+                native?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.NativePlatformConfig>;
+                web?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.WebPlatformConfig>;
+            }>;
+            /**
+             * This is exported to the engine internal.
+             * It useful when we need to export some friend interfaces for internal engine modules.
+             */
+            "./internal"?: ___modules_modularize_lib_module_config__ExportCondition<{
+                minigame?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.MinigamePlatformConfig>;
+                native?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.NativePlatformConfig>;
+                web?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.WebPlatformConfig>;
+            }>;
+            /**
+             * This is exported to the editor, which is useful when we need to export some editor only interfaces.
+             * Also we build `cc.editor.d.ts` from this export condition's `types` field.
+             * If this is not specified, we use the '.' export condition by default for module editor export,
+             * otherwise, the build tools merges '.' and './editor' exports together for editor runtime environment.
+             * It is different with `web_editor` or `native_editor` platform export:
+             * - this condition exports some editor specific interfaces which is not cross-platform.
+             * - the `web_editor` or `native_editor` platform export is an editor version of implementation of interfaces defined in `types` field which should be cross-platform.
+             */
+            "./editor"?: ___modules_modularize_lib_module_config__ExportCondition<{}>;
+            /**
+             * This export provide a the path of javascript module which exports some method to query the info of module.
+             */
+            "./query"?: string;
+        }
+        export interface ___modules_modularize_lib_module_config__ModuleOverride {
+            /**
+             * The test string to evaluate.
+             */
+            test: string;
+            /**
+             * The override config, override mapping from key to value.
+             */
+            overrides: Record<string, string>;
         }
     }
     export {};
