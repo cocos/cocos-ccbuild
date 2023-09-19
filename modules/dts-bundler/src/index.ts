@@ -40,8 +40,11 @@ export async function build (options: Options): Promise<boolean> {
     const moduleQuery = new ModuleQuery({
         engine,
         platform: 'WEB_EDITOR',  // what ever platform is OK
+        customExportConditions: ['types'],
     });
-    const allModules = await moduleQuery.getAllModules();
+    const moduleExportMap = await moduleQuery.getExportMap();
+    // NOTE: to record the imported modules, we only bundle the imported modules, not all engine modules.
+    const importedModules: string[] = [];
 
     const tsConfigPath = statsQuery.tsConfigPath;
 
@@ -86,7 +89,29 @@ export async function build (options: Options): Promise<boolean> {
             fileNames = fileNames.concat(editorExportModules.map((e) => statsQuery.getEditorPublicModuleFile(e)));
         }
 
-        const program = ts.createProgram(fileNames, parsedCommandLine.options);
+        const host = ts.createCompilerHost(parsedCommandLine.options);
+        host.resolveModuleNames = (moduleNames, importer): (ts.ResolvedModule | undefined)[] => {
+            const resolvedModules: (ts.ResolvedModule | undefined)[] = [];
+            for (const moduleName of moduleNames) {
+                const exportPath = moduleExportMap[moduleName];
+                if (exportPath) {
+                    if (!importedModules.includes(moduleName)) {
+                        importedModules.push(moduleName);
+                    }
+                    resolvedModules.push({resolvedFileName: exportPath});
+                } else {
+                    const resolvedRes = ts.resolveModuleName(moduleName, importer, parsedCommandLine.options, host);
+                    if (resolvedRes.resolvedModule) {
+                        resolvedModules.push({resolvedFileName: resolvedRes.resolvedModule.resolvedFileName});
+                    } else {
+                        // Cannot resolve module, treat it as external.
+                        resolvedModules.push(undefined);
+                    }
+                }
+            }
+            return resolvedModules;
+        };
+        const program = ts.createProgram(fileNames, parsedCommandLine.options, host);
         const emitResult = program.emit(
             undefined, // targetSourceFile
             undefined, // writeFile
@@ -124,19 +149,6 @@ export async function build (options: Options): Promise<boolean> {
         }
     }
 
-    // HACK: fix comments generated on top level namespace
-    // // TODO:
-    // let code = fs.readFileSync(tscOutputDtsFile, 'utf8');
-    // const regExpRef = /(\/\/\/ <reference types.*)/g;
-    // const matches = code.match(regExpRef);
-    // code = code.replace(regExpRef, '');
-    // if (matches) {
-    //     let outputUnbundledCode = matches.join('\n');
-    //     outputUnbundledCode += '\ndeclare const __skip_reference__: never;\n';
-    //     outputUnbundledCode += code;
-    //     fs.outputFileSync(tscOutputDtsFile, outputUnbundledCode, 'utf8');
-    // }
-
     const patchSpineCoreDtsSource = ps.join(engine, 'cocos', 'spine', 'lib', 'spine-core.d.ts');
     const patchSpineCoreDtsTarget = ps.join(unbundledOutDirNormalized, 'cocos', 'spine', 'lib', 'spine-core.d.ts');
     if (!await fs.pathExists(patchSpineCoreDtsSource)) {
@@ -148,6 +160,15 @@ export async function build (options: Options): Promise<boolean> {
             patchSpineCoreDtsSource,
             patchSpineCoreDtsTarget,
         );
+    }
+
+    const rebasedModuleExportMap: Record<string, string> = {};
+    for (const [moduleName, modulePath] of Object.entries(moduleExportMap)) {
+        let rebasedPath = ps.rebasePath(modulePath, engine, unbundledOutDirNormalized);
+        if (!rebasedPath.endsWith('.d.ts')) {
+            rebasedPath = ps.replaceExtname(rebasedPath, '.ts', '.d.ts');
+        }
+        rebasedModuleExportMap[moduleName] = rebasedPath;
     }
 
     const giftInputs: string[] = [];
@@ -182,19 +203,9 @@ export async function build (options: Options): Promise<boolean> {
     await listGiftInputs(unbundledOutDirNormalized);
 
     const giftEntries: Record<string, string> = { };
-    for (const moduleName of allModules) {
-        const moduleEntry = await moduleQuery.resolveExport(moduleName);
-        if (moduleEntry) {
-            // update inputs
-            giftInputs.push(moduleEntry);
-        }
-        if (await moduleQuery.hasEditorSpecificExport(moduleName)) {
-            const editorExport = moduleName + '/editor';
-            const editorEntry = await moduleQuery.resolveExport(editorExport);
-            if (editorEntry) {
-                // update inputs
-                giftInputs.push(editorEntry);
-            }
+    for (const [moduleName, modulePath] of Object.entries(rebasedModuleExportMap)) {
+        if (importedModules.includes(moduleName)) {
+            giftInputs.push(modulePath);
         }
     }
 
@@ -218,14 +229,10 @@ export async function build (options: Options): Promise<boolean> {
                 statsQuery.getEditorPublicModuleFile(editorExportModule),
             );
         }
-        for (const moduleName of allModules) {
-            if (await moduleQuery.hasEditorSpecificExport(moduleName)) {
-                const editorExport = moduleName + '/editor';
-                const editorEntry = await moduleQuery.resolveExport(editorExport);
+        for (const [moduleName, modulePath] of Object.entries(rebasedModuleExportMap)) {
+            if (moduleName.endsWith('/editor') && importedModules.includes(moduleName)) {
                 const editorModuleName = transformToEditorModuleName(moduleName);
-                if (editorEntry) {
-                    giftEntries[editorModuleName] = editorEntry;
-                }
+                giftEntries[editorModuleName] = modulePath;
             }
         }
     }
@@ -267,6 +274,7 @@ export async function build (options: Options): Promise<boolean> {
                 sourceModule: /.*/, // Put everything non-exported that 'cc' encountered into 'cc'
                 targetModule: 'cc',
             }],
+            moduleMap: rebasedModuleExportMap,
         });
 
         await Promise.all(giftResult.groups.map(async (group) => {

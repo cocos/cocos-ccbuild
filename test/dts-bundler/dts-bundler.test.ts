@@ -12,6 +12,7 @@ test('bundle dts', async () => {
     });
 
     expect(await getOutputDirStructure(out)).toMatchSnapshot('director structure');
+    expect(await getOutputContent(ps.join(out, 'cc.d.ts'))).toMatchSnapshot('cc.d.ts content');
     expect(await getOutputContent(ps.join(out, 'cc.editor.d.ts'))).toMatchSnapshot('cc.editor.d.ts content');
 
     await del(out, { force: true });

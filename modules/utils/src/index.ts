@@ -6,7 +6,6 @@ export { ps };
 export {
     formatPath,
     absolutePathFuncFactory,
-    replaceExtname,
     rebasePath,
     filePathToModuleRequest,
     toExtensionLess,
