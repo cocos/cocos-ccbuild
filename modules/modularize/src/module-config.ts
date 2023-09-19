@@ -133,7 +133,7 @@ export interface ModuleConfig {
     /**
      * The config for conditional exports.
      */
-    exports: ConditionalExports;
+    exports?: ConditionalExports;
     /**
      * Specify the module dependencies is required if this module import another one.
      * We need this field to generate the module dependency graph.
