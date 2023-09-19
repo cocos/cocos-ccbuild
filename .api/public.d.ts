@@ -14880,7 +14880,7 @@ declare module "@cocos/ccbuild" {
             /**
              * The config for conditional exports.
              */
-            exports: __private.___modules_modularize_lib_module_config__ConditionalExports;
+            exports?: __private.___modules_modularize_lib_module_config__ConditionalExports;
             /**
              * Specify the module dependencies is required if this module import another one.
              * We need this field to generate the module dependency graph.
@@ -15567,10 +15567,6 @@ declare module "@cocos/ccbuild" {
              * `node` field is required to resolve the path of package.json for build tools.
              */
             ".": ___modules_modularize_lib_module_config__ExportCondition<{
-                /**
-                 * `node` should be specified as './package.json' to resolve the path of package.json for build tools.
-                 */
-                node: "./package.json";
                 minigame?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.MinigamePlatformConfig>;
                 native?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.NativePlatformConfig>;
                 web?: ___modules_modularize_lib_module_config__AbstractPlatformExport<Modularize.WebPlatformConfig>;

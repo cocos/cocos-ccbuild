@@ -56,19 +56,22 @@ export class ModuleQuery {
      */
     public async getExports (moduleName: string): Promise<string[]> {
         const config = await this.getConfig(moduleName);
-        const allExports: string[] = [];
+        const moduleExports: string[] = [];
+        if (!config.exports) {
+            return moduleExports;
+        }
         for (let exportPort in config.exports) {
             if (exportPort === '.' || exportPort === './') {
-                allExports.push(moduleName);
+                moduleExports.push(moduleName);
             } else {
                 exportPort = ps.join(moduleName, exportPort);
                 if (exportPort.endsWith('/')) {
                     exportPort = exportPort.slice(0, -1);
                 }
-                allExports.push(exportPort);
+                moduleExports.push(exportPort);
             }
         }
-        return allExports;
+        return moduleExports;
     }
 
     /**
@@ -148,7 +151,7 @@ export class ModuleQuery {
         const moduleRootDir = ps.dirname(await this.resolvePackageJson(moduleName));
         const config = await this.getConfig(moduleName);
         // NOTE: '.' export port can cover all export ports.
-        const rootExport = config.exports[exportPort as '.'];
+        const rootExport = config.exports?.[exportPort as '.'];
         if (!rootExport) {
             return;
         }

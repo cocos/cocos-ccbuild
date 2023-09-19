@@ -1,5 +1,12 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.17
+
+### Patch Changes
+
+- 22c6781: fix: undefined module exports
+- 38008ad: optimize: remove node export condition
+
 ## 2.0.3-alpha.16
 
 ### Patch Changes
