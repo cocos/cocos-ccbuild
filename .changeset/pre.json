@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.16"
+    "@cocos/ccbuild": "2.0.3-alpha.15"
   },
   "changesets": [
     "angry-jobs-move",
@@ -14,7 +14,6 @@
     "dirty-plums-design",
     "eleven-otters-judge",
     "fifty-mails-draw",
-    "four-panthers-serve",
     "funny-singers-unite",
     "giant-cows-do",
     "good-llamas-joke",
