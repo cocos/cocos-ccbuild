@@ -2,7 +2,7 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.15"
+    "@cocos/ccbuild": "2.0.3-alpha.16"
   },
   "changesets": [
     "angry-jobs-move",
@@ -14,6 +14,7 @@
     "dirty-plums-design",
     "eleven-otters-judge",
     "fifty-mails-draw",
+    "four-panthers-serve",
     "funny-singers-unite",
     "giant-cows-do",
     "good-llamas-joke",
@@ -29,6 +30,7 @@
     "spicy-clocks-join",
     "strange-colts-grow",
     "strong-geckos-look",
+    "two-beds-grab",
     "two-emus-heal",
     "unlucky-bags-greet",
     "wet-crabs-beam",
