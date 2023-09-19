@@ -1,5 +1,12 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.16
+
+### Patch Changes
+
+- e4120d7: fix: node module resolve support on dts-bundler
+- 918035b: feat: support moduleQuery getAllExports
+
 ## 2.0.3-alpha.15
 
 ### Patch Changes

@@ -52,6 +52,53 @@ export class ModuleQuery {
     }
 
     /**
+     * Get modules' all exports by module name.
+     */
+    public async getExports (moduleName: string): Promise<string[]> {
+        const config = await this.getConfig(moduleName);
+        const allExports: string[] = [];
+        for (let exportPort in config.exports) {
+            if (exportPort === '.' || exportPort === './') {
+                allExports.push(moduleName);
+            } else {
+                exportPort = ps.join(moduleName, exportPort);
+                if (exportPort.endsWith('/')) {
+                    exportPort = exportPort.slice(0, -1);
+                }
+                allExports.push(exportPort);
+            }
+        }
+        return allExports;
+    }
+
+    /**
+     * Get all the modules' exports.
+     */
+    public async getAllExports (): Promise<string[]> {
+        const allModules = await this.getAllModules();
+        const allExports: string[] = [];
+        for (const moduleName of allModules) {
+            allExports.push(...await this.getExports(moduleName));
+        }
+        return allExports;
+    }
+
+    /**
+     * Get the map from module name to module path.
+     */
+    public async getExportMap (): Promise<Record<string, string>> {
+        const allExports = await this.getAllExports();
+        const map: Record<string, string> = {};
+        for (const exportPort of allExports) {
+            const resolved = await this.resolveExport(exportPort);
+            if (resolved) {
+                map[exportPort] = resolved;
+            }
+        }
+        return map;
+    }
+
+    /**
      * Resolve module package.json path by module name.
      */
     public async resolvePackageJson (moduleName: string): Promise<string> {

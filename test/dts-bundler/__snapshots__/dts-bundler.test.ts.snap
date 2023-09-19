@@ -1,5 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`bundle dts: cc.d.ts content 1`] = `
+"declare module "cc" {
+    export class Animation {
+        play(): void;
+    }
+    export class Player {
+        play(): Promise<void>;
+    }
+    export const player: Player;
+    export const testConsoleLog: {
+        test: () => void;
+        test2: () => void;
+        test3: () => number;
+    };
+    export function testEditorExport(): string;
+    export class Rect {
+        static from(x: number, y: number, width: number, height: number): Rect;
+    }
+    export class Path {
+    }
+    export const A = "A";
+    export namespace testAsm {
+        function decodeVertexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, filter?: string): void;
+        function decodeIndexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array): void;
+        function decodeIndexSequence(target: Uint8Array, count: number, size: number, source: Uint8Array): void;
+        function decodeGltfBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, mode: string, filter?: string): void;
+        function useWorkers(count: number): void;
+        function decodeGltfBufferAsync(count: number, size: number, source: Uint8Array, mode: string, filter?: string): Promise<Uint8Array>;
+        export const supported: boolean;
+        export const ready: Promise<void>;
+    }
+    export namespace testWasm {
+        function decodeVertexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, filter?: string): void;
+        function decodeIndexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array): void;
+        function decodeIndexSequence(target: Uint8Array, count: number, size: number, source: Uint8Array): void;
+        function decodeGltfBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, mode: string, filter?: string): void;
+        function useWorkers(count: number): void;
+        function decodeGltfBufferAsync(count: number, size: number, source: Uint8Array, mode: string, filter?: string): Promise<Uint8Array>;
+        export const supported: boolean;
+        export const ready: (instantiateWasm: any) => Promise<void>;
+    }
+    export const wasmUrl: string;
+    export const promise: Promise<{
+        default: typeof __private._packages_module_query_env_src_index;
+        testEnv(): string;
+    }>;
+    export type TsImportTypes = typeof __private._packages_module_query_env_src_index;
+    export const str = "intrinsic flag is false";
+    export function testEnv(): string;
+    export function testInternalExport(): string;
+    export namespace __private {
+        namespace _packages_module_query_env_src_index {
+            export function testEnv(): string;
+        }
+    }
+    export { db as c } from "cc";
+    export {};
+}
+"
+`;
+
 exports[`bundle dts: cc.editor.d.ts content 1`] = `
 "declare module "cc/editor/animation" {
     export class EditorAnimation {
@@ -16,7 +77,7 @@ declare module "cc/editor/audio" {
     export {};
 }
 declare module "cc/editor/env" {
-    export function testEditorExport(): string;
+    export { testEditorExport } from "cc";
     export {};
 }
 "

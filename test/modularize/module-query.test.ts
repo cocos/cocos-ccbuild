@@ -7,13 +7,20 @@ function relativeToRoot (path: string): string {
     return ps.relative(engineRoot, path);
 }
 
-test('get all modules and config', async () => {
+test('query test', async () => {
     const mq = new ModuleQuery({
         engine: engineRoot,
         platform: 'HTML5',
     });
-    expect(await mq.getAllModules()).toMatchSnapshot();
-    expect(await mq.getConfig('@module-query/utils')).toMatchSnapshot();
+    expect(await mq.getAllModules()).toMatchSnapshot('get all modules');
+    expect(await mq.getExports('@module-query/env')).toMatchSnapshot('get @module-query/env exports');
+    expect(await mq.getAllExports()).toMatchSnapshot('get all modules exports');
+    expect(await mq.getConfig('@module-query/utils')).toMatchSnapshot('get config');
+    const exportMap = await mq.getExportMap();
+    for (const [k, v] of Object.entries(exportMap)) {
+        exportMap[k] = ps.relative(engineRoot, v);
+    }
+    expect(exportMap).toMatchSnapshot('get export map');
 });
 
 test('resolve package json', async () => {

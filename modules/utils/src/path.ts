@@ -29,8 +29,8 @@ export function absolutePathFuncFactory (dirname: string): (relativePath: string
     };
 }
 
-export function replaceExtname (path: string, extname: string): string {
-    return path.slice(0, -ps.extname(path).length) + extname;
+export function replaceExtname (path: string, originalExtname: string, newExtName: string): string {
+    return path.slice(0, -originalExtname.length) + newExtName;
 }
 
 export function rebasePath (path: string, originDir: string, rebaseDir: string): string {
