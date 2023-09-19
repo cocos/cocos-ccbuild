@@ -57,10 +57,6 @@ interface ConditionalExports {
      * `node` field is required to resolve the path of package.json for build tools.
      */
     '.': ExportCondition<{
-        /**
-         * `node` should be specified as './package.json' to resolve the path of package.json for build tools.
-         */
-        node: './package.json';
         minigame?: AbstractPlatformExport<MinigamePlatformConfig>;
         native?: AbstractPlatformExport<NativePlatformConfig>;
         web?: AbstractPlatformExport<WebPlatformConfig>;
