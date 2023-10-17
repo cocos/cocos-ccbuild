@@ -13,4 +13,4 @@ The next generation of build tool for Cocos engine.
 - To support build modular engine
 - More human-friendly log info
 
-> [I am a maintainer of this repo](./README_MAINTAIN.md)
+> [I am a maintainer of this repo](https://github.com/cocos/cocos-ccbuild/blob/master/README_MAINTAIN.md)
