@@ -7,7 +7,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 1`] = `
   "assets/wasm_c.wasm.fallback-26103d05.bin",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
-  "wasm_c.wasm-303ccdd0.js",
+  "wasm_c.wasm-a82df3d4.js",
   "wasm_c.wasm.fallback-721977f8.js",
 ]
 `;
@@ -49,7 +49,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
             tryDefineGlobal('CC_SUPPORT_JIT', true);
             tryDefineGlobal('CC_JSB', false);
 
-            var wasmUrl = 'assets/wasm_rust-404aff2f.wasm';
+            var wasmUrl = 'assets/wasm_rust-404aff2f.wasm'; /* asset-hash:829fe457 */
 
             function _regeneratorRuntime() {
               _regeneratorRuntime = function () {
@@ -560,12 +560,12 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
             );
             })();
 
-            var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin';
+            var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin'; /* asset-hash:2cbb215d */
 
             function initializeWasm() {
               return new Promise(function (resolve, reject) {
                 {
-                  Promise.all([module.import('./wasm_c.wasm-303ccdd0.js'), module.import('./wasm_c.wasm.fallback-721977f8.js')]).then(function (_ref) {
+                  Promise.all([module.import('./wasm_c.wasm-a82df3d4.js'), module.import('./wasm_c.wasm.fallback-721977f8.js')]).then(function (_ref) {
                     var wasmFallbackUrl = _ref[0]["default"],
                       wasmFallbackFactory = _ref[1]["default"];
                     return wasmFallbackFactory({
@@ -616,7 +616,7 @@ exports[`engine-js build WASM module on platform maybe supporting WASM: cull asm
   "assets/wasm_c.wasm.fallback-26103d05.bin",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
-  "wasm_c.wasm-303ccdd0.js",
+  "wasm_c.wasm-a82df3d4.js",
   "wasm_c.wasm.fallback-721977f8.js",
 ]
 `;
@@ -711,7 +711,7 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
             );
             })();
 
-            var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin';
+            var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin'; /* asset-hash:2cbb215d */
 
             function initializeAsm() {
               return new Promise(function (resolve, reject) {
@@ -814,7 +814,7 @@ exports[`engine-js build WASM module on platform supporting WASM 2`] = `
             tryDefineGlobal('CC_SUPPORT_JIT', false);
             tryDefineGlobal('CC_JSB', false);
 
-            var wasmUrl$1 = 'assets/wasm_rust-404aff2f.wasm';
+            var wasmUrl$1 = 'assets/wasm_rust-404aff2f.wasm'; /* asset-hash:829fe457 */
 
             function _regeneratorRuntime() {
               _regeneratorRuntime = function () {
@@ -1297,7 +1297,7 @@ exports[`engine-js build WASM module on platform supporting WASM 2`] = `
               });
             }
 
-            var wasmUrl = 'assets/wasm_c-8515ca89.wasm';
+            var wasmUrl = 'assets/wasm_c-8515ca89.wasm'; /* asset-hash:5994068c */
 
             var Module = function () {
               var _scriptDir = module.meta.url;
