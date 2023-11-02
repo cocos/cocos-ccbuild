@@ -9,6 +9,7 @@ import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSyste
 
 import rollup = Bundler.core;
 import rpCjs = Bundler.plugins.commonjs;
+import { createHash } from 'crypto';
 
 const externalOrigin = 'external:';
 function normalizePath (path: string): string {
@@ -36,14 +37,15 @@ async function emitAsset (context: rollup.PluginContext, filePath: string): Prom
             basename = basename.slice(0, -suffixToReplace.length) + replacement;
         }
     }
+
+    const source = await fs.readFile(filePath);
     const referenceId = context.emitFile({
         type: 'asset',
         name: basename,
-        // fileName: path,
-        source: await fs.readFile(filePath),
+        source,
     });
-
-    return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
+    const hash = createHash('sha256').update(source).digest('hex').slice(0, 8);
+    return `export default import.meta.ROLLUP_FILE_URL_${referenceId}; /* asset-hash:${hash} */`;
 }
 
 interface ILoadConfig {
