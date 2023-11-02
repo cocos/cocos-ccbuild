@@ -1,0 +1,27 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: "Publish to npm registry"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+
+      - run: npm ci
+
+      - run: npm test
+
+      - run: npm run deploy
+
+      - uses: JS-DevTools/npm-publish@v3
+        if: github.event_name == 'release'
+        with:
+          token: ${{ secrets.NPM_PUBLISH }}
+          package: deploy
