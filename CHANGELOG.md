@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.18
+
+### Patch Changes
+
+- Fix rollup hash issue
+
 ## 2.0.3-alpha.17
 
 ### Patch Changes

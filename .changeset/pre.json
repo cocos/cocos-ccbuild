@@ -2,13 +2,14 @@
   "mode": "exit",
   "tag": "alpha",
   "initialVersions": {
-    "@cocos/ccbuild": "2.0.3-alpha.16"
+    "@cocos/ccbuild": "2.0.3-alpha.17"
   },
   "changesets": [
     "angry-jobs-move",
     "brown-ties-pay",
     "calm-tools-eat",
     "cold-peas-fold",
+    "curly-parents-attack",
     "dirty-countries-bathe",
     "dirty-islands-promise",
     "dirty-plums-design",
