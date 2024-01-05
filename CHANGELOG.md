@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3-alpha.19
+
+### Patch Changes
+
+- Fix target with empty string
+
 ## 2.0.3-alpha.18
 
 ### Patch Changes
