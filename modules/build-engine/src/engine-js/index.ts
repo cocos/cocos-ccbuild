@@ -167,12 +167,12 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         // Ignore it to avoid the engine's parent dirs contain unexpected config.
         ignoreBrowserslistConfig: true,
     };
-    if (options.targets !== undefined) {
+    if (options.targets) {
         presetEnvOptions.targets = options.targets;
     }
 
     const babelPlugins: any[] = [];
-    if (options.targets === undefined) {
+    if (!options.targets) {
         babelPlugins.push([babelPluginTransformForOf, {
             loose: true,
         }]);
