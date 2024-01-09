@@ -207,9 +207,7 @@ describe('engine-js', () => {
             features: ['wasm-test'],
             nativeCodeBundleMode: 'wasm', 
             flags: {
-                // force flag value to test inline dynamic import
-                WASM_SUPPORT_MODE: 1,
-                WASM_FALLBACK: true,
+                WASM_SUPPORT_MODE: 1, // force flag value to test inline dynamic import
             },
             moduleFormat: 'esm',
         });

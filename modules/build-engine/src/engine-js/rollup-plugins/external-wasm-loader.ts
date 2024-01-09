@@ -22,7 +22,6 @@ interface ISuffixReplaceConfig {
 
 const suffixReplaceConfig: ISuffixReplaceConfig = {
     '.mem': '.mem.bin',
-    '.wasm.fallback': '.wasm.fallback.bin',
 };
 
 /**
@@ -103,24 +102,6 @@ const loadConfig: ILoadConfig = {
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
             return options.nativeCodeBundleMode === 'wasm' || shouldCullMeshoptModule(options, id);
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return false;
-        },
-        cullingContent: `export default function () {}`,
-    },
-    '.wasm.fallback': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm'].shouldCullModule(options, id) || !options.wasmFallback;
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return !this.shouldCullModule(options, id);
-        },
-        cullingContent: `export default '';`,
-    },
-    '.wasm.fallback.js': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm.js'].shouldCullModule(options, id) || !options.wasmFallback;
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -324,11 +305,6 @@ export declare namespace externalWasmLoader {
          */
         externalRoot: string,
 
-        /**
-         * Whether need a fallback of wasm.
-         * If true, we need to build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-         */
-        wasmFallback: boolean;
         /**
          * The bundle mode of native code while building scripts.
          */
