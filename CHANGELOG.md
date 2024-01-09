@@ -1,5 +1,41 @@
 # Change Log - @cocos/ccbuild
 
+## 2.0.3
+
+### Patch Changes
+
+- 10582c8: remove dep of Modularize on StatsQuery
+- 0beceb0: feat: build-engine don't rely on symlink
+- a26b8c6: fix: node module resolve support on dts-bundler
+- 2c600f4: add peerDependencies for module config
+- 4fdf4b4: Fix rollup hash issue
+- a26b8c6: feat: support moduleQuery getAllExports
+- 08afa0f: feat: support buildDTS
+- 7daa6f5: optimize: remove eslint deps on ts engine builder
+- cfb2aec: fix: circular reference && type merge && handle cache
+- be67053: remove api-extractor and use tfig as api report tool
+- 436fc37: fix: undefined module exports
+- 7e2ae38: fix: if there is no decorator left after culling editor only decorators
+- cfb2aec: fix: dts files copy in naitve/external
+- 10582c8: feat: support enumerateDependentAssets and remove deprecation of enumerateDependentChunks
+- 5cf707e: feat: support editor internal export
+- 17fecf1: workflow: support gen module graph
+- 217b4c2: fix: type error in CCBuildTsFieldDecoratorHelper
+- cfb2aec: fix: use posix path to resolve id
+- 49258e2: optimize: get all modules with node exporting package.json
+- cf7762d: fix: build ts engine with asm.js in CJS
+- be67053: designed module config schema
+- f8469ff: feat: support cc.editor.d.ts build
+- f4d039f: feat: support CULL_MESHOPT build flag
+- be67053: fix: add babel types
+- e64950d: fix: build ts engine with dynamic import
+- be67053: support typescript in Transformer module
+- 436fc37: optimize: remove node export condition
+- be67053: add Modularize module to support engine modularization
+- 6bcd452: optimize: integrate '@types/cc-ambient-types/query' to build dts files
+- cfb2aec: fix: circular reference while building ts engine
+- 49258e2: fix: getAllModules in ModuleQuery
+
 ## 2.0.3-alpha.19
 
 ### Patch Changes
