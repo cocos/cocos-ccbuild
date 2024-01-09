@@ -293,28 +293,13 @@ export namespace StatsQuery {
             NOT_PACK_PHYSX_LIBS: boolean; 
             WEBGPU: boolean;
             WASM_SUPPORT_MODE: number;
-            FORCE_BANNING_BULLET_WASM: boolean;
-            /**
-             * Whether cull the asm.js module.
-             * If this is true, the external modules ending with '.asm.js' or 'js.mem' will be culled.
-             * 
-             * @default false
-             */
-            CULL_ASM_JS_MODULE: boolean;
+
             /**
              * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
              * 
              * @default false
              */
             CULL_MESHOPT: boolean;
-            /**
-             * An internal constant to indicate whether need a fallback of wasm.
-             * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-             * This is useful when we use wasm on different version of Safari browsers.
-             * 
-             * @default false
-             */
-            WASM_FALLBACK: boolean;
             /**
              * An internal constant to indicate whether we use wasm assets as minigame subpackage.
              * This is useful when we need to reduce code size.
@@ -373,10 +358,10 @@ export namespace StatsQuery {
             // init helper
             let result = '';
             if (this._hasCCGlobal(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
             if (this._hasDynamic(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
             
             // update value
@@ -463,7 +448,7 @@ export namespace StatsQuery {
             // init helper
             let result = '';
             if (this._hasCCGlobal(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
 
             // update value

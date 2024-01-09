@@ -87,11 +87,16 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     }
 
 
-    let { ammoJsWasm } = options;
-    ammoJsWasm ??= true;  // default is true
-    const forceBanningBulletWasm = !ammoJsWasm;
+    let { nativeCodeBundleMode } = options;
+    nativeCodeBundleMode ??= 'both';  // default is true
+
     const flags = options.flags ?? {};
-    flags.FORCE_BANNING_BULLET_WASM = forceBanningBulletWasm;
+
+    // meshopt is only used in 3d module, so cull it if 3d module is disabled.
+    if (flags.CULL_MESHOPT === undefined) {
+        flags.CULL_MESHOPT = !features.includes('3d');
+    }
+
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,
@@ -241,12 +246,9 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     rollupPlugins.push(
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
-            wasmSupportMode: buildTimeConstants.WASM_SUPPORT_MODE,
-            forceBanningBulletWasm,
-            cullAsmJsModule: buildTimeConstants.CULL_ASM_JS_MODULE,
+            nativeCodeBundleMode,
             cullMeshopt: buildTimeConstants.CULL_MESHOPT,
             format: 'relative-from-chunk',
-            wasmFallback: buildTimeConstants.WASM_FALLBACK,
             wasmSubpackage: buildTimeConstants.WASM_SUBPACKAGE,
         }),
 
@@ -301,6 +303,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             skipPreflightCheck: true,
             ...babelOptions,
         }),
+
     );
 
     // if (options.progress) {
@@ -457,6 +460,5 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     }
 
     result.hasCriticalWarns = hasCriticalWarns;
-
     return result;
 }

@@ -1,35 +1,28 @@
-import { WASM_FALLBACK, WASM_SUPPORT_MODE } from 'internal:constants';
+import { WASM_SUPPORT_MODE } from 'internal:constants';
 import { isSupportWASM } from './is-support-wasm';
-import wasmUrl from 'external:wasm/emscripten/wasm_c.wasm';
-import wasmFactory from 'external:wasm/emscripten/wasm_c.wasm.js';
+
 import asmFactory from 'external:wasm/emscripten/wasm_c.asm.js';
 import asmJsMemUrl from 'external:wasm/emscripten/wasm_c.js.mem';
 
 
 function initializeWasm (): Promise<any> {
-    return new Promise((resolve, reject) => {
-        if (WASM_FALLBACK) {
-            Promise.all([import('external:wasm/emscripten/wasm_c.wasm.fallback'), import('external:wasm/emscripten/wasm_c.wasm.fallback.js')]).then(([
-                { default: wasmFallbackUrl },
-                { default: wasmFallbackFactory },
-            ]) => {
-                return wasmFallbackFactory({
-                    locateFile(_) {
-                        return wasmFallbackUrl;
-                    }
-                }).then(inst => {
-                    resolve(inst);
-                }).catch(reject);
-            });
-            return;
-        }
-        wasmFactory({
-            locateFile(_) {
-                return wasmUrl;
-            }
-        }).then(inst => {
-            resolve(inst);
-        }).catch(reject);
+    return Promise.all([ 
+        import('external:wasm/emscripten/wasm_c.wasm'),
+        import('external:wasm/emscripten/wasm_c.wasm.js'),
+    ]).then(([
+        { default: wasmUrl },
+        { default: wasmFactory },
+    ]) => {
+        return new Promise((resolve, reject) => {
+            wasmFactory({
+                locateFile(_) {
+                    return wasmUrl;
+                }
+            }).then(inst => {
+                resolve(inst);
+            }).catch(reject);
+        });
+
     });
 }
 

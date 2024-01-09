@@ -1,3 +1,3 @@
-import { FORCE_BANNING_BULLET_WASM } from "internal:constants";
+import { WASM_SUPPORT_MODE } from 'internal:constants';
 
-console.log(FORCE_BANNING_BULLET_WASM);
+console.log(WASM_SUPPORT_MODE);

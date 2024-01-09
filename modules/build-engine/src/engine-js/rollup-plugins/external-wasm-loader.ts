@@ -22,7 +22,6 @@ interface ISuffixReplaceConfig {
 
 const suffixReplaceConfig: ISuffixReplaceConfig = {
     '.mem': '.mem.bin',
-    '.wasm.fallback': '.wasm.fallback.bin',
 };
 
 /**
@@ -68,14 +67,6 @@ interface ILoadConfig {
     }
 }
 
-function shouldCullBulletWasmModule (options: externalWasmLoader.Options, id: string): boolean {
-    return options.forceBanningBulletWasm && id.includes('bullet');
-}
-
-function shouldCullAsmJsModule (options: externalWasmLoader.Options, id: string): boolean {
-    return options.wasmSupportMode !== 0 && options.cullAsmJsModule;
-}
-
 function shouldCullMeshoptModule (options: externalWasmLoader.Options, id: string): boolean {
     return options.cullMeshopt && id.includes('meshopt');
 }
@@ -83,7 +74,7 @@ function shouldCullMeshoptModule (options: externalWasmLoader.Options, id: strin
 const loadConfig: ILoadConfig = {
     '.wasm': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id) || shouldCullMeshoptModule(options, id);
+            return options.nativeCodeBundleMode === 'asmjs' || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -92,7 +83,7 @@ const loadConfig: ILoadConfig = {
     },
     '.js.mem': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id) || shouldCullMeshoptModule(options, id);
+            return options.nativeCodeBundleMode === 'wasm' || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return !this.shouldCullModule(options, id);
@@ -101,7 +92,7 @@ const loadConfig: ILoadConfig = {
     },
     '.wasm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return options.wasmSupportMode === 0 || shouldCullBulletWasmModule(options, id) || shouldCullMeshoptModule(options, id);
+            return options.nativeCodeBundleMode === 'asmjs' || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -110,25 +101,7 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id) || shouldCullMeshoptModule(options, id);
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return false;
-        },
-        cullingContent: `export default function () {}`,
-    },
-    '.wasm.fallback': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm'].shouldCullModule(options, id) || !options.wasmFallback;
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return !this.shouldCullModule(options, id);
-        },
-        cullingContent: `export default '';`,
-    },
-    '.wasm.fallback.js': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm.js'].shouldCullModule(options, id) || !options.wasmFallback;
+            return options.nativeCodeBundleMode === 'wasm' || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -282,12 +255,12 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
                         } else if (config.shouldEmitAsset(options, id)) {
                             return emitAsset(this, filePath);
                         } else {
-                            return await fs.readFile(filePath, 'utf8');
+                            return (await fs.readFile(filePath, 'utf8')).replace(/\r\n/g, '\n');
                         }
                     }
                 }
                 // some external module that doesn't obey the suffix specification, we return its content by default.
-                return await fs.readFile(filePath, 'utf8');
+                return (await fs.readFile(filePath, 'utf8')).replace(/\r\n/g, '\n');
             }
             return null;
         },
@@ -331,26 +304,11 @@ export declare namespace externalWasmLoader {
          * The root path of external repository
          */
         externalRoot: string,
+
         /**
-         * The wasm support mode:
-         * 0. not support
-         * 1. support
-         * 2. maybe support
+         * The bundle mode of native code while building scripts.
          */
-        wasmSupportMode: number;
-        /**
-         * Whether need a fallback of wasm.
-         * If true, we need to build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-         */
-        wasmFallback: boolean;
-        /**
-         * Whether force banning to emit bullet wasm.
-         */
-        forceBanningBulletWasm: boolean;
-        /**
-         * Whether cull asm js module.
-         */
-        cullAsmJsModule: boolean;
+        nativeCodeBundleMode: 'wasm' | 'asmjs' | 'both';
         /**
          * Whether cull meshopt module, including wasm and asm.js.
          */

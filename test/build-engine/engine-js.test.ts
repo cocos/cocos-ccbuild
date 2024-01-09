@@ -14,12 +14,13 @@ describe('engine-js', () => {
             platform: 'WECHAT',
             features: ['wasm-test'],
             moduleFormat: 'system',
+            nativeCodeBundleMode: 'wasm',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
 
-        // cull asm.js module
+        // build wasm module only
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
@@ -27,9 +28,8 @@ describe('engine-js', () => {
             platform: 'WECHAT',
             features: ['wasm-test'],
             moduleFormat: 'system',
-            flags: {
-                CULL_ASM_JS_MODULE: true,
-            }
+            nativeCodeBundleMode: 'wasm',
+            flags: {},
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
         // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
@@ -43,6 +43,7 @@ describe('engine-js', () => {
             platform: 'WECHAT',
             features: ['wasm-test'],
             moduleFormat: 'system',
+            nativeCodeBundleMode: 'wasm',
             flags: {
                 WASM_SUBPACKAGE: true,
             }
@@ -66,7 +67,7 @@ describe('engine-js', () => {
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
         
-        // cull asm.js module
+        // build wasm module only
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
@@ -74,9 +75,8 @@ describe('engine-js', () => {
             platform: 'HTML5',
             features: ['wasm-test'],
             moduleFormat: 'system',
-            flags: {
-                CULL_ASM_JS_MODULE: true,
-            }
+            nativeCodeBundleMode: 'wasm',
+            flags: {},
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
         // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
@@ -92,12 +92,14 @@ describe('engine-js', () => {
             platform: 'XIAOMI',
             features: ['wasm-test'],
             moduleFormat: 'system',
+            nativeCodeBundleMode: 'asmjs',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
 
-        // cull asm.js module
+
+        // build asmjs only
         const buildResult = await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
@@ -105,16 +107,15 @@ describe('engine-js', () => {
             platform: 'XIAOMI',
             features: ['wasm-test'],
             moduleFormat: 'system',
-            flags: {
-                CULL_ASM_JS_MODULE: true,
-            }
+            flags: {},
+            nativeCodeBundleMode: 'asmjs',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
         // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
-
         
         expect(buildResult).toMatchSnapshot('build result');
+
     });
 
     test('enumerate dependents', async () => {
@@ -136,7 +137,7 @@ describe('engine-js', () => {
         await del(out, { force: true });
     });
 
-    test('build width option ammoJsWasm true', async () => {
+    test('build width option nativeCodeBundleMode wasm', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
@@ -145,14 +146,14 @@ describe('engine-js', () => {
             platform: 'XIAOMI',
             features: ['internal-constants'],
             moduleFormat: 'esm',
-            ammoJsWasm: true,
+            nativeCodeBundleMode: 'wasm',
         });
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 
 
-    test('build width option ammoJsWasm false', async () => {
+    test('build width option nativeCodeBundleMode asmjs', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
@@ -161,13 +162,13 @@ describe('engine-js', () => {
             platform: 'XIAOMI',
             features: ['internal-constants'],
             moduleFormat: 'esm',
-            ammoJsWasm: false,
+            nativeCodeBundleMode: 'asmjs',
         });
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 
-    test('build width option ammoJsWasm fallback', async () => {
+    test('build width option nativeCodeBundleMode both', async () => {
         const out = ps.join(__dirname, './lib-js');
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
@@ -176,21 +177,7 @@ describe('engine-js', () => {
             platform: 'XIAOMI',
             features: ['internal-constants'],
             moduleFormat: 'esm',
-            ammoJsWasm: 'fallback',
-        });
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
-        await del(out, { force: true });
-    });
-
-    test('build without option ammoJsWasm', async () => {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['internal-constants'],
-            moduleFormat: 'esm',
+            nativeCodeBundleMode: 'both',
         });
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
@@ -218,10 +205,9 @@ describe('engine-js', () => {
             mode: 'BUILD',
             platform: 'OPEN_HARMONY',
             features: ['wasm-test'],
+            nativeCodeBundleMode: 'wasm', 
             flags: {
-                // force flag value to test inline dynamic import
-                WASM_SUPPORT_MODE: 1,
-                WASM_FALLBACK: true,
+                WASM_SUPPORT_MODE: 1, // force flag value to test inline dynamic import
             },
             moduleFormat: 'esm',
         });
@@ -238,6 +224,7 @@ describe('engine-js', () => {
             platform: 'WECHAT',
             features: ['cull-meshopt'],
             moduleFormat: 'system',
+            nativeCodeBundleMode: 'wasm',
             flags: {
                 CULL_MESHOPT: true,
             },
@@ -254,6 +241,7 @@ describe('engine-js', () => {
             platform: 'BYTEDANCE',
             features: ['cull-meshopt'],
             moduleFormat: 'system',
+            nativeCodeBundleMode: 'asmjs',
             flags: {
                 CULL_MESHOPT: true,
             },
