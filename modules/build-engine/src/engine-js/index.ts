@@ -6,7 +6,6 @@ import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
 import moduleQueryPlugin from './rollup-plugins/module-query-plugin';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
-import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
@@ -305,7 +304,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             ...babelOptions,
         }),
 
-        // rpNamedChunk(),
     );
 
     // if (options.progress) {
