@@ -308,14 +308,6 @@ export namespace StatsQuery {
              */
             CULL_MESHOPT: boolean;
             /**
-             * An internal constant to indicate whether need a fallback of wasm.
-             * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-             * This is useful when we use wasm on different version of Safari browsers.
-             * 
-             * @default false
-             */
-            WASM_FALLBACK: boolean;
-            /**
              * An internal constant to indicate whether we use wasm assets as minigame subpackage.
              * This is useful when we need to reduce code size.
              */

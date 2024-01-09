@@ -22,7 +22,6 @@ interface ISuffixReplaceConfig {
 
 const suffixReplaceConfig: ISuffixReplaceConfig = {
     '.mem': '.mem.bin',
-    '.wasm.fallback': '.wasm.fallback.bin',
 };
 
 /**
@@ -110,25 +109,7 @@ const loadConfig: ILoadConfig = {
     },
     '.asm.js': {
         shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return (options.wasmSupportMode === 1 && !shouldCullBulletWasmModule(options, id)) || shouldCullAsmJsModule(options, id) || shouldCullMeshoptModule(options, id);
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return false;
-        },
-        cullingContent: `export default function () {}`,
-    },
-    '.wasm.fallback': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm'].shouldCullModule(options, id) || !options.wasmFallback;
-        },
-        shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
-            return !this.shouldCullModule(options, id);
-        },
-        cullingContent: `export default '';`,
-    },
-    '.wasm.fallback.js': {
-        shouldCullModule (options: externalWasmLoader.Options, id: string): boolean {
-            return loadConfig['.wasm.js'].shouldCullModule(options, id) || !options.wasmFallback;
+            return options.nativeCodeBundleMode === 'wasm' || shouldCullMeshoptModule(options, id);
         },
         shouldEmitAsset (options: externalWasmLoader.Options, id: string): boolean {
             return false;
@@ -338,11 +319,6 @@ export declare namespace externalWasmLoader {
          * 2. maybe support
          */
         wasmSupportMode: number;
-        /**
-         * Whether need a fallback of wasm.
-         * If true, we need to build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-         */
-        wasmFallback: boolean;
         /**
          * Whether force banning to emit bullet wasm.
          */

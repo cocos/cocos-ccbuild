@@ -219,9 +219,7 @@ describe('engine-js', () => {
             platform: 'OPEN_HARMONY',
             features: ['wasm-test'],
             flags: {
-                // force flag value to test inline dynamic import
-                WASM_SUPPORT_MODE: 1,
-                WASM_FALLBACK: true,
+                WASM_SUPPORT_MODE: 1, // force flag value to test inline dynamic import
             },
             moduleFormat: 'esm',
         });
