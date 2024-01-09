@@ -33,40 +33,26 @@ export { Module as default };
 ",
   "native/external/wasm/emscripten/wasm_c.js.mem.0e186.ts": "export default 'assets/wasm_c.js.mem';",
   "native/external/wasm/emscripten/wasm_c.wasm.195b9.ts": "export default '';",
-  "native/external/wasm/emscripten/wasm_c.wasm.fallback.f2f95.ts": "export default '';",
-  "native/external/wasm/emscripten/wasm_c.wasm.fallback.js.382fe.ts": "export default function () {}",
   "native/external/wasm/emscripten/wasm_c.wasm.js.0e998.ts": "let $: any;export default $;",
-  "wasm/emscripten.ts": "import { WASM_FALLBACK, WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
+  "wasm/emscripten.ts": "import { WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
 import { isSupportWASM } from './is-support-wasm';
-import wasmUrl from "../native/external/wasm/emscripten/wasm_c.wasm.195b9";
-import wasmFactory from "../native/external/wasm/emscripten/wasm_c.wasm.js.0e998";
 import asmFactory from "../native/external/wasm/emscripten/wasm_c.asm.js.36955";
 import asmJsMemUrl from "../native/external/wasm/emscripten/wasm_c.js.mem.0e186";
 function initializeWasm(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    if (WASM_FALLBACK) {
-      Promise.all([window.__cc_module_context__.import("../native/external/wasm/emscripten/wasm_c.wasm.fallback.f2f95"), window.__cc_module_context__.import("../native/external/wasm/emscripten/wasm_c.wasm.fallback.js.382fe")]).then(([{
-        default: wasmFallbackUrl
-      }, {
-        default: wasmFallbackFactory
-      }]) => {
-        return wasmFallbackFactory({
-          locateFile(_) {
-            return wasmFallbackUrl;
-          }
-        }).then(inst => {
-          resolve(inst);
-        }).catch(reject);
-      });
-      return;
-    }
-    wasmFactory({
-      locateFile(_) {
-        return wasmUrl;
-      }
-    }).then(inst => {
-      resolve(inst);
-    }).catch(reject);
+  return Promise.all([window.__cc_module_context__.import("../native/external/wasm/emscripten/wasm_c.wasm.195b9"), window.__cc_module_context__.import("../native/external/wasm/emscripten/wasm_c.wasm.js.0e998")]).then(([{
+    default: wasmUrl
+  }, {
+    default: wasmFactory
+  }]) => {
+    return new Promise((resolve, reject) => {
+      wasmFactory({
+        locateFile(_) {
+          return wasmUrl;
+        }
+      }).then(inst => {
+        resolve(inst);
+      }).catch(reject);
+    });
   });
 }
 function initializeAsm(): Promise<any> {
@@ -117,8 +103,6 @@ exports[`WASM build WASM: get output dir structure 1`] = `
   "native/external/wasm/emscripten/wasm_c.asm.js.36955.ts",
   "native/external/wasm/emscripten/wasm_c.js.mem.0e186.ts",
   "native/external/wasm/emscripten/wasm_c.wasm.195b9.ts",
-  "native/external/wasm/emscripten/wasm_c.wasm.fallback.f2f95.ts",
-  "native/external/wasm/emscripten/wasm_c.wasm.fallback.js.382fe.ts",
   "native/external/wasm/emscripten/wasm_c.wasm.js.0e998.ts",
   "native/external/wasm/wasm-pack/wasm_rust.js.ce353.ts",
   "native/external/wasm/wasm-pack/wasm_rust.wasm.ba172.ts",
@@ -272,9 +256,6 @@ export const NET_MODE = 0;
 export const WEBGPU = false;
 export let WASM_SUPPORT_MODE = 0;
 export const EDITOR_NOT_IN_PREVIEW = false;
-export const FORCE_BANNING_BULLET_WASM = false;
-export const CULL_ASM_JS_MODULE = false;
-export const WASM_FALLBACK = false;
 export const WASM_SUBPACKAGE = false;
 export const CULL_MESHOPT = false;",
   },
