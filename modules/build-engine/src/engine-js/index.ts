@@ -6,6 +6,7 @@ import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
 import moduleQueryPlugin from './rollup-plugins/module-query-plugin';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
+import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
@@ -87,11 +88,14 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     }
 
 
-    let { ammoJsWasm } = options;
-    ammoJsWasm ??= true;  // default is true
-    const forceBanningBulletWasm = !ammoJsWasm;
+    let { nativeCodeBundleMode } = options;
+    nativeCodeBundleMode ??= 'both';  // default is true
+
     const flags = options.flags ?? {};
-    flags.FORCE_BANNING_BULLET_WASM = forceBanningBulletWasm;
+
+    // meshopt is only used in 3d module, so cull it if 3d module is disabled.
+    flags.CULL_MESHOPT = !features.includes('3d');
+
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,
@@ -241,9 +245,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     rollupPlugins.push(
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
-            wasmSupportMode: buildTimeConstants.WASM_SUPPORT_MODE,
-            forceBanningBulletWasm,
-            cullAsmJsModule: buildTimeConstants.CULL_ASM_JS_MODULE,
+            nativeCodeBundleMode,
             cullMeshopt: buildTimeConstants.CULL_MESHOPT,
             format: 'relative-from-chunk',
             wasmSubpackage: buildTimeConstants.WASM_SUBPACKAGE,
@@ -300,6 +302,8 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             skipPreflightCheck: true,
             ...babelOptions,
         }),
+
+        // rpNamedChunk(),
     );
 
     // if (options.progress) {
@@ -456,6 +460,5 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     }
 
     result.hasCriticalWarns = hasCriticalWarns;
-
     return result;
 }
