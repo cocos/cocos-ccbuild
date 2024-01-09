@@ -358,10 +358,10 @@ export namespace StatsQuery {
             // init helper
             let result = '';
             if (this._hasCCGlobal(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
             if (this._hasDynamic(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
             
             // update value
@@ -448,7 +448,7 @@ export namespace StatsQuery {
             // init helper
             let result = '';
             if (this._hasCCGlobal(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8') + '\n';
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
 
             // update value

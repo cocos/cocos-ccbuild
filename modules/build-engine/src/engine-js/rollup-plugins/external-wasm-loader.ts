@@ -255,12 +255,12 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
                         } else if (config.shouldEmitAsset(options, id)) {
                             return emitAsset(this, filePath);
                         } else {
-                            return await fs.readFile(filePath, 'utf8');
+                            return (await fs.readFile(filePath, 'utf8')).replace(/\r\n/g, '\n');
                         }
                     }
                 }
                 // some external module that doesn't obey the suffix specification, we return its content by default.
-                return await fs.readFile(filePath, 'utf8');
+                return (await fs.readFile(filePath, 'utf8')).replace(/\r\n/g, '\n');
             }
             return null;
         },
