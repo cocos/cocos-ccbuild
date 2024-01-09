@@ -85,6 +85,24 @@ const loadConfig: ILoadConfig = {
         },
         cullingContent: `let $: any;export default $;`,
     },
+    '.wasm.fallback': {
+        shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
+            return true;  // we don't need wasm.fallback module for OH platform
+        },
+        shouldEmitAsset (options: externalWasmLoaderFactory.Options, id: string): boolean {
+            return !this.shouldCullModule(options, id);
+        },
+        cullingContent: `export default '';`,
+    },
+    '.wasm.fallback.js': {
+        shouldCullModule (options: externalWasmLoaderFactory.Options, id: string): boolean {
+            return true;  // we don't need wasm.fallback module for OH platform
+        },
+        shouldEmitAsset (options: externalWasmLoaderFactory.Options, id: string): boolean {
+            return false;
+        },
+        cullingContent: `export default function () {}`,
+    },
 };
 
 // NOTE: we use rollup to transform CommonJS to ES Module.

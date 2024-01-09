@@ -248,6 +248,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             nativeCodeBundleMode,
             cullMeshopt: buildTimeConstants.CULL_MESHOPT,
             format: 'relative-from-chunk',
+            wasmFallback: buildTimeConstants.WASM_FALLBACK,
             wasmSubpackage: buildTimeConstants.WASM_SUBPACKAGE,
         }),
 
