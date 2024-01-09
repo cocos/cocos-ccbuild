@@ -97,6 +97,25 @@ describe('engine-js', () => {
         expect(await getOutputDirStructure(out)).toMatchSnapshot();
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
+
+
+        // build asmjs only
+        const buildResult = await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'XIAOMI',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            flags: {},
+            nativeCodeBundleMode: 'asmjs',
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
+        await del(out, { force: true });
+        
+        expect(buildResult).toMatchSnapshot('build result');
+
     });
 
     test('enumerate dependents', async () => {
