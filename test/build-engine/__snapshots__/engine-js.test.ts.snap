@@ -29,12 +29,12 @@ exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
 
 exports[`engine-js build WASM module on platform maybe supporting WASM: cull asm.js module 1`] = `
 [
-  "_virtual_cc-aa67b7c2.js",
+  "_virtual_cc-3076d6c7.js",
   "assets/wasm_c-8515ca89.wasm",
   "assets/wasm_rust-404aff2f.wasm",
   "cc.js",
   "wasm_c-a7853123.js",
-  "wasm_c.wasm-12bb28a2.js",
+  "wasm_c.wasm-5417fe99.js",
 ]
 `;
 
@@ -265,9 +265,9 @@ tryDefineGlobal('CC_RUNTIME_BASED', false);
 tryDefineGlobal('CC_SUPPORT_JIT', false);
 tryDefineGlobal('CC_JSB', false);
 
-const WASM_SUPPORT_MODE = 0;
+const NATIVE_CODE_BUNDLE_MODE = 0;
 
-console.log(WASM_SUPPORT_MODE);
+console.log(NATIVE_CODE_BUNDLE_MODE);
 "
 `;
 
@@ -303,9 +303,9 @@ tryDefineGlobal('CC_RUNTIME_BASED', false);
 tryDefineGlobal('CC_SUPPORT_JIT', false);
 tryDefineGlobal('CC_JSB', false);
 
-const WASM_SUPPORT_MODE = 0;
+const NATIVE_CODE_BUNDLE_MODE = 2;
 
-console.log(WASM_SUPPORT_MODE);
+console.log(NATIVE_CODE_BUNDLE_MODE);
 "
 `;
 
@@ -341,9 +341,9 @@ tryDefineGlobal('CC_RUNTIME_BASED', false);
 tryDefineGlobal('CC_SUPPORT_JIT', false);
 tryDefineGlobal('CC_JSB', false);
 
-const WASM_SUPPORT_MODE = 0;
+const NATIVE_CODE_BUNDLE_MODE = 1;
 
-console.log(WASM_SUPPORT_MODE);
+console.log(NATIVE_CODE_BUNDLE_MODE);
 "
 `;
 
@@ -478,28 +478,30 @@ exports[`engine-js cull meshopt: without wasm support 2`] = `
 exports[`engine-js enumerate dependents 1`] = `
 [
   "assets/wasm_rust-404aff2f.wasm",
+  "assets/wasm_c.js.mem-429cc1f7.bin",
   "assets/wasm_c-8515ca89.wasm",
   "wasm-test.js",
-  "wasm-test-1db8bc36.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-7cf70cb9.js",
+  "wasm-test-4a045bf0.js",
   "module",
+  "wasm_c-a7853123.js",
+  "wasm_c.wasm-e63dbb4a.js",
 ]
 `;
 
 exports[`engine-js enumerate dependents 2`] = `
 [
   "wasm-test.js",
-  "wasm-test-1db8bc36.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-7cf70cb9.js",
+  "wasm-test-4a045bf0.js",
   "module",
+  "wasm_c-a7853123.js",
+  "wasm_c.wasm-e63dbb4a.js",
 ]
 `;
 
 exports[`engine-js enumerate dependents 3`] = `
 [
   "assets/wasm_rust-404aff2f.wasm",
+  "assets/wasm_c.js.mem-429cc1f7.bin",
   "assets/wasm_c-8515ca89.wasm",
 ]
 `;

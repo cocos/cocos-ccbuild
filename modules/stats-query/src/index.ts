@@ -292,7 +292,11 @@ export namespace StatsQuery {
             SERVER_MODE: boolean; 
             NOT_PACK_PHYSX_LIBS: boolean; 
             WEBGPU: boolean;
-            WASM_SUPPORT_MODE: number;
+            /**
+             * Native code (wasm/asmjs) bundle mode, 0: asmjs, 1: wasm, 2: both
+             * @default 2
+             */
+            NATIVE_CODE_BUNDLE_MODE: number;
 
             /**
              * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
@@ -485,7 +489,7 @@ export namespace StatsQuery {
                 const value = info.value;
                 
                 let declarationKind = 'const';
-                if (platform === 'OPEN_HARMONY' && key === 'WASM_SUPPORT_MODE') {
+                if (platform === 'OPEN_HARMONY' && key === 'NATIVE_CODE_BUNDLE_MODE') {
                     declarationKind = 'let'; // HACK: on OH platform, we cannot compile successfully when declarationKind is const.
                 }
                 result += `export ${declarationKind} ${key} = ${value};\n`;

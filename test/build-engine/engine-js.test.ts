@@ -206,9 +206,7 @@ describe('engine-js', () => {
             platform: 'OPEN_HARMONY',
             features: ['wasm-test'],
             nativeCodeBundleMode: 'wasm', 
-            flags: {
-                WASM_SUPPORT_MODE: 1, // force flag value to test inline dynamic import
-            },
+            flags: {},
             moduleFormat: 'esm',
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot();

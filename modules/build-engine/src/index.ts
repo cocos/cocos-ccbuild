@@ -12,6 +12,20 @@ function verifyCache (options: buildEngine.Options): boolean {
 function applyDefaultOptions (options: buildEngine.Options): void {
     options.preserveType ??= false;
     options.loose = true;  // force using true
+    if (!options.flags) {
+        options.flags = {};
+    }
+    switch (options.nativeCodeBundleMode) {
+        case 'asmjs':
+            options.flags.NATIVE_CODE_BUNDLE_MODE = 0;
+            break;
+        case 'wasm':
+            options.flags.NATIVE_CODE_BUNDLE_MODE = 1;
+            break;
+        default:
+            options.flags.NATIVE_CODE_BUNDLE_MODE = 2;
+            break;
+    }
 }
 
 function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat): false | 'commonjs' | 'amd' | 'umd' | 'systemjs' | 'auto' {
@@ -34,6 +48,7 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
 	if (verifyCache(options)) {
 		throw 'TODO';
 	}
+
 	if (options.platform === 'OPEN_HARMONY') {
 		if (options.preserveType) {
 			// we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
