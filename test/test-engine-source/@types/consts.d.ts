@@ -125,6 +125,11 @@ declare module 'internal:constants'{
     export const EDITOR: boolean;
 
     /**
+     * Run in editor but not in editor preview.
+     */
+    export const EDITOR_NOT_IN_PREVIEW: boolean;
+
+    /**
      * Preview in browser or simulator.
      */
     export const PREVIEW: boolean;
@@ -193,27 +198,19 @@ declare module 'internal:constants'{
     export const WEBGPU: boolean;
 
     /**
-     * Whether support wasm, here we provide 3 options:
-     * 0: The platform doesn't support WASM
-     * 1: The platform supports WASM
-     * 2: The platform may support WASM, especially on Web platform
+     * Native code (wasm/asmjs) bundle mode, 0: asmjs, 1: wasm, 2: both
      */
-    export const WASM_SUPPORT_MODE: number;
+    export const NATIVE_CODE_BUNDLE_MODE: number;
 
     /**
-     * Whether force banning using bullet wasm and use asmjs instead.
+     * An internal constant to indicate whether we use wasm assets as minigame subpackage.
+     * This is useful when we need to reduce code size.
      */
-    export const FORCE_BANNING_BULLET_WASM: boolean;
-
-    /**
-     * An internal constant to indicate whether need a fallback of wasm.
-     * If true, we build a wasm fallback module for the compatibility of wasm files compiled by different version of emscripten.
-     * This is useful when we use wasm on different version of Safari browsers.
-     */
-    export const WASM_FALLBACK: boolean;
+    export const WASM_SUBPACKAGE: boolean;
 
     /**
      * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
      */
     export const CULL_MESHOPT: boolean;
+
 }
