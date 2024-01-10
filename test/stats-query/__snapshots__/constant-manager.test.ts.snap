@@ -100,7 +100,7 @@ export const NET_MODE = 0;
 
 export const WEBGPU = false;
 
-export const WASM_SUPPORT_MODE = 1;
+export const NATIVE_CODE_BUNDLE_MODE = 2;
 
 export const WASM_SUBPACKAGE = false;
 
@@ -214,7 +214,7 @@ export const NET_MODE = 0;
 
 export const WEBGPU = false;
 
-export const WASM_SUPPORT_MODE = 1;
+export const NATIVE_CODE_BUNDLE_MODE = 2;
 
 export const EDITOR_NOT_IN_PREVIEW = false;
 
@@ -247,6 +247,7 @@ exports[`genBuildTimeConstants 1`] = `
   "MAC": false,
   "MINIGAME": false,
   "NATIVE": true,
+  "NATIVE_CODE_BUNDLE_MODE": 2,
   "NET_MODE": 0,
   "NOT_PACK_PHYSX_LIBS": false,
   "OHOS": false,
@@ -262,7 +263,6 @@ exports[`genBuildTimeConstants 1`] = `
   "TEST": true,
   "VIVO": false,
   "WASM_SUBPACKAGE": false,
-  "WASM_SUPPORT_MODE": 1,
   "WEBGPU": false,
   "WECHAT": false,
   "WECHAT_MINI_PROGRAM": false,
@@ -686,12 +686,9 @@ exports[`generateInternalConstants 1`] = `
 	export const WEBGPU: boolean;
 
 	/**
-	 * Whether support wasm, here we provide 3 options:
-	 * 0: The platform doesn't support WASM
-	 * 1: The platform supports WASM
-	 * 2: The platform may support WASM, especially on Web platform
+	 * Native code (wasm/asmjs) bundle mode, 0: asmjs, 1: wasm, 2: both
 	 */
-	export const WASM_SUPPORT_MODE: number;
+	export const NATIVE_CODE_BUNDLE_MODE: number;
 
 	/**
 	 * Run in editor but not in editor preview.

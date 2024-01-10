@@ -34,7 +34,7 @@ export { Module as default };
   "native/external/wasm/emscripten/wasm_c.js.mem.0e186.ts": "export default 'assets/wasm_c.js.mem';",
   "native/external/wasm/emscripten/wasm_c.wasm.195b9.ts": "export default '';",
   "native/external/wasm/emscripten/wasm_c.wasm.js.0e998.ts": "let $: any;export default $;",
-  "wasm/emscripten.ts": "import { WASM_SUPPORT_MODE } from "../__virtual__/internal_constants";
+  "wasm/emscripten.ts": "import { NATIVE_CODE_BUNDLE_MODE } from "../__virtual__/internal_constants";
 import { isSupportWASM } from './is-support-wasm';
 import asmFactory from "../native/external/wasm/emscripten/wasm_c.asm.js.36955";
 import asmJsMemUrl from "../native/external/wasm/emscripten/wasm_c.js.mem.0e186";
@@ -68,11 +68,11 @@ function initializeAsm(): Promise<any> {
     }).catch(reject);
   });
 }
-if (WASM_SUPPORT_MODE === 1) {
+if (NATIVE_CODE_BUNDLE_MODE === 1) {
   initializeWasm().then(inst => {
     inst._hello();
   });
-} else if (WASM_SUPPORT_MODE === 2) {
+} else if (NATIVE_CODE_BUNDLE_MODE === 2) {
   if (isSupportWASM) {
     initializeWasm().then(inst => {
       inst._hello();
@@ -254,7 +254,7 @@ tryDefineGlobal('CC_JSB', true);
 export const NOT_PACK_PHYSX_LIBS = false;
 export const NET_MODE = 0;
 export const WEBGPU = false;
-export let WASM_SUPPORT_MODE = 0;
+export let NATIVE_CODE_BUNDLE_MODE = 2;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const WASM_SUBPACKAGE = false;
 export const CULL_MESHOPT = false;",

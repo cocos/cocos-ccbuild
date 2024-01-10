@@ -238,7 +238,11 @@ declare module "@cocos/ccbuild" {
                 SERVER_MODE: boolean;
                 NOT_PACK_PHYSX_LIBS: boolean;
                 WEBGPU: boolean;
-                WASM_SUPPORT_MODE: number;
+                /**
+                 * Native code (wasm/asmjs) bundle mode, 0: asmjs, 1: wasm, 2: both
+                 * @default 2
+                 */
+                NATIVE_CODE_BUNDLE_MODE: number;
                 /**
                  * An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.
                  *

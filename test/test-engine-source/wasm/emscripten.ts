@@ -1,4 +1,4 @@
-import { WASM_SUPPORT_MODE } from 'internal:constants';
+import { NATIVE_CODE_BUNDLE_MODE } from 'internal:constants';
 import { isSupportWASM } from './is-support-wasm';
 
 import asmFactory from 'external:wasm/emscripten/wasm_c.asm.js';
@@ -39,11 +39,11 @@ function initializeAsm (): Promise<any> {
     });
 }
 
-if (WASM_SUPPORT_MODE === 1) {
+if (NATIVE_CODE_BUNDLE_MODE === 1) {
     initializeWasm().then(inst => {
         inst._hello();
     });
-} else if (WASM_SUPPORT_MODE === 2) {
+} else if (NATIVE_CODE_BUNDLE_MODE === 2) {
     if (isSupportWASM) {
         initializeWasm().then(inst => {
             inst._hello();
