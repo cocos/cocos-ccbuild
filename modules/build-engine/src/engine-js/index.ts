@@ -247,6 +247,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
             nativeCodeBundleMode,
+            wasmCompressionMode: options.wasmCompressionMode,
             cullMeshopt: buildTimeConstants.CULL_MESHOPT,
             format: 'relative-from-chunk',
             wasmSubpackage: buildTimeConstants.WASM_SUBPACKAGE,
