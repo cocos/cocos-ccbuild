@@ -100,7 +100,7 @@ export namespace buildEngine {
         moduleFormat?: ModuleFormat;
 
         /**
-         * 是否对生成结果进行压缩。
+         * 是否对生成的脚本进行压缩。
          * @default false
          */
         compress?: boolean;
@@ -132,6 +132,12 @@ export namespace buildEngine {
          * - 为 `both` 时同时在结果中包含 wasm 与 asmjs 两个版本的原生库
          */
         nativeCodeBundleMode?: 'wasm' | 'asmjs' | 'both';
+
+        /**
+         * Wasm compression mode, 'brotli' means to compress .wasm to .wasm.br.
+         * @note Currently, only WeChat and ByteDance mini-game support to load '.wasm.br' file.
+         */
+        wasmCompressionMode?: 'brotli';
 
         /**
          * If true, all deprecated features/API are excluded.

@@ -3,6 +3,8 @@ import { babel as Transformer } from '@ccbuild/transformer';
 import { pathToFileURL } from 'url';
 import fs from 'fs-extra';
 import ps from 'path';
+import { brotliCompress as zlibBrotliCompress, brotliCompressSync, BrotliOptions } from 'zlib';
+import { promisify } from 'util';
 
 import babel = Transformer.core;
 import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSystemjs;
@@ -10,6 +12,8 @@ import pluginTransformSystemJSModule = Transformer.plugins.transformModulesSyste
 import rollup = Bundler.core;
 import rpCjs = Bundler.plugins.commonjs;
 import { createHash } from 'crypto';
+
+const brotliCompress = promisify(zlibBrotliCompress);
 
 const externalOrigin = 'external:';
 function normalizePath (path: string): string {
@@ -27,7 +31,7 @@ const suffixReplaceConfig: ISuffixReplaceConfig = {
 /**
  * emit asset and return the export statement
  */
-async function emitAsset (context: rollup.PluginContext, filePath: string): Promise<string> {
+async function emitAsset (context: rollup.PluginContext, filePath: string, options: externalWasmLoader.Options): Promise<string> {
     let basename = ps.basename(filePath);
     for (const suffixToReplace in suffixReplaceConfig) {
         const replacement: string =  suffixReplaceConfig[suffixToReplace];
@@ -38,12 +42,27 @@ async function emitAsset (context: rollup.PluginContext, filePath: string): Prom
     }
 
     const source = await fs.readFile(filePath);
-    const referenceId = context.emitFile({
-        type: 'asset',
-        name: basename,
-        source,
-    });
-    const hash = createHash('sha256').update(source).digest('hex').slice(0, 8);
+    let referenceId: string;
+    let hash: string;
+
+    if (basename.endsWith('.wasm') && options.wasmCompressionMode === 'brotli') {
+        const compressOptions: BrotliOptions = {};
+        const compressedSource: Buffer = await brotliCompress(source, compressOptions);
+        hash = createHash('sha256').update(compressedSource).digest('hex').slice(0, 8);
+        const fileNamePrefix = basename.slice(0, -('.wasm'.length));
+        referenceId = context.emitFile({
+            type: 'asset',
+            fileName: `assets/${fileNamePrefix}-${hash}.wasm.br`,
+            source: compressedSource,
+        });
+    } else {
+        hash = createHash('sha256').update(source).digest('hex').slice(0, 8);
+        referenceId = context.emitFile({
+            type: 'asset',
+            name: basename,
+            source,
+        });
+    }
     return `export default import.meta.ROLLUP_FILE_URL_${referenceId}; /* asset-hash:${hash} */`;
 }
 
@@ -175,9 +194,19 @@ class ExternalWasmModuleBundler {
                 basename = basename.slice(0, -suffixToReplace.length) + replacement;
             }
         }
-        const buffer = fs.readFileSync(id);
+        let buffer = fs.readFileSync(id);
         const assetsDir = ps.join(this._options.outDir, 'assets');
+
+        if (basename.endsWith('.wasm') && this._options.wasmCompressionMode === 'brotli') {
+            const compressOptions: BrotliOptions = {};
+            const compressedSource: Buffer = brotliCompressSync(buffer, compressOptions);
+            const fileNamePrefix = basename.slice(0, -('.wasm'.length));
+            basename = fileNamePrefix + '.wasm.br';
+            buffer = compressedSource;
+        }
+    
         fs.outputFileSync(ps.join(assetsDir, basename), buffer);
+
         // output game.js
         const gameJs = ps.join(assetsDir, 'game.js');
         if (!fs.existsSync(gameJs)) {
@@ -253,7 +282,7 @@ export function externalWasmLoader (options: externalWasmLoader.Options): rollup
                         if (config.shouldCullModule(options, id)) {
                             return config.cullingContent;
                         } else if (config.shouldEmitAsset(options, id)) {
-                            return emitAsset(this, filePath);
+                            return emitAsset(this, filePath, options);
                         } else {
                             return (await fs.readFile(filePath, 'utf8')).replace(/\r\n/g, '\n');
                         }
@@ -309,6 +338,13 @@ export declare namespace externalWasmLoader {
          * The bundle mode of native code while building scripts.
          */
         nativeCodeBundleMode: 'wasm' | 'asmjs' | 'both';
+
+        /**
+         * Wasm compression mode, 'brotli' means to compress .wasm to .wasm.br.
+         * @note Currently, only WeChat and ByteDance mini-game support to load '.wasm.br' file.
+         */
+        wasmCompressionMode?: 'brotli';
+
         /**
          * Whether cull meshopt module, including wasm and asm.js.
          */

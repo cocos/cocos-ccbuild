@@ -520,3 +520,24 @@ exports[`engine-js intrinsic flag 1`] = `
 export { str };
 "
 `;
+
+exports[`engine-js wasm compress mode: wasm subpackage with brotli 1`] = `
+[
+  "assets/game.js",
+  "assets/wasm_c.wasm.br",
+  "assets/wasm_rust.wasm.br",
+  "cc.js",
+  "chunks/game.js",
+]
+`;
+
+exports[`engine-js wasm compress mode: with brotli 1`] = `
+[
+  "_virtual_cc-3dc9847e.js",
+  "assets/wasm_c-07698a78.wasm.br",
+  "assets/wasm_rust-66c556c0.wasm.br",
+  "cc.js",
+  "wasm_c-cb26c348.js",
+  "wasm_c.wasm-f397441b.js",
+]
+`;
