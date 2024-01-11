@@ -248,4 +248,41 @@ describe('engine-js', () => {
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot('without wasm support');
         await del(out, { force: true });
     });
+
+    test('wasm compress mode', async () => {
+        const out = ps.join(__dirname, './lib-js');
+
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            nativeCodeBundleMode: 'wasm',
+            wasmCompressionMode: 'brotli',
+            flags: {},
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('with brotli');
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
+        await del(out, { force: true });
+
+        // wasm subpackage
+        await buildEngine({
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            mode: 'BUILD',
+            platform: 'WECHAT',
+            features: ['wasm-test'],
+            moduleFormat: 'system',
+            nativeCodeBundleMode: 'wasm',
+            wasmCompressionMode: 'brotli',
+            flags: {
+                WASM_SUBPACKAGE: true,
+            }
+        });
+        expect(await getOutputDirStructure(out)).toMatchSnapshot('wasm subpackage with brotli');
+        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
+        await del(out, { force: true });
+    });
 });
