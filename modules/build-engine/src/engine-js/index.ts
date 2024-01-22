@@ -92,10 +92,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const flags = options.flags ?? {};
 
-    // meshopt is only used in 3d module, so cull it if 3d module is disabled.
-    if (flags.CULL_MESHOPT === undefined) {
-        flags.CULL_MESHOPT = !features.includes('3d');
-    }
+    flags.CULL_MESHOPT = !features.includes('meshopt');
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
