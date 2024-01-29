@@ -202,6 +202,11 @@ export namespace buildEngine {
         //  * Whether force SUPPORT_JIT to the specified value.
         //  */
         // forceJitValue?: boolean,
+
+        /**
+         * Whether to generate a json file that contains all output script file paths.
+         */
+        generatePreloadJsList?: boolean;
     }
 
     export interface Result {
