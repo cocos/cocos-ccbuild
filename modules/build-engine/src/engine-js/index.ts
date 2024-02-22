@@ -33,7 +33,7 @@ import rpVirtual = Bundler.plugins.virtual;
 import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
-// import * as decoratorRecorder from './babel-plugins/decorator-parser';
+import * as decoratorRecorder from './babel-plugins/decorator-parser';
 
 const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
@@ -226,12 +226,12 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         ],
     };
     
-    // if (options.generateDecoratorsForJSB) {
-    //     if (!process.env.ENGINE_PATH) {
-    //         throw new Error('ENGINE_PATH environment variable not set');
-    //     }
-    //     babelOptions.presets?.push([() => ({ plugins: [[decoratorRecorder]] })]);
-    // }
+    if (options.generateDecoratorsForJSB) {
+        if (!process.env.ENGINE_PATH) {
+            throw new Error('ENGINE_PATH environment variable not set');
+        }
+        babelOptions.presets?.push([(): any => ({ plugins: [[decoratorRecorder]] })]);
+    }
 
     const rollupPlugins: rollup.Plugin[] = [];
 

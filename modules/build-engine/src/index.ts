@@ -193,10 +193,10 @@ export namespace buildEngine {
 
         // buildTimeConstants: IBuildTimeConstants;
 
-        // /**
-        //  * Generate cocos/native-binding/decorators.ts for native platforms
-        //  */
-        // generateDecoratorsForJSB?: boolean;
+        /**
+         * Generate cocos/native-binding/decorators.ts for native platforms
+         */
+        generateDecoratorsForJSB?: boolean;
 
         // /**
         //  * Whether force SUPPORT_JIT to the specified value.
