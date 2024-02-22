@@ -10,6 +10,7 @@ import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest } from '@ccbuild/utils';
+import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 
 // import babel
 import babel = Transformer.core;
@@ -301,8 +302,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             skipPreflightCheck: true,
             ...babelOptions,
         }),
-
     );
+
+    // The named-registered format of `System.register('cocos-js/cc.js', [], function() {...})` needs to be generated when the feature of preloading JS list is enabled.
+    // Otherwise, we will generate the default register code without name like `System.register([], function() {...})`.
+    if (options.generatePreloadJsList) {
+        rollupPlugins.push(rpNamedChunk());
+    }
 
     // if (options.progress) {
     //     rollupPlugins.unshift(rpProgress());
@@ -433,8 +439,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const rollupOutput = await rollupBuild.write(rollupOutputOptions);
 
+    const outputJSFileNames = [];
     const validEntryChunks: Record<string, string> = {};
     for (const output of rollupOutput.output) {
+        if (options.generatePreloadJsList && output.fileName.endsWith('js')) {
+            outputJSFileNames.push(output.fileName);
+        }
+        
         if (output.type === 'chunk') {
             if (output.isEntry) {
                 const chunkName = output.name;
@@ -443,6 +454,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 }
             }
         }
+    }
+
+    if (options.generatePreloadJsList) {
+        fs.outputFileSync(ps.join(options.out, 'engine-js-list.json'), JSON.stringify(outputJSFileNames, undefined, 2));
     }
 
     Object.assign(result.exports, validEntryChunks);

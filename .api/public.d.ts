@@ -122,6 +122,10 @@ declare module "@cocos/ccbuild" {
              * @default false
              */
             preserveType?: boolean;
+            /**
+             * Whether to generate a json file that contains all output script file paths.
+             */
+            generatePreloadJsList?: boolean;
         }
         export interface Result {
             /**
