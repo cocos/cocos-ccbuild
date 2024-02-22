@@ -48,7 +48,7 @@ export async function build (options: Options): Promise<boolean> {
 
     const tsConfigPath = statsQuery.tsConfigPath;
 
-    const unbundledOutDir = ps.join(outDir, '__before_bundle');
+    const unbundledOutDir = ps.join(engine, '__dts_before_bundle');
     const parsedCommandLine = ts.getParsedCommandLineOfConfigFile(
         tsConfigPath, {
             declaration: true,
