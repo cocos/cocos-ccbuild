@@ -11,6 +11,10 @@ export function dirname (path: string): string {
     return formatPath(ps.dirname(path));
 }
 
+export function basename (path: string): string {
+    return formatPath(ps.basename(path));
+}
+
 export function join (...args: string[]): string {
     return formatPath(ps.join(...args));
 }
