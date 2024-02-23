@@ -20,6 +20,8 @@ const pkgName2Main = {};
 const pkgName2Types = {};
 const filesToCopy = [];
 const allDeps = {};
+const allOptionalDeps = {};
+
 pkgFileList.forEach(pkgFile => {
     const pkg = JSON.parse(fs.readFileSync(pkgFile, 'utf8'));
     const pkgName = pkg.name;
@@ -54,6 +56,15 @@ pkgFileList.forEach(pkgFile => {
             continue;
         }
         allDeps[dep] = depVersion;
+    }
+
+    for (const dep in pkg.optionalDependencies) {
+        const depVersion = pkg.optionalDependencies[dep];
+        if (dep in allOptionalDeps && allOptionalDeps[dep] !== depVersion) {
+            console.warn(`optional package '${pkgName}' has different dep version of package '${dep}', which is '${depVersion}'`);
+            continue;
+        }
+        allOptionalDeps[dep] = depVersion;
     }
 
 });
@@ -132,6 +143,7 @@ console.log('generate package.json');
 const rootPkgFile = ps.join(rootDir, 'package.json');
 const rootPkg = JSON.parse(fs.readFileSync(rootPkgFile, 'utf8'));
 rootPkg.dependencies = allDeps;
+rootPkg.optionalDependencies = allOptionalDeps;
 delete rootPkg.devDependencies;
 delete rootPkg.scripts;
 for (const dep in rootPkg.dependencies) {
