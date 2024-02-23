@@ -122,6 +122,13 @@ declare module "@cocos/ccbuild" {
              * @default false
              */
             preserveType?: boolean;
+            visualize?: boolean | {
+                file?: string;
+            };
+            /**
+             * Generate cocos/native-binding/decorators.ts for native platforms
+             */
+            generateDecoratorsForJSB?: boolean;
             /**
              * Whether to generate a json file that contains all output script file paths.
              */
