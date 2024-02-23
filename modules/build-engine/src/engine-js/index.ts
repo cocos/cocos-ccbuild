@@ -338,26 +338,26 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         }));
     }
 
-    // const visualizeOptions = typeof options.visualize === 'object'
-    //     ? options.visualize
-    //     : (options.visualize ? {} : undefined);
-    // if (visualizeOptions) {
-    //     let rpVisualizer;
-    //     try {
-    //         // @ts-expect-error: No typing
-    //         rpVisualizer = await import('rollup-plugin-visualizer');
-    //     } catch {
-    //         console.warn('Visualizing needs \'rollup-plugin-visualizer\' to be installed. It\'s installed as dev-dependency.');
-    //     }
-    //     if (rpVisualizer) {
-    //         const visualizeFile = visualizeOptions.file ?? ps.join(options.out, 'visualize.html');
-    //         rollupPlugins.push(rpVisualizer({
-    //             filename: visualizeFile,
-    //             title: 'Cocos Creator build visualizer',
-    //             template: 'treemap',
-    //         }));
-    //     }
-    // }
+    const visualizeOptions = typeof options.visualize === 'object'
+        ? options.visualize
+        : (options.visualize ? {} : undefined);
+    if (visualizeOptions) {
+        let rpVisualizer;
+        try {
+            // eslint-disable-next-line import/no-extraneous-dependencies
+            rpVisualizer = await import('rollup-plugin-visualizer');
+        } catch {
+            console.warn('Visualizing needs \'rollup-plugin-visualizer\' to be installed. It\'s installed as dev-dependency.');
+        }
+        if (rpVisualizer) {
+            const visualizeFile = visualizeOptions.file ?? ps.join(options.out, 'visualize.html');
+            rollupPlugins.push(rpVisualizer.visualizer({
+                filename: visualizeFile,
+                title: 'Cocos Creator build visualizer',
+                template: 'treemap',
+            }));
+        }
+    }
 
     let hasCriticalWarns = false;
 

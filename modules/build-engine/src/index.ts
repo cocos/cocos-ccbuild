@@ -187,9 +187,9 @@ export namespace buildEngine {
          */
         preserveType?: boolean;
 
-        // visualize?: boolean | {
-        //     file?: string;
-        // };
+        visualize?: boolean | {
+            file?: string;
+        };
 
         // buildTimeConstants: IBuildTimeConstants;
 
