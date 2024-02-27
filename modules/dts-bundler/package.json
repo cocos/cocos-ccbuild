@@ -21,9 +21,9 @@
   "dependencies": {
     "tfig": "^3.3.2",
     "fs-extra": "~11.1.1",
-    "@ccbuild/modularize": "*",
-    "@ccbuild/stats-query": "*",
-    "@ccbuild/transformer": "*",
-    "@ccbuild/utils": "*"
+    "@ccbuild/modularize": "workspace:*",
+    "@ccbuild/stats-query": "workspace:*",
+    "@ccbuild/transformer": "workspace:*",
+    "@ccbuild/utils": "workspace:*"
   }
 }

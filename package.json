@@ -5,7 +5,6 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "postinstall": "npm run build",
     "build": "tsc && turbo build",
     "change": "node ./scripts/remove-workspaces.js && changeset add && node ./scripts/restore-workspaces.js",
     "version": "node ./scripts/remove-workspaces.js && changeset version && node ./scripts/restore-workspaces.js",
@@ -34,9 +33,7 @@
     "build",
     "compile"
   ],
-  "workspaces": [
-    "./modules/*"
-  ],
+
   "author": "PP_Pro",
   "license": "MIT",
   "devDependencies": {
@@ -66,13 +63,13 @@
     "typedoc": "^0.24.8"
   },
   "dependencies": {
-    "@ccbuild/build-engine": "*",
-    "@ccbuild/bundler": "*",
-    "@ccbuild/dts-bundler": "*",
-    "@ccbuild/modularize": "*",
-    "@ccbuild/stats-query": "*",
-    "@ccbuild/transformer": "*",
-    "@ccbuild/utils": "*",
+    "@ccbuild/build-engine": "workspace:*",
+    "@ccbuild/bundler": "workspace:*",
+    "@ccbuild/dts-bundler": "workspace:*",
+    "@ccbuild/modularize": "workspace:*",
+    "@ccbuild/stats-query": "workspace:*",
+    "@ccbuild/transformer": "workspace:*",
+    "@ccbuild/utils": "workspace:*",
     "dedent": "^0.7.0",
     "fs-extra": "~11.1.1",
     "glob": "~7.2.0",
