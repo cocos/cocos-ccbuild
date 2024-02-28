@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -33,7 +33,6 @@
     "build",
     "compile"
   ],
-
   "author": "PP_Pro",
   "license": "MIT",
   "devDependencies": {
