@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ccbuild/stats-query": "*",
-    "@ccbuild/build-engine": "*",
-    "@ccbuild/dts-bundler": "*",
-    "@ccbuild/modularize": "*",
-    "@ccbuild/utils": "*",
+    "@ccbuild/stats-query": "workspace:*",
+    "@ccbuild/build-engine": "workspace:*",
+    "@ccbuild/dts-bundler": "workspace:*",
+    "@ccbuild/modularize": "workspace:*",
+    "@ccbuild/utils": "workspace:*",
     "fs-extra": "~11.1.1"
   },
   "devDependencies": {

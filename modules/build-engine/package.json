@@ -19,18 +19,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/babel__core": "7.1.20",
+    "@types/babel__generator": "7.6.4",
+    "@types/babel__traverse": "7.18.2",
+    "@babel/core": "^7.20.12",
+    "@babel/parser": "^7.20.13",
+    "@babel/traverse": "^7.20.13",
+
     "@types/resolve": "^1.20.2",
     "dedent": "^0.7.0",
     "fs-extra": "~11.1.1",
     "glob": "~7.2.0",
     "json5": "^2.2.3",
     "resolve": "^1.22.1",
-    "@ccbuild/stats-query": "*",
-    "@ccbuild/transformer": "*",
-    "@ccbuild/utils": "*",
+    "@ccbuild/stats-query": "workspace:*",
+    "@ccbuild/transformer": "workspace:*",
+    "@ccbuild/utils": "workspace:*",
     "semver": "~7.5.3",
-    "@ccbuild/bundler": "*",
-    "@ccbuild/modularize": "*"
+    "@ccbuild/bundler": "workspace:*",
+    "@ccbuild/modularize": "workspace:*"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",

@@ -61,16 +61,5 @@ npm run version-alpha
 
 ## publish
 
-We used monorepo but only `@cocos/ccbuild` is public project, every time we need to publish, we need to deploy the project first.
-Please remember to version your package before you deploy and publish it.
-
-```sh
-
-# this would collect all private project together, and generate one project in 'deploy' folder
-npm run deploy
-
-# if you got a publish authorization, then you could publish the package in 'deploy' folder
-cd ./deploy/
-npm publish
-```
-
+- Update version in package.json
+- After code is merged repo, [draft a new release](https://github.com/cocos/cocos-ccbuild/releases/new) with correct version, it will trigger github action runner to run the `deploy` task and push to npm registry. Note that only the people who have the authority could draft a release.

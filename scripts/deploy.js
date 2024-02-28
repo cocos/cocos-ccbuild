@@ -3,6 +3,7 @@ const { babel: Transformer } = require('@ccbuild/transformer');
 const ps = require('path').posix;
 const fs = require('fs-extra');
 const glob = require('glob');
+const YAML = require('yaml');
 
 const babel = Transformer.core;
 const pluginSyntaxTS = Transformer.plugins.syntaxTS;
@@ -11,7 +12,8 @@ const pluginSyntaxTS = Transformer.plugins.syntaxTS;
 const rootDir = ps.join(__dirname, '../');
 const deployDir = ps.join(rootDir, './deploy/');
 const rootPackage = ps.join(rootDir, './package.json');
-const workspaces = JSON.parse(fs.readFileSync(rootPackage, 'utf8')).workspaces.map(ws => ps.join(ps.dirname(rootPackage), ws));
+const workspaceYaml = YAML.parse(fs.readFileSync(ps.join(rootDir, 'pnpm-workspace.yaml'), 'utf8'));
+const workspaces = workspaceYaml.packages.map(ws => ps.join(ps.dirname(rootPackage), ws));
 const allPackages = workspaces.map(ws => glob.sync(ws)).flat(1);
 const pkgFileList = allPackages.map(package => ps.join(package, 'package.json'));
 pkgFileList.push(rootPackage);
