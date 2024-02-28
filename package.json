@@ -6,6 +6,7 @@
   "types": "./lib/index.d.ts",
   "packageManager": "pnpm@8.12.1",
   "scripts": {
+    "postinstall": "npm run build",
     "build": "tsc && turbo build",
     "change": "node ./scripts/remove-workspaces.js && changeset add && node ./scripts/restore-workspaces.js",
     "version": "node ./scripts/remove-workspaces.js && changeset version && node ./scripts/restore-workspaces.js",
