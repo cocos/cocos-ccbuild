@@ -60,7 +60,8 @@
     "tfig": "^3.3.1",
     "ts-jest": "^29.0.3",
     "turbo": "^1.10.12",
-    "typedoc": "^0.24.8"
+    "typedoc": "^0.24.8",
+    "yaml": "^2.4.0"
   },
   "dependencies": {
     "@ccbuild/build-engine": "workspace:*",
