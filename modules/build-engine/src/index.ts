@@ -204,9 +204,12 @@ export namespace buildEngine {
         // forceJitValue?: boolean,
 
         /**
-         * Whether to generate a json file that contains all output script file paths.
+         * Whether to generate 'named' register code for systemjs module format.
+         * SystemJS default register code: System.register([], function(){...});
+         * SystemJS named register code: System.register('module_name', [], function(){...});
+         * @note It's only avaiable when options.moduleFormat is 'system'.
          */
-        generatePreloadJsList?: boolean;
+        enableNamedRegisterForSystemJSModuleFormat?: boolean;
     }
 
     export interface Result {

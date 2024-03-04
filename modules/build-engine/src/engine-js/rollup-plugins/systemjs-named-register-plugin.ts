@@ -12,7 +12,6 @@ function toNamedRegister(
     { types }: typeof babel,
     options: Options,
 ): babel.PluginObj {
-    // options.name 为上面代码传递进来的 chunkId
     if (!options || !options.name) {
         throw new Error('\'name\' options is required.');
     }
@@ -24,8 +23,8 @@ function toNamedRegister(
                     types.isIdentifier(path.node.callee.object) && path.node.callee.object.name === 'System' &&
                     types.isIdentifier(path.node.callee.property) && path.node.callee.property.name === 'register' &&
                     path.node.arguments.length === 2) {
-                    // 当发现 System.register([], function (exports, module) {}); 的时候，插入当前 chunk 的名称，变为：
-                    // System.register('my_chunk_name', [], function (exports, module) {});
+                    // Change `System.register([], function (exports, module) {});` to 
+                    // `System.register('my_chunk_name', [], function (exports, module) {});`
                     path.node.arguments.unshift(types.stringLiteral(options.name));
                 }
             },
@@ -45,10 +44,10 @@ export function rpNamedChunk(): rollup.Plugin {
         renderChunk: async function(this, code, chunk, options): Promise<RenderChunkResult> {
 
             const chunkId = getChunkUrl(chunk);
-            // 这里输入为 System.register([], function(){...}); 格式的 code
-            // 输出的 transformResult.code 为 System.register('chunk_id', [], function(){...}); 格式
+            // Input format: System.register([], function(){...});
+            // Output format: transformResult.code 为 System.register('chunk_id', [], function(){...});
             const transformResult = await babel.transformAsync(code, {
-                sourceMaps: true, // 这里需要强制为 true 吗？
+                sourceMaps: true,
                 compact: false,
                 plugins: [[toNamedRegister, { name: chunkId }]],
             });
