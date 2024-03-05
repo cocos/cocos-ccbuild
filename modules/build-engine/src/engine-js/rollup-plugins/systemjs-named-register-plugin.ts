@@ -3,6 +3,7 @@ import babel = Transformer.core;
 
 import { rollup as Bundler } from '@ccbuild/bundler';
 import rollup = Bundler.core;
+import ps from 'path';
 
 interface Options {
     name: string;
@@ -33,6 +34,9 @@ function toNamedRegister(
 }
 
 function getChunkUrl(chunk: rollup.RenderedChunk): string {
+    if (ps.basename(chunk.fileName, '.js') === 'cc') {
+        return 'cc';
+    }
     return `cocos-js/${chunk.fileName}`;
 }
 
