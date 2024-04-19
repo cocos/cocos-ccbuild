@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.2.9",
+  "version": "2.2.10",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -60,7 +60,6 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "graphviz": "^0.0.9",
     "jest": "^29.3.1",
-    "tfig": "^3.3.1",
     "ts-jest": "^29.0.3",
     "turbo": "^1.10.12",
     "typedoc": "^0.24.8"
