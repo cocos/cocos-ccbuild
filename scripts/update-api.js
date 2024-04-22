@@ -1,4 +1,4 @@
-const gift = require('tfig')
+const gift = require('@cocos/tfig');
 const ps = require('path').posix;
 const fs = require('fs-extra');
 
@@ -10,6 +10,6 @@ const bundle = gift.bundle({
         '@cocos/ccbuild': input,
     },
     output,
-})
+});
 
 fs.writeFileSync(output, bundle.groups[0].code, 'utf8');

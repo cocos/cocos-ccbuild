@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import * as gift from 'tfig';
+import * as gift from '@cocos/tfig';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { ps } from '@ccbuild/utils';
 import { typescript as Transformer } from '@ccbuild/transformer';
