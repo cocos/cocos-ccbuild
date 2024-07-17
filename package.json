@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

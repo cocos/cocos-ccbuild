@@ -362,11 +362,15 @@ declare module "@cocos/ccbuild" {
              */
             intrinsicFlags?: Record<string, unknown>;
             /**
-             * List of uuid that the feature depend on.
+             * List of uuid that the feature depends on.
              */
             dependentAssets?: string[];
             /**
-             * List of module that the feature depend on.
+             * List of script uuid that the feature depends on.
+             */
+            dependentScripts?: string[];
+            /**
+             * List of module that the feature depends on.
              */
             dependentModules?: string[];
             /**
