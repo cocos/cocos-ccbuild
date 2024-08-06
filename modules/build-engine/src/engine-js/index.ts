@@ -11,6 +11,7 @@ import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
+import { rpInlineEnum } from './rollup-plugins/inline-enum';
 
 // import babel
 import babel = Transformer.core;
@@ -297,6 +298,8 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             ],
             sourceMap: false,
         }),
+
+        ...rpInlineEnum({ scanDir: engineRoot }),//, include: ps.join(engineRoot, '**/*.ts') }),
 
         rpBabel({
             skipPreflightCheck: true,
