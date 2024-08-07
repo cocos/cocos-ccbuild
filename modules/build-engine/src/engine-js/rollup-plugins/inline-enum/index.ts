@@ -19,7 +19,7 @@ type ConvertedObject = {
 
 const convertNumberValuesToString = (obj: IDefines): ConvertedObject => {
   return Object.entries(obj).reduce((acc, [key, value]) => {
-    acc[key] = JSON.stringify(value);
+    acc[key] = JSON.stringify(value) + ` /* _.${key} */ `;
     return acc;
   }, {} as ConvertedObject);
 };
