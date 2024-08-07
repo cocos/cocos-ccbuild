@@ -40,7 +40,7 @@ export function rpInlineEnum(rawOptions: Options, meta?: any): rollup.Plugin[] {
       include: options.include,
       exclude: options.exclude,
       values: strDefines,
-      delimiters: ['([a-zA-Z0-9_]+\\.)*', '\\b(?!\\.)'],
+      delimiters: ['(?<!\\.)\\b', '\\b(?!\\.)'],
     },
     // meta,
   );

@@ -38,6 +38,24 @@ export enum MyEnum6 {
 }
 
 console.log(MyEnum6.UNION);
-console.log(gfx.Format.RGB);
+
+console.log(`MyEnum6.UNION.aaa`);
+console.log(`MyEnum6.UNION`);
+console.log(`   ${gfx.Format.RGBA}`);
+
+console.log('' +(gfx.Format.RGBA | gfx.Format.RG));
+console.log('' +(gfx.Format_2.RGBA | gfx.Format.RG));
 
 export * from './script1';
+
+export class MyNode {
+    static Format = gfx.Format;
+    static Format_2 = gfx.Format_2;
+    private declare a: number;
+    constructor(a: number) {
+        this.a = a;
+    }
+}
+
+console.log(MyNode.Format.RG);
+console.log(MyNode.Format_2.RG);
