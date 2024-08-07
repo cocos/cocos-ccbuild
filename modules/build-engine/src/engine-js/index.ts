@@ -299,7 +299,11 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             sourceMap: false,
         }),
 
-        ...rpInlineEnum({ scanDir: engineRoot }),//, include: ps.join(engineRoot, '**/*.ts') }),
+        ...rpInlineEnum({ 
+            scanDir: ps.join(engineRoot, ''),
+            // exclude: ['*.jsb.ts'],
+            // scanPattern: '**/*.{cts,mts,ts,tsx}'
+        }),//, include: ps.join(engineRoot, '**/*.ts') }),
 
         rpBabel({
             skipPreflightCheck: true,

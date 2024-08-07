@@ -8,9 +8,21 @@ import { createFilter } from '@rollup/pluginutils';
 import MagicString from 'magic-string';
 import ReplacePlugin from '@rollup/plugin-replace';
 import { type Options, resolveOptions } from './core/options';
-import { scanEnums } from './core/enum';
+import { IDefines, scanEnums } from './core/enum';
 import { rollup as Bundler } from '@ccbuild/bundler';
 import rollup = Bundler.core;
+
+
+type ConvertedObject = {
+  [key: string]: string;
+};
+
+const convertNumberValuesToString = (obj: IDefines): ConvertedObject => {
+  return Object.entries(obj).reduce((acc, [key, value]) => {
+    acc[key] = JSON.stringify(value);
+    return acc;
+  }, {} as ConvertedObject);
+};
 
 /**
  * The main unplugin instance.
@@ -21,18 +33,20 @@ export function rpInlineEnum(rawOptions: Options, meta?: any): rollup.Plugin[] {
 
   const { declarations, defines } = scanEnums(options);
 
+  const strDefines = convertNumberValuesToString(defines);
+
   const replacePlugin = ReplacePlugin(
     {
       include: options.include,
       exclude: options.exclude,
-      values: defines,
+      values: strDefines,
+      delimiters: ['([a-zA-Z0-9_]+\\.)*', '\\b(?!\\.)'],
     },
     // meta,
   );
 
   const name = 'unplugin-inline-enum';
   return [
-    replacePlugin,
     {
       name,
     //   enforce: options.enforce,
@@ -69,7 +83,7 @@ export function rpInlineEnum(rawOptions: Options, meta?: any): rollup.Plugin[] {
                     : [
                       forwardMapping,
                       // other enum members should support enum reverse mapping
-                      reverseMapping,
+                      // reverseMapping,
                     ];
                 })
                 .join(',\n')}}`,
@@ -85,5 +99,7 @@ export function rpInlineEnum(rawOptions: Options, meta?: any): rollup.Plugin[] {
         }
       },
     },
+
+    replacePlugin,
   ];
 }
