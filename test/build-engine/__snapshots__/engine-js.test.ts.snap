@@ -1,43 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`engine-js build WASM module on platform maybe supporting WASM 1`] = `
-[
-  "_virtual_cc-63580829.js",
-  "assets/wasm_c-8515ca89.wasm",
-  "assets/wasm_c.js.mem-429cc1f7.bin",
-  "assets/wasm_rust-404aff2f.wasm",
-  "cc.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-8489fd77.js",
-]
-`;
-
-exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
-"System.register(['./_virtual_cc-63580829.js'], (function () {
-	'use strict';
-	return {
-		setters: [function () {}],
-		execute: (function () {
-
-
-
-		})
-	};
-}));
-"
-`;
-
-exports[`engine-js build WASM module on platform maybe supporting WASM: cull asm.js module 1`] = `
-[
-  "_virtual_cc-3076d6c7.js",
-  "assets/wasm_c-8515ca89.wasm",
-  "assets/wasm_rust-404aff2f.wasm",
-  "cc.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-5417fe99.js",
-]
-`;
-
 exports[`engine-js build WASM module on platform not supporting WASM 1`] = `
 [
   "assets/wasm_c.js.mem-429cc1f7.bin",
@@ -50,6 +12,56 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
     'use strict';
     return {
         execute: (function () {
+
+            var Format = exports('Format', {
+              "UNKNOWN": 0,
+              "A8": 1,
+              "L8": 2,
+              "LA8": 3,
+              "R5G6B5": 4,
+              "R11G11B10F": 5,
+              "RGB5A1": 6,
+              "RGBA4": 7,
+              "RGB10A2": 8,
+              "RGB10A2UI": 9,
+              "RGB9E5": 10,
+              "DEPTH": 11,
+              "DEPTH_STENCIL": 12,
+              "R": 13,
+              "RG": 14,
+              "RGB": 15,
+              "RGBA": 16,
+              "COUNT": 17
+            });
+            var Format_2 = exports('Format_2', {
+              "R": 13,
+              "RG": 14,
+              "RGB": 15,
+              "RGBA": 31,
+              "Haha": 134,
+              "www": 135
+            });
+            var TransformBit = exports('TransformBit', {
+              "NONE": 0,
+              "POSITION": 1,
+              "ROTATION": 2,
+              "SCALE": 4,
+              "RS": 6,
+              "TRS": 7,
+              "TRS_MASK": -8
+            });
+            var PixelFormat = exports('PixelFormat', {
+              "RGB565": 4,
+              "A8": 1,
+              "I8": 2,
+              "AI8": 3,
+              "RGB_A_PVRTC_2BPPV1": 1024,
+              "RGB_A_PVRTC_4BPPV1": 1025,
+              "RGB_ETC1": 123,
+              "RGBA_ETC1": 1026,
+              "RGB_ETC2": 123213,
+              "RGBA_ETC2": 123214
+            });
 
             function tryDefineGlobal (name, value) {
                 const _global = typeof window === 'undefined' ? global : window;
@@ -102,6 +114,12 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
               return false;
             })();
 
+            var MyEnum4 = exports('MyEnum4', {
+              "AAABBB": 0,
+              "Haha": 0,
+              "Hi": 123
+            });
+
             var Module = (() => {
               var _scriptDir = module.meta.url;
               
@@ -130,6 +148,13 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
 
             var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin'; /* asset-hash:2cbb215d */
 
+            var MyEnum = exports('MyEnum', {
+              "AAA": 0,
+              "BBB": 1,
+              "CCC": 123,
+              "DDD": "hello",
+              "EEE": 1
+            });
             function initializeAsm() {
               return new Promise(function (resolve, reject) {
                 Module({
@@ -148,396 +173,49 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
               });
             }
 
-        })
-    };
-}));
-"
-`;
-
-exports[`engine-js build WASM module on platform not supporting WASM: build result 1`] = `
-{
-  "assetDepGraph": {
-    "cc.js": [
-      "assets/wasm_c.js.mem-429cc1f7.bin",
-    ],
-  },
-  "chunkAliases": {},
-  "chunkDepGraph": {
-    "cc.js": [
-      "module",
-    ],
-  },
-  "dependencyGraph": {
-    "cc.js": [
-      "module",
-    ],
-  },
-  "exports": {
-    "cc": "cc.js",
-  },
-  "hasCriticalWarns": false,
-}
-`;
-
-exports[`engine-js build WASM module on platform not supporting WASM: cull asm.js module 1`] = `
-[
-  "assets/wasm_c.js.mem-429cc1f7.bin",
-  "cc.js",
-]
-`;
-
-exports[`engine-js build WASM module on platform supporting WASM 1`] = `
-[
-  "_virtual_cc-557f4653.js",
-  "assets/wasm_c-8515ca89.wasm",
-  "assets/wasm_rust-404aff2f.wasm",
-  "cc.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-d6fe14a1.js",
-]
-`;
-
-exports[`engine-js build WASM module on platform supporting WASM 2`] = `
-"System.register(['./_virtual_cc-557f4653.js'], (function () {
-	'use strict';
-	return {
-		setters: [function () {}],
-		execute: (function () {
-
-
-
-		})
-	};
-}));
-"
-`;
-
-exports[`engine-js build WASM module on platform supporting WASM: cull asm.js module 1`] = `
-[
-  "_virtual_cc-557f4653.js",
-  "assets/wasm_c-8515ca89.wasm",
-  "assets/wasm_rust-404aff2f.wasm",
-  "cc.js",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-d6fe14a1.js",
-]
-`;
-
-exports[`engine-js build WASM module on platform supporting WASM: wasm subpackage 1`] = `
-[
-  "assets/game.js",
-  "assets/wasm_c.wasm",
-  "assets/wasm_rust.wasm",
-  "cc.js",
-  "chunks/game.js",
-]
-`;
-
-exports[`engine-js build width option nativeCodeBundleMode asmjs 1`] = `
-"function tryDefineGlobal (name, value) {
-    const _global = typeof window === 'undefined' ? global : window;
-    if (typeof _global[name] === 'undefined') {
-        return (_global[name] = value);
-    } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return _global[name];
-    }
-}
-tryDefineGlobal('CC_WECHAT', false);
-tryDefineGlobal('CC_BAIDU', false);
-tryDefineGlobal('CC_XIAOMI', true);
-tryDefineGlobal('CC_ALIPAY', false);
-tryDefineGlobal('CC_BYTEDANCE', false);
-tryDefineGlobal('CC_OPPO', false);
-tryDefineGlobal('CC_VIVO', false);
-tryDefineGlobal('CC_HUAWEI', false);
-tryDefineGlobal('CC_COCOSPLAY', false);
-tryDefineGlobal('CC_QTT', false);
-tryDefineGlobal('CC_LINKSURE', false);
-tryDefineGlobal('CC_EDITOR', false);
-tryDefineGlobal('CC_PREVIEW', false);
-tryDefineGlobal('CC_BUILD', true);
-tryDefineGlobal('CC_TEST', false);
-tryDefineGlobal('CC_DEBUG', true);
-tryDefineGlobal('CC_DEV', false);
-tryDefineGlobal('CC_MINIGAME', true);
-tryDefineGlobal('CC_RUNTIME_BASED', false);
-tryDefineGlobal('CC_SUPPORT_JIT', false);
-tryDefineGlobal('CC_JSB', false);
-
-const NATIVE_CODE_BUNDLE_MODE = 0;
-
-console.log(NATIVE_CODE_BUNDLE_MODE);
-"
-`;
-
-exports[`engine-js build width option nativeCodeBundleMode both 1`] = `
-"function tryDefineGlobal (name, value) {
-    const _global = typeof window === 'undefined' ? global : window;
-    if (typeof _global[name] === 'undefined') {
-        return (_global[name] = value);
-    } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return _global[name];
-    }
-}
-tryDefineGlobal('CC_WECHAT', false);
-tryDefineGlobal('CC_BAIDU', false);
-tryDefineGlobal('CC_XIAOMI', true);
-tryDefineGlobal('CC_ALIPAY', false);
-tryDefineGlobal('CC_BYTEDANCE', false);
-tryDefineGlobal('CC_OPPO', false);
-tryDefineGlobal('CC_VIVO', false);
-tryDefineGlobal('CC_HUAWEI', false);
-tryDefineGlobal('CC_COCOSPLAY', false);
-tryDefineGlobal('CC_QTT', false);
-tryDefineGlobal('CC_LINKSURE', false);
-tryDefineGlobal('CC_EDITOR', false);
-tryDefineGlobal('CC_PREVIEW', false);
-tryDefineGlobal('CC_BUILD', true);
-tryDefineGlobal('CC_TEST', false);
-tryDefineGlobal('CC_DEBUG', true);
-tryDefineGlobal('CC_DEV', false);
-tryDefineGlobal('CC_MINIGAME', true);
-tryDefineGlobal('CC_RUNTIME_BASED', false);
-tryDefineGlobal('CC_SUPPORT_JIT', false);
-tryDefineGlobal('CC_JSB', false);
-
-const NATIVE_CODE_BUNDLE_MODE = 2;
-
-console.log(NATIVE_CODE_BUNDLE_MODE);
-"
-`;
-
-exports[`engine-js build width option nativeCodeBundleMode wasm 1`] = `
-"function tryDefineGlobal (name, value) {
-    const _global = typeof window === 'undefined' ? global : window;
-    if (typeof _global[name] === 'undefined') {
-        return (_global[name] = value);
-    } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return _global[name];
-    }
-}
-tryDefineGlobal('CC_WECHAT', false);
-tryDefineGlobal('CC_BAIDU', false);
-tryDefineGlobal('CC_XIAOMI', true);
-tryDefineGlobal('CC_ALIPAY', false);
-tryDefineGlobal('CC_BYTEDANCE', false);
-tryDefineGlobal('CC_OPPO', false);
-tryDefineGlobal('CC_VIVO', false);
-tryDefineGlobal('CC_HUAWEI', false);
-tryDefineGlobal('CC_COCOSPLAY', false);
-tryDefineGlobal('CC_QTT', false);
-tryDefineGlobal('CC_LINKSURE', false);
-tryDefineGlobal('CC_EDITOR', false);
-tryDefineGlobal('CC_PREVIEW', false);
-tryDefineGlobal('CC_BUILD', true);
-tryDefineGlobal('CC_TEST', false);
-tryDefineGlobal('CC_DEBUG', true);
-tryDefineGlobal('CC_DEV', false);
-tryDefineGlobal('CC_MINIGAME', true);
-tryDefineGlobal('CC_RUNTIME_BASED', false);
-tryDefineGlobal('CC_SUPPORT_JIT', false);
-tryDefineGlobal('CC_JSB', false);
-
-const NATIVE_CODE_BUNDLE_MODE = 1;
-
-console.log(NATIVE_CODE_BUNDLE_MODE);
-"
-`;
-
-exports[`engine-js cull meshopt: with wasm support 1`] = `
-[
-  "cc.js",
-]
-`;
-
-exports[`engine-js cull meshopt: with wasm support 2`] = `
-"System.register([], (function (exports) {
-    'use strict';
-    return {
-        execute: (function () {
-
-            exports({
-                testAsm: meshopt_decoder_asm,
-                testWasm: meshopt_decoder_wasm$1
+            var MyEnum2 = exports('MyEnum2', {
+              "AAABBB": 0,
+              "Haha": 0,
+              "Hi": 123
             });
-
-            function meshopt_decoder_asm () {}
-
-            function meshopt_decoder_wasm$1 () {}
-
-            var meshopt_decoder_wasm = exports('wasmUrl', '');
-
-            function tryDefineGlobal (name, value) {
-                const _global = typeof window === 'undefined' ? global : window;
-                if (typeof _global[name] === 'undefined') {
-                    return (_global[name] = value);
-                } else {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-                    return _global[name];
-                }
-            }
-            tryDefineGlobal('CC_WECHAT', true);
-            tryDefineGlobal('CC_BAIDU', false);
-            tryDefineGlobal('CC_XIAOMI', false);
-            tryDefineGlobal('CC_ALIPAY', false);
-            tryDefineGlobal('CC_BYTEDANCE', false);
-            tryDefineGlobal('CC_OPPO', false);
-            tryDefineGlobal('CC_VIVO', false);
-            tryDefineGlobal('CC_HUAWEI', false);
-            tryDefineGlobal('CC_COCOSPLAY', false);
-            tryDefineGlobal('CC_QTT', false);
-            tryDefineGlobal('CC_LINKSURE', false);
-            tryDefineGlobal('CC_EDITOR', false);
-            tryDefineGlobal('CC_PREVIEW', false);
-            tryDefineGlobal('CC_BUILD', true);
-            tryDefineGlobal('CC_TEST', false);
-            tryDefineGlobal('CC_DEBUG', true);
-            tryDefineGlobal('CC_DEV', false);
-            tryDefineGlobal('CC_MINIGAME', true);
-            tryDefineGlobal('CC_RUNTIME_BASED', false);
-            tryDefineGlobal('CC_SUPPORT_JIT', false);
-            tryDefineGlobal('CC_JSB', false);
-
-            const CULL_MESHOPT = true;
-
-            console.log(CULL_MESHOPT);
-
-        })
-    };
-}));
-"
-`;
-
-exports[`engine-js cull meshopt: without wasm support 1`] = `
-[
-  "cc.js",
-]
-`;
-
-exports[`engine-js cull meshopt: without wasm support 2`] = `
-"System.register([], (function (exports) {
-    'use strict';
-    return {
-        execute: (function () {
-
-            exports({
-                testAsm: meshopt_decoder_asm,
-                testWasm: meshopt_decoder_wasm$1
+            var MyEnum3 = exports('MyEnum3', {
+              "WEBGL": 16,
+              "WEBGPU": 17,
+              "WEBGL2": 18
             });
-
-            function meshopt_decoder_asm () {}
-
-            function meshopt_decoder_wasm$1 () {}
-
-            var meshopt_decoder_wasm = exports('wasmUrl', '');
-
-            function tryDefineGlobal (name, value) {
-                const _global = typeof window === 'undefined' ? global : window;
-                if (typeof _global[name] === 'undefined') {
-                    return (_global[name] = value);
-                } else {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-                    return _global[name];
-                }
-            }
-            tryDefineGlobal('CC_WECHAT', false);
-            tryDefineGlobal('CC_BAIDU', false);
-            tryDefineGlobal('CC_XIAOMI', false);
-            tryDefineGlobal('CC_ALIPAY', false);
-            tryDefineGlobal('CC_BYTEDANCE', true);
-            tryDefineGlobal('CC_OPPO', false);
-            tryDefineGlobal('CC_VIVO', false);
-            tryDefineGlobal('CC_HUAWEI', false);
-            tryDefineGlobal('CC_COCOSPLAY', false);
-            tryDefineGlobal('CC_QTT', false);
-            tryDefineGlobal('CC_LINKSURE', false);
-            tryDefineGlobal('CC_EDITOR', false);
-            tryDefineGlobal('CC_PREVIEW', false);
-            tryDefineGlobal('CC_BUILD', true);
-            tryDefineGlobal('CC_TEST', false);
-            tryDefineGlobal('CC_DEBUG', true);
-            tryDefineGlobal('CC_DEV', false);
-            tryDefineGlobal('CC_MINIGAME', true);
-            tryDefineGlobal('CC_RUNTIME_BASED', false);
-            tryDefineGlobal('CC_SUPPORT_JIT', false);
-            tryDefineGlobal('CC_JSB', false);
-
-            const CULL_MESHOPT = true;
-
-            console.log(CULL_MESHOPT);
+            console.log("hello");
+            console.log(123);
+            console.log("hello: " + 17);
+            var MyEnum5 = exports('MyEnum5', {
+              "RGB": 15,
+              "RGBA": 16,
+              "III": 17,
+              "HHH": 18,
+              "WWW": 4,
+              "ZZZ": 5
+            });
+            var MyEnum6 = exports('MyEnum6', {
+              "UNION": 15
+            });
+            console.log(15);
+            console.log("MyEnum6.UNION.aaa");
+            console.log("15");
+            console.log("   " + 16);
+            console.log('' + (16 | 14));
+            console.log('' + (31 | 14));
+            var MyNode = exports('MyNode', function MyNode(a) {
+              this.a = a;
+            });
+            MyNode.Format = Format;
+            MyNode.Format_2 = Format_2;
+            console.log(MyNode.Format.RG);
+            console.log(MyNode.Format_2.RG);
+            console.log(1);
+            console.log(1);
+            console.log(1024);
 
         })
     };
 }));
 "
-`;
-
-exports[`engine-js enumerate dependents 1`] = `
-[
-  "assets/wasm_rust-404aff2f.wasm",
-  "assets/wasm_c.js.mem-429cc1f7.bin",
-  "assets/wasm_c-8515ca89.wasm",
-  "wasm-test.js",
-  "wasm-test-4a045bf0.js",
-  "module",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-e63dbb4a.js",
-]
-`;
-
-exports[`engine-js enumerate dependents 2`] = `
-[
-  "wasm-test.js",
-  "wasm-test-4a045bf0.js",
-  "module",
-  "wasm_c-a7853123.js",
-  "wasm_c.wasm-e63dbb4a.js",
-]
-`;
-
-exports[`engine-js enumerate dependents 3`] = `
-[
-  "assets/wasm_rust-404aff2f.wasm",
-  "assets/wasm_c.js.mem-429cc1f7.bin",
-  "assets/wasm_c-8515ca89.wasm",
-]
-`;
-
-exports[`engine-js inline dynamic import for OH platform 1`] = `
-[
-  "assets/wasm_c-8515ca89.wasm",
-  "assets/wasm_rust-404aff2f.wasm",
-  "cc.js",
-]
-`;
-
-exports[`engine-js intrinsic flag 1`] = `
-"var str = 'intrinsic flag is true';
-
-export { str };
-"
-`;
-
-exports[`engine-js wasm compress mode: wasm subpackage with brotli 1`] = `
-[
-  "assets/game.js",
-  "assets/wasm_c.wasm.br",
-  "assets/wasm_rust.wasm.br",
-  "cc.js",
-  "chunks/game.js",
-]
-`;
-
-exports[`engine-js wasm compress mode: with brotli 1`] = `
-[
-  "_virtual_cc-3dc9847e.js",
-  "assets/wasm_c-07698a78.wasm.br",
-  "assets/wasm_rust-66c556c0.wasm.br",
-  "cc.js",
-  "wasm_c-cb26c348.js",
-  "wasm_c.wasm-f397441b.js",
-]
 `;
