@@ -27,9 +27,7 @@
         "no-mixed-spaces-and-tabs": "off",
         "no-cond-assign": "off",
         "import/no-extraneous-dependencies": ["error"],
-        "@typescript-eslint/explicit-function-return-type": [
-            "error"
-        ],
+        "@typescript-eslint/explicit-function-return-type": ["error", { "allowIIFEs": true }],
         "@typescript-eslint/ban-types": [
             "error",
             {
@@ -47,6 +45,16 @@
         "semi": [
             "error",
             "always"
+        ],
+        "indent": [
+            "error", 4, {
+                "SwitchCase": 0,
+                "ignoredNodes": [
+                    "FunctionExpression > .params[decorators.length > 0]",
+                    "FunctionExpression > .params > :matches(Decorator, :not(:first-child))",
+                    "ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"
+                ]
+              }
         ]
     }
 }

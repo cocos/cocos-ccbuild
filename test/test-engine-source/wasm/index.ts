@@ -2,6 +2,8 @@ import { MyEnum } from './emscripten';
 
 import * as gfx from './script1';
 
+import { PixelFormat } from './script1';
+
 export * from './wasm-pack';
 export * from './emscripten';
 
@@ -29,7 +31,7 @@ export enum MyEnum5 {
     RGBA = gfx.Format.RGBA,
     III,
     HHH,
-    WWW = 123,
+    WWW = 4,
     ZZZ,
 }
 
@@ -59,3 +61,8 @@ export class MyNode {
 
 console.log(MyNode.Format.RG);
 console.log(MyNode.Format_2.RG);
+
+console.log(gfx.PixelFormat.A8);
+console.log(PixelFormat.A8);
+console.log(PixelFormat.RGB_A_PVRTC_2BPPV1);
+

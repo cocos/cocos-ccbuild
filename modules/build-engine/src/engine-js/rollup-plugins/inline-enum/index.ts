@@ -1,9 +1,3 @@
-/**
- * This entry file is for main unplugin.
- * @module
- */
-
-// import { type UnpluginInstance, createUnplugin } from 'unplugin';
 import { createFilter } from '@rollup/pluginutils';
 import MagicString from 'magic-string';
 import ReplacePlugin from '@rollup/plugin-replace';
@@ -14,92 +8,108 @@ import rollup = Bundler.core;
 
 
 type ConvertedObject = {
-  [key: string]: string;
+    [key: string]: string;
 };
 
 const convertNumberValuesToString = (obj: IDefines): ConvertedObject => {
-  return Object.entries(obj).reduce((acc, [key, value]) => {
-    acc[key] = JSON.stringify(value) + ` /* _.${key} */ `;
-    return acc;
-  }, {} as ConvertedObject);
+    return Object.entries(obj).reduce((acc, [key, value]) => {
+        acc[key] = JSON.stringify(value);// + ` /* _.${key} */ `;
+        return acc;
+    }, {} as ConvertedObject);
 };
 
 /**
  * The main unplugin instance.
  */
-export function rpInlineEnum(rawOptions: Options, meta?: any): rollup.Plugin[] {
-  const options = resolveOptions(rawOptions);
-  const filter = createFilter(options.include, options.exclude);
+export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rollup.Plugin[]> {
+    const options = resolveOptions(rawOptions);
+    const filter = createFilter(options.include, options.exclude);
 
-  const { declarations, defines } = scanEnums(options);
+    const { declarations, defines } = await scanEnums(options);
 
-  const strDefines = convertNumberValuesToString(defines);
+    const strDefines = convertNumberValuesToString(defines);
 
-  const replacePlugin = ReplacePlugin(
-    {
-      include: options.include,
-      exclude: options.exclude,
-      values: strDefines,
-      delimiters: ['(?<!\\.)\\b', '\\b(?!\\.)'],
-    },
+    strDefines['Float32Array.BYTES_PER_ELEMENT'] =  '4';
+    strDefines['Float64Array.BYTES_PER_ELEMENT'] =  '8';
+  
+    strDefines['Uint8Array.BYTES_PER_ELEMENT'] =  '1';
+    strDefines['Uint8ClampedArray.BYTES_PER_ELEMENT'] = '1';
+    strDefines['Uint16Array.BYTES_PER_ELEMENT'] =  '2';
+    strDefines['Uint32Array.BYTES_PER_ELEMENT'] =  '4';
+    strDefines['Int8Array.BYTES_PER_ELEMENT'] =  '1';
+    strDefines['Int16Array.BYTES_PER_ELEMENT'] =  '2';
+    strDefines['Int32Array.BYTES_PER_ELEMENT'] =  '4';
+
+
+    const replacePlugin = ReplacePlugin(
+        {
+            include: options.include,
+            exclude: options.exclude,
+            values: strDefines,
+            delimiters: ['(?<!\\.)\\b', '\\b(?!\\.)'],
+        },
     // meta,
-  );
+    );
 
-  const name = 'unplugin-inline-enum';
-  return [
-    {
-      name,
-    //   enforce: options.enforce,
+    const name = 'unplugin-inline-enum';
+    return [
+        {
+            name,
+            //   enforce: options.enforce,
 
-      async resolveId (this, source, importer): Promise<string | { id: string; external: true; } | null> {
-        return filter(source) ? source : null;
-      },
+            async resolveId (this, source, importer): Promise<string | { id: string; external: true; } | null> {
+                return filter(source) ? source : null;
+            },
 
-      transform(this, code, id): rollup.TransformResult {
-        let s: MagicString | undefined;
+            transform(this, code, id): rollup.TransformResult {
+                let s: MagicString | undefined;
 
-        if (id in declarations) {
-          s ||= new MagicString(code);
-          for (const declaration of declarations[id]) {
-            const {
-              range: [start, end],
-              id,
-              members,
-            } = declaration;
-            s.update(
-              start,
-              end,
-              `export const ${id} = {${members
-                .flatMap(({ name, value }) => {
-                  const forwardMapping = `${JSON.stringify(name)}: ${JSON.stringify(value)}`;
-                  const reverseMapping = `${JSON.stringify(value.toString())}: ${JSON.stringify(name)}`;
+                if (id in declarations) {
+                    s ||= new MagicString(code);
+                    for (const declaration of declarations[id]) {
+                        const {
+                            range: [start, end],
+                            id,
+                            members,
+                            exported,
+                        } = declaration;
 
-                  // see https://www.typescriptlang.org/docs/handbook/enums.html#reverse-mappings
-                  return typeof value === 'string'
-                    ? [
-                      forwardMapping,
-                      // string enum members do not get a reverse mapping generated at all
-                    ]
-                    : [
-                      forwardMapping,
-                      // other enum members should support enum reverse mapping
-                      // reverseMapping,
-                    ];
-                })
-                .join(',\n')}}`,
-            );
-          }
-        }
+                        const prefix = exported ? 'export' : '';
 
-        if (s) {
-          return {
-            code: s.toString(),
-            map: s.generateMap(),
-          };
-        }
-      },
-    },
+                        s.update(
+                            start,
+                            end,
+                            `${prefix} const ${id} = {${members
+                                .flatMap(({ name, value }) => {
+                                    const forwardMapping = `${JSON.stringify(name)}: ${JSON.stringify(value)}`;
+                                    const reverseMapping = `${JSON.stringify(value.toString())}: ${JSON.stringify(name)}`;
 
-    replacePlugin,
-  ];
+                                    // see https://www.typescriptlang.org/docs/handbook/enums.html#reverse-mappings
+                                    return typeof value === 'string'
+                                        ? [
+                                            forwardMapping,
+                                            // string enum members do not get a reverse mapping generated at all
+                                        ]
+                                        : [
+                                            forwardMapping,
+                                            // other enum members should support enum reverse mapping
+                                            // reverseMapping,
+                                        ];
+                                })
+                                .join(',\n')}}`,
+                        );
+                    }
+                }
+
+                if (s) {
+                    return {
+                        code: s.toString(),
+                        map: s.generateMap(),
+                    };
+                }
+            },
+        },
+
+        replacePlugin,
+    ];
 }

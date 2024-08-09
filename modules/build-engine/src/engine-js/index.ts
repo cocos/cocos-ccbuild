@@ -242,6 +242,12 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         ));
     }
 
+    const inlineEnumPlugins = await rpInlineEnum({ 
+        scanDir: ps.join(engineRoot, ''),
+        // exclude: ['*.jsb.ts'],
+        // scanPattern: '**/*.{cts,mts,ts,tsx}'
+    });
+
     rollupPlugins.push(
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
@@ -299,11 +305,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             sourceMap: false,
         }),
 
-        ...rpInlineEnum({ 
-            scanDir: ps.join(engineRoot, ''),
-            // exclude: ['*.jsb.ts'],
-            // scanPattern: '**/*.{cts,mts,ts,tsx}'
-        }),//, include: ps.join(engineRoot, '**/*.ts') }),
+        ...inlineEnumPlugins,
 
         rpBabel({
             skipPreflightCheck: true,
@@ -332,10 +334,14 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 unsafe_methods: true,
                 passes: 2,  // first: remove deadcodes and const objects, second: drop variables
             },
-            mangle: doUglify,
-            keep_fnames: !doUglify,
+            mangle: {
+                properties: {
+                    regex: /\w+\$$/,
+                }
+            },
+            keep_fnames: false,
             output: {
-                beautify: !doUglify,
+                beautify: true,
             },
 
             // https://github.com/rollup/rollup/issues/3315

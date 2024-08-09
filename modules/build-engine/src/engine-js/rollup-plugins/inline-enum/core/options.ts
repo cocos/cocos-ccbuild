@@ -5,24 +5,24 @@ import type { FilterPattern } from '@rollup/pluginutils';
  * Represents the options for the plugin.
  */
 export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern
-  enforce?: 'pre' | 'post' | undefined
-  /**
-   * The mode used to scan for enum files.
-   * @default 'fs'
-   */
-  scanMode?: 'git' | 'fs'
-  /**
-   * The directory to scan for enum files.
-   * @default process.cwd()
-   */
-  scanDir?: string
-  /**
-   * The pattern used to match enum files.
-   * @default '**\/*.{cts,mts,ts,tsx}'
-   */
-  scanPattern?: string | string[]
+    include?: FilterPattern
+    exclude?: FilterPattern
+    enforce?: 'pre' | 'post' | undefined
+    /**
+     * The mode used to scan for enum files.
+     * @default 'fs'
+     */
+    scanMode?: 'git' | 'fs'
+    /**
+     * The directory to scan for enum files.
+     * @default process.cwd()
+     */
+    scanDir?: string
+    /**
+     * The pattern used to match enum files.
+     * @default '**\/*.{cts,mts,ts,tsx}'
+     */
+    scanPattern?: string | string[]
 }
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
@@ -31,8 +31,8 @@ type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
  * Represents the resolved options for the plugin.
  */
 export type OptionsResolved = Overwrite<
-  Required<Options>,
-  Pick<Options, 'enforce'>
+    Required<Options>,
+    Pick<Options, 'enforce'>
 >
 
 /**
@@ -41,13 +41,13 @@ export type OptionsResolved = Overwrite<
  * @returns The resolved options.
  */
 export function resolveOptions(options: Options): OptionsResolved {
-  return {
-    include: options.include || [/\.[cm]?[jt]sx?$/],
-    exclude: options.exclude || [/node_modules/],
-    enforce: 'enforce' in options ? options.enforce : 'pre',
+    return {
+        include: options.include || [/\.[cm]?[jt]sx?$/],
+        exclude: options.exclude || [/node_modules/],
+        enforce: 'enforce' in options ? options.enforce : 'pre',
 
-    scanMode: options.scanMode || 'fs',
-    scanDir: options.scanDir || process.cwd(),
-    scanPattern: options.scanPattern || '**/*.{cts,mts,ts,tsx}',
-  };
+        scanMode: options.scanMode || 'fs',
+        scanDir: options.scanDir || process.cwd(),
+        scanPattern: options.scanPattern || '**/*.{cts,mts,ts,tsx}',
+    };
 }
