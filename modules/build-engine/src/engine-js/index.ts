@@ -29,7 +29,7 @@ import RollupBabelInputPluginOptions = Bundler.plugins.babel.RollupBabelInputPlu
 import json = Bundler.plugins.json;
 import resolve = Bundler.plugins.nodeResolve;
 import commonjs = Bundler.plugins.commonjs;
-import rpTerser = Bundler.plugins.terser.terser;
+import rpTerser = Bundler.plugins.terser;
 import rpVirtual = Bundler.plugins.virtual;
 import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
@@ -341,7 +341,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             },
             keep_fnames: false,
             output: {
-                beautify: true,
+                beautify: false,
             },
 
             // https://github.com/rollup/rollup/issues/3315
