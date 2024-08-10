@@ -336,7 +336,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             },
             mangle: {
                 properties: {
-                    regex: /\w+\$$/,
+                    regex: /^\w{4,}\$$/,
                 }
             },
             keep_fnames: false,
