@@ -476,8 +476,8 @@ export class EngineBuilder {
                                                         [
                                                             t.identifier(decName),
                                                             (propertyValuePath.node ?
-                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
-                                                            t.nullLiteral()),
+                                                                t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                                t.nullLiteral()),
                                                             ...args
                                                         ]
                                                     )));
@@ -488,8 +488,8 @@ export class EngineBuilder {
                                                         [
                                                             t.identifier(decName),
                                                             (propertyValuePath.node ?
-                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
-                                                            t.nullLiteral())
+                                                                t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                                t.nullLiteral())
                                                         ]
                                                     )));
                                                 }
