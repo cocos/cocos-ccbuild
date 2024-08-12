@@ -37,6 +37,9 @@
         },
         "dynamic-import": {
             "modules": ["dynamic-import"]
+        },
+        "enums": {
+            "modules": ["enums"]
         }
     },
     "moduleOverrides": [

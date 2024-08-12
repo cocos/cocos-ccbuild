@@ -304,9 +304,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             ],
             sourceMap: false,
         }),
+    );
 
-        ...inlineEnumPlugins,
+    if (options.inlineEnum) {
+        rollupPlugins.push(...inlineEnumPlugins);
+    }
 
+    rollupPlugins.push(
         rpBabel({
             skipPreflightCheck: true,
             ...babelOptions,

@@ -1,19 +1,19 @@
 import 'internal:native';
-import { EDITOR, TEST } from "internal:constants";
+import { EDITOR, TEST } from 'internal:constants';
 import './module';
 import 'pal/audio';
 import 'pal/minigame';
-import { testDecorator } from "../decorators";
+import { testDecorator } from '../decorators';
 import { testDecorator as testDecorator2 } from 'cc.decorator';
 import { zlib } from '../external/zlib';
 import { zlib as zlib2 } from '../external/zlib.js';
-import './struct'
-import './template-string-type'
-import './dynamic-import'
-import './as-type'
+import './struct';
+import './template-string-type';
+import './dynamic-import';
+import './as-type';
 
-console.log(zlib.Inflate)
-console.log(zlib2.Inflate)
+console.log(zlib.Inflate);
+console.log(zlib2.Inflate);
 
 
 @testDecorator
@@ -37,7 +37,7 @@ player.play().then(() => {
 });
 
 export const testConsoleLog = {
-    test: (): void => {console.warn('test console log')},
+    test: (): void => {console.warn('test console log');},
     test2: (): void => console.warn('test console log'),
     test3: (): number => 1,
 };

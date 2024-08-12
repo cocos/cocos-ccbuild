@@ -1,8 +1,629 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`engine-js build WASM module on platform maybe supporting WASM 1`] = `
+[
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "assets/wasm_c.js.mem-8V82NAH-.bin",
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "cc.js",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-D5oKtVis.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform maybe supporting WASM 2`] = `
+"System.register([], (function (exports, module) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports({
+                _: _asyncToGenerator,
+                a: _regeneratorRuntime
+            });
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', false);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', true);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', false);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', true);
+            tryDefineGlobal('CC_JSB', false);
+
+            var wasmUrl = 'assets/wasm_rust-DLg-BIuk.wasm'; /* asset-hash:829fe457 */
+
+            function _regeneratorRuntime() {
+              exports("a", _regeneratorRuntime = function () {
+                return exports$1;
+              });
+              var exports$1 = {},
+                Op = Object.prototype,
+                hasOwn = Op.hasOwnProperty,
+                defineProperty = Object.defineProperty || function (obj, key, desc) {
+                  obj[key] = desc.value;
+                },
+                $Symbol = "function" == typeof Symbol ? Symbol : {},
+                iteratorSymbol = $Symbol.iterator || "@@iterator",
+                asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+                toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+              function define(obj, key, value) {
+                return Object.defineProperty(obj, key, {
+                  value: value,
+                  enumerable: !0,
+                  configurable: !0,
+                  writable: !0
+                }), obj[key];
+              }
+              try {
+                define({}, "");
+              } catch (err) {
+                define = function (obj, key, value) {
+                  return obj[key] = value;
+                };
+              }
+              function wrap(innerFn, outerFn, self, tryLocsList) {
+                var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator,
+                  generator = Object.create(protoGenerator.prototype),
+                  context = new Context(tryLocsList || []);
+                return defineProperty(generator, "_invoke", {
+                  value: makeInvokeMethod(innerFn, self, context)
+                }), generator;
+              }
+              function tryCatch(fn, obj, arg) {
+                try {
+                  return {
+                    type: "normal",
+                    arg: fn.call(obj, arg)
+                  };
+                } catch (err) {
+                  return {
+                    type: "throw",
+                    arg: err
+                  };
+                }
+              }
+              exports$1.wrap = wrap;
+              var ContinueSentinel = {};
+              function Generator() {}
+              function GeneratorFunction() {}
+              function GeneratorFunctionPrototype() {}
+              var IteratorPrototype = {};
+              define(IteratorPrototype, iteratorSymbol, function () {
+                return this;
+              });
+              var getProto = Object.getPrototypeOf,
+                NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+              NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype);
+              var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+              function defineIteratorMethods(prototype) {
+                ["next", "throw", "return"].forEach(function (method) {
+                  define(prototype, method, function (arg) {
+                    return this._invoke(method, arg);
+                  });
+                });
+              }
+              function AsyncIterator(generator, PromiseImpl) {
+                function invoke(method, arg, resolve, reject) {
+                  var record = tryCatch(generator[method], generator, arg);
+                  if ("throw" !== record.type) {
+                    var result = record.arg,
+                      value = result.value;
+                    return value && "object" == typeof value && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) {
+                      invoke("next", value, resolve, reject);
+                    }, function (err) {
+                      invoke("throw", err, resolve, reject);
+                    }) : PromiseImpl.resolve(value).then(function (unwrapped) {
+                      result.value = unwrapped, resolve(result);
+                    }, function (error) {
+                      return invoke("throw", error, resolve, reject);
+                    });
+                  }
+                  reject(record.arg);
+                }
+                var previousPromise;
+                defineProperty(this, "_invoke", {
+                  value: function (method, arg) {
+                    function callInvokeWithMethodAndArg() {
+                      return new PromiseImpl(function (resolve, reject) {
+                        invoke(method, arg, resolve, reject);
+                      });
+                    }
+                    return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+                  }
+                });
+              }
+              function makeInvokeMethod(innerFn, self, context) {
+                var state = "suspendedStart";
+                return function (method, arg) {
+                  if ("executing" === state) throw new Error("Generator is already running");
+                  if ("completed" === state) {
+                    if ("throw" === method) throw arg;
+                    return {
+                      value: void 0,
+                      done: !0
+                    };
+                  }
+                  for (context.method = method, context.arg = arg;;) {
+                    var delegate = context.delegate;
+                    if (delegate) {
+                      var delegateResult = maybeInvokeDelegate(delegate, context);
+                      if (delegateResult) {
+                        if (delegateResult === ContinueSentinel) continue;
+                        return delegateResult;
+                      }
+                    }
+                    if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) {
+                      if ("suspendedStart" === state) throw state = "completed", context.arg;
+                      context.dispatchException(context.arg);
+                    } else "return" === context.method && context.abrupt("return", context.arg);
+                    state = "executing";
+                    var record = tryCatch(innerFn, self, context);
+                    if ("normal" === record.type) {
+                      if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue;
+                      return {
+                        value: record.arg,
+                        done: context.done
+                      };
+                    }
+                    "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg);
+                  }
+                };
+              }
+              function maybeInvokeDelegate(delegate, context) {
+                var methodName = context.method,
+                  method = delegate.iterator[methodName];
+                if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel;
+                var record = tryCatch(method, delegate.iterator, context.arg);
+                if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel;
+                var info = record.arg;
+                return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel);
+              }
+              function pushTryEntry(locs) {
+                var entry = {
+                  tryLoc: locs[0]
+                };
+                1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry);
+              }
+              function resetTryEntry(entry) {
+                var record = entry.completion || {};
+                record.type = "normal", delete record.arg, entry.completion = record;
+              }
+              function Context(tryLocsList) {
+                this.tryEntries = [{
+                  tryLoc: "root"
+                }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
+              }
+              function values(iterable) {
+                if (iterable || "" === iterable) {
+                  var iteratorMethod = iterable[iteratorSymbol];
+                  if (iteratorMethod) return iteratorMethod.call(iterable);
+                  if ("function" == typeof iterable.next) return iterable;
+                  if (!isNaN(iterable.length)) {
+                    var i = -1,
+                      next = function next() {
+                        for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next;
+                        return next.value = undefined, next.done = !0, next;
+                      };
+                    return next.next = next;
+                  }
+                }
+                throw new TypeError(typeof iterable + " is not iterable");
+              }
+              return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
+                value: GeneratorFunctionPrototype,
+                configurable: !0
+              }), defineProperty(GeneratorFunctionPrototype, "constructor", {
+                value: GeneratorFunction,
+                configurable: !0
+              }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports$1.isGeneratorFunction = function (genFun) {
+                var ctor = "function" == typeof genFun && genFun.constructor;
+                return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name));
+              }, exports$1.mark = function (genFun) {
+                return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun;
+              }, exports$1.awrap = function (arg) {
+                return {
+                  __await: arg
+                };
+              }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+                return this;
+              }), exports$1.AsyncIterator = AsyncIterator, exports$1.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+                void 0 === PromiseImpl && (PromiseImpl = Promise);
+                var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
+                return exports$1.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) {
+                  return result.done ? result.value : iter.next();
+                });
+              }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () {
+                return this;
+              }), define(Gp, "toString", function () {
+                return "[object Generator]";
+              }), exports$1.keys = function (val) {
+                var object = Object(val),
+                  keys = [];
+                for (var key in object) keys.push(key);
+                return keys.reverse(), function next() {
+                  for (; keys.length;) {
+                    var key = keys.pop();
+                    if (key in object) return next.value = key, next.done = !1, next;
+                  }
+                  return next.done = !0, next;
+                };
+              }, exports$1.values = values, Context.prototype = {
+                constructor: Context,
+                reset: function (skipTempReset) {
+                  if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined);
+                },
+                stop: function () {
+                  this.done = !0;
+                  var rootRecord = this.tryEntries[0].completion;
+                  if ("throw" === rootRecord.type) throw rootRecord.arg;
+                  return this.rval;
+                },
+                dispatchException: function (exception) {
+                  if (this.done) throw exception;
+                  var context = this;
+                  function handle(loc, caught) {
+                    return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught;
+                  }
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i],
+                      record = entry.completion;
+                    if ("root" === entry.tryLoc) return handle("end");
+                    if (entry.tryLoc <= this.prev) {
+                      var hasCatch = hasOwn.call(entry, "catchLoc"),
+                        hasFinally = hasOwn.call(entry, "finallyLoc");
+                      if (hasCatch && hasFinally) {
+                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+                        if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+                      } else if (hasCatch) {
+                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+                      } else {
+                        if (!hasFinally) throw new Error("try statement without catch or finally");
+                        if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+                      }
+                    }
+                  }
+                },
+                abrupt: function (type, arg) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
+                      var finallyEntry = entry;
+                      break;
+                    }
+                  }
+                  finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null);
+                  var record = finallyEntry ? finallyEntry.completion : {};
+                  return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record);
+                },
+                complete: function (record, afterLoc) {
+                  if ("throw" === record.type) throw record.arg;
+                  return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel;
+                },
+                finish: function (finallyLoc) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel;
+                  }
+                },
+                catch: function (tryLoc) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.tryLoc === tryLoc) {
+                      var record = entry.completion;
+                      if ("throw" === record.type) {
+                        var thrown = record.arg;
+                        resetTryEntry(entry);
+                      }
+                      return thrown;
+                    }
+                  }
+                  throw new Error("illegal catch attempt");
+                },
+                delegateYield: function (iterable, resultName, nextLoc) {
+                  return this.delegate = {
+                    iterator: values(iterable),
+                    resultName: resultName,
+                    nextLoc: nextLoc
+                  }, "next" === this.method && (this.arg = undefined), ContinueSentinel;
+                }
+              }, exports$1;
+            }
+            function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+              try {
+                var info = gen[key](arg);
+                var value = info.value;
+              } catch (error) {
+                reject(error);
+                return;
+              }
+              if (info.done) {
+                resolve(value);
+              } else {
+                Promise.resolve(value).then(_next, _throw);
+              }
+            }
+            function _asyncToGenerator(fn) {
+              return function () {
+                var self = this,
+                  args = arguments;
+                return new Promise(function (resolve, reject) {
+                  var gen = fn.apply(self, args);
+                  function _next(value) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+                  }
+                  function _throw(err) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+                  }
+                  _next(undefined);
+                });
+              };
+            }
+
+            var wasm;
+            var cachedTextDecoder = new TextDecoder('utf-8', {
+              ignoreBOM: true,
+              fatal: true
+            });
+            cachedTextDecoder.decode();
+            var cachedUint8Memory0 = null;
+            function getUint8Memory0() {
+              if (cachedUint8Memory0 === null || cachedUint8Memory0.byteLength === 0) {
+                cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
+              }
+              return cachedUint8Memory0;
+            }
+            function getStringFromWasm0(ptr, len) {
+              return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+            }
+            function load(_x, _x2) {
+              return _load.apply(this, arguments);
+            }
+            function _load() {
+              _load = _asyncToGenerator(_regeneratorRuntime().mark(function _callee(module, imports) {
+                var bytes, instance;
+                return _regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
+                    case 0:
+                      if (!(typeof Response === 'function' && module instanceof Response)) {
+                        _context.next = 23;
+                        break;
+                      }
+                      if (!(typeof WebAssembly.instantiateStreaming === 'function')) {
+                        _context.next = 15;
+                        break;
+                      }
+                      _context.prev = 2;
+                      _context.next = 5;
+                      return WebAssembly.instantiateStreaming(module, imports);
+                    case 5:
+                      return _context.abrupt("return", _context.sent);
+                    case 8:
+                      _context.prev = 8;
+                      _context.t0 = _context["catch"](2);
+                      if (!(module.headers.get('Content-Type') != 'application/wasm')) {
+                        _context.next = 14;
+                        break;
+                      }
+                      console.warn("\`WebAssembly.instantiateStreaming\` failed because your server does not serve wasm with \`application/wasm\` MIME type. Falling back to \`WebAssembly.instantiate\` which is slower. Original error:\\n", _context.t0);
+                      _context.next = 15;
+                      break;
+                    case 14:
+                      throw _context.t0;
+                    case 15:
+                      _context.next = 17;
+                      return module.arrayBuffer();
+                    case 17:
+                      bytes = _context.sent;
+                      _context.next = 20;
+                      return WebAssembly.instantiate(bytes, imports);
+                    case 20:
+                      return _context.abrupt("return", _context.sent);
+                    case 23:
+                      _context.next = 25;
+                      return WebAssembly.instantiate(module, imports);
+                    case 25:
+                      instance = _context.sent;
+                      if (!(instance instanceof WebAssembly.Instance)) {
+                        _context.next = 30;
+                        break;
+                      }
+                      return _context.abrupt("return", {
+                        instance: instance,
+                        module: module
+                      });
+                    case 30:
+                      return _context.abrupt("return", instance);
+                    case 31:
+                    case "end":
+                      return _context.stop();
+                  }
+                }, _callee, null, [[2, 8]]);
+              }));
+              return _load.apply(this, arguments);
+            }
+            function getImports() {
+              var imports = {};
+              imports.wbg = {};
+              imports.wbg.__wbg_alert_685e3cc61a9b8233 = function (arg0, arg1) {
+                alert(getStringFromWasm0(arg0, arg1));
+              };
+              return imports;
+            }
+            function finalizeInit(instance, module) {
+              wasm = instance.exports;
+              init.__wbindgen_wasm_module = module;
+              cachedUint8Memory0 = null;
+              return wasm;
+            }
+            function init(_x3) {
+              return _init.apply(this, arguments);
+            }
+            function _init() {
+              _init = _asyncToGenerator(_regeneratorRuntime().mark(function _callee2(input) {
+                var imports, _yield$load, instance, module$1;
+                return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                  while (1) switch (_context2.prev = _context2.next) {
+                    case 0:
+                      if (typeof input === 'undefined') {
+                        input = new URL('wasm_rust.wasm', module.meta.url);
+                      }
+                      imports = getImports();
+                      if (typeof input === 'string' || typeof Request === 'function' && input instanceof Request || typeof URL === 'function' && input instanceof URL) {
+                        input = fetch(input);
+                      }
+                      _context2.t0 = load;
+                      _context2.next = 7;
+                      return input;
+                    case 7:
+                      _context2.t1 = _context2.sent;
+                      _context2.t2 = imports;
+                      _context2.next = 11;
+                      return (0, _context2.t0)(_context2.t1, _context2.t2);
+                    case 11:
+                      _yield$load = _context2.sent;
+                      instance = _yield$load.instance;
+                      module$1 = _yield$load.module;
+                      return _context2.abrupt("return", finalizeInit(instance, module$1));
+                    case 15:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }, _callee2);
+              }));
+              return _init.apply(this, arguments);
+            }
+
+            var isSupportWASM = function () {
+              try {
+                if (typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function') {
+                  var module = new WebAssembly.Module(new Uint8Array([0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]));
+                  if (module instanceof WebAssembly.Module) {
+                    return !!(new WebAssembly.Instance(module) instanceof WebAssembly.Instance);
+                  }
+                }
+              } catch (e) {
+                return false;
+              }
+              return false;
+            }();
+
+            {
+              if (isSupportWASM) {
+                init(wasmUrl).then(function (inst) {
+                  inst.greet();
+                });
+              }
+            }
+
+            var Module = (() => {
+              var _scriptDir = module.meta.url;
+              
+              return (
+            async function(Module = {})  {
+
+            var Module=typeof Module!="undefined"?Module:{};var readyPromiseResolve,readyPromiseReject;Module["ready"]=new Promise(function(resolve,reject){readyPromiseResolve=resolve;readyPromiseReject=reject;});var moduleOverrides=Object.assign({},Module);var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof importScripts=="function";var ENVIRONMENT_IS_NODE=typeof process=="object"&&typeof process.versions=="object"&&typeof process.versions.node=="string";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var read_,readAsync,readBinary;if(ENVIRONMENT_IS_NODE){const{createRequire:createRequire}=await module.import('module');var require=createRequire(module.meta.url);var fs=require("fs");var nodePath=require("path");if(ENVIRONMENT_IS_WORKER){scriptDirectory=nodePath.dirname(scriptDirectory)+"/";}else {scriptDirectory=require("url").fileURLToPath(new URL("./",module.meta.url));}read_=(filename,binary)=>{filename=isFileURI(filename)?new URL(filename):nodePath.normalize(filename);return fs.readFileSync(filename,binary?undefined:"utf8")};readBinary=filename=>{var ret=read_(filename,true);if(!ret.buffer){ret=new Uint8Array(ret);}return ret};readAsync=(filename,onload,onerror)=>{filename=isFileURI(filename)?new URL(filename):nodePath.normalize(filename);fs.readFile(filename,function(err,data){if(err)onerror(err);else onload(data.buffer);});};if(!Module["thisProgram"]&&process.argv.length>1){process.argv[1].replace(/\\\\/g,"/");}process.argv.slice(2);Module["inspect"]=function(){return "[Emscripten Module object]"};}else if(ENVIRONMENT_IS_WEB||ENVIRONMENT_IS_WORKER){if(ENVIRONMENT_IS_WORKER){scriptDirectory=self.location.href;}else if(typeof document!="undefined"&&document.currentScript){scriptDirectory=document.currentScript.src;}if(_scriptDir){scriptDirectory=_scriptDir;}if(scriptDirectory.indexOf("blob:")!==0){scriptDirectory=scriptDirectory.substr(0,scriptDirectory.replace(/[?#].*/,"").lastIndexOf("/")+1);}else {scriptDirectory="";}{read_=url=>{var xhr=new XMLHttpRequest;xhr.open("GET",url,false);xhr.send(null);return xhr.responseText};if(ENVIRONMENT_IS_WORKER){readBinary=url=>{var xhr=new XMLHttpRequest;xhr.open("GET",url,false);xhr.responseType="arraybuffer";xhr.send(null);return new Uint8Array(xhr.response)};}readAsync=(url,onload,onerror)=>{var xhr=new XMLHttpRequest;xhr.open("GET",url,true);xhr.responseType="arraybuffer";xhr.onload=()=>{if(xhr.status==200||xhr.status==0&&xhr.response){onload(xhr.response);return}onerror();};xhr.onerror=onerror;xhr.send(null);};}}else;var out=Module["print"]||console.log.bind(console);var err=Module["printErr"]||console.warn.bind(console);Object.assign(Module,moduleOverrides);moduleOverrides=null;if(Module["arguments"])Module["arguments"];if(Module["thisProgram"])Module["thisProgram"];if(Module["quit"])Module["quit"];var wasmBinary;if(Module["wasmBinary"])wasmBinary=Module["wasmBinary"];Module["noExitRuntime"]||true;var WebAssembly={Memory:function(opts){this.buffer=new ArrayBuffer(opts["initial"]*65536);},Module:function(binary){},Instance:function(module,info){this.exports=(
+            // EMSCRIPTEN_START_ASM
+            function instantiate(G){function c(d){d.set=function(a,b){this[a]=b;};d.get=function(a){return this[a]};return d}function E(F){var e=F.a;var f=e.a;var g=f.buffer;var h=new Int8Array(g);var j=new Int32Array(g);var k=new Uint8Array(g);var z=e.b;var A=e.c;var B=67760;
+            // EMSCRIPTEN_START_FUNCS
+            function H(a){var b=0,c=0,d=0,e=0,f=0,g=0;c=1024;d=j[264];a:{if(!d){if(I()){break a}d=j[264];}b=d;d=j[265];if(b-d>>>0<a>>>0){return C[j[269]](1040,1024,a)|0}b:{if(j[280]<0){break b}b=a;while(1){e=b;if(!b){e=0;break b}b=e-1|0;if(k[b+1024|0]!=10){continue}break}b=C[j[269]](1040,1024,e)|0;if(e>>>0>b>>>0){break a}c=e+1024|0;a=a-e|0;d=j[265];}b=d;c:{if(a>>>0>=512){A(b|0,c|0,a|0);break c}f=a+b|0;d:{if(!((b^c)&3)){e:{if(!(b&3)|!a){break e}while(1){h[b|0]=k[c|0];c=c+1|0;b=b+1|0;if(!(b&3)){break e}if(b>>>0<f>>>0){continue}break}}g=f&-4;f:{if(g>>>0<64){break f}d=g+-64|0;if(d>>>0<b>>>0){break f}while(1){j[b>>2]=j[c>>2];j[b+4>>2]=j[c+4>>2];j[b+8>>2]=j[c+8>>2];j[b+12>>2]=j[c+12>>2];j[b+16>>2]=j[c+16>>2];j[b+20>>2]=j[c+20>>2];j[b+24>>2]=j[c+24>>2];j[b+28>>2]=j[c+28>>2];j[b+32>>2]=j[c+32>>2];j[b+36>>2]=j[c+36>>2];j[b+40>>2]=j[c+40>>2];j[b+44>>2]=j[c+44>>2];j[b+48>>2]=j[c+48>>2];j[b+52>>2]=j[c+52>>2];j[b+56>>2]=j[c+56>>2];j[b+60>>2]=j[c+60>>2];c=c- -64|0;b=b- -64|0;if(d>>>0>=b>>>0){continue}break}}if(b>>>0>=g>>>0){break d}while(1){j[b>>2]=j[c>>2];c=c+4|0;b=b+4|0;if(g>>>0>b>>>0){continue}break}break d}if(f>>>0<4){break d}d=f-4|0;if(d>>>0<b>>>0){break d}while(1){h[b|0]=k[c|0];h[b+1|0]=k[c+1|0];h[b+2|0]=k[c+2|0];h[b+3|0]=k[c+3|0];c=c+4|0;b=b+4|0;if(d>>>0>=b>>>0){continue}break}}if(b>>>0<f>>>0){while(1){h[b|0]=k[c|0];c=c+1|0;b=b+1|0;if((f|0)!=(b|0)){continue}break}}}j[265]=j[265]+a;b=a+e|0;}return b}function O(a,b,c){a=a|0;b=b|0;c=c|0;var d=0,e=0,f=0,g=0,h=0,i=0,k=0;f=B-32|0;B=f;d=j[a+28>>2];j[f+16>>2]=d;g=j[a+20>>2];j[f+28>>2]=c;j[f+24>>2]=b;b=g-d|0;j[f+20>>2]=b;g=b+c|0;i=2;a:{b:{b=f+16|0;d=z(j[a+60>>2],b|0,2,f+12|0)|0;if(d){j[554]=d;d=-1;}else {d=0;}c:{d:{if(d){d=b;break d}while(1){e=j[f+12>>2];if((e|0)==(g|0)){break c}if((e|0)<0){d=b;break b}h=j[b+4>>2];k=h>>>0<e>>>0;d=(k<<3)+b|0;h=e-(k?h:0)|0;j[d>>2]=h+j[d>>2];b=(k?12:4)+b|0;j[b>>2]=j[b>>2]-h;g=g-e|0;b=d;i=i-k|0;e=z(j[a+60>>2],b|0,i|0,f+12|0)|0;if(e){j[554]=e;e=-1;}else {e=0;}if(!e){continue}break}}if((g|0)!=-1){break b}}b=j[a+44>>2];j[a+28>>2]=b;j[a+20>>2]=b;j[a+16>>2]=b+j[a+48>>2];a=c;break a}j[a+28>>2]=0;j[a+16>>2]=0;j[a+20>>2]=0;j[a>>2]=j[a>>2]|32;a=0;if((i|0)==2){break a}a=c-j[d+4>>2]|0;}B=f+32|0;return a|0}function Q(){var a=0,b=0,c=0;b=1024;while(1){a=b;b=a+4|0;c=j[a>>2];if(!((c^-1)&c-16843009&-2139062144)){continue}break}while(1){b=a;a=a+1|0;if(k[b|0]){continue}break}c=b-1024|0;a=c;a:{if(j[279]<0){b=H(a);break a}b=H(a);}if((a|0)!=(b|0)){a=b;}b:{if((((a|0)!=(c|0)?-1:0)|0)<0){break b}c:{if(j[280]==10){break c}a=j[265];if((a|0)==j[264]){break c}j[265]=a+1;h[a|0]=10;break b}b=B-16|0;B=b;h[b+15|0]=10;a=j[264];d:{if(!a){if(I()){break d}a=j[264];}c=a;a=j[265];if(!((c|0)==(a|0)|j[280]==10)){j[265]=a+1;h[a|0]=10;break d}if((C[j[269]](1040,b+15|0,1)|0)!=1){break d}}B=b+16|0;}return 0}
+            function I(){var a=0;a=j[278];j[278]=a-1|a;a=j[260];if(a&8){j[260]=a|32;return -1}j[261]=0;j[262]=0;a=j[271];j[267]=a;j[265]=a;j[264]=a+j[272];return 0}function M(a,b,c,d){return 0}function P(a){a=a|0;a=B-a&-16;B=a;return a|0}function N(a){return 0}function L(){return B|0}function K(a){a=a|0;B=a;}function J(){}
+            // EMSCRIPTEN_END_FUNCS
+            var C=c([null,N,O,M]);return {"d":J,"e":Q,"f":C,"g":L,"h":K,"i":P}}return E(G)}
+            // EMSCRIPTEN_END_ASM
+
+
+            )(info);},instantiate:function(binary,info){return {then:function(ok){var module=new WebAssembly.Module(binary);ok({"instance":new WebAssembly.Instance(module,info)});}}},RuntimeError:Error};wasmBinary=[];if(typeof WebAssembly!="object"){abort("no native wasm support detected");}var wasmMemory;var ABORT=false;function assert(condition,text){if(!condition){abort(text);}}var HEAP8,HEAPU8,HEAPU32;function updateMemoryViews(){var b=wasmMemory.buffer;Module["HEAP8"]=HEAP8=new Int8Array(b);Module["HEAP16"]=new Int16Array(b);Module["HEAP32"]=new Int32Array(b);Module["HEAPU8"]=HEAPU8=new Uint8Array(b);Module["HEAPU16"]=new Uint16Array(b);Module["HEAPU32"]=HEAPU32=new Uint32Array(b);Module["HEAPF32"]=new Float32Array(b);Module["HEAPF64"]=new Float64Array(b);}var INITIAL_MEMORY=Module["INITIAL_MEMORY"]||16777216;assert(INITIAL_MEMORY>=65536,"INITIAL_MEMORY should be larger than STACK_SIZE, was "+INITIAL_MEMORY+"! (STACK_SIZE="+65536+")");if(Module["wasmMemory"]){wasmMemory=Module["wasmMemory"];}else {wasmMemory=new WebAssembly.Memory({"initial":INITIAL_MEMORY/65536,"maximum":INITIAL_MEMORY/65536});}updateMemoryViews();INITIAL_MEMORY=wasmMemory.buffer.byteLength;var __ATPRERUN__=[];var __ATINIT__=[];var __ATPOSTRUN__=[];function preRun(){if(Module["preRun"]){if(typeof Module["preRun"]=="function")Module["preRun"]=[Module["preRun"]];while(Module["preRun"].length){addOnPreRun(Module["preRun"].shift());}}callRuntimeCallbacks(__ATPRERUN__);}function initRuntime(){callRuntimeCallbacks(__ATINIT__);}function postRun(){if(Module["postRun"]){if(typeof Module["postRun"]=="function")Module["postRun"]=[Module["postRun"]];while(Module["postRun"].length){addOnPostRun(Module["postRun"].shift());}}callRuntimeCallbacks(__ATPOSTRUN__);}function addOnPreRun(cb){__ATPRERUN__.unshift(cb);}function addOnInit(cb){__ATINIT__.unshift(cb);}function addOnPostRun(cb){__ATPOSTRUN__.unshift(cb);}var runDependencies=0;var dependenciesFulfilled=null;function addRunDependency(id){runDependencies++;if(Module["monitorRunDependencies"]){Module["monitorRunDependencies"](runDependencies);}}function removeRunDependency(id){runDependencies--;if(Module["monitorRunDependencies"]){Module["monitorRunDependencies"](runDependencies);}if(runDependencies==0){if(dependenciesFulfilled){var callback=dependenciesFulfilled;dependenciesFulfilled=null;callback();}}}function abort(what){if(Module["onAbort"]){Module["onAbort"](what);}what="Aborted("+what+")";err(what);ABORT=true;what+=". Build with -sASSERTIONS for more info.";var e=new WebAssembly.RuntimeError(what);readyPromiseReject(e);throw e}var dataURIPrefix="data:application/octet-stream;base64,";function isDataURI(filename){return filename.startsWith(dataURIPrefix)}function isFileURI(filename){return filename.startsWith("file://")}var wasmBinaryFile;if(Module["locateFile"]){wasmBinaryFile="wasm_c.asm.wasm";if(!isDataURI(wasmBinaryFile)){wasmBinaryFile=locateFile(wasmBinaryFile);}}else {wasmBinaryFile=new URL("wasm_c.asm.wasm",module.meta.url).href;}function getBinary(file){try{if(file==wasmBinaryFile&&wasmBinary){return new Uint8Array(wasmBinary)}if(readBinary){return readBinary(file)}throw "both async and sync fetching of the wasm failed"}catch(err){abort(err);}}function getBinaryPromise(binaryFile){if(!wasmBinary&&(ENVIRONMENT_IS_WEB||ENVIRONMENT_IS_WORKER)){if(typeof fetch=="function"&&!isFileURI(binaryFile)){return fetch(binaryFile,{credentials:"same-origin"}).then(function(response){if(!response["ok"]){throw "failed to load wasm binary file at '"+binaryFile+"'"}return response["arrayBuffer"]()}).catch(function(){return getBinary(binaryFile)})}else {if(readAsync){return new Promise(function(resolve,reject){readAsync(binaryFile,function(response){resolve(new Uint8Array(response));},reject);})}}}return Promise.resolve().then(function(){return getBinary(binaryFile)})}function instantiateArrayBuffer(binaryFile,imports,receiver){return getBinaryPromise(binaryFile).then(function(binary){return WebAssembly.instantiate(binary,imports)}).then(function(instance){return instance}).then(receiver,function(reason){err("failed to asynchronously prepare wasm: "+reason);abort(reason);})}function instantiateAsync(binary,binaryFile,imports,callback){if(!binary&&typeof WebAssembly.instantiateStreaming=="function"&&!isDataURI(binaryFile)&&!isFileURI(binaryFile)&&!ENVIRONMENT_IS_NODE&&typeof fetch=="function"){return fetch(binaryFile,{credentials:"same-origin"}).then(function(response){var result=WebAssembly.instantiateStreaming(response,imports);return result.then(callback,function(reason){err("wasm streaming compile failed: "+reason);err("falling back to ArrayBuffer instantiation");return instantiateArrayBuffer(binaryFile,imports,callback)})})}else {return instantiateArrayBuffer(binaryFile,imports,callback)}}function createWasm(){var info={"a":wasmImports};function receiveInstance(instance,module){var exports=instance.exports;Module["asm"]=exports;runMemoryInitializer();Module["asm"]["f"];addOnInit(Module["asm"]["d"]);removeRunDependency();return exports}addRunDependency();function receiveInstantiationResult(result){receiveInstance(result["instance"]);}if(Module["instantiateWasm"]){try{return Module["instantiateWasm"](info,receiveInstance)}catch(e){err("Module.instantiateWasm callback failed with error: "+e);readyPromiseReject(e);}}instantiateAsync(wasmBinary,wasmBinaryFile,info,receiveInstantiationResult).catch(readyPromiseReject);return {}}var memoryInitializer="wasm_c.asm.js.mem";function runMemoryInitializer(){if(!isDataURI(memoryInitializer)){memoryInitializer=locateFile(memoryInitializer);}if(ENVIRONMENT_IS_NODE||ENVIRONMENT_IS_SHELL){var data=readBinary(memoryInitializer);HEAPU8.set(data,1024);}else {addRunDependency();var applyMemoryInitializer=data=>{if(data.byteLength)data=new Uint8Array(data);HEAPU8.set(data,1024);if(Module["memoryInitializerRequest"])delete Module["memoryInitializerRequest"].response;removeRunDependency();};var doBrowserLoad=()=>{readAsync(memoryInitializer,applyMemoryInitializer,function(){var e=new Error("could not load memory initializer "+memoryInitializer);readyPromiseReject(e);});};if(Module["memoryInitializerRequest"]){var useRequest=()=>{var request=Module["memoryInitializerRequest"];var response=request.response;if(request.status!==200&&request.status!==0){console.warn("a problem seems to have happened with Module.memoryInitializerRequest, status: "+request.status+", retrying "+memoryInitializer);doBrowserLoad();return}applyMemoryInitializer(response);};if(Module["memoryInitializerRequest"].response){setTimeout(useRequest,0);}else {Module["memoryInitializerRequest"].addEventListener("load",useRequest);}}else {doBrowserLoad();}}}function callRuntimeCallbacks(callbacks){while(callbacks.length>0){callbacks.shift()(Module);}}function _emscripten_memcpy_big(dest,src,num){HEAPU8.copyWithin(dest,src,src+num);}var printCharBuffers=[null,[],[]];var UTF8Decoder=typeof TextDecoder!="undefined"?new TextDecoder("utf8"):undefined;function UTF8ArrayToString(heapOrArray,idx,maxBytesToRead){var endIdx=idx+maxBytesToRead;var endPtr=idx;while(heapOrArray[endPtr]&&!(endPtr>=endIdx))++endPtr;if(endPtr-idx>16&&heapOrArray.buffer&&UTF8Decoder){return UTF8Decoder.decode(heapOrArray.subarray(idx,endPtr))}var str="";while(idx<endPtr){var u0=heapOrArray[idx++];if(!(u0&128)){str+=String.fromCharCode(u0);continue}var u1=heapOrArray[idx++]&63;if((u0&224)==192){str+=String.fromCharCode((u0&31)<<6|u1);continue}var u2=heapOrArray[idx++]&63;if((u0&240)==224){u0=(u0&15)<<12|u1<<6|u2;}else {u0=(u0&7)<<18|u1<<12|u2<<6|heapOrArray[idx++]&63;}if(u0<65536){str+=String.fromCharCode(u0);}else {var ch=u0-65536;str+=String.fromCharCode(55296|ch>>10,56320|ch&1023);}}return str}function printChar(stream,curr){var buffer=printCharBuffers[stream];if(curr===0||curr===10){(stream===1?out:err)(UTF8ArrayToString(buffer,0));buffer.length=0;}else {buffer.push(curr);}}function UTF8ToString(ptr,maxBytesToRead){return ptr?UTF8ArrayToString(HEAPU8,ptr,maxBytesToRead):""}function _fd_write(fd,iov,iovcnt,pnum){var num=0;for(var i=0;i<iovcnt;i++){var ptr=HEAPU32[iov>>2];var len=HEAPU32[iov+4>>2];iov+=8;for(var j=0;j<len;j++){printChar(fd,HEAPU8[ptr+j]);}num+=len;}HEAPU32[pnum>>2]=num;return 0}function getCFunc(ident){var func=Module["_"+ident];return func}function writeArrayToMemory(array,buffer){HEAP8.set(array,buffer);}function lengthBytesUTF8(str){var len=0;for(var i=0;i<str.length;++i){var c=str.charCodeAt(i);if(c<=127){len++;}else if(c<=2047){len+=2;}else if(c>=55296&&c<=57343){len+=4;++i;}else {len+=3;}}return len}function stringToUTF8Array(str,heap,outIdx,maxBytesToWrite){if(!(maxBytesToWrite>0))return 0;var startIdx=outIdx;var endIdx=outIdx+maxBytesToWrite-1;for(var i=0;i<str.length;++i){var u=str.charCodeAt(i);if(u>=55296&&u<=57343){var u1=str.charCodeAt(++i);u=65536+((u&1023)<<10)|u1&1023;}if(u<=127){if(outIdx>=endIdx)break;heap[outIdx++]=u;}else if(u<=2047){if(outIdx+1>=endIdx)break;heap[outIdx++]=192|u>>6;heap[outIdx++]=128|u&63;}else if(u<=65535){if(outIdx+2>=endIdx)break;heap[outIdx++]=224|u>>12;heap[outIdx++]=128|u>>6&63;heap[outIdx++]=128|u&63;}else {if(outIdx+3>=endIdx)break;heap[outIdx++]=240|u>>18;heap[outIdx++]=128|u>>12&63;heap[outIdx++]=128|u>>6&63;heap[outIdx++]=128|u&63;}}heap[outIdx]=0;return outIdx-startIdx}function stringToUTF8(str,outPtr,maxBytesToWrite){return stringToUTF8Array(str,HEAPU8,outPtr,maxBytesToWrite)}function stringToUTF8OnStack(str){var size=lengthBytesUTF8(str)+1;var ret=stackAlloc(size);stringToUTF8(str,ret,size);return ret}function ccall(ident,returnType,argTypes,args,opts){var toC={"string":str=>{var ret=0;if(str!==null&&str!==undefined&&str!==0){ret=stringToUTF8OnStack(str);}return ret},"array":arr=>{var ret=stackAlloc(arr.length);writeArrayToMemory(arr,ret);return ret}};function convertReturnValue(ret){if(returnType==="string"){return UTF8ToString(ret)}if(returnType==="boolean")return Boolean(ret);return ret}var func=getCFunc(ident);var cArgs=[];var stack=0;if(args){for(var i=0;i<args.length;i++){var converter=toC[argTypes[i]];if(converter){if(stack===0)stack=stackSave();cArgs[i]=converter(args[i]);}else {cArgs[i]=args[i];}}}var ret=func.apply(null,cArgs);function onDone(ret){if(stack!==0)stackRestore(stack);return convertReturnValue(ret)}ret=onDone(ret);return ret}function cwrap(ident,returnType,argTypes,opts){var numericArgs=!argTypes||argTypes.every(type=>type==="number"||type==="boolean");var numericRet=returnType!=="string";if(numericRet&&numericArgs&&!opts){return getCFunc(ident)}return function(){return ccall(ident,returnType,argTypes,arguments)}}var wasmImports={"c":_emscripten_memcpy_big,"b":_fd_write,"a":wasmMemory};createWasm();Module["_hello"]=function(){return (Module["_hello"]=Module["asm"]["e"]).apply(null,arguments)};var stackSave=function(){return (stackSave=Module["asm"]["g"]).apply(null,arguments)};var stackRestore=function(){return (stackRestore=Module["asm"]["h"]).apply(null,arguments)};var stackAlloc=function(){return (stackAlloc=Module["asm"]["i"]).apply(null,arguments)};Module["ccall"]=ccall;Module["cwrap"]=cwrap;var calledRun;dependenciesFulfilled=function runCaller(){if(!calledRun)run();if(!calledRun)dependenciesFulfilled=runCaller;};function run(){if(runDependencies>0){return}preRun();if(runDependencies>0){return}function doRun(){if(calledRun)return;calledRun=true;Module["calledRun"]=true;if(ABORT)return;initRuntime();readyPromiseResolve(Module);if(Module["onRuntimeInitialized"])Module["onRuntimeInitialized"]();postRun();}if(Module["setStatus"]){Module["setStatus"]("Running...");setTimeout(function(){setTimeout(function(){Module["setStatus"]("");},1);doRun();},1);}else {doRun();}}if(Module["preInit"]){if(typeof Module["preInit"]=="function")Module["preInit"]=[Module["preInit"]];while(Module["preInit"].length>0){Module["preInit"].pop()();}}run();
+
+
+              return Module.ready
+            }
+
+            );
+            })();
+
+            var asmJsMemUrl = 'assets/wasm_c.js.mem-8V82NAH-.bin'; /* asset-hash:2cbb215d */
+
+            function initializeWasm() {
+              return Promise.all([module.import('./wasm_c-CNyxJd6D.js'), module.import('./wasm_c.wasm-D5oKtVis.js')]).then(function (_ref) {
+                var wasmUrl = _ref[0]["default"],
+                  wasmFactory = _ref[1]["default"];
+                return new Promise(function (resolve, reject) {
+                  wasmFactory({
+                    locateFile: function locateFile(_) {
+                      return wasmUrl;
+                    }
+                  }).then(function (inst) {
+                    resolve(inst);
+                  })["catch"](reject);
+                });
+              });
+            }
+            function initializeAsm() {
+              return new Promise(function (resolve, reject) {
+                Module({
+                  memoryInitializerRequest: {
+                    response: asmJsMemUrl,
+                    status: 200
+                  }
+                }).then(function (inst) {
+                  resolve(inst);
+                })["catch"](reject);
+              });
+            }
+            {
+              if (isSupportWASM) {
+                initializeWasm().then(function (inst) {
+                  inst._hello();
+                });
+              } else {
+                initializeAsm().then(function (inst) {
+                  inst._hello();
+                });
+              }
+            }
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js build WASM module on platform maybe supporting WASM: cull asm.js module 1`] = `
+[
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "cc.js",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-D5oKtVis.js",
+]
+`;
+
 exports[`engine-js build WASM module on platform not supporting WASM 1`] = `
 [
-  "assets/wasm_c.js.mem-429cc1f7.bin",
+  "assets/wasm_c.js.mem-8V82NAH-.bin",
   "cc.js",
 ]
 `;
@@ -12,56 +633,6 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
     'use strict';
     return {
         execute: (function () {
-
-            var Format = exports('Format', {
-              "UNKNOWN": 0,
-              "A8": 1,
-              "L8": 2,
-              "LA8": 3,
-              "R5G6B5": 4,
-              "R11G11B10F": 5,
-              "RGB5A1": 6,
-              "RGBA4": 7,
-              "RGB10A2": 8,
-              "RGB10A2UI": 9,
-              "RGB9E5": 10,
-              "DEPTH": 11,
-              "DEPTH_STENCIL": 12,
-              "R": 13,
-              "RG": 14,
-              "RGB": 15,
-              "RGBA": 16,
-              "COUNT": 17
-            });
-            var Format_2 = exports('Format_2', {
-              "R": 13,
-              "RG": 14,
-              "RGB": 15,
-              "RGBA": 31,
-              "Haha": 134,
-              "www": 135
-            });
-            var TransformBit = exports('TransformBit', {
-              "NONE": 0,
-              "POSITION": 1,
-              "ROTATION": 2,
-              "SCALE": 4,
-              "RS": 6,
-              "TRS": 7,
-              "TRS_MASK": -8
-            });
-            var PixelFormat = exports('PixelFormat', {
-              "RGB565": 4,
-              "A8": 1,
-              "I8": 2,
-              "AI8": 3,
-              "RGB_A_PVRTC_2BPPV1": 1024,
-              "RGB_A_PVRTC_4BPPV1": 1025,
-              "RGB_ETC1": 123,
-              "RGBA_ETC1": 1026,
-              "RGB_ETC2": 123213,
-              "RGBA_ETC2": 123214
-            });
 
             function tryDefineGlobal (name, value) {
                 const _global = typeof window === 'undefined' ? global : window;
@@ -114,12 +685,6 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
               return false;
             })();
 
-            var MyEnum4 = exports('MyEnum4', {
-              "AAABBB": 0,
-              "Haha": 0,
-              "Hi": 123
-            });
-
             var Module = (() => {
               var _scriptDir = module.meta.url;
               
@@ -146,15 +711,8 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
             );
             })();
 
-            var asmJsMemUrl = 'assets/wasm_c.js.mem-429cc1f7.bin'; /* asset-hash:2cbb215d */
+            var asmJsMemUrl = 'assets/wasm_c.js.mem-8V82NAH-.bin'; /* asset-hash:2cbb215d */
 
-            var MyEnum = exports('MyEnum', {
-              "AAA": 0,
-              "BBB": 1,
-              "CCC": 123,
-              "DDD": "hello",
-              "EEE": 1
-            });
             function initializeAsm() {
               return new Promise(function (resolve, reject) {
                 Module({
@@ -173,28 +731,1045 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
               });
             }
 
-            var MyEnum2 = exports('MyEnum2', {
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js build WASM module on platform not supporting WASM: build result 1`] = `
+{
+  "assetDepGraph": {
+    "cc.js": [
+      "assets/wasm_c.js.mem-8V82NAH-.bin",
+    ],
+  },
+  "chunkAliases": {},
+  "chunkDepGraph": {
+    "cc.js": [
+      "module",
+    ],
+  },
+  "dependencyGraph": {
+    "cc.js": [
+      "module",
+    ],
+  },
+  "exports": {
+    "cc": "cc.js",
+  },
+  "hasCriticalWarns": false,
+}
+`;
+
+exports[`engine-js build WASM module on platform not supporting WASM: cull asm.js module 1`] = `
+[
+  "assets/wasm_c.js.mem-8V82NAH-.bin",
+  "cc.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM 1`] = `
+[
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "cc.js",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-D5oKtVis.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM 2`] = `
+"System.register([], (function (exports, module) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports({
+                _: _asyncToGenerator,
+                a: _regeneratorRuntime
+            });
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', true);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', true);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', true);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', false);
+            tryDefineGlobal('CC_JSB', false);
+
+            var wasmUrl = 'assets/wasm_rust-DLg-BIuk.wasm'; /* asset-hash:829fe457 */
+
+            function _regeneratorRuntime() {
+              exports("a", _regeneratorRuntime = function () {
+                return exports$1;
+              });
+              var exports$1 = {},
+                Op = Object.prototype,
+                hasOwn = Op.hasOwnProperty,
+                defineProperty = Object.defineProperty || function (obj, key, desc) {
+                  obj[key] = desc.value;
+                },
+                $Symbol = "function" == typeof Symbol ? Symbol : {},
+                iteratorSymbol = $Symbol.iterator || "@@iterator",
+                asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+                toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+              function define(obj, key, value) {
+                return Object.defineProperty(obj, key, {
+                  value: value,
+                  enumerable: !0,
+                  configurable: !0,
+                  writable: !0
+                }), obj[key];
+              }
+              try {
+                define({}, "");
+              } catch (err) {
+                define = function (obj, key, value) {
+                  return obj[key] = value;
+                };
+              }
+              function wrap(innerFn, outerFn, self, tryLocsList) {
+                var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator,
+                  generator = Object.create(protoGenerator.prototype),
+                  context = new Context(tryLocsList || []);
+                return defineProperty(generator, "_invoke", {
+                  value: makeInvokeMethod(innerFn, self, context)
+                }), generator;
+              }
+              function tryCatch(fn, obj, arg) {
+                try {
+                  return {
+                    type: "normal",
+                    arg: fn.call(obj, arg)
+                  };
+                } catch (err) {
+                  return {
+                    type: "throw",
+                    arg: err
+                  };
+                }
+              }
+              exports$1.wrap = wrap;
+              var ContinueSentinel = {};
+              function Generator() {}
+              function GeneratorFunction() {}
+              function GeneratorFunctionPrototype() {}
+              var IteratorPrototype = {};
+              define(IteratorPrototype, iteratorSymbol, function () {
+                return this;
+              });
+              var getProto = Object.getPrototypeOf,
+                NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+              NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype);
+              var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+              function defineIteratorMethods(prototype) {
+                ["next", "throw", "return"].forEach(function (method) {
+                  define(prototype, method, function (arg) {
+                    return this._invoke(method, arg);
+                  });
+                });
+              }
+              function AsyncIterator(generator, PromiseImpl) {
+                function invoke(method, arg, resolve, reject) {
+                  var record = tryCatch(generator[method], generator, arg);
+                  if ("throw" !== record.type) {
+                    var result = record.arg,
+                      value = result.value;
+                    return value && "object" == typeof value && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) {
+                      invoke("next", value, resolve, reject);
+                    }, function (err) {
+                      invoke("throw", err, resolve, reject);
+                    }) : PromiseImpl.resolve(value).then(function (unwrapped) {
+                      result.value = unwrapped, resolve(result);
+                    }, function (error) {
+                      return invoke("throw", error, resolve, reject);
+                    });
+                  }
+                  reject(record.arg);
+                }
+                var previousPromise;
+                defineProperty(this, "_invoke", {
+                  value: function (method, arg) {
+                    function callInvokeWithMethodAndArg() {
+                      return new PromiseImpl(function (resolve, reject) {
+                        invoke(method, arg, resolve, reject);
+                      });
+                    }
+                    return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+                  }
+                });
+              }
+              function makeInvokeMethod(innerFn, self, context) {
+                var state = "suspendedStart";
+                return function (method, arg) {
+                  if ("executing" === state) throw new Error("Generator is already running");
+                  if ("completed" === state) {
+                    if ("throw" === method) throw arg;
+                    return {
+                      value: void 0,
+                      done: !0
+                    };
+                  }
+                  for (context.method = method, context.arg = arg;;) {
+                    var delegate = context.delegate;
+                    if (delegate) {
+                      var delegateResult = maybeInvokeDelegate(delegate, context);
+                      if (delegateResult) {
+                        if (delegateResult === ContinueSentinel) continue;
+                        return delegateResult;
+                      }
+                    }
+                    if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) {
+                      if ("suspendedStart" === state) throw state = "completed", context.arg;
+                      context.dispatchException(context.arg);
+                    } else "return" === context.method && context.abrupt("return", context.arg);
+                    state = "executing";
+                    var record = tryCatch(innerFn, self, context);
+                    if ("normal" === record.type) {
+                      if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue;
+                      return {
+                        value: record.arg,
+                        done: context.done
+                      };
+                    }
+                    "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg);
+                  }
+                };
+              }
+              function maybeInvokeDelegate(delegate, context) {
+                var methodName = context.method,
+                  method = delegate.iterator[methodName];
+                if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel;
+                var record = tryCatch(method, delegate.iterator, context.arg);
+                if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel;
+                var info = record.arg;
+                return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel);
+              }
+              function pushTryEntry(locs) {
+                var entry = {
+                  tryLoc: locs[0]
+                };
+                1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry);
+              }
+              function resetTryEntry(entry) {
+                var record = entry.completion || {};
+                record.type = "normal", delete record.arg, entry.completion = record;
+              }
+              function Context(tryLocsList) {
+                this.tryEntries = [{
+                  tryLoc: "root"
+                }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
+              }
+              function values(iterable) {
+                if (iterable || "" === iterable) {
+                  var iteratorMethod = iterable[iteratorSymbol];
+                  if (iteratorMethod) return iteratorMethod.call(iterable);
+                  if ("function" == typeof iterable.next) return iterable;
+                  if (!isNaN(iterable.length)) {
+                    var i = -1,
+                      next = function next() {
+                        for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next;
+                        return next.value = undefined, next.done = !0, next;
+                      };
+                    return next.next = next;
+                  }
+                }
+                throw new TypeError(typeof iterable + " is not iterable");
+              }
+              return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
+                value: GeneratorFunctionPrototype,
+                configurable: !0
+              }), defineProperty(GeneratorFunctionPrototype, "constructor", {
+                value: GeneratorFunction,
+                configurable: !0
+              }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports$1.isGeneratorFunction = function (genFun) {
+                var ctor = "function" == typeof genFun && genFun.constructor;
+                return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name));
+              }, exports$1.mark = function (genFun) {
+                return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun;
+              }, exports$1.awrap = function (arg) {
+                return {
+                  __await: arg
+                };
+              }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+                return this;
+              }), exports$1.AsyncIterator = AsyncIterator, exports$1.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+                void 0 === PromiseImpl && (PromiseImpl = Promise);
+                var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
+                return exports$1.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) {
+                  return result.done ? result.value : iter.next();
+                });
+              }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () {
+                return this;
+              }), define(Gp, "toString", function () {
+                return "[object Generator]";
+              }), exports$1.keys = function (val) {
+                var object = Object(val),
+                  keys = [];
+                for (var key in object) keys.push(key);
+                return keys.reverse(), function next() {
+                  for (; keys.length;) {
+                    var key = keys.pop();
+                    if (key in object) return next.value = key, next.done = !1, next;
+                  }
+                  return next.done = !0, next;
+                };
+              }, exports$1.values = values, Context.prototype = {
+                constructor: Context,
+                reset: function (skipTempReset) {
+                  if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined);
+                },
+                stop: function () {
+                  this.done = !0;
+                  var rootRecord = this.tryEntries[0].completion;
+                  if ("throw" === rootRecord.type) throw rootRecord.arg;
+                  return this.rval;
+                },
+                dispatchException: function (exception) {
+                  if (this.done) throw exception;
+                  var context = this;
+                  function handle(loc, caught) {
+                    return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught;
+                  }
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i],
+                      record = entry.completion;
+                    if ("root" === entry.tryLoc) return handle("end");
+                    if (entry.tryLoc <= this.prev) {
+                      var hasCatch = hasOwn.call(entry, "catchLoc"),
+                        hasFinally = hasOwn.call(entry, "finallyLoc");
+                      if (hasCatch && hasFinally) {
+                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+                        if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+                      } else if (hasCatch) {
+                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+                      } else {
+                        if (!hasFinally) throw new Error("try statement without catch or finally");
+                        if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+                      }
+                    }
+                  }
+                },
+                abrupt: function (type, arg) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
+                      var finallyEntry = entry;
+                      break;
+                    }
+                  }
+                  finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null);
+                  var record = finallyEntry ? finallyEntry.completion : {};
+                  return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record);
+                },
+                complete: function (record, afterLoc) {
+                  if ("throw" === record.type) throw record.arg;
+                  return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel;
+                },
+                finish: function (finallyLoc) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel;
+                  }
+                },
+                catch: function (tryLoc) {
+                  for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+                    var entry = this.tryEntries[i];
+                    if (entry.tryLoc === tryLoc) {
+                      var record = entry.completion;
+                      if ("throw" === record.type) {
+                        var thrown = record.arg;
+                        resetTryEntry(entry);
+                      }
+                      return thrown;
+                    }
+                  }
+                  throw new Error("illegal catch attempt");
+                },
+                delegateYield: function (iterable, resultName, nextLoc) {
+                  return this.delegate = {
+                    iterator: values(iterable),
+                    resultName: resultName,
+                    nextLoc: nextLoc
+                  }, "next" === this.method && (this.arg = undefined), ContinueSentinel;
+                }
+              }, exports$1;
+            }
+            function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+              try {
+                var info = gen[key](arg);
+                var value = info.value;
+              } catch (error) {
+                reject(error);
+                return;
+              }
+              if (info.done) {
+                resolve(value);
+              } else {
+                Promise.resolve(value).then(_next, _throw);
+              }
+            }
+            function _asyncToGenerator(fn) {
+              return function () {
+                var self = this,
+                  args = arguments;
+                return new Promise(function (resolve, reject) {
+                  var gen = fn.apply(self, args);
+                  function _next(value) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+                  }
+                  function _throw(err) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+                  }
+                  _next(undefined);
+                });
+              };
+            }
+
+            var wasm;
+            var cachedTextDecoder = new TextDecoder('utf-8', {
+              ignoreBOM: true,
+              fatal: true
+            });
+            cachedTextDecoder.decode();
+            var cachedUint8Memory0 = null;
+            function getUint8Memory0() {
+              if (cachedUint8Memory0 === null || cachedUint8Memory0.byteLength === 0) {
+                cachedUint8Memory0 = new Uint8Array(wasm.memory.buffer);
+              }
+              return cachedUint8Memory0;
+            }
+            function getStringFromWasm0(ptr, len) {
+              return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+            }
+            function load(_x, _x2) {
+              return _load.apply(this, arguments);
+            }
+            function _load() {
+              _load = _asyncToGenerator(_regeneratorRuntime().mark(function _callee(module, imports) {
+                var bytes, instance;
+                return _regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
+                    case 0:
+                      if (!(typeof Response === 'function' && module instanceof Response)) {
+                        _context.next = 23;
+                        break;
+                      }
+                      if (!(typeof WebAssembly.instantiateStreaming === 'function')) {
+                        _context.next = 15;
+                        break;
+                      }
+                      _context.prev = 2;
+                      _context.next = 5;
+                      return WebAssembly.instantiateStreaming(module, imports);
+                    case 5:
+                      return _context.abrupt("return", _context.sent);
+                    case 8:
+                      _context.prev = 8;
+                      _context.t0 = _context["catch"](2);
+                      if (!(module.headers.get('Content-Type') != 'application/wasm')) {
+                        _context.next = 14;
+                        break;
+                      }
+                      console.warn("\`WebAssembly.instantiateStreaming\` failed because your server does not serve wasm with \`application/wasm\` MIME type. Falling back to \`WebAssembly.instantiate\` which is slower. Original error:\\n", _context.t0);
+                      _context.next = 15;
+                      break;
+                    case 14:
+                      throw _context.t0;
+                    case 15:
+                      _context.next = 17;
+                      return module.arrayBuffer();
+                    case 17:
+                      bytes = _context.sent;
+                      _context.next = 20;
+                      return WebAssembly.instantiate(bytes, imports);
+                    case 20:
+                      return _context.abrupt("return", _context.sent);
+                    case 23:
+                      _context.next = 25;
+                      return WebAssembly.instantiate(module, imports);
+                    case 25:
+                      instance = _context.sent;
+                      if (!(instance instanceof WebAssembly.Instance)) {
+                        _context.next = 30;
+                        break;
+                      }
+                      return _context.abrupt("return", {
+                        instance: instance,
+                        module: module
+                      });
+                    case 30:
+                      return _context.abrupt("return", instance);
+                    case 31:
+                    case "end":
+                      return _context.stop();
+                  }
+                }, _callee, null, [[2, 8]]);
+              }));
+              return _load.apply(this, arguments);
+            }
+            function getImports() {
+              var imports = {};
+              imports.wbg = {};
+              imports.wbg.__wbg_alert_685e3cc61a9b8233 = function (arg0, arg1) {
+                alert(getStringFromWasm0(arg0, arg1));
+              };
+              return imports;
+            }
+            function finalizeInit(instance, module) {
+              wasm = instance.exports;
+              init.__wbindgen_wasm_module = module;
+              cachedUint8Memory0 = null;
+              return wasm;
+            }
+            function init(_x3) {
+              return _init.apply(this, arguments);
+            }
+            function _init() {
+              _init = _asyncToGenerator(_regeneratorRuntime().mark(function _callee2(input) {
+                var imports, _yield$load, instance, module$1;
+                return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                  while (1) switch (_context2.prev = _context2.next) {
+                    case 0:
+                      if (typeof input === 'undefined') {
+                        input = new URL('wasm_rust.wasm', module.meta.url);
+                      }
+                      imports = getImports();
+                      if (typeof input === 'string' || typeof Request === 'function' && input instanceof Request || typeof URL === 'function' && input instanceof URL) {
+                        input = fetch(input);
+                      }
+                      _context2.t0 = load;
+                      _context2.next = 7;
+                      return input;
+                    case 7:
+                      _context2.t1 = _context2.sent;
+                      _context2.t2 = imports;
+                      _context2.next = 11;
+                      return (0, _context2.t0)(_context2.t1, _context2.t2);
+                    case 11:
+                      _yield$load = _context2.sent;
+                      instance = _yield$load.instance;
+                      module$1 = _yield$load.module;
+                      return _context2.abrupt("return", finalizeInit(instance, module$1));
+                    case 15:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }, _callee2);
+              }));
+              return _init.apply(this, arguments);
+            }
+
+            (function () {
+              try {
+                if (typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function') {
+                  var module = new WebAssembly.Module(new Uint8Array([0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]));
+                  if (module instanceof WebAssembly.Module) {
+                    return !!(new WebAssembly.Instance(module) instanceof WebAssembly.Instance);
+                  }
+                }
+              } catch (e) {
+                return false;
+              }
+              return false;
+            })();
+
+            {
+              init(wasmUrl).then(function (inst) {
+                inst.greet();
+              });
+            }
+
+            function initializeWasm() {
+              return Promise.all([module.import('./wasm_c-CNyxJd6D.js'), module.import('./wasm_c.wasm-D5oKtVis.js')]).then(function (_ref) {
+                var wasmUrl = _ref[0]["default"],
+                  wasmFactory = _ref[1]["default"];
+                return new Promise(function (resolve, reject) {
+                  wasmFactory({
+                    locateFile: function locateFile(_) {
+                      return wasmUrl;
+                    }
+                  }).then(function (inst) {
+                    resolve(inst);
+                  })["catch"](reject);
+                });
+              });
+            }
+            {
+              initializeWasm().then(function (inst) {
+                inst._hello();
+              });
+            }
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM: cull asm.js module 1`] = `
+[
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "cc.js",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-D5oKtVis.js",
+]
+`;
+
+exports[`engine-js build WASM module on platform supporting WASM: wasm subpackage 1`] = `
+[
+  "assets/game.js",
+  "assets/wasm_c.wasm",
+  "assets/wasm_rust.wasm",
+  "cc.js",
+  "chunks/game.js",
+]
+`;
+
+exports[`engine-js build width option nativeCodeBundleMode asmjs 1`] = `
+"function tryDefineGlobal (name, value) {
+    const _global = typeof window === 'undefined' ? global : window;
+    if (typeof _global[name] === 'undefined') {
+        return (_global[name] = value);
+    } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return _global[name];
+    }
+}
+tryDefineGlobal('CC_WECHAT', false);
+tryDefineGlobal('CC_BAIDU', false);
+tryDefineGlobal('CC_XIAOMI', true);
+tryDefineGlobal('CC_ALIPAY', false);
+tryDefineGlobal('CC_BYTEDANCE', false);
+tryDefineGlobal('CC_OPPO', false);
+tryDefineGlobal('CC_VIVO', false);
+tryDefineGlobal('CC_HUAWEI', false);
+tryDefineGlobal('CC_COCOSPLAY', false);
+tryDefineGlobal('CC_QTT', false);
+tryDefineGlobal('CC_LINKSURE', false);
+tryDefineGlobal('CC_EDITOR', false);
+tryDefineGlobal('CC_PREVIEW', false);
+tryDefineGlobal('CC_BUILD', true);
+tryDefineGlobal('CC_TEST', false);
+tryDefineGlobal('CC_DEBUG', true);
+tryDefineGlobal('CC_DEV', false);
+tryDefineGlobal('CC_MINIGAME', true);
+tryDefineGlobal('CC_RUNTIME_BASED', false);
+tryDefineGlobal('CC_SUPPORT_JIT', false);
+tryDefineGlobal('CC_JSB', false);
+
+const NATIVE_CODE_BUNDLE_MODE = 0;
+
+console.log(NATIVE_CODE_BUNDLE_MODE);
+"
+`;
+
+exports[`engine-js build width option nativeCodeBundleMode both 1`] = `
+"function tryDefineGlobal (name, value) {
+    const _global = typeof window === 'undefined' ? global : window;
+    if (typeof _global[name] === 'undefined') {
+        return (_global[name] = value);
+    } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return _global[name];
+    }
+}
+tryDefineGlobal('CC_WECHAT', false);
+tryDefineGlobal('CC_BAIDU', false);
+tryDefineGlobal('CC_XIAOMI', true);
+tryDefineGlobal('CC_ALIPAY', false);
+tryDefineGlobal('CC_BYTEDANCE', false);
+tryDefineGlobal('CC_OPPO', false);
+tryDefineGlobal('CC_VIVO', false);
+tryDefineGlobal('CC_HUAWEI', false);
+tryDefineGlobal('CC_COCOSPLAY', false);
+tryDefineGlobal('CC_QTT', false);
+tryDefineGlobal('CC_LINKSURE', false);
+tryDefineGlobal('CC_EDITOR', false);
+tryDefineGlobal('CC_PREVIEW', false);
+tryDefineGlobal('CC_BUILD', true);
+tryDefineGlobal('CC_TEST', false);
+tryDefineGlobal('CC_DEBUG', true);
+tryDefineGlobal('CC_DEV', false);
+tryDefineGlobal('CC_MINIGAME', true);
+tryDefineGlobal('CC_RUNTIME_BASED', false);
+tryDefineGlobal('CC_SUPPORT_JIT', false);
+tryDefineGlobal('CC_JSB', false);
+
+const NATIVE_CODE_BUNDLE_MODE = 2;
+
+console.log(NATIVE_CODE_BUNDLE_MODE);
+"
+`;
+
+exports[`engine-js build width option nativeCodeBundleMode wasm 1`] = `
+"function tryDefineGlobal (name, value) {
+    const _global = typeof window === 'undefined' ? global : window;
+    if (typeof _global[name] === 'undefined') {
+        return (_global[name] = value);
+    } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return _global[name];
+    }
+}
+tryDefineGlobal('CC_WECHAT', false);
+tryDefineGlobal('CC_BAIDU', false);
+tryDefineGlobal('CC_XIAOMI', true);
+tryDefineGlobal('CC_ALIPAY', false);
+tryDefineGlobal('CC_BYTEDANCE', false);
+tryDefineGlobal('CC_OPPO', false);
+tryDefineGlobal('CC_VIVO', false);
+tryDefineGlobal('CC_HUAWEI', false);
+tryDefineGlobal('CC_COCOSPLAY', false);
+tryDefineGlobal('CC_QTT', false);
+tryDefineGlobal('CC_LINKSURE', false);
+tryDefineGlobal('CC_EDITOR', false);
+tryDefineGlobal('CC_PREVIEW', false);
+tryDefineGlobal('CC_BUILD', true);
+tryDefineGlobal('CC_TEST', false);
+tryDefineGlobal('CC_DEBUG', true);
+tryDefineGlobal('CC_DEV', false);
+tryDefineGlobal('CC_MINIGAME', true);
+tryDefineGlobal('CC_RUNTIME_BASED', false);
+tryDefineGlobal('CC_SUPPORT_JIT', false);
+tryDefineGlobal('CC_JSB', false);
+
+const NATIVE_CODE_BUNDLE_MODE = 1;
+
+console.log(NATIVE_CODE_BUNDLE_MODE);
+"
+`;
+
+exports[`engine-js cull meshopt: with wasm support 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js cull meshopt: with wasm support 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports({
+                testAsm: meshopt_decoder_asm,
+                testWasm: meshopt_decoder_wasm$1
+            });
+
+            function meshopt_decoder_asm () {}
+
+            function meshopt_decoder_wasm$1 () {}
+
+            var meshopt_decoder_wasm = exports("wasmUrl", '');
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', true);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', true);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', true);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', false);
+            tryDefineGlobal('CC_JSB', false);
+
+            const CULL_MESHOPT = true;
+
+            console.log(CULL_MESHOPT);
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js cull meshopt: without wasm support 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js cull meshopt: without wasm support 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports({
+                testAsm: meshopt_decoder_asm,
+                testWasm: meshopt_decoder_wasm$1
+            });
+
+            function meshopt_decoder_asm () {}
+
+            function meshopt_decoder_wasm$1 () {}
+
+            var meshopt_decoder_wasm = exports("wasmUrl", '');
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', false);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', true);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', true);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', true);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', false);
+            tryDefineGlobal('CC_JSB', false);
+
+            const CULL_MESHOPT = true;
+
+            console.log(CULL_MESHOPT);
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js enumerate dependents 1`] = `
+[
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "assets/wasm_c.js.mem-8V82NAH-.bin",
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "wasm-test.js",
+  "module",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-BpYSVhwP.js",
+]
+`;
+
+exports[`engine-js enumerate dependents 2`] = `
+[
+  "wasm-test.js",
+  "module",
+  "wasm_c-CNyxJd6D.js",
+  "wasm_c.wasm-BpYSVhwP.js",
+]
+`;
+
+exports[`engine-js enumerate dependents 3`] = `
+[
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "assets/wasm_c.js.mem-8V82NAH-.bin",
+  "assets/wasm_c-_JUdaL1r.wasm",
+]
+`;
+
+exports[`engine-js inline dynamic import for OH platform 1`] = `
+[
+  "assets/wasm_c-_JUdaL1r.wasm",
+  "assets/wasm_rust-DLg-BIuk.wasm",
+  "cc.js",
+]
+`;
+
+exports[`engine-js inline enum 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js inline enum 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            var Format = exports("Format", {
+              "UNKNOWN": 0,
+              "A8": 1,
+              "L8": 2,
+              "LA8": 3,
+              "R5G6B5": 4,
+              "R11G11B10F": 5,
+              "RGB5A1": 6,
+              "RGBA4": 7,
+              "RGB10A2": 8,
+              "RGB10A2UI": 9,
+              "RGB9E5": 10,
+              "DEPTH": 11,
+              "DEPTH_STENCIL": 12,
+              "R": 13,
+              "RG": 14,
+              "RGB": 15,
+              "RGBA": 16,
+              "COUNT": 17
+            });
+            console.log(0);
+            console.log(1);
+            console.log(2);
+            console.log(3);
+            console.log(4);
+            console.log(5);
+            console.log(6);
+            console.log(7);
+            console.log(8);
+            console.log(9);
+            console.log(10);
+            console.log(11);
+            console.log(12);
+            console.log(13);
+            console.log(14);
+            console.log(15);
+            console.log(16);
+            console.log(17);
+            var Format_2 = exports("Format_2", {
+              "R": 13,
+              "RG": 14,
+              "RGB": 15,
+              "RGBA": 31,
+              "Haha": 134,
+              "www": 135
+            });
+            console.log(13);
+            console.log(14, 15);
+            console.log(31);
+            console.log(134);
+            console.log(135);
+            var TransformBit = exports("TransformBit", {
+              "NONE": 0,
+              "POSITION": 1,
+              "ROTATION": 2,
+              "SCALE": 4,
+              "RS": 6,
+              "TRS": 7,
+              "TRS_MASK": -8
+            });
+            console.log(0);
+            console.log(1);
+            console.log(2);
+            console.log(4);
+            console.log(6);
+            console.log(7);
+            console.log(-8);
+            var PixelFormat = exports("PixelFormat", {
+              "RGB565": 4,
+              "A8": 1,
+              "I8": 2,
+              "AI8": 3,
+              "RGB_A_PVRTC_2BPPV1": 1024,
+              "RGB_A_PVRTC_4BPPV1": 1025,
+              "RGB_ETC1": 123,
+              "RGBA_ETC1": 1026,
+              "RGB_ETC2": 123213,
+              "RGBA_ETC2": 123214
+            });
+            console.log(4);
+            console.log(1);
+            console.log(2);
+            console.log(3);
+            console.log(1024);
+            console.log(1025);
+            console.log(123);
+            console.log(1026);
+            console.log(123213);
+            console.log(123214);
+
+            var MyEnum2 = exports("MyEnum2", {
               "AAABBB": 0,
               "Haha": 0,
               "Hi": 123
             });
-            var MyEnum3 = exports('MyEnum3', {
+            console.log(0);
+            console.log(0);
+            console.log(123);
+            var MyEnum3 = exports("MyEnum3", {
               "WEBGL": 16,
               "WEBGPU": 17,
               "WEBGL2": 18
             });
+            console.log(16);
+            console.log(17);
+            console.log(18);
             console.log("hello");
             console.log(123);
             console.log("hello: " + 17);
-            var MyEnum5 = exports('MyEnum5', {
+            var MyEnum5 = exports("MyEnum5", {
               "RGB": 15,
               "RGBA": 16,
               "III": 17,
               "HHH": 18,
               "WWW": 4,
-              "ZZZ": 5
+              "ZZZ": 5,
+              "UUU": 1234,
+              "EEE": 1235
             });
-            var MyEnum6 = exports('MyEnum6', {
+            console.log(15);
+            console.log(16);
+            console.log(17);
+            console.log(18);
+            console.log(4);
+            console.log(5);
+            console.log(1234);
+            console.log(1235);
+            var MyEnum6 = exports("MyEnum6", {
               "UNION": 15
             });
             console.log(15);
@@ -203,7 +1778,7 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
             console.log("   " + 16);
             console.log('' + (16 | 14));
             console.log('' + (31 | 14));
-            var MyNode = exports('MyNode', function MyNode(a) {
+            var MyNode = exports("MyNode", function MyNode(a) {
               this.a = a;
             });
             MyNode.Format = Format;
@@ -218,4 +1793,31 @@ exports[`engine-js build WASM module on platform not supporting WASM 2`] = `
     };
 }));
 "
+`;
+
+exports[`engine-js intrinsic flag 1`] = `
+"var str = 'intrinsic flag is true';
+
+export { str };
+"
+`;
+
+exports[`engine-js wasm compress mode: wasm subpackage with brotli 1`] = `
+[
+  "assets/game.js",
+  "assets/wasm_c.wasm.br",
+  "assets/wasm_rust.wasm.br",
+  "cc.js",
+  "chunks/game.js",
+]
+`;
+
+exports[`engine-js wasm compress mode: with brotli 1`] = `
+[
+  "assets/wasm_c-07698a78.wasm.br",
+  "assets/wasm_rust-66c556c0.wasm.br",
+  "cc.js",
+  "wasm_c-DmEax-up.js",
+  "wasm_c.wasm-D5oKtVis.js",
+]
 `;
