@@ -11,7 +11,6 @@ import type {
     MemberExpression,
     TSEnumDeclaration,
     UnaryExpression,
-    TSEnumMember,
     Statement,
 } from '@babel/types';
 import type { OptionsResolved } from './options';

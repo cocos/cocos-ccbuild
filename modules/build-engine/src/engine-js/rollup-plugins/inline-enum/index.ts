@@ -1,3 +1,5 @@
+// Inspired by https://github.com/unplugin/unplugin-inline-enum
+
 import { createFilter } from '@rollup/pluginutils';
 import MagicString from 'magic-string';
 import ReplacePlugin from '@rollup/plugin-replace';
@@ -51,7 +53,7 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
     // meta,
     );
 
-    const name = 'unplugin-inline-enum';
+    const name = 'cc-inline-enum';
     return [
         {
             name,
