@@ -1788,6 +1788,11 @@ exports[`engine-js inline enum 2`] = `
             console.log(1);
             console.log(1);
             console.log(1024);
+            console.log('---- const enum begin ----');
+            console.log(0, 1);
+            console.log("hello", 1234);
+            console.log(1235, 0);
+            console.log('---- const enum end ----');
 
         })
     };

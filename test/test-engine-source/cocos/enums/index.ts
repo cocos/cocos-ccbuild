@@ -4,6 +4,7 @@ import * as gfx from './define';
 
 import { PixelFormat } from './define';
 
+
 export enum MyEnum2 {
     AAABBB,
     Haha = MyEnum.AAA,
@@ -81,4 +82,12 @@ console.log(MyNode.Format_2.RG);
 console.log(gfx.PixelFormat.A8);
 console.log(PixelFormat.A8);
 console.log(PixelFormat.RGB_A_PVRTC_2BPPV1);
+
+console.log('---- const enum begin ----');
+
+console.log(MyConstEnum.C_AAA, MyConstEnum.C_BBB);
+console.log(MyConstEnum.C_DDD, MyConstEnum.C_EEE);
+console.log(MyConstEnum.C_FFF, MyConstEnum.C_AAA);
+
+console.log('---- const enum end ----');
 
