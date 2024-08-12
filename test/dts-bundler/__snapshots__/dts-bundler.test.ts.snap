@@ -47,12 +47,140 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         testEnv(): string;
     }>;
     export type TsImportTypes = typeof __private._packages_module_query_env_src_index;
+    export enum MyEnum2 {
+        AAABBB = 0,
+        Haha = 0,
+        Hi = 123
+    }
+    export enum MyEnum3 {
+        WEBGL = 16,
+        WEBGPU = 17,
+        WEBGL2 = 18
+    }
+    export enum MyEnum5 {
+        RGB = 15,
+        RGBA = 16,
+        III = 17,
+        HHH = 18,
+        WWW = 4,
+        ZZZ = 5,
+        UUU = 1234,
+        EEE = 1235
+    }
+    export enum MyEnum6 {
+        UNION = 15
+    }
+    export class MyNode {
+        static Format: typeof __private._cocos_enums_define.Format;
+        static Format_2: typeof __private._cocos_enums_define.Format_2;
+        constructor(a: number);
+    }
+    export enum Format {
+        UNKNOWN = 0,
+        A8 = 1,
+        L8 = 2,
+        LA8 = 3,
+        R5G6B5 = 4,
+        R11G11B10F = 5,
+        RGB5A1 = 6,
+        RGBA4 = 7,
+        RGB10A2 = 8,
+        RGB10A2UI = 9,
+        RGB9E5 = 10,
+        DEPTH = 11,
+        DEPTH_STENCIL = 12,
+        R = 13,
+        RG = 14,
+        RGB = 15,
+        RGBA = 16,
+        COUNT = 17
+    }
+    export enum Format_2 {
+        R = 13,
+        RG = 14,
+        RGB = 15,
+        RGBA = 31,
+        Haha = 134,
+        www = 135
+    }
+    export enum TransformBit {
+        NONE = 0,
+        POSITION = 1,
+        ROTATION = 2,
+        SCALE = 4,
+        RS = 6,
+        TRS = 7,
+        TRS_MASK = "Bad expression <-8>"
+    }
+    export enum PixelFormat {
+        RGB565 = 4,
+        A8 = 1,
+        I8 = 2,
+        AI8 = 3,
+        RGB_A_PVRTC_2BPPV1 = 1024,
+        RGB_A_PVRTC_4BPPV1 = 1025,
+        RGB_ETC1 = 123,
+        RGBA_ETC1 = 1026,
+        RGB_ETC2 = 123213,
+        RGBA_ETC2 = 123214
+    }
     export const str = "intrinsic flag is false";
     export function testEnv(): string;
     export function testInternalExport(): string;
     export namespace __private {
         namespace _packages_module_query_env_src_index {
             export function testEnv(): string;
+        }
+        namespace _cocos_enums_define {
+            export enum Format {
+                UNKNOWN = 0,
+                A8 = 1,
+                L8 = 2,
+                LA8 = 3,
+                R5G6B5 = 4,
+                R11G11B10F = 5,
+                RGB5A1 = 6,
+                RGBA4 = 7,
+                RGB10A2 = 8,
+                RGB10A2UI = 9,
+                RGB9E5 = 10,
+                DEPTH = 11,
+                DEPTH_STENCIL = 12,
+                R = 13,
+                RG = 14,
+                RGB = 15,
+                RGBA = 16,
+                COUNT = 17
+            }
+            export enum Format_2 {
+                R = 13,
+                RG = 14,
+                RGB = 15,
+                RGBA = 31,
+                Haha = 134,
+                www = 135
+            }
+            export enum TransformBit {
+                NONE = 0,
+                POSITION = 1,
+                ROTATION = 2,
+                SCALE = 4,
+                RS = 6,
+                TRS = 7,
+                TRS_MASK = "Bad expression <-8>"
+            }
+            export enum PixelFormat {
+                RGB565 = 4,
+                A8 = 1,
+                I8 = 2,
+                AI8 = 3,
+                RGB_A_PVRTC_2BPPV1 = 1024,
+                RGB_A_PVRTC_4BPPV1 = 1025,
+                RGB_ETC1 = 123,
+                RGBA_ETC1 = 1026,
+                RGB_ETC2 = 123213,
+                RGBA_ETC2 = 123214
+            }
         }
     }
     export { db as c } from "cc";
