@@ -11,6 +11,7 @@ import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
+import { rpInlineEnum } from './rollup-plugins/inline-enum';
 
 // import babel
 import babel = Transformer.core;
@@ -28,7 +29,7 @@ import RollupBabelInputPluginOptions = Bundler.plugins.babel.RollupBabelInputPlu
 import json = Bundler.plugins.json;
 import resolve = Bundler.plugins.nodeResolve;
 import commonjs = Bundler.plugins.commonjs;
-import rpTerser = Bundler.plugins.terser.terser;
+import rpTerser = Bundler.plugins.terser;
 import rpVirtual = Bundler.plugins.virtual;
 import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
@@ -241,6 +242,12 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         ));
     }
 
+    const inlineEnumPlugins = await rpInlineEnum({ 
+        scanDir: ps.join(engineRoot, 'cocos'),
+        // exclude: ['*.jsb.ts'],
+        // scanPattern: '**/*.{cts,mts,ts,tsx}'
+    });
+
     rollupPlugins.push(
         externalWasmLoader({
             externalRoot: ps.join(engineRoot, 'native/external'),
@@ -297,7 +304,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             ],
             sourceMap: false,
         }),
+    );
 
+    if (options.inlineEnum) {
+        rollupPlugins.push(...inlineEnumPlugins);
+    }
+
+    rollupPlugins.push(
         rpBabel({
             skipPreflightCheck: true,
             ...babelOptions,
@@ -325,10 +338,14 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 unsafe_methods: true,
                 passes: 2,  // first: remove deadcodes and const objects, second: drop variables
             },
-            mangle: doUglify,
-            keep_fnames: !doUglify,
+            mangle: {
+                properties: {
+                    regex: /^[a-zA-Z_][a-zA-Z0-9_]{3,}\$$/,
+                }
+            },
+            keep_fnames: false,
             output: {
-                beautify: !doUglify,
+                beautify: false,
             },
 
             // https://github.com/rollup/rollup/issues/3315

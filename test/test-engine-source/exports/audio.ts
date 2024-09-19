@@ -1,2 +1,2 @@
-export * from '../audio'
-export * from '../misc'
+export * from '../audio';
+export * from '../misc';

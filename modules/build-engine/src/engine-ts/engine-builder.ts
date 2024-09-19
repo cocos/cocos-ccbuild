@@ -476,8 +476,8 @@ export class EngineBuilder {
                                                         [
                                                             t.identifier(decName),
                                                             (propertyValuePath.node ?
-                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
-                                                            t.nullLiteral()),
+                                                                t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                                t.nullLiteral()),
                                                             ...args
                                                         ]
                                                     )));
@@ -488,8 +488,8 @@ export class EngineBuilder {
                                                         [
                                                             t.identifier(decName),
                                                             (propertyValuePath.node ?
-                                                            t.arrowFunctionExpression([],  propertyValuePath.node) :
-                                                            t.nullLiteral())
+                                                                t.arrowFunctionExpression([],  propertyValuePath.node) :
+                                                                t.nullLiteral())
                                                         ]
                                                     )));
                                                 }
@@ -580,7 +580,10 @@ export class EngineBuilder {
                                 },
                                 ClassDeclaration (path): void {
                                     const idPath = path.get('id');
-                                    const name = idPath.node.name;
+                                    const name = idPath.node?.name;
+                                    if (!name) {
+                                        return;
+                                    }
                                     const alias = self._renameMap[name];
                                     if (typeof alias === 'string') {
                                         idPath.replaceWith(t.identifier(alias));

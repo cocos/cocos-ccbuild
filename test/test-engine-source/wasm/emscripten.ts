@@ -4,7 +4,6 @@ import { isSupportWASM } from './is-support-wasm';
 import asmFactory from 'external:wasm/emscripten/wasm_c.asm.js';
 import asmJsMemUrl from 'external:wasm/emscripten/wasm_c.js.mem';
 
-
 function initializeWasm (): Promise<any> {
     return Promise.all([ 
         import('external:wasm/emscripten/wasm_c.wasm'),

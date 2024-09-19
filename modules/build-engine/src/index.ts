@@ -5,8 +5,8 @@ import fs from 'fs-extra';
 import { buildTsEngine } from './engine-ts';
 
 function verifyCache (options: buildEngine.Options): boolean {
-	// TODO
-	return false;
+    // TODO
+    return false;
 }
 
 function applyDefaultOptions (options: buildEngine.Options): void {
@@ -16,15 +16,15 @@ function applyDefaultOptions (options: buildEngine.Options): void {
         options.flags = {};
     }
     switch (options.nativeCodeBundleMode) {
-        case 'asmjs':
-            options.flags.NATIVE_CODE_BUNDLE_MODE = 0;
-            break;
-        case 'wasm':
-            options.flags.NATIVE_CODE_BUNDLE_MODE = 1;
-            break;
-        default:
-            options.flags.NATIVE_CODE_BUNDLE_MODE = 2;
-            break;
+    case 'asmjs':
+        options.flags.NATIVE_CODE_BUNDLE_MODE = 0;
+        break;
+    case 'wasm':
+        options.flags.NATIVE_CODE_BUNDLE_MODE = 1;
+        break;
+    default:
+        options.flags.NATIVE_CODE_BUNDLE_MODE = 2;
+        break;
     }
 }
 
@@ -43,25 +43,25 @@ function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat)
  * @group Merged Types
  */
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
-	applyDefaultOptions(options);
+    applyDefaultOptions(options);
 
-	if (verifyCache(options)) {
-		throw 'TODO';
-	}
+    if (verifyCache(options)) {
+        throw 'TODO';
+    }
 
-	if (options.platform === 'OPEN_HARMONY') {
-		if (options.preserveType) {
-			// we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
-			return buildTsEngine(options);
-		} else {
-			return buildJsEngine(options as Required<buildEngine.Options>);
-		}
-	} else {
-		if (options.preserveType) {
-			console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
-		}
-		return buildJsEngine(options as Required<buildEngine.Options>);
-	}
+    if (options.platform === 'OPEN_HARMONY') {
+        if (options.preserveType) {
+            // we use a custom engine builder for OPEN_HARMONY platform when enable preserveType option.
+            return buildTsEngine(options);
+        } else {
+            return buildJsEngine(options as Required<buildEngine.Options>);
+        }
+    } else {
+        if (options.preserveType) {
+            console.warn(`Currently we haven't support building ts engine on the platform ${options.platform}`);
+        }
+        return buildJsEngine(options as Required<buildEngine.Options>);
+    }
 }
 
 /**
@@ -104,6 +104,33 @@ export namespace buildEngine {
          * @default false
          */
         compress?: boolean;
+
+        /**
+         * 是否内联枚举。支持 typescript const enum 和 enum。
+         * @example
+         * ```ts
+         *  enum MyEnum {
+         *      AAA,
+         *      BBB,
+         *  }
+         * 
+         *  const a = MyEnum.AAA;
+         *  const b = MyEnum.BBB;
+         * ```
+         * 将被优化为：
+         * ```ts
+         *  enum MyEnum {
+         *      AAA,
+         *      BBB,
+         *  }
+         * 
+         *  const a = 0;
+         *  const b = 1;
+         * ```
+         * 
+         * @note 此功能要求项目中不能有同名的 enum，如果需要同名，可以定义枚举的时候用不同名字，然后在导出的时候 export as 跟其它模块同名的 enum。
+         */
+        inlineEnum?: boolean;
 
         /**
          * 是否生成 source map。

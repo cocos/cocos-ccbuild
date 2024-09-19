@@ -24,7 +24,7 @@ exports[`engine-js: output content 1`] = `
               return 'internal-minigame-export env';
             }
 
-            var test = exports('test', 'this is a module for testing no symlink');
+            var test = exports("test", 'this is a module for testing no symlink');
 
         })
     };
