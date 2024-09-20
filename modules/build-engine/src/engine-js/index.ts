@@ -402,6 +402,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         onwarn: rollupWarningHandler,
     };
 
+    if (options.treeshake) {
+        rollupOptions.treeshake = options.treeshake;
+    }
+
     const perf = true;
 
     if (perf) {
