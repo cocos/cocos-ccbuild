@@ -40,6 +40,9 @@
         },
         "enums": {
             "modules": ["enums"]
+        },
+        "base": {
+            "modules": ["base"]
         }
     },
     "moduleOverrides": [

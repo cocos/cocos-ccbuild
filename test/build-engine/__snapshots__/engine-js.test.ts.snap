@@ -1,5 +1,455 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`engine-js HTML5 with treeshake option 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js HTML5 with treeshake option 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', false);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', false);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', false);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', true);
+            tryDefineGlobal('CC_JSB', false);
+
+            var Pool = function () {
+              var _proto = Pool.prototype;
+              _proto.get = function get() {
+                return this._get();
+              };
+              function Pool(_0, _1) {
+                this.count = 0;
+                var size = _1 === undefined ? _0 : _1;
+                var cleanupFunc = _1 === undefined ? null : _0;
+                this._pool = new Array(size);
+                this._cleanup = cleanupFunc;
+              }
+              _proto._get = function _get() {
+                if (this.count > 0) {
+                  --this.count;
+                  var cache = this._pool[this.count];
+                  this._pool[this.count] = null;
+                  return cache;
+                }
+                return null;
+              };
+              _proto.put = function put(obj) {
+                var pool = this._pool;
+                if (this.count < pool.length) {
+                  if (this._cleanup && this._cleanup(obj) === false) {
+                    return;
+                  }
+                  pool[this.count] = obj;
+                  ++this.count;
+                }
+              };
+              _proto.resize = function resize(length) {
+                if (length >= 0) {
+                  this._pool.length = length;
+                  if (this.count > length) {
+                    this.count = length;
+                  }
+                }
+              };
+              return Pool;
+            }();
+
+            console.log("I'm instantiate-jit.ts");
+            var Assignments = function () {
+              function Assignments(targetExpression) {
+                this._exps = [];
+                this._targetExp = targetExpression;
+              }
+              var _proto2 = Assignments.prototype;
+              _proto2.append = function append(key, expression) {
+                this._exps.push([key, expression]);
+              };
+              _proto2.writeCode = function writeCode(codeArray) {
+                console.info("writeCode");
+              };
+              return Assignments;
+            }();
+            Assignments.pool = void 0;
+            Assignments.pool = new Pool(function (obj) {
+              obj._exps.length = 0;
+              obj._targetExp = null;
+            }, 1);
+            Assignments.pool.get = function (targetExpression) {
+              var cache = this._get() || new Assignments();
+              cache._targetExp = targetExpression;
+              return cache;
+            };
+            function compile() {
+              console.log(">>> jit compile ...");
+            }
+
+            var Prefab = exports("Prefab", function () {
+              function Prefab() {}
+              var _proto = Prefab.prototype;
+              _proto._instantiate = function _instantiate() {
+                {
+                  compile();
+                }
+              };
+              return Prefab;
+            }());
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js HTML5 without treeshake option 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js HTML5 without treeshake option 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', false);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', false);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', false);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', true);
+            tryDefineGlobal('CC_JSB', false);
+
+            var Pool = function () {
+              var _proto = Pool.prototype;
+              _proto.get = function get() {
+                return this._get();
+              };
+              function Pool(_0, _1) {
+                this.count = 0;
+                var size = _1 === undefined ? _0 : _1;
+                var cleanupFunc = _1 === undefined ? null : _0;
+                this._pool = new Array(size);
+                this._cleanup = cleanupFunc;
+              }
+              _proto._get = function _get() {
+                if (this.count > 0) {
+                  --this.count;
+                  var cache = this._pool[this.count];
+                  this._pool[this.count] = null;
+                  return cache;
+                }
+                return null;
+              };
+              _proto.put = function put(obj) {
+                var pool = this._pool;
+                if (this.count < pool.length) {
+                  if (this._cleanup && this._cleanup(obj) === false) {
+                    return;
+                  }
+                  pool[this.count] = obj;
+                  ++this.count;
+                }
+              };
+              _proto.resize = function resize(length) {
+                if (length >= 0) {
+                  this._pool.length = length;
+                  if (this.count > length) {
+                    this.count = length;
+                  }
+                }
+              };
+              return Pool;
+            }();
+
+            console.log("I'm instantiate-jit.ts");
+            var Assignments = function () {
+              function Assignments(targetExpression) {
+                this._exps = [];
+                this._targetExp = targetExpression;
+              }
+              var _proto2 = Assignments.prototype;
+              _proto2.append = function append(key, expression) {
+                this._exps.push([key, expression]);
+              };
+              _proto2.writeCode = function writeCode(codeArray) {
+                console.info("writeCode");
+              };
+              return Assignments;
+            }();
+            Assignments.pool = void 0;
+            Assignments.pool = new Pool(function (obj) {
+              obj._exps.length = 0;
+              obj._targetExp = null;
+            }, 1);
+            Assignments.pool.get = function (targetExpression) {
+              var cache = this._get() || new Assignments();
+              cache._targetExp = targetExpression;
+              return cache;
+            };
+            function compile() {
+              console.log(">>> jit compile ...");
+            }
+
+            var Prefab = exports("Prefab", function () {
+              function Prefab() {}
+              var _proto = Prefab.prototype;
+              _proto._instantiate = function _instantiate() {
+                {
+                  compile();
+                }
+              };
+              return Prefab;
+            }());
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js WECHAT with treeshake option 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js WECHAT with treeshake option 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', true);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', false);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', true);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', false);
+            tryDefineGlobal('CC_JSB', false);
+
+            var Prefab = exports("Prefab", function () {
+              function Prefab() {}
+              var _proto = Prefab.prototype;
+              _proto._instantiate = function _instantiate() {
+                {
+                  console.error("Dosn't support JIT");
+                }
+              };
+              return Prefab;
+            }());
+
+        })
+    };
+}));
+"
+`;
+
+exports[`engine-js WECHAT without treeshake option 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js WECHAT without treeshake option 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            function tryDefineGlobal (name, value) {
+                const _global = typeof window === 'undefined' ? global : window;
+                if (typeof _global[name] === 'undefined') {
+                    return (_global[name] = value);
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                    return _global[name];
+                }
+            }
+            tryDefineGlobal('CC_WECHAT', true);
+            tryDefineGlobal('CC_BAIDU', false);
+            tryDefineGlobal('CC_XIAOMI', false);
+            tryDefineGlobal('CC_ALIPAY', false);
+            tryDefineGlobal('CC_BYTEDANCE', false);
+            tryDefineGlobal('CC_OPPO', false);
+            tryDefineGlobal('CC_VIVO', false);
+            tryDefineGlobal('CC_HUAWEI', false);
+            tryDefineGlobal('CC_COCOSPLAY', false);
+            tryDefineGlobal('CC_QTT', false);
+            tryDefineGlobal('CC_LINKSURE', false);
+            tryDefineGlobal('CC_EDITOR', false);
+            tryDefineGlobal('CC_PREVIEW', false);
+            tryDefineGlobal('CC_BUILD', true);
+            tryDefineGlobal('CC_TEST', false);
+            tryDefineGlobal('CC_DEBUG', false);
+            tryDefineGlobal('CC_DEV', false);
+            tryDefineGlobal('CC_MINIGAME', true);
+            tryDefineGlobal('CC_RUNTIME_BASED', false);
+            tryDefineGlobal('CC_SUPPORT_JIT', false);
+            tryDefineGlobal('CC_JSB', false);
+
+            var Pool = function () {
+              var _proto = Pool.prototype;
+              _proto.get = function get() {
+                return this._get();
+              };
+              function Pool(_0, _1) {
+                this.count = 0;
+                var size = _1 === undefined ? _0 : _1;
+                var cleanupFunc = _1 === undefined ? null : _0;
+                this._pool = new Array(size);
+                this._cleanup = cleanupFunc;
+              }
+              _proto._get = function _get() {
+                if (this.count > 0) {
+                  --this.count;
+                  var cache = this._pool[this.count];
+                  this._pool[this.count] = null;
+                  return cache;
+                }
+                return null;
+              };
+              _proto.put = function put(obj) {
+                var pool = this._pool;
+                if (this.count < pool.length) {
+                  if (this._cleanup && this._cleanup(obj) === false) {
+                    return;
+                  }
+                  pool[this.count] = obj;
+                  ++this.count;
+                }
+              };
+              _proto.resize = function resize(length) {
+                if (length >= 0) {
+                  this._pool.length = length;
+                  if (this.count > length) {
+                    this.count = length;
+                  }
+                }
+              };
+              return Pool;
+            }();
+
+            console.log("I'm instantiate-jit.ts");
+            var Assignments = function () {
+              function Assignments(targetExpression) {
+                this._exps = [];
+                this._targetExp = targetExpression;
+              }
+              var _proto2 = Assignments.prototype;
+              _proto2.append = function append(key, expression) {
+                this._exps.push([key, expression]);
+              };
+              _proto2.writeCode = function writeCode(codeArray) {
+                console.info("writeCode");
+              };
+              return Assignments;
+            }();
+            Assignments.pool = void 0;
+            Assignments.pool = new Pool(function (obj) {
+              obj._exps.length = 0;
+              obj._targetExp = null;
+            }, 1);
+            Assignments.pool.get = function (targetExpression) {
+              var cache = this._get() || new Assignments();
+              cache._targetExp = targetExpression;
+              return cache;
+            };
+
+            var Prefab = exports("Prefab", function () {
+              function Prefab() {}
+              var _proto = Prefab.prototype;
+              _proto._instantiate = function _instantiate() {
+                {
+                  console.error("Dosn't support JIT");
+                }
+              };
+              return Prefab;
+            }());
+
+        })
+    };
+}));
+"
+`;
+
 exports[`engine-js build WASM module on platform maybe supporting WASM 1`] = `
 [
   "assets/wasm_c-_JUdaL1r.wasm",
