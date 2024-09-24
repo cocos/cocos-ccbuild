@@ -20,6 +20,8 @@ exports[`bundle dts: cc.d.ts content 1`] = `
     }
     export class Path {
     }
+    export class Prefab {
+    }
     export const A = "A";
     export namespace testAsm {
         function decodeVertexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, filter?: string): void;
