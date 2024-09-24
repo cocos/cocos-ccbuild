@@ -9,7 +9,7 @@ import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-feature
 import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
-import { filePathToModuleRequest } from '@ccbuild/utils';
+import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { rpInlineEnum } from './rollup-plugins/inline-enum';
 
@@ -402,8 +402,21 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         onwarn: rollupWarningHandler,
     };
 
-    if (options.treeshake) {
-        rollupOptions.treeshake = options.treeshake;
+    const treeshakeConfig = statsQuery.getTreeShakeConfig();
+    const noSideEffectFiles = treeshakeConfig?.noSideEffectFiles;
+    if (noSideEffectFiles && noSideEffectFiles.length > 0) {
+        rollupOptions.treeshake = {
+            moduleSideEffects: (id: string): boolean => {
+                const relativePath = formatPath(ps.relative(engineRoot, id));
+                if (noSideEffectFiles.includes(relativePath)) {
+                    console.info(`>>> Found no side-effect path: ${relativePath}`);
+                    return false;
+                }
+                return true;
+            }
+        };
+    } else {
+        console.info(`>>> No treeshake config found!`);
     }
 
     const perf = true;
