@@ -27,6 +27,22 @@ declare module "@cocos/ccbuild" {
          */
         function enumerateAllDependents(meta: buildEngine.Result, featureUnits: string[]): string[];
         export type ModuleFormat = "esm" | "cjs" | "system" | "iife";
+        export type HasModuleSideEffects = (id: string, external: boolean) => boolean;
+        export type ModuleSideEffectsOption = boolean | "no-external" | string[] | HasModuleSideEffects;
+        export type TreeshakingPreset = "smallest" | "safest" | "recommended";
+        export interface NormalizedTreeshakingOptions {
+            annotations: boolean;
+            correctVarValueBeforeDeclaration: boolean;
+            manualPureFunctions: readonly string[];
+            moduleSideEffects: HasModuleSideEffects;
+            propertyReadSideEffects: boolean | "always";
+            tryCatchDeoptimization: boolean;
+            unknownGlobalSideEffects: boolean;
+        }
+        export interface TreeshakingOptions extends Partial<Omit<NormalizedTreeshakingOptions, "moduleSideEffects">> {
+            moduleSideEffects?: ModuleSideEffectsOption;
+            preset?: TreeshakingPreset;
+        }
         export interface Options {
             /**
              * 引擎仓库目录。
@@ -162,6 +178,7 @@ declare module "@cocos/ccbuild" {
              * @note It's only avaiable when options.moduleFormat is 'system'.
              */
             enableNamedRegisterForSystemJSModuleFormat?: boolean;
+            treeshake?: TreeshakingOptions;
         }
         export interface Result {
             /**
