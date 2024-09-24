@@ -31,6 +31,11 @@ export interface Config {
      * The decorators to be optimize when build engine.
      */
     optimizeDecorators: IOptimizeDecorators;
+
+    /**
+     * The TreeShake config
+     */
+    treeShake?: ITreeShakeConfig;
 }
 
 export interface IndexConfig {
@@ -150,4 +155,8 @@ export interface IOptimizeDecorators {
      * The decorators which should be removed directly when they only work in Cocos Creator editor.
      */
     editorDecorators: string[],
+}
+
+export interface ITreeShakeConfig {
+    noSideEffectFiles: string[];
 }

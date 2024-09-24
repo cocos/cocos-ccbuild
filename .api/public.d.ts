@@ -27,22 +27,6 @@ declare module "@cocos/ccbuild" {
          */
         function enumerateAllDependents(meta: buildEngine.Result, featureUnits: string[]): string[];
         export type ModuleFormat = "esm" | "cjs" | "system" | "iife";
-        export type HasModuleSideEffects = (id: string, external: boolean) => boolean;
-        export type ModuleSideEffectsOption = boolean | "no-external" | string[] | HasModuleSideEffects;
-        export type TreeshakingPreset = "smallest" | "safest" | "recommended";
-        export interface NormalizedTreeshakingOptions {
-            annotations: boolean;
-            correctVarValueBeforeDeclaration: boolean;
-            manualPureFunctions: readonly string[];
-            moduleSideEffects: HasModuleSideEffects;
-            propertyReadSideEffects: boolean | "always";
-            tryCatchDeoptimization: boolean;
-            unknownGlobalSideEffects: boolean;
-        }
-        export interface TreeshakingOptions extends Partial<Omit<NormalizedTreeshakingOptions, "moduleSideEffects">> {
-            moduleSideEffects?: ModuleSideEffectsOption;
-            preset?: TreeshakingPreset;
-        }
         export interface Options {
             /**
              * 引擎仓库目录。
@@ -178,7 +162,6 @@ declare module "@cocos/ccbuild" {
              * @note It's only avaiable when options.moduleFormat is 'system'.
              */
             enableNamedRegisterForSystemJSModuleFormat?: boolean;
-            treeshake?: TreeshakingOptions;
         }
         export interface Result {
             /**
@@ -231,6 +214,10 @@ declare module "@cocos/ccbuild" {
          * Gets all optimzie decorators
          */
         getOptimizeDecorators(): ConfigInterface.IOptimizeDecorators;
+        /**
+         * Gets TreeShake config
+         */
+        getTreeShakeConfig(): ConfigInterface.ITreeShakeConfig | undefined;
         /**
          * Gets all features defined.
          */
@@ -375,6 +362,10 @@ declare module "@cocos/ccbuild" {
              * The decorators to be optimize when build engine.
              */
             optimizeDecorators: IOptimizeDecorators;
+            /**
+             * The TreeShake config
+             */
+            treeShake?: ITreeShakeConfig;
         }
         export interface IndexConfig {
             modules?: Record<string, {
@@ -480,6 +471,9 @@ declare module "@cocos/ccbuild" {
              * The decorators which should be removed directly when they only work in Cocos Creator editor.
              */
             editorDecorators: string[];
+        }
+        export interface ITreeShakeConfig {
+            noSideEffectFiles: string[];
         }
     }
     export namespace Transformer {

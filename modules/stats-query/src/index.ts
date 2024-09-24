@@ -53,6 +53,13 @@ export class StatsQuery {
     }
 
     /**
+     * Gets TreeShake config
+     */
+    public getTreeShakeConfig (): ConfigInterface.ITreeShakeConfig | undefined {
+        return this._config.treeShake;
+    }
+
+    /**
      * Gets all features defined.
      */
     public getFeatures (): string[] {

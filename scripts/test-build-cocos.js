@@ -1,6 +1,6 @@
 const ps = require('path');
 const { ensureDir, emptyDir } = require('fs-extra');
-const { buildEngine } = require('../lib/src');
+const { buildEngine, StatsQuery } = require('../lib/src');
 
 const argv = process.argv;
 
@@ -47,16 +47,6 @@ const argv = process.argv;
         "wasmCompressionMode": 'brotli',
         "visualize": true,
         "inlineEnum": true,
-        treeshake: {
-            moduleSideEffects: (id, isExternal) => {
-                const fileName = ps.basename(id);
-                if (noSideEffectFiles.indexOf(fileName) >= 0) {
-                    console.info(`--> Found fileName: ${fileName}`);
-                    return false;
-                }
-                return true;
-            }
-        },
     };
 
     await ensureDir(outDir);

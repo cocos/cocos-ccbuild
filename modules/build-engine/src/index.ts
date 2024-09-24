@@ -69,28 +69,7 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
  */
 export namespace buildEngine {
     export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
-
-    export type HasModuleSideEffects = (id: string, external: boolean) => boolean;
-    export type ModuleSideEffectsOption = boolean | 'no-external' | string[] | HasModuleSideEffects;
-
-    export type TreeshakingPreset = 'smallest' | 'safest' | 'recommended';
-
-    export interface NormalizedTreeshakingOptions {
-        annotations: boolean;
-        correctVarValueBeforeDeclaration: boolean;
-        manualPureFunctions: readonly string[];
-        moduleSideEffects: HasModuleSideEffects;
-        propertyReadSideEffects: boolean | 'always';
-        tryCatchDeoptimization: boolean;
-        unknownGlobalSideEffects: boolean;
-    }
-
-    // See https://rollupjs.org/configuration-options/#treeshake for more details.
-    export interface TreeshakingOptions extends Partial<Omit<NormalizedTreeshakingOptions, 'moduleSideEffects'>> {
-        moduleSideEffects?: ModuleSideEffectsOption;
-        preset?: TreeshakingPreset;
-    }
-    
+   
     export interface Options {
         /**
          * 引擎仓库目录。
@@ -258,8 +237,6 @@ export namespace buildEngine {
          * @note It's only avaiable when options.moduleFormat is 'system'.
          */
         enableNamedRegisterForSystemJSModuleFormat?: boolean;
-
-        treeshake?: TreeshakingOptions;
     }
 
     export interface Result {
