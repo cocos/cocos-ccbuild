@@ -85,6 +85,7 @@ export namespace buildEngine {
         unknownGlobalSideEffects: boolean;
     }
 
+    // See https://rollupjs.org/configuration-options/#treeshake for more details.
     export interface TreeshakingOptions extends Partial<Omit<NormalizedTreeshakingOptions, 'moduleSideEffects'>> {
         moduleSideEffects?: ModuleSideEffectsOption;
         preset?: TreeshakingPreset;

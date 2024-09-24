@@ -2,6 +2,16 @@ import * as js from '../core/utils/pool';
 
 console.log(`I'm instantiate-jit.ts`);
 
+/*@__PURE__*/ console.log('side-effect');
+
+class Impure {
+    constructor() {
+        console.log('side-effect');
+    }
+}
+
+/*@__PURE__ There may be additional text in the comment */ new Impure();
+
 const VAR = 'var ';
 
 class Declaration {
