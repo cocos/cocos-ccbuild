@@ -49,6 +49,7 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
             exclude: options.exclude,
             values: strDefines,
             delimiters: ['(?<!\\.)\\b', '\\b(?!\\.)'],
+            preventAssignment: true,
         },
     // meta,
     );
