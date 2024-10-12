@@ -216,7 +216,7 @@ async function handleOneTsEnum(info: {
                             resolveValue(argNode.left, (left: string | number): void => {
                                 resolveValue(
                                     argNode.right, (right: string | number): void => {
-                                        const exp = `${left}${argNode.operator}${right}`;
+                                        const exp = `${node.operator}(${left}${argNode.operator}${right})`;
                                         value = evaluate(exp);
                                         cb(value);
                                     }

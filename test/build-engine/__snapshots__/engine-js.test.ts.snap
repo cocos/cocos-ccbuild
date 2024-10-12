@@ -1927,6 +1927,18 @@ exports[`engine-js inline enum 2`] = `
             console.log(1026);
             console.log(123213);
             console.log(123214);
+            var TileFlag = exports("TileFlag", {
+              "HORIZONTAL": 2147483648,
+              "VERTICAL": 1073741824,
+              "DIAGONAL": 536870912,
+              "FLIPPED_ALL": 4026531840,
+              "FLIPPED_MASK": 268435455
+            });
+            console.log(2147483648);
+            console.log(1073741824);
+            console.log(536870912);
+            console.log(4026531840);
+            console.log(268435455);
 
             var MyEnum2 = exports("MyEnum2", {
               "AAABBB": 0,

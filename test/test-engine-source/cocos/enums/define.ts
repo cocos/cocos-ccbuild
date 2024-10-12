@@ -113,3 +113,47 @@ console.log(PixelFormat.RGB_ETC1);
 console.log(PixelFormat.RGBA_ETC1);
 console.log(PixelFormat.RGB_ETC2);
 console.log(PixelFormat.RGBA_ETC2);
+
+
+export enum TileFlag {
+    /**
+     * @property HORIZONTAL
+     * @type {Number}
+     * @static
+     */
+    HORIZONTAL = 0x80000000,
+
+    /**
+     * @property VERTICAL
+     * @type {Number}
+     * @static
+     */
+    VERTICAL = 0x40000000,
+
+    /**
+     * @property DIAGONAL
+     * @type {Number}
+     * @static
+     */
+    DIAGONAL = 0x20000000,
+
+    /**
+     * @property FLIPPED_ALL
+     * @type {Number}
+     * @static
+     */
+    FLIPPED_ALL = (0x80000000 | 0x40000000 | 0x20000000 | 0x10000000) >>> 0,
+
+    /**
+     * @property FLIPPED_MASK
+     * @type {Number}
+     * @static
+     */
+    FLIPPED_MASK = (~(0x80000000 | 0x40000000 | 0x20000000 | 0x10000000)) >>> 0
+}
+
+console.log(TileFlag.HORIZONTAL);
+console.log(TileFlag.VERTICAL);
+console.log(TileFlag.DIAGONAL);
+console.log(TileFlag.FLIPPED_ALL);
+console.log(TileFlag.FLIPPED_MASK);
