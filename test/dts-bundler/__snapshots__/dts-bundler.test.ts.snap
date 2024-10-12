@@ -126,6 +126,38 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         RGB_ETC2 = 123213,
         RGBA_ETC2 = 123214
     }
+    export enum TileFlag {
+        /**
+         * @property HORIZONTAL
+         * @type {Number}
+         * @static
+         */
+        HORIZONTAL = 2147483648,
+        /**
+         * @property VERTICAL
+         * @type {Number}
+         * @static
+         */
+        VERTICAL = 1073741824,
+        /**
+         * @property DIAGONAL
+         * @type {Number}
+         * @static
+         */
+        DIAGONAL = 536870912,
+        /**
+         * @property FLIPPED_ALL
+         * @type {Number}
+         * @static
+         */
+        FLIPPED_ALL = 4026531840,
+        /**
+         * @property FLIPPED_MASK
+         * @type {Number}
+         * @static
+         */
+        FLIPPED_MASK = 268435455
+    }
     export const str = "intrinsic flag is false";
     export function testEnv(): string;
     export function testInternalExport(): string;
@@ -182,6 +214,38 @@ exports[`bundle dts: cc.d.ts content 1`] = `
                 RGBA_ETC1 = 1026,
                 RGB_ETC2 = 123213,
                 RGBA_ETC2 = 123214
+            }
+            export enum TileFlag {
+                /**
+                 * @property HORIZONTAL
+                 * @type {Number}
+                 * @static
+                 */
+                HORIZONTAL = 2147483648,
+                /**
+                 * @property VERTICAL
+                 * @type {Number}
+                 * @static
+                 */
+                VERTICAL = 1073741824,
+                /**
+                 * @property DIAGONAL
+                 * @type {Number}
+                 * @static
+                 */
+                DIAGONAL = 536870912,
+                /**
+                 * @property FLIPPED_ALL
+                 * @type {Number}
+                 * @static
+                 */
+                FLIPPED_ALL = 4026531840,
+                /**
+                 * @property FLIPPED_MASK
+                 * @type {Number}
+                 * @static
+                 */
+                FLIPPED_MASK = 268435455
             }
         }
     }
