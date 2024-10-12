@@ -244,6 +244,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const inlineEnumPlugins = await rpInlineEnum({ 
         scanDir: ps.join(engineRoot, 'cocos'),
+        moduleOverrides,
         // exclude: ['*.jsb.ts'],
         // scanPattern: '**/*.{cts,mts,ts,tsx}'
     });

@@ -22,7 +22,9 @@ export interface Options {
      * The pattern used to match enum files.
      * @default '**\/*.{cts,mts,ts,tsx}'
      */
-    scanPattern?: string | string[]
+    scanPattern?: string | string[],
+
+    moduleOverrides?: Record<string, string> | null,
 }
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
@@ -49,5 +51,6 @@ export function resolveOptions(options: Options): OptionsResolved {
         scanMode: options.scanMode || 'fs',
         scanDir: options.scanDir || process.cwd(),
         scanPattern: options.scanPattern || '**/*.{cts,mts,ts,tsx}',
+        moduleOverrides: options.moduleOverrides || null,
     };
 }

@@ -64,12 +64,17 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
                 return filter(source) ? source : null;
             },
 
-            transform(this, code, id): rollup.TransformResult {
+            transform(this, code: string, moduleId: string): rollup.TransformResult {
+                // Don't transform a module that is overrode
+                if (options.moduleOverrides && (moduleId in options.moduleOverrides)) {
+                    return;
+                }
+
                 let s: MagicString | undefined;
 
-                if (id in declarations) {
+                if (moduleId in declarations) {
                     s ||= new MagicString(code);
-                    for (const declaration of declarations[id]) {
+                    for (const declaration of declarations[moduleId]) {
                         const {
                             range: [start, end],
                             id,
