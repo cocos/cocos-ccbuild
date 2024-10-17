@@ -428,8 +428,7 @@
 
     "treeShake": {
         "noSideEffectFiles": [
-            "cocos/serialization/instantiate-jit.ts",
-            "cocos/game/splash-screen.ts"
+            "cocos/serialization/instantiate-jit.ts"
         ]
     }
 }
