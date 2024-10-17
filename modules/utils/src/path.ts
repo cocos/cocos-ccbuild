@@ -59,3 +59,7 @@ export async function readdirR (item: string, reduceOutput: string[]): Promise<v
         reduceOutput.push(item);
     }
 }
+
+export function makePathEqualityKey(path: string): string {
+    return process.platform === 'win32' ? path.toLocaleLowerCase() : path;
+}

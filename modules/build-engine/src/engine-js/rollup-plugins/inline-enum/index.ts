@@ -6,6 +6,7 @@ import ReplacePlugin from '@rollup/plugin-replace';
 import { type Options, resolveOptions } from './core/options';
 import { IDefines, scanEnums } from './core/enum';
 import { rollup as Bundler } from '@ccbuild/bundler';
+import { ps as pathUtils } from '@ccbuild/utils';
 import rollup = Bundler.core;
 
 
@@ -55,6 +56,7 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
     );
 
     const name = 'cc-inline-enum';
+
     return [
         {
             name,
@@ -66,7 +68,8 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
 
             transform(this, code: string, moduleId: string): rollup.TransformResult {
                 // Don't transform a module that is overrode
-                if (options.moduleOverrides && (moduleId in options.moduleOverrides)) {
+                const cacheKey = pathUtils.makePathEqualityKey(moduleId);
+                if (options.moduleOverrides && (cacheKey in options.moduleOverrides)) {
                     return;
                 }
 

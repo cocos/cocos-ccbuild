@@ -54,9 +54,18 @@
             }
         },
         {
+            "test": "true",
+            "isVirtualModule": false,
+            "overrides": {
+                "./cocos/enums/TestOverride.ts": "./cocos/enums/TestOverride.jsb.ts",
+                "./cocos/enums/test-override-entry.ts": "./cocos/enums/test-override-entry.jsb.ts"
+            }
+        },
+        {
             "test": "context.mode === 'BUILD'",
             "isVirtualModule": false,
-            "overrides": {}
+            "overrides": {
+            }
         },
         {
             "test": "context.buildTimeConstants.NATIVE",
@@ -428,8 +437,7 @@
 
     "treeShake": {
         "noSideEffectFiles": [
-            "cocos/serialization/instantiate-jit.ts",
-            "cocos/game/splash-screen.ts"
+            "cocos/serialization/instantiate-jit.ts"
         ]
     }
 }

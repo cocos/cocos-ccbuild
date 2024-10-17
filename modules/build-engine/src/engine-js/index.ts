@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import ps from 'path';
 import { babel as Transformer } from '@ccbuild/transformer';
 import { rollup as Bundler } from '@ccbuild/bundler';
+import { ps as pathUtils } from '@ccbuild/utils';
 import realFs from 'fs';
 import tsConfigPaths from './rollup-plugins/ts-paths';
 import moduleQueryPlugin from './rollup-plugins/module-query-plugin';
@@ -49,9 +50,6 @@ const realPath = (function (): (file: string) => Promise<string> {
     });
 })();
 
-function makePathEqualityKey(path: string): string {
-    return process.platform === 'win32' ? path.toLocaleLowerCase() : path;
-}
 
 export async function buildJsEngine(options: Required<buildEngine.Options>): Promise<buildEngine.Result> {
     const doUglify = !!options.compress;
@@ -116,7 +114,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         platform: options.platform,
         buildTimeConstants,
     })).reduce((result, [k, v]) => {
-        result[makePathEqualityKey(k)] = v;
+        result[pathUtils.makePathEqualityKey(k)] = v;
         return result;
     }, {} as Record<string, string>);
 
@@ -269,7 +267,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 }
             },
             load(this, id: string): string | null {
-                const key = makePathEqualityKey(id);
+                const key = pathUtils.makePathEqualityKey(id);
                 if (!(key in moduleOverrides)) {
                     return null;
                 }
@@ -406,6 +404,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const treeshakeConfig = statsQuery.getTreeShakeConfig();
     const noSideEffectFiles = treeshakeConfig?.noSideEffectFiles;
     if (noSideEffectFiles && noSideEffectFiles.length > 0) {
+        for (const noSideEffectFile of noSideEffectFiles) {
+            const absolutePath = ps.join(engineRoot, noSideEffectFile);
+            if (!fs.pathExistsSync(absolutePath)) {
+                console.error(`>>> ERROR: noSideEffectFile: ( ${noSideEffectFile} ) doesn't exist!`);
+            }
+        }
+
         rollupOptions.treeshake = {
             moduleSideEffects: (id: string): boolean => {
                 const relativePath = formatPath(ps.relative(engineRoot, id));
