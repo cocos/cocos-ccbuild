@@ -6,6 +6,7 @@ import ReplacePlugin from '@rollup/plugin-replace';
 import { type Options, resolveOptions } from './core/options';
 import { IDefines, scanEnums } from './core/enum';
 import { rollup as Bundler } from '@ccbuild/bundler';
+import { ps as pathUtils } from '@ccbuild/utils';
 import rollup = Bundler.core;
 
 
@@ -64,8 +65,9 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
                 return filter(source) ? source : null;
             },
 
-            transform(this, code: string, moduleId: string): rollup.TransformResult {
+            transform(this, code: string, key: string): rollup.TransformResult {
                 // Don't transform a module that is overrode
+                const moduleId = pathUtils.makePathEqualityKey(key);
                 if (options.moduleOverrides && (moduleId in options.moduleOverrides)) {
                     return;
                 }
