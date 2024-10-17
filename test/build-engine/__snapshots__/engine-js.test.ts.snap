@@ -1940,6 +1940,28 @@ exports[`engine-js inline enum 2`] = `
             console.log(4026531840);
             console.log(268435455);
 
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            console.log("Testing enum override .......");
+            var TestOverrideEnum;
+            (function (TestOverrideEnum) {
+              TestOverrideEnum["HAHA"] = "hello_haha";
+              TestOverrideEnum["WOWO"] = "hello_wowo";
+              TestOverrideEnum["HEIHEI"] = "hello_heihei";
+            })(TestOverrideEnum || (TestOverrideEnum = {}));
+
+            console.log(2);
+            console.log(0);
+            console.log(1);
+
             var MyEnum2 = exports("MyEnum2", {
               "AAABBB": 0,
               "Haha": 0,

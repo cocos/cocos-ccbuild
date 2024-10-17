@@ -4,6 +4,7 @@ import * as gfx from './define';
 
 import { PixelFormat } from './define';
 
+import './test-override-entry';
 
 export enum MyEnum2 {
     AAABBB,

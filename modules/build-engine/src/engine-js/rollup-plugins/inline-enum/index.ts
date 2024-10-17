@@ -57,11 +57,6 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
 
     const name = 'cc-inline-enum';
 
-    const moduleOverrides = options.moduleOverrides;
-    for (const k in moduleOverrides) {
-        const v = moduleOverrides[k];
-        console.info(`[${name}], overrides[${k}]=${v}`);
-    }
     return [
         {
             name,
@@ -71,11 +66,10 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
                 return filter(source) ? source : null;
             },
 
-            transform(this, code: string, key: string): rollup.TransformResult {
+            transform(this, code: string, moduleId: string): rollup.TransformResult {
                 // Don't transform a module that is overrode
-                const moduleId = pathUtils.makePathEqualityKey(key);
-                console.info(`[${name}], transform: ${moduleId}`);
-                if (options.moduleOverrides && (moduleId in options.moduleOverrides)) {
+                const cacheKey = pathUtils.makePathEqualityKey(moduleId);
+                if (options.moduleOverrides && (cacheKey in options.moduleOverrides)) {
                     return;
                 }
 
