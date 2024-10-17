@@ -70,7 +70,7 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
                 // Don't transform a module that is overrode
                 const cacheKey = pathUtils.makePathEqualityKey(moduleId);
                 if (options.moduleOverrides && (cacheKey in options.moduleOverrides)) {
-                    return;
+                    // return;
                 }
 
                 let s: MagicString | undefined;
