@@ -1,7 +1,7 @@
 
 import * as babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
-import nodeResolve from '@rollup/plugin-node-resolve';
+import nodeResolve from '@cocos/rollup-plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import virtual from '@rollup/plugin-virtual';
 import terser from '@rollup/plugin-terser';

@@ -14878,7 +14878,7 @@ declare module "@cocos/ccbuild" {
                 /**
                  * Locate modules using the Node resolution algorithm, for using third party modules in node_modules
                  */
-                export function nodeResolve(options?: __private.___node_modules_rollup_plugin_node_resolve_types_index__RollupNodeResolveOptions): Plugin;
+                export function nodeResolve(options?: __private.___node_modules_cocos_rollup_plugin_node_resolve_types_index__RollupNodeResolveOptions): Plugin;
                 /**
                  * Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
                  */
@@ -16397,7 +16397,7 @@ declare module "@cocos/ccbuild" {
              */
             namedExports?: boolean;
         }
-        export interface ___node_modules_rollup_plugin_node_resolve_types_index__RollupNodeResolveOptions {
+        export interface ___node_modules_cocos_rollup_plugin_node_resolve_types_index__RollupNodeResolveOptions {
             /**
              * Additional conditions of the package.json exports field to match when resolving modules.
              * By default, this plugin looks for the `'default', 'module', 'import']` conditions when resolving imports.
@@ -16460,9 +16460,11 @@ declare module "@cocos/ccbuild" {
             /**
              * If `true`, the plugin will prefer built-in modules (e.g. `fs`, `path`). If `false`,
              * the plugin will look for locally installed modules of the same name.
+             *
+             * If a function is provided, it will be called to determine whether to prefer built-ins.
              * @default true
              */
-            preferBuiltins?: boolean;
+            preferBuiltins?: boolean | ((module: string) => boolean);
             /**
              * An `Array` which instructs the plugin to limit module resolution to those whose
              * names match patterns in the array.
