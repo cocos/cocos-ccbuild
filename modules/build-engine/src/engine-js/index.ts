@@ -415,7 +415,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             moduleSideEffects: (id: string): boolean => {
                 const relativePath = formatPath(ps.relative(engineRoot, id));
                 if (noSideEffectFiles.includes(relativePath)) {
-                    console.info(`>>> Found no side-effect path: ${relativePath}`);
+                    // console.info(`>>> Found no side-effect path: ${relativePath}`);
                     return false;
                 }
                 return true;
