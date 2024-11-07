@@ -14893,7 +14893,7 @@ declare module "@cocos/ccbuild" {
                  * @param options - Plugin options.
                  * @returns Plugin instance.
                  */
-                export function terser(options?: __private.___node_modules_rollup_plugin_terser_types_index__Options): Plugin;
+                export function terser(options?: __private.___node_modules_cocos_rollup_plugin_terser_types_index__Options): Plugin;
                 /**
                  * Seamless integration between Rollup and Typescript.
                  */
@@ -16974,7 +16974,7 @@ declare module "@cocos/ccbuild" {
             sourceMap?: boolean | ___node_modules_terser_tools_terser__SourceMapOptions;
             toplevel?: boolean;
         }
-        export interface ___node_modules_rollup_plugin_terser_types_index__Options extends ___node_modules_terser_tools_terser__MinifyOptions {
+        export interface ___node_modules_cocos_rollup_plugin_terser_types_index__Options extends ___node_modules_terser_tools_terser__MinifyOptions {
             nameCache?: Record<string, any>;
             maxWorkers?: number;
         }
