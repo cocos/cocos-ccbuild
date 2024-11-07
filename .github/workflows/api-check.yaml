@@ -9,8 +9,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
-      
-      - run: npm config set registry https://registry.npmjs.org/
+
       - run: npm ci
 
       - name: Copy old public.d.ts

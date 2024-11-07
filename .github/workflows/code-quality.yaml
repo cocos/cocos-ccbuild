@@ -10,7 +10,6 @@ jobs:
         with:
           node-version: '18.17.0'
 
-      - run: npm config set registry https://registry.npmjs.org/
       - name: Build all modules
         run: npm ci
           
