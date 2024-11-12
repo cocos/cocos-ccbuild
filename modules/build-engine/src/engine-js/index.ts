@@ -28,7 +28,7 @@ import rollup = Bundler.core;
 import rpBabel = Bundler.plugins.babel.babel;
 import RollupBabelInputPluginOptions = Bundler.plugins.babel.RollupBabelInputPluginOptions;
 import json = Bundler.plugins.json;
-import resolve = Bundler.plugins.nodeResolve;
+import nodeResolve = Bundler.plugins.nodeResolve;
 import commonjs = Bundler.plugins.commonjs;
 import rpTerser = Bundler.plugins.terser;
 import rpVirtual = Bundler.plugins.virtual;
@@ -285,7 +285,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             configFileName: ps.resolve(options.engine, 'tsconfig.json'),
         }),
 
-        resolve({
+        nodeResolve({
             extensions: ['.js', '.ts', '.json'],
             jail: await realPath(engineRoot),
             rootDir: engineRoot,
@@ -294,7 +294,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         json({
             preferConst: true,
         }),
-
 
         commonjs({
             include: [
@@ -351,6 +350,11 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             // We only do this for CommonJS.
             // Especially, we cannot do this for IIFE.
             toplevel: rollupFormat === 'cjs',
+            // Enabling 'split' will have more than one entry, nameCache will not be able to be shared by different workers in rollup-plugin-terser.
+            // So disable worker if 'split' mode is enabled.
+            maxWorkers: split ? 0 : undefined,
+            // Use name cache if it's in 'split' mode.
+            nameCache: split ? {} : undefined,
         }));
     }
 
