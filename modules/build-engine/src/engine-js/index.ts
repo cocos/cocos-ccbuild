@@ -337,9 +337,9 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 passes: 2,  // first: remove deadcodes and const objects, second: drop variables
             },
             mangle: {
-                properties: {
+                properties: options.mangleProperties ? {
                     regex: /^[a-zA-Z_][a-zA-Z0-9_]{3,}\$$/,
-                }
+                } : false,
             },
             keep_fnames: false,
             output: {

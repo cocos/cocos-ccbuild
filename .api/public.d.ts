@@ -80,6 +80,11 @@ declare module "@cocos/ccbuild" {
              */
             inlineEnum?: boolean;
             /**
+             * 是否需要压缩 $ 后缀的属性，只在 release 模式下生效
+             * @default true
+             */
+            mangleProperties?: boolean;
+            /**
              * 是否生成 source map。
              * 若为 `inline` 则生成内联的 source map。
              * @default false
