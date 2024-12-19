@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "rollup": "^4.20.0",
-    "@rollup/plugin-babel": "^6.0.3",
+    "rollup": "^4.27.4",
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@cocos/rollup-plugin-node-resolve": "^15.3.0",

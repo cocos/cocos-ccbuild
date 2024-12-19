@@ -13,6 +13,9 @@ import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { rpInlineEnum } from './rollup-plugins/inline-enum';
+import { rpManglePrivatePropertiesBabel } from './rollup-plugins/mangle-private-properties-babel';
+import rpTypescript from '@mycocos/rollup-plugin-typescript';
+import { minifyPrivatesTransformer } from './rollup-plugins/mangle-private-properties-tsc/transformer';
 
 // import babel
 import babel = Transformer.core;
@@ -35,7 +38,7 @@ import rpVirtual = Bundler.plugins.virtual;
 import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
-import * as decoratorRecorder from './babel-plugins/decorator-parser';
+import { recordDecorators } from './babel-plugins/decorator-parser';
 
 const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
@@ -173,7 +176,12 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         presetEnvOptions.targets = options.targets;
     }
 
-    const babelPlugins: any[] = [];
+    const babelPlugins: babel.PluginItem[] = [];
+
+    // if (options.mangleProperties) {
+    // babelPlugins.push([transformPrivateProperties]);
+    // }
+
     if (!options.targets) {
         babelPlugins.push([babelPluginTransformForOf, {
             loose: true,
@@ -216,11 +224,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         plugins: babelPlugins,
         presets: [
             [babelPresetEnv, presetEnvOptions],
+
             [babelPresetCC, {
                 allowDeclareFields: true,
                 ccDecoratorHelpers: 'external',
                 fieldDecorators,
                 editorDecorators,
+                // onlyRemoveTypeImports: true,
             } as babelPresetCC.Options],
         ],
     };
@@ -229,8 +239,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         if (!process.env.ENGINE_PATH) {
             throw new Error('ENGINE_PATH environment variable not set');
         }
-        babelOptions.presets?.push([(): any => ({ plugins: [[decoratorRecorder]] })]);
+        babelOptions.presets?.push([(): babel.PluginItem => ({ plugins: [[recordDecorators]] })]);
     }
+
+    // babelOptions.presets?.push([(): babel.PluginItem => ({ plugins: [[transformPrivateProperties]] })]);
 
     const rollupPlugins: rollup.Plugin[] = [];
 
@@ -306,6 +318,21 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     if (options.inlineEnum) {
         rollupPlugins.push(...inlineEnumPlugins);
+    }
+
+    if (options.mangleProperties) {
+        // const manglePrivatePropertiesPlugin = await rpManglePrivatePropertiesBabel({});
+        // rollupPlugins.push(...manglePrivatePropertiesPlugin);
+        rollupPlugins.push(rpTypescript({
+            tsconfig: false,
+            transformers: (program) => {
+                return {
+                    before: [
+                        minifyPrivatesTransformer(program),
+                    ],
+                };
+            }
+        }));
     }
 
     rollupPlugins.push(

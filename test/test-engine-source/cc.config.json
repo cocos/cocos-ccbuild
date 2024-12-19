@@ -43,6 +43,9 @@
         },
         "base": {
             "modules": ["base"]
+        },
+        "mangle-private-properties-test": {
+            "modules": ["mangle-private-properties-test"]
         }
     },
     "moduleOverrides": [
