@@ -4,7 +4,7 @@ import { createFilter } from '@rollup/pluginutils';
 import MagicString from 'magic-string';
 import ReplacePlugin from '@rollup/plugin-replace';
 import { type Options, resolveOptions } from './core/options';
-import { IDefines, scanEnums } from './core/enum';
+import { EnumData, IDefines, scanEnums } from './core/enum';
 import { rollup as Bundler } from '@ccbuild/bundler';
 import { ps as pathUtils } from '@ccbuild/utils';
 import rollup = Bundler.core;
@@ -21,14 +21,28 @@ const convertNumberValuesToString = (obj: IDefines): ConvertedObject => {
     }, {} as ConvertedObject);
 };
 
+let enumData: EnumData | undefined;
+
+export function getEnumData(): EnumData | undefined {
+    return enumData;
+}
+
 /**
  * The main unplugin instance.
  */
-export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rollup.Plugin[]> {
+export async function rpInlineEnum(rawOptions: Options, replace?: boolean): Promise<rollup.Plugin[]> {
     const options = resolveOptions(rawOptions);
     const filter = createFilter(options.include, options.exclude);
 
-    const { declarations, defines } = await scanEnums(options);
+    if (!enumData) {
+        enumData = await scanEnums(options);
+    }
+
+    if (!replace) {
+        return [];
+    }
+
+    const { declarations, defines } = enumData;
 
     const strDefines = convertNumberValuesToString(defines);
 

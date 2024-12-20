@@ -16,13 +16,13 @@ export const enum GenerateNameStrategy {
 
 export interface PropertyMinifierOptions {
 	/**
-	 * Prefix of generated names (e.g. '__private__')
+	 * Prefix of generated names (e.g. '_ccprivate_')
 	 */
 	prefix: string;
 }
 
 const defaultOptions: PropertyMinifierOptions = {
-    prefix: '_private_',
+    prefix: '_ccprivate_',
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
@@ -201,7 +201,7 @@ function isPrivateNonStaticClassMember(symbol: ts.Symbol | undefined): boolean {
 
     return symbol.declarations.some((x: ts.Declaration) => {
         // terser / uglify property minifiers aren't able to handle decorators
-        return (isClassMember(x) && !hasDecorators(x) || isConstructorParameter(x)) && isPrivateNonStatic(x) && !hasModifier(x, ts.SyntaxKind.DeclareKeyword);
+        return (isClassMember(x) && !hasDecorators(x) || isConstructorParameter(x)) && isPrivateNonStatic(x);// && !hasModifier(x, ts.SyntaxKind.DeclareKeyword);
     });
 }
 

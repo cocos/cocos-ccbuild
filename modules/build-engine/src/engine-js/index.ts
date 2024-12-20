@@ -12,10 +12,11 @@ import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
-import { rpInlineEnum } from './rollup-plugins/inline-enum';
+import { getEnumData, rpInlineEnum } from './rollup-plugins/inline-enum';
 import { rpManglePrivatePropertiesBabel } from './rollup-plugins/mangle-private-properties-babel';
 import rpTypescript from '@mycocos/rollup-plugin-typescript';
 import { minifyPrivatesTransformer } from './rollup-plugins/mangle-private-properties-tsc/transformer';
+import { inlineEnumTransformer } from './rollup-plugins/inline-enum/ts-transformer';
 
 // import babel
 import babel = Transformer.core;
@@ -39,6 +40,7 @@ import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
 import { recordDecorators } from './babel-plugins/decorator-parser';
+import ts from '@mycocos/typescript';
 
 const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
@@ -257,7 +259,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         moduleOverrides,
         // exclude: ['*.jsb.ts'],
         // scanPattern: '**/*.{cts,mts,ts,tsx}'
-    });
+    }, false);
 
     rollupPlugins.push(
         externalWasmLoader({
@@ -320,16 +322,37 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         rollupPlugins.push(...inlineEnumPlugins);
     }
 
-    if (options.mangleProperties) {
+    if (options.mangleProperties || options.inlineEnum) {
         // const manglePrivatePropertiesPlugin = await rpManglePrivatePropertiesBabel({});
         // rollupPlugins.push(...manglePrivatePropertiesPlugin);
+
         rollupPlugins.push(rpTypescript({
-            tsconfig: false,
+            tsconfig: ps.join(engineRoot, 'tsconfig.json'),
+            compilerOptions: {
+                noEmit: false,
+                target: undefined,
+                sourceMap: options.sourceMap,
+                outDir: undefined,
+                module: 'NodeNext',
+            },
             transformers: (program) => {
+                const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
+
+                if (options.mangleProperties) {
+                    tsTransformers.push(minifyPrivatesTransformer(program));
+                }
+        
+                if (options.inlineEnum) {
+                    const enumData = getEnumData();
+                    if (enumData) {
+                        tsTransformers.push(inlineEnumTransformer(program, enumData));
+                    } else {
+                        console.error(`Enum data is not available for inline enum.`);
+                    }
+                }
+
                 return {
-                    before: [
-                        minifyPrivatesTransformer(program),
-                    ],
+                    before: tsTransformers,
                 };
             }
         }));
@@ -365,7 +388,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             },
             mangle: {
                 properties: options.mangleProperties ? {
-                    regex: /^[a-zA-Z_][a-zA-Z0-9_]{3,}\$$/,
+                    regex: /^_ccprivate_/,
                 } : false,
             },
             keep_fnames: false,

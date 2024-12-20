@@ -52,7 +52,7 @@ export interface EnumData {
     readonly declarations: {
         readonly [file: string]: ReadonlyArray<EnumDeclaration>;
     };
-  readonly defines: IDefines;
+    readonly defines: IDefines;
 }
 
 type EnumKey<
