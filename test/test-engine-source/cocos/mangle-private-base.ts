@@ -13,3 +13,12 @@ export class ManglePropertyBase {
     private _basePrivateMethod(): void {
     }
 }
+
+export enum MangleTestMyBaseEnum {
+    HELLO = 123444,
+    WORLD,
+    FOO = 123,
+    BAR,
+    TS,
+    BABEL
+}

@@ -1,6 +1,5 @@
 import * as ts from '@mycocos/typescript';
 import { EnumData } from './core/enum';
-import { Options } from './core/options';
 
 class EnumInliner {
     private readonly _context: ts.TransformationContext;
@@ -78,32 +77,24 @@ class EnumInliner {
     private tryCreateLiteral(node: AccessExpression, program: ts.Program): ts.LiteralExpression | ts.AccessExpression {
         const typeChecker = program.getTypeChecker();
 
-        const accessName = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression;
+        const accessName: ts.MemberName | ts.StringLiteral  = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression as ts.StringLiteral;
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
-        if (ts.isPropertyAccessExpression(node)) {
-            if (symbol && symbol.valueDeclaration && symbol.valueDeclaration.kind === ts.SyntaxKind.EnumMember) {
-                const enumText = node.getText();
-                const enumInlinedValue = this._enumData.defines[enumText as keyof EnumData['defines']];
-                if (typeof enumInlinedValue === 'number') {
-                    return this._context.factory.createNumericLiteral(enumInlinedValue);
-                } else if (typeof enumInlinedValue === 'string') {
-                    return this._context.factory.createStringLiteral(enumInlinedValue);
-                }
-            }
-        } else {
+        if (node.parent && ts.isTemplateSpan(node.parent)) {
             return node;
-            // if (!ts.isStringLiteral(node.argumentExpression)) {
-            //     return node;
-            // }
-
-            // propName = node.argumentExpression;
-            // creator = (newName: string): AccessExpression => {
-            //     return this._context.factory.createElementAccessExpression(node.expression, this._context.factory.createStringLiteral(newName));
-            // };
         }
 
-        return node;//this.createNewNode(program, propName, creator);
+        if (symbol && symbol.valueDeclaration && symbol.valueDeclaration.kind === ts.SyntaxKind.EnumMember) {
+            const enumText = node.expression.getText() + '.' + accessName.text;
+            const enumInlinedValue = this._enumData.defines[enumText as keyof EnumData['defines']];
+            if (typeof enumInlinedValue === 'number') {
+                return this._context.factory.createNumericLiteral(enumInlinedValue);
+            } else if (typeof enumInlinedValue === 'string') {
+                return this._context.factory.createStringLiteral(enumInlinedValue);
+            }
+        }
+
+        return node;
     }
 }
 
@@ -111,7 +102,7 @@ class EnumInliner {
 type AccessExpression = ts.PropertyAccessExpression | ts.ElementAccessExpression;
 
 function isAccessExpression(node: ts.Node): node is AccessExpression {
-    return ts.isPropertyAccessExpression(node);//cjh || ts.isElementAccessExpression(node);
+    return ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node);
 }
 
 function getModifier(node: ts.Node, modifier: ts.SyntaxKind): ts.Modifier | undefined {
