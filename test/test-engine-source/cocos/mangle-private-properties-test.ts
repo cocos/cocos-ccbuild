@@ -91,6 +91,9 @@ export class ManglePrivatePropertiesTest extends ManglePropertyBase implements I
         this.myProp2 = 123;
         this.myProp4 = 789;
         this.publicProp3 = 456;
+        this.dontMangleMeProp2 = 'world';
+        this.dontMangleMe2();
+        
     }
     /** @mangle */
     helloInterface(): void {
@@ -178,6 +181,16 @@ function doManglePrivatePropertiesTestPublic(obj: ManglePrivatePropertiesTest): 
 }
 doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 
+((obj: ManglePrivatePropertiesTest) => {
+    obj._mangleMeProp = 333;
+    obj._mangleMeProp2 = 'world';
+    obj.dontMangleMeProp3 = 444;
+    obj.mangleMe();
+    obj.mangleMe2();
+    obj.dontMangleMe3();
+
+})(new ManglePrivatePropertiesTest);
+
+
 export * from './mangle-private-base';
 
-export const myTest = 1234;
