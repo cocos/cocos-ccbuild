@@ -38,25 +38,23 @@ export async function rpInlineEnum(rawOptions: Options, replace?: boolean): Prom
         enumData = await scanEnums(options);
     }
 
+    const { declarations, defines } = enumData;
+
+    defines['Float32Array.BYTES_PER_ELEMENT'] =  4;
+    defines['Float64Array.BYTES_PER_ELEMENT'] =  8;
+    defines['Uint8Array.BYTES_PER_ELEMENT'] =  1;
+    defines['Uint8ClampedArray.BYTES_PER_ELEMENT'] = 1;
+    defines['Uint16Array.BYTES_PER_ELEMENT'] =  2;
+    defines['Uint32Array.BYTES_PER_ELEMENT'] =  4;
+    defines['Int8Array.BYTES_PER_ELEMENT'] =  1;
+    defines['Int16Array.BYTES_PER_ELEMENT'] =  2;
+    defines['Int32Array.BYTES_PER_ELEMENT'] =  4;
+
     if (!replace) {
         return [];
     }
 
-    const { declarations, defines } = enumData;
-
     const strDefines = convertNumberValuesToString(defines);
-
-    strDefines['Float32Array.BYTES_PER_ELEMENT'] =  '4';
-    strDefines['Float64Array.BYTES_PER_ELEMENT'] =  '8';
-  
-    strDefines['Uint8Array.BYTES_PER_ELEMENT'] =  '1';
-    strDefines['Uint8ClampedArray.BYTES_PER_ELEMENT'] = '1';
-    strDefines['Uint16Array.BYTES_PER_ELEMENT'] =  '2';
-    strDefines['Uint32Array.BYTES_PER_ELEMENT'] =  '4';
-    strDefines['Int8Array.BYTES_PER_ELEMENT'] =  '1';
-    strDefines['Int16Array.BYTES_PER_ELEMENT'] =  '2';
-    strDefines['Int32Array.BYTES_PER_ELEMENT'] =  '4';
-
 
     const replacePlugin = ReplacePlugin(
         {

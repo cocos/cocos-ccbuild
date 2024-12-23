@@ -74,6 +74,20 @@ class EnumInliner {
         return node;
     }
 
+    private createNumberOrStringLiteral(value: number | string): ts.NumericLiteral | ts.StringLiteral | null {
+        if (typeof value === 'number') {
+            return this._context.factory.createNumericLiteral(value);
+        }
+        else if (typeof value === 'string') {
+            return this._context.factory.createStringLiteral(value);
+        }
+        return null;
+    }
+
+    private findEnumData(name: string): number | string | undefined {
+        return this._enumData.defines[name as keyof EnumData['defines']];
+    }
+
     private tryCreateLiteral(node: AccessExpression, program: ts.Program): ts.LiteralExpression | ts.AccessExpression {
         const typeChecker = program.getTypeChecker();
 
@@ -84,13 +98,31 @@ class EnumInliner {
             return node;
         }
 
-        if (symbol && symbol.valueDeclaration && symbol.valueDeclaration.kind === ts.SyntaxKind.EnumMember) {
-            const enumText = node.expression.getText() + '.' + accessName.text;
-            const enumInlinedValue = this._enumData.defines[enumText as keyof EnumData['defines']];
-            if (typeof enumInlinedValue === 'number') {
-                return this._context.factory.createNumericLiteral(enumInlinedValue);
-            } else if (typeof enumInlinedValue === 'string') {
-                return this._context.factory.createStringLiteral(enumInlinedValue);
+        if (symbol && symbol.valueDeclaration) {
+            if (symbol.valueDeclaration.kind === ts.SyntaxKind.EnumMember) {
+                const enumText = node.expression.getText() + '.' + accessName.text;
+                const enumInlinedValue = this.findEnumData(enumText);
+                if (enumInlinedValue === undefined) {
+                    return node;
+                }
+                const inlinedIiteral = this.createNumberOrStringLiteral(enumInlinedValue);
+                if (inlinedIiteral) {
+                    return inlinedIiteral;
+                }
+            } else if (symbol.valueDeclaration.kind === ts.SyntaxKind.PropertySignature) {
+                const accessNameText = accessName.text;
+                if (accessNameText === 'BYTES_PER_ELEMENT') {
+                    const expressionText = node.expression.getText();
+                    const enumText = expressionText + '.' + accessNameText;
+                    const enumInlinedValue = this.findEnumData(enumText);
+                    if (enumInlinedValue === undefined) {
+                        return node;
+                    }
+                    const inlinedIiteral = this.createNumberOrStringLiteral(enumInlinedValue);
+                    if (inlinedIiteral) {
+                        return inlinedIiteral;
+                    }
+                }
             }
         }
 
