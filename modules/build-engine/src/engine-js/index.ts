@@ -339,7 +339,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
 
                 if (options.mangleProperties) {
-                    tsTransformers.push(minifyPrivatesTransformer(program));
+                    tsTransformers.push(minifyPrivatesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
                 }
         
                 if (options.inlineEnum) {
