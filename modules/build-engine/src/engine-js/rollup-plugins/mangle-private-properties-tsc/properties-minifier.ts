@@ -8,30 +8,39 @@ interface BreakingTypeScriptApi {
 	getModifiers(node: ts.Node): readonly ts.Modifier[] | undefined;
 }
 
-export const enum GenerateNameStrategy {
-	PrependPrefixOnly = 'prependPrefixOnly',
-	Random = 'random',
-	RandomStable = 'randomStable',
+interface JSDoc extends ts.Node {
+    readonly kind: ts.SyntaxKind.JSDoc;
+    readonly parent: ts.HasJSDoc;
+    readonly tags?: ts.NodeArray<ts.JSDocTag>;
+    readonly comment?: string | ts.NodeArray<ts.JSDocComment>;
+}
+interface JSDocContainer {
+    jsDoc?: JSDoc[]; // JSDoc that directly precedes this node
 }
 
-export interface PropertyMinifierOptions {
+export interface IPropertyMinifierOptions {
 	/**
 	 * Prefix of generated names (e.g. '_ccprivate_')
 	 */
 	prefix: string;
+    mangleList?: string[];
+    dontMangleList?: string[];
 }
 
-const defaultOptions: PropertyMinifierOptions = {
+const defaultOptions: IPropertyMinifierOptions = {
     prefix: '_ccprivate_',
+    mangleList: [],
+    dontMangleList: [],
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
 
+
 export class PropertiesMinifier {
     private readonly context: ts.TransformationContext;
-    private readonly options: PropertyMinifierOptions;
+    private readonly options: IPropertyMinifierOptions;
 
-    public constructor(context: ts.TransformationContext, options?: Partial<PropertyMinifierOptions>) {
+    public constructor(context: ts.TransformationContext, options?: Partial<IPropertyMinifierOptions>) {
         this.context = context;
         this.options = { ...defaultOptions, ...options };
     }
@@ -65,7 +74,6 @@ export class PropertiesMinifier {
 
     private createNewAccessExpression(node: AccessExpression, program: ts.Program): AccessExpression {
         const typeChecker = program.getTypeChecker();
-
         const accessName = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression;
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
@@ -155,12 +163,33 @@ export class PropertiesMinifier {
     }
 }
 
-function isPrivateNonStatic(node: ClassMember | ts.ParameterDeclaration): boolean {
+function isPrivateNonStatic(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
     return hasPrivateKeyword(node) && !hasModifier(node, ts.SyntaxKind.StaticKeyword);
 }
 
-function hasPrivateKeyword(node: ClassMember | ts.ParameterDeclaration): boolean {
-    return hasModifier(node, ts.SyntaxKind.PrivateKeyword);//cjh || hasModifier(node, ts.SyntaxKind.PublicKeyword) || getModifiers(node).length === 0;
+function hasPrivateKeyword(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
+    let ret = hasModifier(node, ts.SyntaxKind.PrivateKeyword);
+    if (ret) return ret;
+
+    const jsDocNode = node as JSDocContainer;
+    if (jsDocNode.jsDoc) {
+        for (const jsDoc of jsDocNode.jsDoc) {
+            if (jsDoc.tags) {
+                for (const tag of jsDoc.tags) {
+                    const tagName = tag.tagName.escapedText;
+                    if (tagName === 'mangle') {
+                        ret = true;
+                        break;
+                    }
+                }
+            }
+            if (ret) {
+                break;
+            }
+        }
+    }
+
+    return ret;
 }
 
 function hasModifier(node: ts.Node, modifier: ts.SyntaxKind): boolean {
@@ -174,9 +203,14 @@ function isAccessExpression(node: ts.Node): node is AccessExpression {
 }
 
 type ClassMember = ts.MethodDeclaration | ts.PropertyDeclaration;
+type InterfaceMember = ts.MethodSignature | ts.PropertySignature;
 
 function isClassMember(node: ts.Node): node is ClassMember {
     return ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
+}
+
+function isInterfaceMember(node: ts.Node): node is InterfaceMember {
+    return ts.isMethodSignature(node) || ts.isPropertySignature(node);
 }
 
 function isConstructorParameter(node: ts.Node): node is ts.ParameterDeclaration {
@@ -201,7 +235,7 @@ function isPrivateNonStaticClassMember(symbol: ts.Symbol | undefined): boolean {
 
     return symbol.declarations.some((x: ts.Declaration) => {
         // terser / uglify property minifiers aren't able to handle decorators
-        return (isClassMember(x) && !hasDecorators(x) || isConstructorParameter(x)) && isPrivateNonStatic(x);// && !hasModifier(x, ts.SyntaxKind.DeclareKeyword);
+        return ((isClassMember(x) || isInterfaceMember(x)) && !hasDecorators(x) || isConstructorParameter(x)) && isPrivateNonStatic(x);
     });
 }
 
