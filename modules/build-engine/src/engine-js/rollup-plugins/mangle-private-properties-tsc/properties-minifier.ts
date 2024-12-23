@@ -18,31 +18,33 @@ interface JSDocContainer {
     jsDoc?: JSDoc[]; // JSDoc that directly precedes this node
 }
 
-export interface IPropertyMinifierOptions {
+export interface IManglePropertiesOptions {
 	/**
 	 * Prefix of generated names (e.g. '_ccprivate_')
 	 */
 	prefix: string;
-    mangleList?: string[];
-    dontMangleList?: string[];
+    mangleList: string[];
+    dontMangleList: string[];
 }
 
-const defaultOptions: IPropertyMinifierOptions = {
+const defaultOptions: IManglePropertiesOptions = {
     prefix: '_ccprivate_',
     mangleList: [],
     dontMangleList: [],
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
-
+type AccessExpression = ts.PropertyAccessExpression | ts.ElementAccessExpression;
+type ClassMember = ts.MethodDeclaration | ts.PropertyDeclaration;
+type InterfaceMember = ts.MethodSignature | ts.PropertySignature;
 
 export class PropertiesMinifier {
-    private readonly context: ts.TransformationContext;
-    private readonly options: IPropertyMinifierOptions;
+    private readonly _context: ts.TransformationContext;
+    private readonly _options: IManglePropertiesOptions;
 
-    public constructor(context: ts.TransformationContext, options?: Partial<IPropertyMinifierOptions>) {
-        this.context = context;
-        this.options = { ...defaultOptions, ...options };
+    public constructor(context: ts.TransformationContext, options?: Partial<IManglePropertiesOptions>) {
+        this._context = context;
+        this._options = { ...defaultOptions, ...options };
     }
 
     public visitSourceFile(node: ts.SourceFile, program: ts.Program, context: ts.TransformationContext): ts.SourceFile {
@@ -61,12 +63,12 @@ export class PropertiesMinifier {
     }
 
     private visitNode(node: ts.Node, program: ts.Program): ts.Node {
-        if (isAccessExpression(node)) {
+        if (this.isAccessExpression(node)) {
             return this.createNewAccessExpression(node, program);
         } else if (ts.isBindingElement(node)) {
             return this.createNewBindingElement(node, program);
-        } else if (isConstructorParameterReference(node, program)) {
-            return this.createNewNode(program, node, this.context.factory.createIdentifier);
+        } else if (this.isConstructorParameterReference(node, program)) {
+            return this.createNewNode(program, node, this._context.factory.createIdentifier);
         }
 
         return node;
@@ -77,7 +79,7 @@ export class PropertiesMinifier {
         const accessName = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression;
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
-        if (!isPrivateNonStaticClassMember(symbol)) {
+        if (!this.isPrivateNonStaticClassMember(symbol)) {
             return node;
         }
 
@@ -87,7 +89,7 @@ export class PropertiesMinifier {
         if (ts.isPropertyAccessExpression(node)) {
             propName = node.name;
             creator = (newName: string): AccessExpression => {
-                return this.context.factory.createPropertyAccessExpression(node.expression, newName);
+                return this._context.factory.createPropertyAccessExpression(node.expression, newName);
             };
         } else {
             if (!ts.isStringLiteral(node.argumentExpression)) {
@@ -96,7 +98,7 @@ export class PropertiesMinifier {
 
             propName = node.argumentExpression;
             creator = (newName: string): AccessExpression => {
-                return this.context.factory.createElementAccessExpression(node.expression, this.context.factory.createStringLiteral(newName));
+                return this._context.factory.createElementAccessExpression(node.expression, this._context.factory.createStringLiteral(newName));
             };
         }
 
@@ -134,12 +136,12 @@ export class PropertiesMinifier {
             symbol = typeChecker.getSymbolAtLocation(node.propertyName);
         }
 
-        if (!isPrivateNonStaticClassMember(symbol)) {
+        if (!this.isPrivateNonStaticClassMember(symbol)) {
             return node;
         }
 
         return this.createNewNode(program, propName, (newName: string) => {
-            return this.context.factory.createBindingElement(node.dotDotDotToken, newName, node.name, node.initializer);
+            return this._context.factory.createBindingElement(node.dotDotDotToken, newName, node.name, node.initializer);
         });
     }
 
@@ -159,110 +161,126 @@ export class PropertiesMinifier {
     }
 
     private getNewName(originalName: string): string {
-        return `${this.options.prefix}${originalName}`;
+        return `${this._options.prefix}${originalName}`;
     }
-}
 
-function isPrivateNonStatic(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
-    return hasPrivateKeyword(node) && !hasModifier(node, ts.SyntaxKind.StaticKeyword);
-}
-
-function hasPrivateKeyword(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
-    let ret = hasModifier(node, ts.SyntaxKind.PrivateKeyword);
-    if (ret) return ret;
-
-    const jsDocNode = node as JSDocContainer;
-    if (jsDocNode.jsDoc) {
-        for (const jsDoc of jsDocNode.jsDoc) {
-            if (jsDoc.tags) {
-                for (const tag of jsDoc.tags) {
-                    const tagName = tag.tagName.escapedText;
-                    if (tagName === 'mangle') {
-                        ret = true;
+    private isPrivateNonStatic(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
+        return this.hasPrivateKeyword(node) && !this.hasModifier(node, ts.SyntaxKind.StaticKeyword);
+    }
+    
+    private hasPrivateKeyword(node: ClassMember | ts.ParameterDeclaration | InterfaceMember): boolean {
+        let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
+    
+        if (!isPrivate) {
+            const jsDocNode = node as JSDocContainer;
+            if (jsDocNode.jsDoc) {
+                for (const jsDoc of jsDocNode.jsDoc) {
+                    if (jsDoc.tags) {
+                        for (const tag of jsDoc.tags) {
+                            const tagName = tag.tagName.escapedText;
+                            if (tagName === 'mangle') {
+                                isPrivate = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (isPrivate) {
                         break;
                     }
                 }
             }
-            if (ret) {
-                break;
+        }
+    
+        const parentName = (node.parent as any).name?.escapedText;
+        if (!parentName) return isPrivate;
+        
+        const propertyFullName = parentName + '.' + node.name.getText();
+        // Check the mangleList option
+        if (!isPrivate) {
+            if (this._options.mangleList.includes(propertyFullName)) {
+                isPrivate = true;
             }
         }
-    }
-
-    return ret;
-}
-
-function hasModifier(node: ts.Node, modifier: ts.SyntaxKind): boolean {
-    return getModifiers(node).some((mod: ts.Modifier) => mod.kind === modifier);
-}
-
-type AccessExpression = ts.PropertyAccessExpression | ts.ElementAccessExpression;
-
-function isAccessExpression(node: ts.Node): node is AccessExpression {
-    return ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node);
-}
-
-type ClassMember = ts.MethodDeclaration | ts.PropertyDeclaration;
-type InterfaceMember = ts.MethodSignature | ts.PropertySignature;
-
-function isClassMember(node: ts.Node): node is ClassMember {
-    return ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
-}
-
-function isInterfaceMember(node: ts.Node): node is InterfaceMember {
-    return ts.isMethodSignature(node) || ts.isPropertySignature(node);
-}
-
-function isConstructorParameter(node: ts.Node): node is ts.ParameterDeclaration {
-    return ts.isParameter(node) && ts.isConstructorDeclaration(node.parent as ts.Node);
-}
-
-function isConstructorParameterReference(node: ts.Node, program: ts.Program): node is ts.Identifier {
-    if (!ts.isIdentifier(node)) {
-        return false;
-    }
-
-    const typeChecker = program.getTypeChecker();
-    const symbol = typeChecker.getSymbolAtLocation(node);
-    return isPrivateNonStaticClassMember(symbol);
-}
-
-function isPrivateNonStaticClassMember(symbol: ts.Symbol | undefined): boolean {
-    // for some reason ts.Symbol.declarations can be undefined (for example in order to accessing to proto member)
-    if (symbol === undefined || symbol.declarations === undefined) {
-        return false;
-    }
-
-    return symbol.declarations.some((x: ts.Declaration) => {
-        // terser / uglify property minifiers aren't able to handle decorators
-        return ((isClassMember(x) || isInterfaceMember(x)) && !hasDecorators(x) || isConstructorParameter(x)) && isPrivateNonStatic(x);
-    });
-}
-
-function hasDecorators(node: ts.Node): boolean {
-    if (isBreakingTypeScriptApi(ts)) {
-        return ts.canHaveDecorators(node) && !!ts.getDecorators(node);
-    }
-
-    return !!node.decorators;
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-function getModifiers(node: ts.Node): readonly ts.Modifier[] {
-    if (isBreakingTypeScriptApi(ts)) {
-        if (!ts.canHaveModifiers(node)) {
-            return [];
+    
+        // Check the dontMangleList option
+        if (isPrivate) {
+            if (this._options.dontMangleList.includes(propertyFullName)) {
+                isPrivate = false;
+            }
         }
-
-        return ts.getModifiers(node) || [];
+    
+        return isPrivate;
     }
-
+    
+    private hasModifier(node: ts.Node, modifier: ts.SyntaxKind): boolean {
+        return this.getModifiers(node).some((mod: ts.Modifier) => mod.kind === modifier);
+    }
+    
+    private isAccessExpression(node: ts.Node): node is AccessExpression {
+        return ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node);
+    }
+    
+    private isClassMember(node: ts.Node): node is ClassMember {
+        return ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
+    }
+    
+    private isInterfaceMember(node: ts.Node): node is InterfaceMember {
+        return ts.isMethodSignature(node) || ts.isPropertySignature(node);
+    }
+    
+    private isConstructorParameter(node: ts.Node): node is ts.ParameterDeclaration {
+        return ts.isParameter(node) && ts.isConstructorDeclaration(node.parent as ts.Node);
+    }
+    
+    private isConstructorParameterReference(node: ts.Node, program: ts.Program): node is ts.Identifier {
+        if (!ts.isIdentifier(node)) {
+            return false;
+        }
+    
+        const typeChecker = program.getTypeChecker();
+        const symbol = typeChecker.getSymbolAtLocation(node);
+        return this.isPrivateNonStaticClassMember(symbol);
+    }
+    
+    private isPrivateNonStaticClassMember(symbol: ts.Symbol | undefined): boolean {
+        // for some reason ts.Symbol.declarations can be undefined (for example in order to accessing to proto member)
+        if (symbol === undefined || symbol.declarations === undefined) {
+            return false;
+        }
+    
+        return symbol.declarations.some((x: ts.Declaration) => {
+            // terser / uglify property minifiers aren't able to handle decorators
+            return ((this.isClassMember(x) || this.isInterfaceMember(x)) && !this.hasDecorators(x) || this.isConstructorParameter(x)) && this.isPrivateNonStatic(x);
+        });
+    }
+    
+    private hasDecorators(node: ts.Node): boolean {
+        if (this.isBreakingTypeScriptApi(ts)) {
+            return ts.canHaveDecorators(node) && !!ts.getDecorators(node);
+        }
+    
+        return !!node.decorators;
+    }
+    
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return node.modifiers || [];
+    private getModifiers(node: ts.Node): readonly ts.Modifier[] {
+        if (this.isBreakingTypeScriptApi(ts)) {
+            if (!ts.canHaveModifiers(node)) {
+                return [];
+            }
+    
+            return ts.getModifiers(node) || [];
+        }
+    
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return node.modifiers || [];
+    }
+    
+    private isBreakingTypeScriptApi(compiler: unknown): compiler is BreakingTypeScriptApi {
+        return 'canHaveDecorators' in ts;
+    }
 }
 
-function isBreakingTypeScriptApi(compiler: unknown): compiler is BreakingTypeScriptApi {
-    return 'canHaveDecorators' in ts;
-}
+

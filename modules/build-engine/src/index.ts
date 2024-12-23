@@ -69,6 +69,15 @@ export async function buildEngine (options: buildEngine.Options): Promise<buildE
  */
 export namespace buildEngine {
     export type ModuleFormat = 'esm' | 'cjs' | 'system' | 'iife';
+
+    export interface IManglePropertiesOptions {
+        /**
+         * Prefix of generated names (e.g. '_ccprivate_')
+         */
+        prefix?: string;
+        mangleList?: string[];
+        dontMangleList?: string[];
+    }
    
     export interface Options {
         /**
@@ -136,7 +145,7 @@ export namespace buildEngine {
          * 是否需要压缩 $ 后缀的属性，只在 release 模式下生效
          * @default true
          */
-        mangleProperties?: boolean;
+        mangleProperties?: boolean | IManglePropertiesOptions;
 
         /**
          * 是否生成 source map。
