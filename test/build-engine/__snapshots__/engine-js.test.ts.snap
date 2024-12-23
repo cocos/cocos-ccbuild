@@ -1,5 +1,219 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`engine-js HTML5 mangle private properties 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js HTML5 mangle private properties 2`] = `
+"function _initializerDefineProperty(target, property, descriptor, context) {
+  if (!descriptor) return;
+  Object.defineProperty(target, property, {
+    enumerable: descriptor.enumerable,
+    configurable: descriptor.configurable,
+    writable: descriptor.writable,
+    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+  });
+}
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+  var desc = {};
+  Object.keys(descriptor).forEach(function (key) {
+    desc[key] = descriptor[key];
+  });
+  desc.enumerable = !!desc.enumerable;
+  desc.configurable = !!desc.configurable;
+  if ('value' in desc || desc.initializer) {
+    desc.writable = true;
+  }
+  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+    return decorator(target, property, desc) || desc;
+  }, desc);
+  if (desc.initializer === void 0) {
+    Object.defineProperty(target, property, desc);
+    desc = null;
+  }
+  return desc;
+}
+
+class ManglePropertyBase {
+  constructor() {
+    this._ccprivate__baseProp = 0;
+    this._baseProtectedProp = 1;
+    this._ccprivate__basePublicProp = 2;
+    this._basePublicProp2 = 3;
+    this._ccprivate__mangleMeProp = 123;
+    this._ccprivate__mangleMeProp2 = 'hello';
+    this._dontMangleMeProp = 1233;
+    this.dontMangleMeProp2 = 'hello3';
+    this.dontMangleMeProp3 = 1234;
+    this._ccprivate__basePrivateMethod();
+  }
+  _ccprivate__basePrivateMethod() {
+    this._dontMangleMeProp = 444;
+    this.dontMangleMe();
+  }
+  get dontMangleMeProp() {
+    return this._dontMangleMeProp;
+  }
+  _ccprivate_basePublicMethod() {}
+  _ccprivate_mangleMe() {}
+  _ccprivate_mangleMe2() {}
+  dontMangleMe() {}
+  dontMangleMe2() {}
+  dontMangleMe3() {}
+}
+const MangleTestMyBaseEnum = {
+  HELLO: 123444,
+  WORLD: 123445,
+  FOO: 123,
+  BAR: 124,
+  TS: 125,
+  BABEL: 126
+};
+
+var _class, _descriptor, _class2;
+const dontmangle = function (target, propertyKey) {};
+const MangleTestMyEnum = {
+  AAA: 0,
+  BBB: 1,
+  CCC: 123,
+  DDD: 124
+};
+const MangleTestMyStringEnum = {
+  AAA: "aaa",
+  BBB: "bbb",
+  CCC: "ccc"
+};
+const MangleTestConstEnum = {
+  CONST_A: 1,
+  CONST_B: 2,
+  "space key": 3,
+  "space key2": 4
+};
+console.log(\`MangleTestConstEnum.CONST_A: \${MangleTestConstEnum.CONST_A}\`);
+console.log(\`MangleTestConstEnum.CONST_B: \${MangleTestConstEnum.CONST_B}\`);
+console.log(\`MangleTestConstEnum['space key']: \${MangleTestConstEnum['space key']}\`);
+console.log(\`MangleTestConstEnum["space key2"]: \${MangleTestConstEnum["space key2"]}\`);
+let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivatePropertiesTest extends ManglePropertyBase {
+  _ccprivate_instanceMethod() {}
+  static staticMethod() {}
+  get accessorProp0() {
+    return this._ccprivate_myProp0;
+  }
+  set accessorProp0(value) {
+    this._ccprivate_myProp0 = value;
+  }
+  constructor() {
+    super();
+    this._ccprivate_instanceProperty = '';
+    this._ccprivate_myProp0 = 123;
+    this._ccprivate_myProp1 = 456;
+    _initializerDefineProperty(this, "myProp222", _descriptor, this);
+    this._ccprivate_myProp2 = void 0;
+    this._ccprivate_myProp3 = void 0;
+    this._ccprivate__myEnum1 = 1;
+    this._ccprivate__myEnum2 = 124;
+    this._ccprivate__myStringEnum = "ccc";
+    this._ccprivate__myConstEnum = 2;
+    this._ccprivate__myConstEnum2 = 3;
+    this._ccprivate__myConstEnum3 = 4;
+    this._ccprivate_publicProp1 = 123;
+    this._ccprivate_publicProp2 = 'hello';
+    this._ccprivate_interfaceProp = 1;
+    this.interfaceProp2 = '2';
+    this._ccprivate_myProp2 = 123;
+    this._ccprivate_myProp4 = 789;
+    this.publicProp3 = 456;
+    this.dontMangleMeProp2 = 'world';
+    this.dontMangleMe2();
+  }
+  _ccprivate_helloInterface() {}
+  helloInterface2(v) {
+    return v.length;
+  }
+  _ccprivate_helloIntEnum(value) {
+    console.log(value);
+    this._ccprivate__myConstEnum3 = 3;
+    this._ccprivate__myConstEnum2 = 4;
+  }
+  _ccprivate_helloStringEnum(value) {
+    console.log(value);
+  }
+  get myEnum1() {
+    return this._ccprivate__myEnum1;
+  }
+  get myEnum2() {
+    return this._ccprivate__myEnum2;
+  }
+  get myStringEnum() {
+    return this._ccprivate__myStringEnum;
+  }
+  getFoo() {
+    this._ccprivate_instanceMethod();
+    ManglePrivatePropertiesTest.staticMethod();
+    ManglePrivatePropertiesTest.staticProperty = 'bar';
+    this._baseProtectedProp = 323;
+    this._ccprivate__basePublicProp = 324;
+    this._basePublicProp2 = 325;
+    this.myProp222 = 0;
+    this._ccprivate_myProp4 = 1;
+    this._ccprivate_helloIntEnum(0);
+    this._ccprivate_helloStringEnum("aaa");
+    return this._ccprivate_instanceProperty;
+  }
+}, _class2.staticProperty = '', _class2), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "myProp222", [dontmangle], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return 789;
+  }
+})), _class);
+console.log(126);
+console.log(123444);
+console.log(123);
+function doManglePrivatePropertiesTestPublic(obj) {
+  obj._ccprivate_publicProp1 = 456;
+  obj._ccprivate_publicProp2 = 'world';
+  obj.publicProp3 = 789;
+  obj._ccprivate__basePublicProp = 100;
+  obj._basePublicProp2 = 200;
+  obj._ccprivate_basePublicMethod();
+  obj._ccprivate_declareProp = 'world';
+  const base = obj;
+  base._ccprivate__basePublicProp = 101;
+  base._basePublicProp2 = 201;
+  base._ccprivate_basePublicMethod();
+  base._ccprivate_declareProp = 'hello';
+  obj._ccprivate_helloInterface();
+  obj.helloInterface2('world');
+  obj._ccprivate_interfaceProp = 12344;
+  obj.interfaceProp2 = 'world33';
+  const intf = obj;
+  intf._ccprivate_helloInterface();
+  intf.helloInterface2('world');
+  if (intf.helloInterface3) {
+    intf.helloInterface3('world');
+  }
+  intf._ccprivate_interfaceProp = 123;
+  intf.interfaceProp2 = 'world';
+  intf.interfaceProp3 = true;
+}
+doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
+(obj => {
+  obj._ccprivate__mangleMeProp = 333;
+  obj._ccprivate__mangleMeProp2 = 'world';
+  obj.dontMangleMeProp3 = 444;
+  obj._ccprivate_mangleMe();
+  obj._ccprivate_mangleMe2();
+  obj.dontMangleMe3();
+})(new ManglePrivatePropertiesTest());
+
+export { ManglePrivatePropertiesTest, ManglePropertyBase, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum };
+"
+`;
+
 exports[`engine-js HTML5 with treeshake option 1`] = `
 [
   "cc.js",
@@ -1838,25 +2052,73 @@ exports[`engine-js inline enum 2`] = `
     return {
         execute: (function () {
 
+            console.log(0);
+            console.log(1);
+            console.log(123);
+            console.log("hello");
+            console.log(1);
+            console.log(0, 1);
+            console.log("hello", 1234);
+            console.log(1235, 0);
+            function testConstantOfTypeArray() {
+              console.log('Float32Array.BYTES_PER_ELEMENT:' + 4);
+              console.log('Float64Array.BYTES_PER_ELEMENT:' + 8);
+              console.log('Uint8Array.BYTES_PER_ELEMENT:' + 1);
+              console.log('Uint8ClampedArray.BYTES_PER_ELEMENT:' + 1);
+              console.log('Uint16Array.BYTES_PER_ELEMENT:' + 2);
+              console.log('Uint32Array.BYTES_PER_ELEMENT:' + 4);
+              console.log('Int8Array.BYTES_PER_ELEMENT:' + 1);
+              console.log('Int16Array.BYTES_PER_ELEMENT:' + 2);
+              console.log('Int32Array.BYTES_PER_ELEMENT:' + 4);
+              console.log("Int32Array.BYTES_PER_ELEMENT: " + Int32Array.BYTES_PER_ELEMENT);
+            }
+            var _nativeButtonMap = {
+              1: 1,
+              2: 0,
+              3: 3,
+              4: 2,
+              5: 6,
+              6: 9,
+              7: 4,
+              8: 5,
+              9: 8,
+              10: 11,
+              11: 24,
+              12: 25
+            };
+            var GamepadInputDevice = function () {
+              function GamepadInputDevice() {
+                var _this$_nativeButtonSt;
+                this._nativeButtonState = (_this$_nativeButtonSt = {}, _this$_nativeButtonSt[0] = 0, _this$_nativeButtonSt[1] = 0, _this$_nativeButtonSt[2] = 0, _this$_nativeButtonSt[3] = 0, _this$_nativeButtonSt[4] = 0, _this$_nativeButtonSt[5] = 0, _this$_nativeButtonSt[6] = 0, _this$_nativeButtonSt[7] = 0, _this$_nativeButtonSt[8] = 0, _this$_nativeButtonSt[9] = 0, _this$_nativeButtonSt[10] = 0, _this$_nativeButtonSt[11] = 0, _this$_nativeButtonSt[12] = 0, _this$_nativeButtonSt[13] = 0, _this$_nativeButtonSt[14] = 0, _this$_nativeButtonSt[15] = 0, _this$_nativeButtonSt[16] = 0, _this$_nativeButtonSt[17] = 0, _this$_nativeButtonSt[18] = 0, _this$_nativeButtonSt[19] = 0, _this$_nativeButtonSt[20] = 0, _this$_nativeButtonSt[21] = 0, _this$_nativeButtonSt[22] = 0, _this$_nativeButtonSt[23] = 0, _this$_nativeButtonSt[24] = 0, _this$_nativeButtonSt[25] = 0, _this$_nativeButtonSt);
+              }
+              var _proto = GamepadInputDevice.prototype;
+              _proto.hello = function hello() {
+                console.log(this._nativeButtonState);
+                var button = _nativeButtonMap[0];
+                this._nativeButtonState[button] = 1;
+              };
+              return GamepadInputDevice;
+            }();
+
             var Format = exports("Format", {
-              "UNKNOWN": 0,
-              "A8": 1,
-              "L8": 2,
-              "LA8": 3,
-              "R5G6B5": 4,
-              "R11G11B10F": 5,
-              "RGB5A1": 6,
-              "RGBA4": 7,
-              "RGB10A2": 8,
-              "RGB10A2UI": 9,
-              "RGB9E5": 10,
-              "DEPTH": 11,
-              "DEPTH_STENCIL": 12,
-              "R": 13,
-              "RG": 14,
-              "RGB": 15,
-              "RGBA": 16,
-              "COUNT": 17
+              UNKNOWN: 0,
+              A8: 1,
+              L8: 2,
+              LA8: 3,
+              R5G6B5: 4,
+              R11G11B10F: 5,
+              RGB5A1: 6,
+              RGBA4: 7,
+              RGB10A2: 8,
+              RGB10A2UI: 9,
+              RGB9E5: 10,
+              DEPTH: 11,
+              DEPTH_STENCIL: 12,
+              R: 13,
+              RG: 14,
+              RGB: 15,
+              RGBA: 16,
+              COUNT: 17
             });
             console.log(0);
             console.log(1);
@@ -1877,12 +2139,12 @@ exports[`engine-js inline enum 2`] = `
             console.log(16);
             console.log(17);
             var Format_2 = exports("Format_2", {
-              "R": 13,
-              "RG": 14,
-              "RGB": 15,
-              "RGBA": 31,
-              "Haha": 134,
-              "www": 135
+              R: 13,
+              RG: 14,
+              RGB: 15,
+              RGBA: 31,
+              Haha: 134,
+              www: 135
             });
             console.log(13);
             console.log(14, 15);
@@ -1890,13 +2152,13 @@ exports[`engine-js inline enum 2`] = `
             console.log(134);
             console.log(135);
             var TransformBit = exports("TransformBit", {
-              "NONE": 0,
-              "POSITION": 1,
-              "ROTATION": 2,
-              "SCALE": 4,
-              "RS": 6,
-              "TRS": 7,
-              "TRS_MASK": -8
+              NONE: 0,
+              POSITION: 1,
+              ROTATION: 2,
+              SCALE: 4,
+              RS: 6,
+              TRS: 7,
+              TRS_MASK: -8
             });
             console.log(0);
             console.log(1);
@@ -1906,16 +2168,16 @@ exports[`engine-js inline enum 2`] = `
             console.log(7);
             console.log(-8);
             var PixelFormat = exports("PixelFormat", {
-              "RGB565": 4,
-              "A8": 1,
-              "I8": 2,
-              "AI8": 3,
-              "RGB_A_PVRTC_2BPPV1": 1024,
-              "RGB_A_PVRTC_4BPPV1": 1025,
-              "RGB_ETC1": 123,
-              "RGBA_ETC1": 1026,
-              "RGB_ETC2": 123213,
-              "RGBA_ETC2": 123214
+              RGB565: 4,
+              A8: 1,
+              I8: 2,
+              AI8: 3,
+              RGB_A_PVRTC_2BPPV1: 1024,
+              RGB_A_PVRTC_4BPPV1: 1025,
+              RGB_ETC1: 123,
+              RGBA_ETC1: 1026,
+              RGB_ETC2: 123213,
+              RGBA_ETC2: 123214
             });
             console.log(4);
             console.log(1);
@@ -1928,11 +2190,11 @@ exports[`engine-js inline enum 2`] = `
             console.log(123213);
             console.log(123214);
             var TileFlag = exports("TileFlag", {
-              "HORIZONTAL": 2147483648,
-              "VERTICAL": 1073741824,
-              "DIAGONAL": 536870912,
-              "FLIPPED_ALL": 4026531840,
-              "FLIPPED_MASK": 268435455
+              HORIZONTAL: 2147483648,
+              VERTICAL: 1073741824,
+              DIAGONAL: 536870912,
+              FLIPPED_ALL: 4026531840,
+              FLIPPED_MASK: 268435455
             });
             console.log(2147483648);
             console.log(1073741824);
@@ -1958,38 +2220,43 @@ exports[`engine-js inline enum 2`] = `
               TestOverrideEnum["HEIHEI"] = "hello_heihei";
             })(TestOverrideEnum || (TestOverrideEnum = {}));
 
-            console.log(2);
-            console.log(0);
-            console.log(1);
+            console.log('[jsb] Override.TestOverrideEnum start');
+            console.log(TestOverrideEnum.HEIHEI);
+            console.log(TestOverrideEnum.HAHA);
+            console.log(TestOverrideEnum.WOWO);
+            console.log('[jsb] Override.TestOverrideEnum end');
 
+            testConstantOfTypeArray();
+            new GamepadInputDevice().hello();
+            console.log(6);
             var MyEnum2 = exports("MyEnum2", {
-              "AAABBB": 0,
-              "Haha": 0,
-              "Hi": 123
+              AAABBB: 0,
+              Haha: 0,
+              Hi: 123
             });
             console.log(0);
             console.log(0);
             console.log(123);
             var MyEnum3 = exports("MyEnum3", {
-              "WEBGL": 16,
-              "WEBGPU": 17,
-              "WEBGL2": 18
+              WEBGL: 16,
+              WEBGPU: 17,
+              WEBGL2: 18
             });
             console.log(16);
             console.log(17);
             console.log(18);
             console.log("hello");
             console.log(123);
-            console.log("hello: " + 17);
+            console.log("hello: " + MyEnum3.WEBGPU);
             var MyEnum5 = exports("MyEnum5", {
-              "RGB": 15,
-              "RGBA": 16,
-              "III": 17,
-              "HHH": 18,
-              "WWW": 4,
-              "ZZZ": 5,
-              "UUU": 1234,
-              "EEE": 1235
+              RGB: 15,
+              RGBA: 16,
+              III: 17,
+              HHH: 18,
+              WWW: 4,
+              ZZZ: 5,
+              UUU: 1234,
+              EEE: 1235
             });
             console.log(15);
             console.log(16);
@@ -2000,14 +2267,14 @@ exports[`engine-js inline enum 2`] = `
             console.log(1234);
             console.log(1235);
             var MyEnum6 = exports("MyEnum6", {
-              "UNION": 15
+              UNION: 15
             });
             console.log(15);
             console.log("MyEnum6.UNION.aaa");
-            console.log("15");
-            console.log("   " + 16);
-            console.log('' + (16 | 14));
-            console.log('' + (31 | 14));
+            console.log("MyEnum6.UNION");
+            console.log("   " + Format.RGBA);
+            console.log('' + (Format.RGBA | Format.RG));
+            console.log('' + (Format_2.RGBA | Format.RG));
             var MyNode = exports("MyNode", function MyNode(a) {
               this.a = a;
             });
@@ -2015,7 +2282,7 @@ exports[`engine-js inline enum 2`] = `
             MyNode.Format_2 = Format_2;
             console.log(MyNode.Format.RG);
             console.log(MyNode.Format_2.RG);
-            console.log(1);
+            console.log(PixelFormat.A8);
             console.log(1);
             console.log(1024);
             console.log('---- const enum begin ----');

@@ -1,4 +1,4 @@
-import { MyConstEnum, MyEnum, testConstantOfTypeArray } from './my-enum';
+import { MyConstEnum, MyEnum, testConstantOfTypeArray, GamepadInputDevice, Button } from './my-enum';
 
 import * as gfx from './define';
 
@@ -7,6 +7,10 @@ import { PixelFormat } from './define';
 import './test-override-entry';
 
 testConstantOfTypeArray();
+
+new GamepadInputDevice().hello();
+
+console.log(Button.BUTTON_L1);
 
 export enum MyEnum2 {
     AAABBB,

@@ -159,6 +159,79 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         FLIPPED_MASK = 268435455
     }
     export const str = "intrinsic flag is false";
+    export enum MangleTestMyEnum {
+        AAA = 0,
+        BBB = 1,
+        CCC = 123,
+        DDD = 124
+    }
+    export enum MangleTestMyStringEnum {
+        AAA = "aaa",
+        BBB = "bbb",
+        CCC = "ccc"
+    }
+    export const enum MangleTestConstEnum {
+        CONST_A = 1,
+        CONST_B = 2,
+        'space key' = 3,
+        "space key2" = 4
+    }
+    export class ManglePrivatePropertiesTest extends ManglePropertyBase implements IMangleTest {
+        publicProp3: number;
+        get accessorProp0(): number;
+        set accessorProp0(value: number);
+        constructor();
+        /** @mangle */
+        helloInterface(): void;
+        helloInterface2(v: string): number;
+        /** @mangle */
+        interfaceProp: number;
+        interfaceProp2: string;
+        get myEnum1(): MangleTestMyEnum;
+        get myEnum2(): MangleTestMyEnum;
+        get myStringEnum(): MangleTestMyStringEnum;
+        getFoo(): string;
+    }
+    export class ManglePropertyBase {
+        protected _baseProtectedProp: number;
+        /** @mangle */
+        _basePublicProp: number;
+        _basePublicProp2: number;
+        /** @mangle */
+        declareProp: string;
+        constructor();
+        get dontMangleMeProp(): number;
+        /** @mangle */
+        basePublicMethod(): void;
+        _mangleMeProp: number;
+        _mangleMeProp2: string;
+        protected dontMangleMeProp2: string;
+        /** @mangle */
+        dontMangleMeProp3: number;
+        mangleMe(): void;
+        mangleMe2(): void;
+        protected dontMangleMe2(): void;
+        /** @mangle */
+        dontMangleMe3(): void;
+    }
+    export enum MangleTestMyBaseEnum {
+        HELLO = 123444,
+        WORLD = 123445,
+        FOO = 123,
+        BAR = 124,
+        TS = 125,
+        BABEL = 126
+    }
+    export interface IMangleTest {
+        /** @mangle */
+        helloInterface(): void;
+        helloInterface2(v: string): number;
+        helloInterface3?(v: string): number;
+        /** @mangle */
+        interfaceProp: number;
+        interfaceProp2: string;
+        interfaceProp3?: boolean;
+    }
     export function testEnv(): string;
     export function testInternalExport(): string;
     export namespace __private {
