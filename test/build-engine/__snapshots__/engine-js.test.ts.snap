@@ -99,9 +99,13 @@ class ManglePropertyBase extends ManglePropertyGrand {
   _ccprivate$_basePrivateMethod() {
     this._dontMangleMeProp = 444;
     this.dontMangleMe();
+    console.log(this._ccprivate$privateGetterMangle);
   }
   get dontMangleMePropGetter() {
     return this._dontMangleMeProp;
+  }
+  get _ccprivate$privateGetterMangle() {
+    return this._ccprivate$_mangleMeProp;
   }
   _ccprivate$basePublicMethod() {}
   _ccprivate$mangleMe() {}
