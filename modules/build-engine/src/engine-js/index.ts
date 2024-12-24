@@ -338,10 +338,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             transformers: (program) => {
                 const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
 
-                if (options.mangleProperties) {
-                    tsTransformers.push(minifyPrivatesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
-                }
-        
                 if (options.inlineEnum) {
                     const enumData = getEnumData();
                     if (enumData) {
@@ -349,6 +345,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                     } else {
                         console.error(`Enum data is not available for inline enum.`);
                     }
+                }
+
+                if (options.mangleProperties) {
+                    tsTransformers.push(minifyPrivatesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
                 }
 
                 return {
@@ -388,7 +388,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             },
             mangle: {
                 properties: options.mangleProperties ? {
-                    regex: /^_ccprivate_/,
+                    regex: /^_ccprivate\$/,
                 } : false,
             },
             keep_fnames: false,
