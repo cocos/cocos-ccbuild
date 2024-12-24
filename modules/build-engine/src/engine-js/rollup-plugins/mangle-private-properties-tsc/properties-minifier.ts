@@ -1,3 +1,5 @@
+// This code was modified from https://github.com/timocov/ts-transformer-minify-privates
+
 import * as ts from '@mycocos/typescript';
 
 // decorators and modifiers-related api added in ts 4.8
@@ -27,12 +29,14 @@ export interface IManglePropertiesOptions {
 	prefix: string;
     mangleList: string[];
     dontMangleList: string[];
+    mangleGetterSetter: boolean;
 }
 
 const defaultOptions: IManglePropertiesOptions = {
     prefix: '_ccprivate$',
     mangleList: [],
     dontMangleList: [],
+    mangleGetterSetter: false,
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
@@ -192,7 +196,6 @@ export class PropertiesMinifier {
     
     private isPrivate(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
         let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
-    
         if (!isPrivate) {
             isPrivate = this.isMangledInJsDoc(node as JSDocContainer);
         }
@@ -201,7 +204,6 @@ export class PropertiesMinifier {
         if (!parentName) return isPrivate;
 
         const name = node.name.getText();
-
         const isParentSymbolPrivate = parentSymbol && this.isParentSymbolPrivate(parentSymbol, name);
         if (isParentSymbolPrivate !== undefined) {
             // Ignore current private description and use parent's one
@@ -213,39 +215,70 @@ export class PropertiesMinifier {
         return isPrivate;
     }
 
-    private updatePrivateByOptions(isPrivate: boolean, parentName: string, propertyName: string): boolean {
-        const propertyFullName = parentName + '.' + propertyName;
+    private updatePrivateByOptions(isPrivate: boolean, parentName: string, propertyName?: string): boolean {
+        let fullName = parentName;
+        if (propertyName) {
+            fullName = fullName + '.' + propertyName;
+        }
         // Check the mangleList option
         if (!isPrivate) {
-            if (this._options.mangleList.includes(propertyFullName)) {
+            if (this._options.mangleList.includes(fullName)) {
                 isPrivate = true;
             }
         }
         
         // Check the dontMangleList option
         if (isPrivate) {
-            if (this._options.dontMangleList.includes(propertyFullName)) {
+            if (this._options.dontMangleList.includes(fullName)) {
                 isPrivate = false;
             }
         }
         return isPrivate;
     }
 
-    private isParentSymbolPrivate(node: ts.Symbol, name: string): boolean | undefined {
-        const valueDecl = node.valueDeclaration;
+    private isParentSymbolPrivate(parentSymbol: ts.Symbol, name: string): boolean | undefined {
+        let valueDecl = parentSymbol.valueDeclaration;
+        if (!valueDecl) {
+            const decls = parentSymbol.declarations;
+            if (decls) {
+                valueDecl = decls[0];
+            }
+        }
         if (valueDecl) {
-            if (ts.isClassDeclaration(valueDecl) && valueDecl.heritageClauses) {
-                for (const heritageClause of valueDecl.heritageClauses) {
-                    for (const type of heritageClause.types) {
-                        const symbol = this._typeChecker.getSymbolAtLocation(type.expression);
-                        if (symbol) {
-                            const type = this._typeChecker.getDeclaredTypeOfSymbol(symbol);
-                            const members = type.getProperties();
-                            for (const member of members) {
-                                if (member.name === name) {
-                                    return this.isPrivateNonStaticClassMember(member);
+            if (ts.isClassDeclaration(valueDecl) || ts.isInterfaceDeclaration(valueDecl)) {
+                if (valueDecl.heritageClauses) {
+                    for (const heritageClause of valueDecl.heritageClauses) {
+                        for (const type of heritageClause.types) {
+                            const classOrInterfaceSymbol = this._typeChecker.getSymbolAtLocation(type.expression);
+                            if (classOrInterfaceSymbol && parentSymbol !== classOrInterfaceSymbol) {
+                                const classOrInterfaceType = this._typeChecker.getDeclaredTypeOfSymbol(classOrInterfaceSymbol);
+                                const members = classOrInterfaceType.getProperties();
+                                for (const member of members) {
+                                    if (member.name === name) {
+                                        if (classOrInterfaceSymbol.getJsDocTags(this._typeChecker).some(tag => tag.name === 'mangle')) {
+                                            return true;
+                                        } else {
+                                            return this.isPrivateNonStaticClassMember(member);
+                                        }
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+
+                // Check wether the parent class or interface has @mangle tag
+                if (parentSymbol.members) {
+                    let found: ts.Symbol | undefined;
+                    parentSymbol.members.forEach(member => {
+                        if (member.name === name) {
+                            found = member;
+                        }
+                    });
+
+                    if (found) {
+                        if (parentSymbol.getJsDocTags(this._typeChecker).some(tag => tag.name === 'mangle')) {
+                            return true;
                         }
                     }
                 }
@@ -263,11 +296,19 @@ export class PropertiesMinifier {
     }
     
     private isClassMember(node: ts.Node): node is ClassMember {
-        return ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node) || ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        let ret = ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
+        if (!ret && this._options.mangleGetterSetter) {
+            ret = ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        }
+        return ret;
     }
     
     private isInterfaceMember(node: ts.Node): node is InterfaceMember {
-        return ts.isMethodSignature(node) || ts.isPropertySignature(node) || ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        let ret = ts.isMethodSignature(node) || ts.isPropertySignature(node);
+        if (!ret && this._options.mangleGetterSetter) {
+            ret = ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        }
+        return ret;
     }
    
     private isConstructorParameter(node: ts.Node): node is ts.ParameterDeclaration {
@@ -284,37 +325,49 @@ export class PropertiesMinifier {
         return this.isPrivateNonStaticClassMember(symbol);
     }
 
+    private isPropertyInInterface(node: ts.Node): node is ts.PropertyAssignment | ts.MethodDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration {
+        let isPropertyInInterface = ts.isPropertyAssignment(node) || ts.isMethodDeclaration(node);
+        if (!isPropertyInInterface && this._options.mangleGetterSetter) {
+            isPropertyInInterface = ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        }
+        return isPropertyInInterface;
+    }
+
     private isIdentifierInVariableDeclaration(node: ts.Node, program: ts.Program): node is ts.Identifier {
         if (!ts.isIdentifier(node)) {
             return false;
         }
         
         const parent = node.parent;
-
-        if (parent && (ts.isPropertyAssignment(parent) || ts.isMethodDeclaration(parent) || ts.isGetAccessor(parent) || ts.isSetAccessor(parent))) {
+        if (parent && this.isPropertyInInterface(parent)) {
             const variableDeclaration = parent.parent?.parent;
             if (variableDeclaration && ts.isVariableDeclaration(variableDeclaration)) {
                 const checker = program.getTypeChecker();
-                const parentName = parent.name.getText();
-                const propertyName = node.text;
-                
                 let isPrivate = false;
+                const parentName = parent.name.getText();
+                let propertyName: string | undefined;
                 const type = checker.getTypeAtLocation(variableDeclaration);
-                for (const prop of type.getProperties()) {
-                    if (!prop.valueDeclaration) continue;
-                    for (const child of prop.valueDeclaration.getChildren()) {
-                        const symbol = checker.getSymbolAtLocation(child);
-                        if (symbol && symbol.escapedName === propertyName) {
-                            for (const tag of symbol.getJsDocTags(checker)) {
-                                if (tag.name === 'mangle') {
-                                    isPrivate = true;
-                                    break;
+                // interface definition has @mangle tag
+                if (type.symbol?.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
+                    isPrivate = true;
+                } else {
+                    propertyName = node.text;
+                    for (const prop of type.getProperties()) {
+                        if (!prop.valueDeclaration) continue;
+                        for (const child of prop.valueDeclaration.getChildren()) {
+                            const symbol = checker.getSymbolAtLocation(child);
+                            if (symbol && symbol.escapedName === propertyName) {
+                                for (const tag of symbol.getJsDocTags(checker)) {
+                                    if (tag.name === 'mangle') {
+                                        isPrivate = true;
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
-                        if (isPrivate) {
-                            break;
+                            if (isPrivate) {
+                                break;
+                            }
                         }
                     }
                 }
@@ -337,11 +390,11 @@ export class PropertiesMinifier {
         }
 
         const parentSymbol = symbol.parent;
-
-        return symbol.declarations.some((x: ts.Declaration) => {
+        const ret = symbol.declarations.some((x: ts.Declaration) => {
             // terser / uglify property minifiers aren't able to handle decorators
             return ((this.isClassMember(x) || this.isInterfaceMember(x) || this.isPropertyAssignment(x)) && !this.hasDecorators(x) || this.isConstructorParameter(x)) && this.isPrivateNonStatic(x, parentSymbol);
         });
+        return ret;
     }
     
     private hasDecorators(node: ts.Node): boolean {

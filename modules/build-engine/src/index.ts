@@ -77,6 +77,7 @@ export namespace buildEngine {
         prefix?: string;
         mangleList?: string[];
         dontMangleList?: string[];
+        mangleGetterSetter?: boolean;
     }
    
     export interface Options {
