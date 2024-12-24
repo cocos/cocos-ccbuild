@@ -36,6 +36,53 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
+class MangleWholeClassBase {
+  constructor() {
+    this._ccprivate$mangleWholeClassBaseProtectedProp1 = 123;
+  }
+  _ccprivate$helloMangleWholeClassBaseProtectedMethod1() {}
+  _ccprivate$helloMangleWholeClassBasePublicMethod1() {}
+}
+class MangleWholeClass extends MangleWholeClassBase {
+  constructor() {
+    super();
+    this.mangleWholeClassPublicProp1 = 123;
+    this.mangleWholeClassProtectedProp2 = 123;
+    this._ccprivate$mangleWholeClassPrivateProp3 = 123;
+    this.iMangleWholeClassInterfaceProp1 = 1;
+    this.iMangleWholeClassInterfaceProp2 = 'hello';
+    this.helloMangleWholeClassPublicMethod1();
+    this.helloMangleWholeClassProtectedMethod2();
+    this._ccprivate$helloMangleWholeClassPrivateMethod3();
+    this._ccprivate$helloMangleWholeClassBaseProtectedMethod1();
+  }
+  helloMangleWholeClassInterfaceMethod1() {}
+  getMangleWholeClassPrivateProp3() {
+    return this._ccprivate$mangleWholeClassPrivateProp3;
+  }
+  helloMangleWholeClassPublicMethod1() {}
+  helloMangleWholeClassProtectedMethod2() {}
+  _ccprivate$helloMangleWholeClassPrivateMethod3() {}
+}
+class MyClassExtendsMangleWholeClass extends MangleWholeClass {
+  constructor() {
+    super();
+    this._ccprivate$subclassExtendsMangleWholeProp1 = 123;
+    this.subclassExtendsMangleWholeProp2 = 123;
+    this.subclassExtendsMangleWholeProp3 = 123;
+    this.helloMangleWholeClassPublicMethod1();
+    this.helloMangleWholeClassProtectedMethod2();
+  }
+  helloMangleWholeClassProtectedMethod2() {
+    this._ccprivate$subclassExtendsMangleWholeProp1 = 123;
+    this.subclassExtendsMangleWholeProp2 = 123;
+    this.subclassExtendsMangleWholeProp3 = 123;
+  }
+  getSubclassExtendsMangleWholeProp1() {
+    return this._ccprivate$subclassExtendsMangleWholeProp1;
+  }
+  helloSubclassExtendsMangleWholeMethod1() {}
+}
 class ManglePropertyGrand {
   constructor() {
     this._ccprivate$_grandPropMangle2 = 0;
@@ -323,8 +370,44 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
   intf._ccprivate$interfaceProp1 = 123;
   intf.interfaceProp2 = 'world';
   intf._ccprivate$interfaceProp3 = true;
+  console.log(\`--------------------------\`);
+  const {
+    _ccprivate$helloInterface1: helloInterface1,
+    helloInterface2,
+    _ccprivate$helloInterface3: helloInterface3,
+    _ccprivate$interfaceProp1: interfaceProp1,
+    interfaceProp2,
+    _ccprivate$interfaceProp3: interfaceProp3
+  } = intf;
+  helloInterface1();
+  helloInterface2('world');
+  if (helloInterface3) helloInterface3('world');
+  console.log(interfaceProp1);
+  console.log(interfaceProp2);
+  console.log(interfaceProp3);
+})();
+(() => {
+  const a = {
+    _ccprivate$blockOffsets: [],
+    _ccprivate$samplerTextureOffsets: [],
+    _ccprivate$flexibleSet: 0
+  };
+  console.log(a._ccprivate$blockOffsets, a._ccprivate$samplerTextureOffsets, a._ccprivate$flexibleSet);
+  console.log(\`--------------------------\`);
+  const b = new MangleWholeClass();
+  b.mangleWholeClassPublicProp1 = 456;
+  b.getMangleWholeClassPrivateProp3();
+  b.helloMangleWholeClassPublicMethod1();
+  console.log(\`--------------------------\`);
+  const c = new MyClassExtendsMangleWholeClass();
+  c.mangleWholeClassPublicProp1 = 456;
+  c.getMangleWholeClassPrivateProp3();
+  c.helloMangleWholeClassPublicMethod1();
+  c.helloSubclassExtendsMangleWholeMethod1();
+  c.getSubclassExtendsMangleWholeProp1();
+  c._ccprivate$helloMangleWholeClassBasePublicMethod1();
 })();
 
-export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum };
+export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
 "
 `;
