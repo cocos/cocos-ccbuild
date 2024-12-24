@@ -91,7 +91,14 @@ class EnumInliner {
     private tryCreateLiteral(node: AccessExpression, program: ts.Program): ts.LiteralExpression | ts.AccessExpression {
         const typeChecker = program.getTypeChecker();
 
-        const accessName: ts.MemberName | ts.StringLiteral  = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression as ts.StringLiteral;
+        let accessName: ts.MemberName | ts.StringLiteral | ts.NumericLiteral;
+        if (ts.isPropertyAccessExpression(node)) {
+            accessName = node.name;
+        } else if (ts.isElementAccessExpression(node)) {
+            accessName = node.argumentExpression as ts.StringLiteral | ts.NumericLiteral;
+        } else {
+            return node;
+        }
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
         if (node.parent && ts.isTemplateSpan(node.parent)) {
