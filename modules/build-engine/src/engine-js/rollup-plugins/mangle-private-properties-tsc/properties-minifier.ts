@@ -207,30 +207,35 @@ export class PropertiesMinifier {
             // Ignore current private description and use parent's one
             isPrivate = isParentSymbolPrivate;
         } else {
-            const propertyFullName = parentName + '.' + name;
-            // Check the mangleList option
-            if (!isPrivate) {
-                if (this._options.mangleList.includes(propertyFullName)) {
-                    isPrivate = true;
-                }
-            }
+            isPrivate = this.updatePrivateByOptions(isPrivate, parentName, name);
+        }
         
-            // Check the dontMangleList option
-            if (isPrivate) {
-                if (this._options.dontMangleList.includes(propertyFullName)) {
-                    isPrivate = false;
-                }
+        return isPrivate;
+    }
+
+    private updatePrivateByOptions(isPrivate: boolean, parentName: string, propertyName: string): boolean {
+        const propertyFullName = parentName + '.' + propertyName;
+        // Check the mangleList option
+        if (!isPrivate) {
+            if (this._options.mangleList.includes(propertyFullName)) {
+                isPrivate = true;
             }
         }
         
+        // Check the dontMangleList option
+        if (isPrivate) {
+            if (this._options.dontMangleList.includes(propertyFullName)) {
+                isPrivate = false;
+            }
+        }
         return isPrivate;
     }
 
     private isParentSymbolPrivate(node: ts.Symbol, name: string): boolean | undefined {
         const valueDecl = node.valueDeclaration;
         if (valueDecl) {
-            if (ts.isClassDeclaration(valueDecl)) {
-                for (const heritageClause of valueDecl.heritageClauses || []) {
+            if (ts.isClassDeclaration(valueDecl) && valueDecl.heritageClauses) {
+                for (const heritageClause of valueDecl.heritageClauses) {
                     for (const type of heritageClause.types) {
                         const symbol = this._typeChecker.getSymbolAtLocation(type.expression);
                         if (symbol) {
@@ -293,7 +298,7 @@ export class PropertiesMinifier {
                 const parentName = parent.name.getText();
                 const propertyName = node.text;
                 
-                let hasMangleTag = false;
+                let isPrivate = false;
                 const type = checker.getTypeAtLocation(variableDeclaration);
                 for (const prop of type.getProperties()) {
                     if (!prop.valueDeclaration) continue;
@@ -302,33 +307,19 @@ export class PropertiesMinifier {
                         if (symbol && symbol.escapedName === propertyName) {
                             for (const tag of symbol.getJsDocTags(checker)) {
                                 if (tag.name === 'mangle') {
-                                    hasMangleTag = true;
+                                    isPrivate = true;
                                     break;
                                 }
                             }
                         }
 
-                        if (hasMangleTag) {
+                        if (isPrivate) {
                             break;
                         }
                     }
                 }
-            
-                const mangleKey = parentName + '.' + propertyName;
 
-                if (!hasMangleTag) {
-                    if (this._options.mangleList.includes(mangleKey)) {
-                        return true;
-                    }
-                }
-
-                if (hasMangleTag) {
-                    if (this._options.dontMangleList.includes(mangleKey)) {
-                        return false;
-                    }
-                }
-
-                return hasMangleTag;
+                return this.updatePrivateByOptions(isPrivate, parentName, propertyName);
             }
         }
 
