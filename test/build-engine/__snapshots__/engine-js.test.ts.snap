@@ -39,11 +39,12 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 class ManglePropertyGrand {
   constructor() {
     this._ccprivate$_grandPropMangle2 = 0;
-    this._ccprivate$_grandProp = 0;
+    this._ccprivate$_grandPropMangle1 = 0;
     this._grandProtectedPropDontMangle = 1;
     this._ccprivate$_grandProtectedPropMangle = 1;
     this._ccprivate$grandPublicPropMangle = 2;
-    this._ccprivate$iGrandPublicProp = 3;
+    this._ccprivate$iGrandPublicPropMangleMe = 3;
+    this.iGrandPublicPropMangleJsDocButInDontMangleList = 0;
   }
   get _ccprivate$iGrandPropMangle() {
     return this._ccprivate$_grandPropMangle2;
@@ -51,6 +52,7 @@ class ManglePropertyGrand {
   set _ccprivate$iGrandPropMangle(value) {
     this._ccprivate$_grandPropMangle2 = value;
   }
+  _ccprivate$helloGrandMangleInMangleList() {}
   helloGrandDontMangle1() {
     this._ccprivate$_grandPrivateMethod();
   }
@@ -58,17 +60,17 @@ class ManglePropertyGrand {
   _ccprivate$helloGrandMangleMeProtected() {}
   _ccprivate$helloGrandMangleMe3() {}
   _ccprivate$_grandPrivateMethod() {
-    this._ccprivate$_grandProp = 123;
+    this._ccprivate$_grandPropMangle1 = 123;
   }
   get grandPropDontMangle() {
-    return this._ccprivate$_grandProp;
+    return this._ccprivate$_grandPropMangle1;
   }
   set grandPropDontMangle(value) {
-    this._ccprivate$_grandProp = value;
+    this._ccprivate$_grandPropMangle1 = value;
   }
 }
 class ManglePropertyBase extends ManglePropertyGrand {
-  helloGrandAbstract() {
+  helloGrandAbstractDontMangle() {
     this._grandProtectedPropDontMangle = 444;
     this._ccprivate$_grandProtectedPropMangle = 555;
   }
@@ -83,20 +85,22 @@ class ManglePropertyBase extends ManglePropertyGrand {
     super();
     this._ccprivate$_baseProp = 0;
     this._baseProtectedProp = 1;
-    this._ccprivate$_basePublicProp = 2;
-    this._basePublicProp2 = 3;
+    this._ccprivate$_basePublicProp1Mangle = 2;
+    this._basePublicProp2DontMangle = 3;
     this._ccprivate$_mangleMeProp = 123;
     this._ccprivate$_mangleMeProp2 = 'hello';
     this._dontMangleMeProp = 1233;
     this.dontMangleMeProp2 = 'hello3';
     this.dontMangleMeProp3 = 1234;
     this._ccprivate$_basePrivateMethod();
+    this._ccprivate$declarePropMangle = 'world';
+    this.declarePropDontMangle = 123;
   }
   _ccprivate$_basePrivateMethod() {
     this._dontMangleMeProp = 444;
     this.dontMangleMe();
   }
-  get dontMangleMeProp() {
+  get dontMangleMePropGetter() {
     return this._dontMangleMeProp;
   }
   _ccprivate$basePublicMethod() {}
@@ -163,7 +167,7 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
     this._ccprivate$_myConstEnum3 = 4;
     this._ccprivate$publicProp1 = 123;
     this._ccprivate$publicProp2 = 'hello';
-    this._ccprivate$interfaceProp = 1;
+    this._ccprivate$interfaceProp1 = 1;
     this.interfaceProp2 = '2';
     this._ccprivate$myProp2 = 123;
     this._ccprivate$myProp4 = 789;
@@ -171,7 +175,7 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
     this.dontMangleMeProp2 = 'world';
     this.dontMangleMe2();
   }
-  _ccprivate$helloInterface() {}
+  _ccprivate$helloInterface1() {}
   helloInterface2(v) {
     return v.length;
   }
@@ -197,13 +201,16 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
     ManglePrivatePropertiesTest.staticMethod();
     ManglePrivatePropertiesTest.staticProperty = 'bar';
     this._baseProtectedProp = 323;
-    this._ccprivate$_basePublicProp = 324;
-    this._basePublicProp2 = 325;
+    this._ccprivate$_basePublicProp1Mangle = 324;
+    this._basePublicProp2DontMangle = 325;
     this.myProp222 = 0;
     this._ccprivate$myProp4 = 1;
     this._ccprivate$helloIntEnum(0);
     this._ccprivate$helloStringEnum("aaa");
     return this._ccprivate$instanceProperty;
+  }
+  _ccprivate$helloGrandMangleInMangleList() {
+    super._ccprivate$helloGrandMangleInMangleList();
   }
   helloGrandDontMangle1() {
     super.helloGrandDontMangle1();
@@ -232,31 +239,31 @@ function doManglePrivatePropertiesTestPublic(obj) {
   obj._ccprivate$publicProp1 = 456;
   obj._ccprivate$publicProp2 = 'world';
   obj.publicProp3 = 789;
-  obj._ccprivate$_basePublicProp = 100;
-  obj._basePublicProp2 = 200;
+  obj._ccprivate$_basePublicProp1Mangle = 100;
+  obj._basePublicProp2DontMangle = 200;
   obj._ccprivate$basePublicMethod();
-  obj._ccprivate$declareProp = 'world';
+  obj._ccprivate$declarePropMangle = 'world';
   console.log(\`--------------------------\`);
   const base = obj;
-  base._ccprivate$_basePublicProp = 101;
-  base._basePublicProp2 = 201;
+  base._ccprivate$_basePublicProp1Mangle = 101;
+  base._basePublicProp2DontMangle = 201;
   base._ccprivate$basePublicMethod();
-  base._ccprivate$declareProp = 'hello';
+  base._ccprivate$declarePropMangle = 'hello';
   console.log(\`--------------------------\`);
-  obj._ccprivate$helloInterface();
+  obj._ccprivate$helloInterface1();
   obj.helloInterface2('world');
-  obj._ccprivate$interfaceProp = 12344;
+  obj._ccprivate$interfaceProp1 = 12344;
   obj.interfaceProp2 = 'world33';
   console.log(\`--------------------------\`);
   const intf = obj;
-  intf._ccprivate$helloInterface();
+  intf._ccprivate$helloInterface1();
   intf.helloInterface2('world');
-  if (intf.helloInterface3) {
-    intf.helloInterface3('world');
+  if (intf._ccprivate$helloInterface3) {
+    intf._ccprivate$helloInterface3('world');
   }
-  intf._ccprivate$interfaceProp = 123;
+  intf._ccprivate$interfaceProp1 = 123;
   intf.interfaceProp2 = 'world';
-  intf.interfaceProp3 = true;
+  intf._ccprivate$interfaceProp3 = true;
   console.log(\`--------------------------\`);
   obj.grandPropDontMangle = obj.grandPropDontMangle + 1;
   obj._ccprivate$grandPublicPropMangle = obj._ccprivate$grandPublicPropMangle + 1;
@@ -265,6 +272,7 @@ function doManglePrivatePropertiesTestPublic(obj) {
   obj._ccprivate$helloGrandMangleMe3();
   obj._ccprivate$helloGrandMangleMePublic();
   obj._ccprivate$iGrandPropMangle = obj._ccprivate$iGrandPropMangle + 1;
+  obj.iGrandPublicPropMangleJsDocButInDontMangleList = obj.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
   console.log(\`--------------------------\`);
   const grand = obj;
   grand.grandPropDontMangle = grand.grandPropDontMangle + 1;
@@ -274,12 +282,14 @@ function doManglePrivatePropertiesTestPublic(obj) {
   grand._ccprivate$helloGrandMangleMe3();
   grand._ccprivate$helloGrandMangleMePublic();
   grand._ccprivate$iGrandPropMangle = grand._ccprivate$iGrandPropMangle + 1;
+  grand.iGrandPublicPropMangleJsDocButInDontMangleList = grand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
   console.log(\`--------------------------\`);
   const iGrand = obj;
   iGrand.helloGrandDontMangle1();
   iGrand._ccprivate$helloGrandMangleMe3();
-  iGrand._ccprivate$iGrandPublicProp = iGrand._ccprivate$iGrandPublicProp + 1;
+  iGrand._ccprivate$iGrandPublicPropMangleMe = iGrand._ccprivate$iGrandPublicPropMangleMe + 1;
   iGrand._ccprivate$iGrandPropMangle = iGrand._ccprivate$iGrandPropMangle + 1;
+  iGrand.iGrandPublicPropMangleJsDocButInDontMangleList = iGrand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
 }
 doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 (obj => {
@@ -293,22 +303,22 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 (() => {
   console.log(\`test interface 2\`);
   const intf = {
-    _ccprivate$helloInterface() {},
+    _ccprivate$helloInterface1() {},
     helloInterface2() {
       return 0;
     },
-    _ccprivate$interfaceProp: 123,
+    _ccprivate$interfaceProp1: 123,
     interfaceProp2: 'world',
-    interfaceProp3: true
+    _ccprivate$interfaceProp3: true
   };
-  intf._ccprivate$helloInterface();
+  intf._ccprivate$helloInterface1();
   intf.helloInterface2('world');
-  if (intf.helloInterface3) {
-    intf.helloInterface3('world');
+  if (intf._ccprivate$helloInterface3) {
+    intf._ccprivate$helloInterface3('world');
   }
-  intf._ccprivate$interfaceProp = 123;
+  intf._ccprivate$interfaceProp1 = 123;
   intf.interfaceProp2 = 'world';
-  intf.interfaceProp3 = true;
+  intf._ccprivate$interfaceProp3 = true;
 })();
 
 export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum };
