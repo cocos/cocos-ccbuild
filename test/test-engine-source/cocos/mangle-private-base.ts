@@ -1,17 +1,122 @@
 
+export interface IMangleGrand {
+    helloGrandDontMangle1(): void;
+    /** @mangle */
+    helloGrandMangleMe3(): void;
 
-export class ManglePropertyBase {
+    /** @mangle */
+    iGrandPublicPropMangleMe: number;
+
+    get grandPropDontMangle(): number;
+    set grandPropDontMangle(value: number);
+
+    /** @mangle */
+    get iGrandPropMangle(): number;
+    set iGrandPropMangle(value: number);
+
+    /** @mangle */
+    iGrandPublicPropMangleJsDocButInDontMangleList: number;
+}
+
+export abstract class ManglePropertyGrand implements IMangleGrand {
+    get iGrandPropMangle(): number {
+        return this._grandPropMangle2;
+    }
+    set iGrandPropMangle(value: number) {
+        this._grandPropMangle2 = value;
+    }
+    
+    private _grandPropMangle2: number = 0;
+    private _grandPropMangle1: number = 0;
+    protected _grandProtectedPropDontMangle: number = 1;
+    
+    /** @mangle */
+    protected _grandProtectedPropMangle: number = 1;
+    /** @mangle */
+    public grandPublicPropMangle: number = 2;
+
+    iGrandPublicPropMangleMe: number = 3;
+    iGrandPublicPropMangleJsDocButInDontMangleList: number = 0;
+
+    public helloGrandMangleInMangleList(): void {
+
+    }
+
+    helloGrandDontMangle1(): void {
+        this._grandPrivateMethod();
+    }
+
+    public helloGrandDontMangleMe(): void {
+    }
+
+    /** @mangle */
+    public abstract helloGrandMangleMePublic(): void;
+
+    /** @mangle */
+    protected helloGrandMangleMeProtected(): void {}
+
+    protected abstract helloGrandAbstractDontMangle(): void;
+
+    /** @mangle */
+    protected abstract helloGrandAbstractMangleMe(): void;
+
+    helloGrandMangleMe3(): void {
+    }
+
+    private _grandPrivateMethod(): void {
+        this._grandPropMangle1 = 123;
+    }
+
+    /** @mangle */
+    get grandPropDontMangle(): number {
+        return this._grandPropMangle1;
+    }
+
+    /** @mangle */
+    set grandPropDontMangle(value: number) {
+        this._grandPropMangle1 = value;
+    }
+}
+
+export class ManglePropertyBase extends ManglePropertyGrand {
+    protected helloGrandAbstractDontMangle(): void {
+        this._grandProtectedPropDontMangle = 444;
+        this._grandProtectedPropMangle = 555;
+    }
+    protected helloGrandAbstractMangleMe(): void {
+    }
+
+    /** @mangle */
+    helloGrandDontMangle1(): void {
+
+    }
+
+    helloGrandMangleMePublic(): void {
+    }
+
+    protected helloGrandMangleMeProtected(): void {
+        
+    }
+
+    helloGrandMangleMe3(): void {
+        super.helloGrandMangleMe3();
+    }
+
     private _baseProp: number = 0;
     protected _baseProtectedProp: number = 1;
     /** @mangle */
-    public _basePublicProp: number = 2;
-    _basePublicProp2: number = 3;
+    public _basePublicProp1Mangle: number = 2;
+    _basePublicProp2DontMangle: number = 3;
 
     /** @mangle */
-    public declare declareProp: string;
+    public declare declarePropMangle: string;
+    public declare declarePropDontMangle: number;
 
     constructor() {
+        super();
         this._basePrivateMethod();
+        this.declarePropMangle = 'world';
+        this.declarePropDontMangle = 123;
     }
 
     private _basePrivateMethod(): void {
@@ -19,7 +124,7 @@ export class ManglePropertyBase {
         this.dontMangleMe();
     }
 
-    get dontMangleMeProp(): number {
+    get dontMangleMePropGetter(): number {
         return this._dontMangleMeProp;
     }
 
@@ -53,11 +158,13 @@ export enum MangleTestMyBaseEnum {
 
 export interface IMangleTest {
     /** @mangle */
-    helloInterface (): void;
+    helloInterface1 (): void;
     helloInterface2 (v: string): number;
+    /** @mangle */
     helloInterface3? (v: string): number;
     /** @mangle */
-    interfaceProp: number;
+    interfaceProp1: number;
     interfaceProp2: string;
+    /** @mangle */
     interfaceProp3?: boolean;
 }

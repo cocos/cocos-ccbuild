@@ -118,5 +118,6 @@ export class GamepadInputDevice {
         console.log(this._nativeButtonState);
         const button = _nativeButtonMap[0];
         this._nativeButtonState[button] = 1;
+        this._nativeButtonState[Button.BUTTON_L2] = 1;
     }
 }

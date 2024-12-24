@@ -1,7 +1,7 @@
 
 const dontmangle: PropertyDecorator = function (target, propertyKey) {};
 
-import { IMangleTest, ManglePropertyBase, MangleTestMyBaseEnum } from './mangle-private-base';
+import { IMangleGrand, IMangleTest, ManglePropertyBase, ManglePropertyGrand, MangleTestMyBaseEnum } from './mangle-private-base';
 
 export enum MangleTestMyEnum {
     AAA,
@@ -95,16 +95,15 @@ export class ManglePrivatePropertiesTest extends ManglePropertyBase implements I
         this.dontMangleMe2();
         
     }
-    /** @mangle */
-    helloInterface(): void {
+
+    helloInterface1(): void {
 
     }
     helloInterface2(v: string): number {
         return v.length;
     }
     
-    /** @mangle */
-    interfaceProp = 1;
+    interfaceProp1 = 1;
     interfaceProp2 = '2';
 
     private helloIntEnum(value: MangleTestMyEnum): void {
@@ -134,8 +133,8 @@ export class ManglePrivatePropertiesTest extends ManglePropertyBase implements I
         ManglePrivatePropertiesTest.staticMethod();
         ManglePrivatePropertiesTest.staticProperty = 'bar';
         this._baseProtectedProp = 323;
-        this._basePublicProp = 324;
-        this._basePublicProp2 = 325;
+        this._basePublicProp1Mangle = 324;
+        this._basePublicProp2DontMangle = 325;
         this.myProp222 = 0;
         this.myProp4 = 1;
         this.helloIntEnum(MangleTestMyEnum.AAA);
@@ -143,6 +142,23 @@ export class ManglePrivatePropertiesTest extends ManglePropertyBase implements I
         return this.instanceProperty;
     }
 
+    helloGrandMangleInMangleList(): void {
+        super.helloGrandMangleInMangleList();
+    }
+
+    helloGrandDontMangle1(): void {
+        super.helloGrandDontMangle1();
+        this._grandProtectedPropDontMangle = 0;
+        this._grandProtectedPropMangle = 2;
+    }
+
+    protected helloGrandAbstractMangleMe(): void {
+        super.helloGrandAbstractMangleMe();
+    }
+
+    protected helloGrandMangleMeProtected(): void {
+        super.helloGrandMangleMeProtected();
+    }
 }
 
 console.log(MangleTestMyBaseEnum.BABEL);
@@ -150,34 +166,67 @@ console.log(MangleTestMyBaseEnum.HELLO);
 console.log(MangleTestMyBaseEnum.FOO);
 
 function doManglePrivatePropertiesTestPublic(obj: ManglePrivatePropertiesTest): void {
+    console.log(`--------------------------`);
     obj.publicProp1 = 456;
     obj.publicProp2 = 'world';
     obj.publicProp3 = 789;
-    obj._basePublicProp = 100;
-    obj._basePublicProp2 = 200;
+    obj._basePublicProp1Mangle = 100;
+    obj._basePublicProp2DontMangle = 200;
     obj.basePublicMethod();
-    obj.declareProp = 'world';
+    obj.declarePropMangle = 'world';
 
+    console.log(`--------------------------`);
     const base: ManglePropertyBase = obj;
-    base._basePublicProp = 101;
-    base._basePublicProp2 = 201;
+    base._basePublicProp1Mangle = 101;
+    base._basePublicProp2DontMangle = 201;
     base.basePublicMethod();
-    base.declareProp = 'hello';
+    base.declarePropMangle = 'hello';
 
-    obj.helloInterface();
+    console.log(`--------------------------`);
+    obj.helloInterface1();
     obj.helloInterface2('world');
-    obj.interfaceProp = 12344;
+    obj.interfaceProp1 = 12344;
     obj.interfaceProp2 = 'world33';
 
+    console.log(`--------------------------`);
     const intf: IMangleTest = obj;
-    intf.helloInterface();
+    intf.helloInterface1();
     intf.helloInterface2('world');
     if (intf.helloInterface3) {
         intf.helloInterface3('world');
     }
-    intf.interfaceProp = 123;
+    intf.interfaceProp1 = 123;
     intf.interfaceProp2 = 'world';
     intf.interfaceProp3 = true;
+
+    console.log(`--------------------------`);
+    obj.grandPropDontMangle = obj.grandPropDontMangle + 1;
+    obj.grandPublicPropMangle = obj.grandPublicPropMangle + 1;
+    obj.helloGrandDontMangle1();
+    obj.helloGrandDontMangleMe();
+    obj.helloGrandMangleMe3();
+    obj.helloGrandMangleMePublic();
+    obj.iGrandPropMangle = obj.iGrandPropMangle + 1;
+    obj.iGrandPublicPropMangleJsDocButInDontMangleList = obj.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
+    
+    console.log(`--------------------------`);
+    const grand: ManglePropertyGrand = obj;
+    grand.grandPropDontMangle = grand.grandPropDontMangle + 1;
+    grand.grandPublicPropMangle = grand.grandPublicPropMangle + 1;
+    grand.helloGrandDontMangle1();
+    grand.helloGrandDontMangleMe();
+    grand.helloGrandMangleMe3();
+    grand.helloGrandMangleMePublic();
+    grand.iGrandPropMangle = grand.iGrandPropMangle + 1;
+    grand.iGrandPublicPropMangleJsDocButInDontMangleList = grand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
+
+    console.log(`--------------------------`);
+    const iGrand: IMangleGrand = obj;
+    iGrand.helloGrandDontMangle1();
+    iGrand.helloGrandMangleMe3();
+    iGrand.iGrandPublicPropMangleMe = iGrand.iGrandPublicPropMangleMe + 1;
+    iGrand.iGrandPropMangle = iGrand.iGrandPropMangle + 1;
+    iGrand.iGrandPublicPropMangleJsDocButInDontMangleList = iGrand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
 }
 doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 
@@ -191,6 +240,25 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 
 })(new ManglePrivatePropertiesTest);
 
+(() => {
+    console.log(`test interface 2`);
+    const intf: IMangleTest = {
+        helloInterface1() {},
+        helloInterface2() { return 0; },
+        interfaceProp1: 123,
+        interfaceProp2: 'world',
+        interfaceProp3: true,
+    };
+
+    intf.helloInterface1();
+    intf.helloInterface2('world');
+    if (intf.helloInterface3) {
+        intf.helloInterface3('world');
+    }
+    intf.interfaceProp1 = 123;
+    intf.interfaceProp2 = 'world';
+    intf.interfaceProp3 = true;
+})();
 
 export * from './mangle-private-base';
 
