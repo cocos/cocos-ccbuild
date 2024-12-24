@@ -207,7 +207,7 @@ export class PropertiesMinifier {
             // Ignore current private description and use parent's one
             isPrivate = isParentSymbolPrivate;
         } else {
-            const propertyFullName = parentName + '.' + node.name.getText();
+            const propertyFullName = parentName + '.' + name;
             // Check the mangleList option
             if (!isPrivate) {
                 if (this._options.mangleList.includes(propertyFullName)) {
@@ -292,14 +292,8 @@ export class PropertiesMinifier {
                 const checker = program.getTypeChecker();
                 const parentName = parent.name.getText();
                 const propertyName = node.text;
-                const mangleKey = parentName + '.' + propertyName;
-                if (this._options.mangleList.includes(mangleKey)) {
-                    return true;
-                }
-                if (this._options.dontMangleList.includes(mangleKey)) {
-                    return false;
-                }
-
+                
+                let hasMangleTag = false;
                 const type = checker.getTypeAtLocation(variableDeclaration);
                 for (const prop of type.getProperties()) {
                     if (!prop.valueDeclaration) continue;
@@ -308,12 +302,33 @@ export class PropertiesMinifier {
                         if (symbol && symbol.escapedName === propertyName) {
                             for (const tag of symbol.getJsDocTags(checker)) {
                                 if (tag.name === 'mangle') {
-                                    return true;
+                                    hasMangleTag = true;
+                                    break;
                                 }
                             }
                         }
+
+                        if (hasMangleTag) {
+                            break;
+                        }
                     }
                 }
+            
+                const mangleKey = parentName + '.' + propertyName;
+
+                if (!hasMangleTag) {
+                    if (this._options.mangleList.includes(mangleKey)) {
+                        return true;
+                    }
+                }
+
+                if (hasMangleTag) {
+                    if (this._options.dontMangleList.includes(mangleKey)) {
+                        return false;
+                    }
+                }
+
+                return hasMangleTag;
             }
         }
 
