@@ -1,7 +1,9 @@
 
 const dontmangle: PropertyDecorator = function (target, propertyKey) {};
 
-import { IMangleGrand, IMangleTest, ManglePropertyBase, ManglePropertyGrand, MangleTestMyBaseEnum } from './mangle-private-base';
+import { IMangleGrand, IMangleTest, IWebGLBindingMapping, ManglePropertyBase, ManglePropertyGrand, MangleTestMyBaseEnum, MangleWholeClass, MyClassExtendsMangleWholeClass } from './mangle-private-base';
+
+export * from './mangle-private-base';
 
 export enum MangleTestMyEnum {
     AAA,
@@ -226,7 +228,7 @@ function doManglePrivatePropertiesTestPublic(obj: ManglePrivatePropertiesTest): 
     iGrand.helloGrandMangleMe3();
     iGrand.iGrandPublicPropMangleMe = iGrand.iGrandPublicPropMangleMe + 1;
     iGrand.iGrandPropMangle = iGrand.iGrandPropMangle + 1;
-    iGrand.iGrandPublicPropMangleJsDocButInDontMangleList = iGrand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
+    iGrand.iGrandPublicPropMangleJsDocButInDontMangleList = iGrand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;    
 }
 doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 
@@ -258,7 +260,43 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
     intf.interfaceProp1 = 123;
     intf.interfaceProp2 = 'world';
     intf.interfaceProp3 = true;
+
+    console.log(`--------------------------`);
+    const { helloInterface1, helloInterface2, helloInterface3, interfaceProp1, interfaceProp2, interfaceProp3 } = intf;
+    helloInterface1();
+    helloInterface2('world');
+    if (helloInterface3) helloInterface3('world');
+    console.log(interfaceProp1);
+    console.log(interfaceProp2);
+    console.log(interfaceProp3);
+
 })();
 
-export * from './mangle-private-base';
+(() => {
+    const a: IWebGLBindingMapping = {
+        blockOffsets: [],
+        samplerTextureOffsets: [],
+        flexibleSet: 0
+    };
+    console.log(a.blockOffsets, a.samplerTextureOffsets, a.flexibleSet);
+
+    console.log(`--------------------------`);
+    const b = new MangleWholeClass();
+    b.mangleWholeClassPublicProp1 = 456;
+    b.getMangleWholeClassPrivateProp3();
+    b.helloMangleWholeClassPublicMethod1();
+
+    console.log(`--------------------------`);
+    const c = new MyClassExtendsMangleWholeClass();
+    c.mangleWholeClassPublicProp1 = 456;
+    c.getMangleWholeClassPrivateProp3();
+    c.helloMangleWholeClassPublicMethod1();
+    c.helloSubclassExtendsMangleWholeMethod1();
+    c.getSubclassExtendsMangleWholeProp1();
+    c.helloMangleWholeClassBasePublicMethod1();
+    c.helloMangleWholeClassInterfaceMethod1();
+    c.iMangleWholeClassInterfaceProp1 = 2;
+    c.iMangleWholeClassInterfaceProp2 = 'world';
+})();
+
 

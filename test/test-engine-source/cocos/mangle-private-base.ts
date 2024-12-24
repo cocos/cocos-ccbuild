@@ -18,6 +18,78 @@ export interface IMangleGrand {
     iGrandPublicPropMangleJsDocButInDontMangleList: number;
 }
 
+/** @mangle */
+export interface IWebGLBindingMapping {
+    blockOffsets: number[];
+    samplerTextureOffsets: number[];
+    flexibleSet: number;
+}
+
+export class MangleWholeClassBase {
+    protected mangleWholeClassBaseProtectedProp1 = 123;
+    protected helloMangleWholeClassBaseProtectedMethod1(): void {}
+    public helloMangleWholeClassBasePublicMethod1(): void {}
+}
+
+export interface IMangleWholeClassInterface {
+    iMangleWholeClassInterfaceProp1: number;
+    iMangleWholeClassInterfaceProp2: string;
+    helloMangleWholeClassInterfaceMethod1(): void;
+}
+
+
+export class MangleWholeClass extends MangleWholeClassBase implements IMangleWholeClassInterface {
+    mangleWholeClassPublicProp1 = 123;
+    protected mangleWholeClassProtectedProp2 = 123;
+    private mangleWholeClassPrivateProp3 = 123;
+
+    constructor() {
+        super();
+        this.helloMangleWholeClassPublicMethod1();
+        this.helloMangleWholeClassProtectedMethod2();
+        this.helloMangleWholeClassPrivateMethod3();
+        this.helloMangleWholeClassBaseProtectedMethod1();
+    }
+    iMangleWholeClassInterfaceProp1: number = 1;
+    iMangleWholeClassInterfaceProp2: string = 'hello';
+    helloMangleWholeClassInterfaceMethod1(): void {
+        
+    }
+
+    getMangleWholeClassPrivateProp3(): number {
+        return this.mangleWholeClassPrivateProp3;
+    }
+    
+    helloMangleWholeClassPublicMethod1(): void {}
+    protected helloMangleWholeClassProtectedMethod2(): void {}
+    private helloMangleWholeClassPrivateMethod3(): void {}
+}
+
+export class MyClassExtendsMangleWholeClass extends MangleWholeClass {
+
+    private subclassExtendsMangleWholeProp1 = 123;
+    protected subclassExtendsMangleWholeProp2 = 123;
+    public subclassExtendsMangleWholeProp3 = 123;
+
+    constructor() {
+        super();
+        this.helloMangleWholeClassPublicMethod1();
+        this.helloMangleWholeClassProtectedMethod2();
+    }
+
+    protected helloMangleWholeClassProtectedMethod2(): void {
+        this.subclassExtendsMangleWholeProp1 = 123;
+        this.subclassExtendsMangleWholeProp2 = 123;
+        this.subclassExtendsMangleWholeProp3 = 123;
+    }
+
+    getSubclassExtendsMangleWholeProp1(): number {
+        return this.subclassExtendsMangleWholeProp1;
+    }
+
+    helloSubclassExtendsMangleWholeMethod1(): void {}
+}
+
 export abstract class ManglePropertyGrand implements IMangleGrand {
     get iGrandPropMangle(): number {
         return this._grandPropMangle2;
@@ -78,7 +150,7 @@ export abstract class ManglePropertyGrand implements IMangleGrand {
     }
 }
 
-export class ManglePropertyBase extends ManglePropertyGrand {
+export class ManglePropertyBase extends ManglePropertyGrand implements ManglePropertyBase {
     protected helloGrandAbstractDontMangle(): void {
         this._grandProtectedPropDontMangle = 444;
         this._grandProtectedPropMangle = 555;
@@ -122,10 +194,15 @@ export class ManglePropertyBase extends ManglePropertyGrand {
     private _basePrivateMethod(): void {
         this._dontMangleMeProp = 444;
         this.dontMangleMe();
+        console.log(this.privateGetterMangle);
     }
 
     get dontMangleMePropGetter(): number {
         return this._dontMangleMeProp;
+    }
+
+    private get privateGetterMangle(): number {
+        return this._mangleMeProp;
     }
 
     /** @mangle */

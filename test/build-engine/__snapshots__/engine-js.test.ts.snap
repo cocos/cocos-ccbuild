@@ -49,14 +49,14 @@ class MangleWholeClass extends MangleWholeClassBase {
     this.mangleWholeClassPublicProp1 = 123;
     this.mangleWholeClassProtectedProp2 = 123;
     this._ccprivate$mangleWholeClassPrivateProp3 = 123;
-    this.iMangleWholeClassInterfaceProp1 = 1;
-    this.iMangleWholeClassInterfaceProp2 = 'hello';
+    this._ccprivate$iMangleWholeClassInterfaceProp1 = 1;
+    this._ccprivate$iMangleWholeClassInterfaceProp2 = 'hello';
     this.helloMangleWholeClassPublicMethod1();
     this.helloMangleWholeClassProtectedMethod2();
     this._ccprivate$helloMangleWholeClassPrivateMethod3();
     this._ccprivate$helloMangleWholeClassBaseProtectedMethod1();
   }
-  helloMangleWholeClassInterfaceMethod1() {}
+  _ccprivate$helloMangleWholeClassInterfaceMethod1() {}
   getMangleWholeClassPrivateProp3() {
     return this._ccprivate$mangleWholeClassPrivateProp3;
   }
@@ -314,7 +314,7 @@ function doManglePrivatePropertiesTestPublic(obj) {
   }
   intf._ccprivate$interfaceProp1 = 123;
   intf.interfaceProp2 = 'world';
-  intf._ccprivate$interfaceProp3 = true;
+  intf.interfaceProp3 = true;
   console.log(\`--------------------------\`);
   obj.grandPropDontMangle = obj.grandPropDontMangle + 1;
   obj._ccprivate$grandPublicPropMangle = obj._ccprivate$grandPublicPropMangle + 1;
@@ -360,7 +360,7 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
     },
     _ccprivate$interfaceProp1: 123,
     interfaceProp2: 'world',
-    _ccprivate$interfaceProp3: true
+    interfaceProp3: true
   };
   intf._ccprivate$helloInterface1();
   intf.helloInterface2('world');
@@ -369,7 +369,7 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
   }
   intf._ccprivate$interfaceProp1 = 123;
   intf.interfaceProp2 = 'world';
-  intf._ccprivate$interfaceProp3 = true;
+  intf.interfaceProp3 = true;
   console.log(\`--------------------------\`);
   const {
     _ccprivate$helloInterface1: helloInterface1,
@@ -377,7 +377,7 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
     _ccprivate$helloInterface3: helloInterface3,
     _ccprivate$interfaceProp1: interfaceProp1,
     interfaceProp2,
-    _ccprivate$interfaceProp3: interfaceProp3
+    interfaceProp3
   } = intf;
   helloInterface1();
   helloInterface2('world');
@@ -406,6 +406,9 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
   c.helloSubclassExtendsMangleWholeMethod1();
   c.getSubclassExtendsMangleWholeProp1();
   c._ccprivate$helloMangleWholeClassBasePublicMethod1();
+  c._ccprivate$helloMangleWholeClassInterfaceMethod1();
+  c._ccprivate$iMangleWholeClassInterfaceProp1 = 2;
+  c._ccprivate$iMangleWholeClassInterfaceProp2 = 'world';
 })();
 
 export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
