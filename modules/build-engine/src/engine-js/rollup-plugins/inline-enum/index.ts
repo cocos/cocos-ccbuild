@@ -34,9 +34,7 @@ export async function rpInlineEnum(rawOptions: Options, replace?: boolean): Prom
     const options = resolveOptions(rawOptions);
     const filter = createFilter(options.include, options.exclude);
 
-    if (!enumData) {
-        enumData = await scanEnums(options);
-    }
+    enumData = await scanEnums(options);
 
     const { declarations, defines } = enumData;
 
