@@ -215,21 +215,22 @@ export class PropertiesMinifier {
         return isPrivate;
     }
 
-    private updatePrivateByOptions(isPrivate: boolean, parentName: string, propertyName?: string): boolean {
+    private updatePrivateByOptions(isPrivate: boolean, parentName: string | undefined, propertyName: string | undefined): boolean {
+        if (parentName === undefined) return isPrivate;
         let fullName = parentName;
         if (propertyName) {
             fullName = fullName + '.' + propertyName;
         }
         // Check the mangleList option
         if (!isPrivate) {
-            if (this._options.mangleList.includes(fullName)) {
+            if (this._options.mangleList.includes(fullName) || this._options.mangleList.includes(parentName)) {
                 isPrivate = true;
             }
         }
         
         // Check the dontMangleList option
         if (isPrivate) {
-            if (this._options.dontMangleList.includes(fullName)) {
+            if (this._options.dontMangleList.includes(fullName) || this._options.dontMangleList.includes(parentName)) {
                 isPrivate = false;
             }
         }
@@ -344,7 +345,7 @@ export class PropertiesMinifier {
             if (variableDeclaration && ts.isVariableDeclaration(variableDeclaration)) {
                 const checker = program.getTypeChecker();
                 let isPrivate = false;
-                const parentName = parent.name.getText();
+                
                 let propertyName: string | undefined;
                 const type = checker.getTypeAtLocation(variableDeclaration);
                 // interface definition has @mangle tag
@@ -371,7 +372,7 @@ export class PropertiesMinifier {
                         }
                     }
                 }
-
+                const parentName = type.symbol?.escapedName as string | undefined;
                 return this.updatePrivateByOptions(isPrivate, parentName, propertyName);
             }
         }
