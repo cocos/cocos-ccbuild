@@ -78,6 +78,7 @@ export namespace buildEngine {
         mangleList?: string[];
         dontMangleList?: string[];
         mangleGetterSetter?: boolean;
+        ignoreJsDocTag?: boolean;
     }
    
     export interface Options {
