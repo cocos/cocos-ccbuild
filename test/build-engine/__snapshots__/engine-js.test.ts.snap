@@ -9,10 +9,11 @@ exports[`engine-js HTML5 mangle private properties 1`] = `
 exports[`engine-js HTML5 mangle private properties 2`] = `
 "(() => {
   console.log(\`-------------------------- IWebGLGPUTexture --------------------------\`);
+  const width = 123;
   let aaaaaaaaa;
   aaaaaaaaa = undefined;
   aaaaaaaaa = {
-    _ccprivate$width,
+    _ccprivate$width: width,
     height: 0,
     depth: 0,
     _ccprivate$size: 0,
@@ -64,8 +65,9 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
 })();
 (() => {
   console.log(\`-------------------------- IWebGLGPUTexture1 --------------------------\`);
+  const width = 123;
   const a = {
-    _ccprivate$width,
+    _ccprivate$width: width,
     height: 0,
     depth: 0,
     _ccprivate$size: 0,
@@ -117,10 +119,11 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
 })();
 (() => {
   console.log(\`-------------------------- IWebGLGPUTexture2 --------------------------\`);
+  const width = 123;
   let aaaaaaaaa;
   aaaaaaaaa = undefined;
   aaaaaaaaa = {
-    _ccprivate$width,
+    _ccprivate$width: width,
     _ccprivate$height: 0,
     _ccprivate$depth: 0,
     _ccprivate$size: 0,
@@ -168,10 +171,11 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
 })();
 (() => {
   console.log(\`-------------------------- IWebGLGPUTexture3 --------------------------\`);
+  const width = 123;
   let aaaaaaaaa;
   aaaaaaaaa = undefined;
   aaaaaaaaa = {
-    _ccprivate$width,
+    _ccprivate$width: width,
     height: 0,
     depth: 0,
     _ccprivate$size: 0,
@@ -213,10 +217,11 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
 })();
 (() => {
   console.log(\`-------------------------- IWebGLGPUTexture4 --------------------------\`);
+  const width = 123;
   let aaaaaaaaa;
   aaaaaaaaa = undefined;
   aaaaaaaaa = {
-    _ccprivate$width,
+    _ccprivate$width: width,
     _ccprivate$height: 0,
     _ccprivate$depth: 0,
     _ccprivate$size: 0,
@@ -262,6 +267,7 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
 })();
 (() => {
   console.log(\`-------------------------- IWebGLGPUTexture in class --------------------------\`);
+  const width = 123;
   class MyTexture {
     constructor() {
       this._ccprivate$_gpuTexture = void 0;
@@ -271,7 +277,7 @@ exports[`engine-js HTML5 mangle private properties 2`] = `
     }
     init() {
       this._ccprivate$_gpuTexture = {
-        _ccprivate$width,
+        _ccprivate$width: width,
         height: 0,
         depth: 0,
         _ccprivate$size: 0,
