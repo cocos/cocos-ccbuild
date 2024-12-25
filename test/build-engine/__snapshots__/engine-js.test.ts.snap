@@ -7,410 +7,324 @@ exports[`engine-js HTML5 mangle private properties 1`] = `
 `;
 
 exports[`engine-js HTML5 mangle private properties 2`] = `
-"function _initializerDefineProperty(target, property, descriptor, context) {
-  if (!descriptor) return;
-  Object.defineProperty(target, property, {
-    enumerable: descriptor.enumerable,
-    configurable: descriptor.configurable,
-    writable: descriptor.writable,
-    value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-  });
-}
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object.keys(descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-  if (desc.initializer === void 0) {
-    Object.defineProperty(target, property, desc);
-    desc = null;
-  }
-  return desc;
-}
-
-class MangleWholeClassBase {
-  constructor() {
-    this._ccprivate$mangleWholeClassBaseProtectedProp1 = 123;
-  }
-  _ccprivate$helloMangleWholeClassBaseProtectedMethod1() {}
-  _ccprivate$helloMangleWholeClassBasePublicMethod1() {}
-}
-class MangleWholeClass extends MangleWholeClassBase {
-  constructor() {
-    super();
-    this.mangleWholeClassPublicProp1 = 123;
-    this.mangleWholeClassProtectedProp2 = 123;
-    this._ccprivate$mangleWholeClassPrivateProp3 = 123;
-    this._ccprivate$iMangleWholeClassInterfaceProp1 = 1;
-    this._ccprivate$iMangleWholeClassInterfaceProp2 = 'hello';
-    this.helloMangleWholeClassPublicMethod1();
-    this.helloMangleWholeClassProtectedMethod2();
-    this._ccprivate$helloMangleWholeClassPrivateMethod3();
-    this._ccprivate$helloMangleWholeClassBaseProtectedMethod1();
-  }
-  _ccprivate$helloMangleWholeClassInterfaceMethod1() {}
-  getMangleWholeClassPrivateProp3() {
-    return this._ccprivate$mangleWholeClassPrivateProp3;
-  }
-  helloMangleWholeClassPublicMethod1() {}
-  helloMangleWholeClassProtectedMethod2() {}
-  _ccprivate$helloMangleWholeClassPrivateMethod3() {}
-}
-class MyClassExtendsMangleWholeClass extends MangleWholeClass {
-  constructor() {
-    super();
-    this._ccprivate$subclassExtendsMangleWholeProp1 = 123;
-    this.subclassExtendsMangleWholeProp2 = 123;
-    this.subclassExtendsMangleWholeProp3 = 123;
-    this.helloMangleWholeClassPublicMethod1();
-    this.helloMangleWholeClassProtectedMethod2();
-  }
-  helloMangleWholeClassProtectedMethod2() {
-    this._ccprivate$subclassExtendsMangleWholeProp1 = 123;
-    this.subclassExtendsMangleWholeProp2 = 123;
-    this.subclassExtendsMangleWholeProp3 = 123;
-  }
-  getSubclassExtendsMangleWholeProp1() {
-    return this._ccprivate$subclassExtendsMangleWholeProp1;
-  }
-  helloSubclassExtendsMangleWholeMethod1() {}
-}
-class ManglePropertyGrand {
-  constructor() {
-    this._ccprivate$_grandPropMangle2 = 0;
-    this._ccprivate$_grandPropMangle1 = 0;
-    this._grandProtectedPropDontMangle = 1;
-    this._ccprivate$_grandProtectedPropMangle = 1;
-    this._ccprivate$grandPublicPropMangle = 2;
-    this._ccprivate$iGrandPublicPropMangleMe = 3;
-    this.iGrandPublicPropMangleJsDocButInDontMangleList = 0;
-  }
-  get _ccprivate$iGrandPropMangle() {
-    return this._ccprivate$_grandPropMangle2;
-  }
-  set _ccprivate$iGrandPropMangle(value) {
-    this._ccprivate$_grandPropMangle2 = value;
-  }
-  _ccprivate$helloGrandMangleInMangleList() {}
-  helloGrandDontMangle1() {
-    this._ccprivate$_grandPrivateMethod();
-  }
-  helloGrandDontMangleMe() {}
-  _ccprivate$helloGrandMangleMeProtected() {}
-  _ccprivate$helloGrandMangleMe3() {}
-  _ccprivate$_grandPrivateMethod() {
-    this._ccprivate$_grandPropMangle1 = 123;
-  }
-  get grandPropDontMangle() {
-    return this._ccprivate$_grandPropMangle1;
-  }
-  set grandPropDontMangle(value) {
-    this._ccprivate$_grandPropMangle1 = value;
-  }
-}
-class ManglePropertyBase extends ManglePropertyGrand {
-  helloGrandAbstractDontMangle() {
-    this._grandProtectedPropDontMangle = 444;
-    this._ccprivate$_grandProtectedPropMangle = 555;
-  }
-  _ccprivate$helloGrandAbstractMangleMe() {}
-  helloGrandDontMangle1() {}
-  _ccprivate$helloGrandMangleMePublic() {}
-  _ccprivate$helloGrandMangleMeProtected() {}
-  _ccprivate$helloGrandMangleMe3() {
-    super._ccprivate$helloGrandMangleMe3();
-  }
-  constructor() {
-    super();
-    this._ccprivate$_baseProp = 0;
-    this._baseProtectedProp = 1;
-    this._ccprivate$_basePublicProp1Mangle = 2;
-    this._basePublicProp2DontMangle = 3;
-    this._ccprivate$_mangleMeProp = 123;
-    this._ccprivate$_mangleMeProp2 = 'hello';
-    this._dontMangleMeProp = 1233;
-    this.dontMangleMeProp2 = 'hello3';
-    this.dontMangleMeProp3 = 1234;
-    this._ccprivate$_basePrivateMethod();
-    this._ccprivate$declarePropMangle = 'world';
-    this.declarePropDontMangle = 123;
-  }
-  _ccprivate$_basePrivateMethod() {
-    this._dontMangleMeProp = 444;
-    this.dontMangleMe();
-    console.log(this._ccprivate$privateGetterMangle);
-  }
-  get dontMangleMePropGetter() {
-    return this._dontMangleMeProp;
-  }
-  get _ccprivate$privateGetterMangle() {
-    return this._ccprivate$_mangleMeProp;
-  }
-  _ccprivate$basePublicMethod() {}
-  _ccprivate$mangleMe() {}
-  _ccprivate$mangleMe2() {}
-  dontMangleMe() {}
-  dontMangleMe2() {}
-  dontMangleMe3() {}
-}
-const MangleTestMyBaseEnum = {
-  HELLO: 123444,
-  WORLD: 123445,
-  FOO: 123,
-  BAR: 124,
-  TS: 125,
-  BABEL: 126
-};
-
-var _class, _descriptor, _class2;
-const dontmangle = function (target, propertyKey) {};
-const MangleTestMyEnum = {
-  AAA: 0,
-  BBB: 1,
-  CCC: 123,
-  DDD: 124
-};
-const MangleTestMyStringEnum = {
-  AAA: "aaa",
-  BBB: "bbb",
-  CCC: "ccc"
-};
-const MangleTestConstEnum = {
-  CONST_A: 1,
-  CONST_B: 2,
-  "space key": 3,
-  "space key2": 4
-};
-console.log(\`MangleTestConstEnum.CONST_A: \${MangleTestConstEnum.CONST_A}\`);
-console.log(\`MangleTestConstEnum.CONST_B: \${MangleTestConstEnum.CONST_B}\`);
-console.log(\`MangleTestConstEnum['space key']: \${MangleTestConstEnum['space key']}\`);
-console.log(\`MangleTestConstEnum["space key2"]: \${MangleTestConstEnum["space key2"]}\`);
-let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivatePropertiesTest extends ManglePropertyBase {
-  _ccprivate$instanceMethod() {}
-  static staticMethod() {}
-  get accessorProp0() {
-    return this._ccprivate$myProp0;
-  }
-  set accessorProp0(value) {
-    this._ccprivate$myProp0 = value;
-  }
-  constructor() {
-    super();
-    this._ccprivate$instanceProperty = '';
-    this._ccprivate$myProp0 = 123;
-    this._ccprivate$myProp1 = 456;
-    _initializerDefineProperty(this, "myProp222", _descriptor, this);
-    this._ccprivate$myProp2 = void 0;
-    this._ccprivate$myProp3 = void 0;
-    this._ccprivate$_myEnum1 = 1;
-    this._ccprivate$_myEnum2 = 124;
-    this._ccprivate$_myStringEnum = "ccc";
-    this._ccprivate$_myConstEnum = 2;
-    this._ccprivate$_myConstEnum2 = 3;
-    this._ccprivate$_myConstEnum3 = 4;
-    this._ccprivate$publicProp1 = 123;
-    this._ccprivate$publicProp2 = 'hello';
-    this._ccprivate$interfaceProp1 = 1;
-    this.interfaceProp2 = '2';
-    this._ccprivate$myProp2 = 123;
-    this._ccprivate$myProp4 = 789;
-    this.publicProp3 = 456;
-    this.dontMangleMeProp2 = 'world';
-    this.dontMangleMe2();
-  }
-  _ccprivate$helloInterface1() {}
-  helloInterface2(v) {
-    return v.length;
-  }
-  _ccprivate$helloIntEnum(value) {
-    console.log(value);
-    this._ccprivate$_myConstEnum3 = 3;
-    this._ccprivate$_myConstEnum2 = 4;
-  }
-  _ccprivate$helloStringEnum(value) {
-    console.log(value);
-  }
-  get myEnum1() {
-    return this._ccprivate$_myEnum1;
-  }
-  get myEnum2() {
-    return this._ccprivate$_myEnum2;
-  }
-  get myStringEnum() {
-    return this._ccprivate$_myStringEnum;
-  }
-  getFoo() {
-    this._ccprivate$instanceMethod();
-    ManglePrivatePropertiesTest.staticMethod();
-    ManglePrivatePropertiesTest.staticProperty = 'bar';
-    this._baseProtectedProp = 323;
-    this._ccprivate$_basePublicProp1Mangle = 324;
-    this._basePublicProp2DontMangle = 325;
-    this.myProp222 = 0;
-    this._ccprivate$myProp4 = 1;
-    this._ccprivate$helloIntEnum(0);
-    this._ccprivate$helloStringEnum("aaa");
-    return this._ccprivate$instanceProperty;
-  }
-  _ccprivate$helloGrandMangleInMangleList() {
-    super._ccprivate$helloGrandMangleInMangleList();
-  }
-  helloGrandDontMangle1() {
-    super.helloGrandDontMangle1();
-    this._grandProtectedPropDontMangle = 0;
-    this._ccprivate$_grandProtectedPropMangle = 2;
-  }
-  _ccprivate$helloGrandAbstractMangleMe() {
-    super._ccprivate$helloGrandAbstractMangleMe();
-  }
-  _ccprivate$helloGrandMangleMeProtected() {
-    super._ccprivate$helloGrandMangleMeProtected();
-  }
-}, _class2.staticProperty = '', _class2), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "myProp222", [dontmangle], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: function () {
-    return 789;
-  }
-})), _class);
-console.log(126);
-console.log(123444);
-console.log(123);
-function doManglePrivatePropertiesTestPublic(obj) {
-  console.log(\`--------------------------\`);
-  obj._ccprivate$publicProp1 = 456;
-  obj._ccprivate$publicProp2 = 'world';
-  obj.publicProp3 = 789;
-  obj._ccprivate$_basePublicProp1Mangle = 100;
-  obj._basePublicProp2DontMangle = 200;
-  obj._ccprivate$basePublicMethod();
-  obj._ccprivate$declarePropMangle = 'world';
-  console.log(\`--------------------------\`);
-  const base = obj;
-  base._ccprivate$_basePublicProp1Mangle = 101;
-  base._basePublicProp2DontMangle = 201;
-  base._ccprivate$basePublicMethod();
-  base._ccprivate$declarePropMangle = 'hello';
-  console.log(\`--------------------------\`);
-  obj._ccprivate$helloInterface1();
-  obj.helloInterface2('world');
-  obj._ccprivate$interfaceProp1 = 12344;
-  obj.interfaceProp2 = 'world33';
-  console.log(\`--------------------------\`);
-  const intf = obj;
-  intf._ccprivate$helloInterface1();
-  intf.helloInterface2('world');
-  if (intf._ccprivate$helloInterface3) {
-    intf._ccprivate$helloInterface3('world');
-  }
-  intf._ccprivate$interfaceProp1 = 123;
-  intf.interfaceProp2 = 'world';
-  intf.interfaceProp3 = true;
-  console.log(\`--------------------------\`);
-  obj.grandPropDontMangle = obj.grandPropDontMangle + 1;
-  obj._ccprivate$grandPublicPropMangle = obj._ccprivate$grandPublicPropMangle + 1;
-  obj.helloGrandDontMangle1();
-  obj.helloGrandDontMangleMe();
-  obj._ccprivate$helloGrandMangleMe3();
-  obj._ccprivate$helloGrandMangleMePublic();
-  obj._ccprivate$iGrandPropMangle = obj._ccprivate$iGrandPropMangle + 1;
-  obj.iGrandPublicPropMangleJsDocButInDontMangleList = obj.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
-  console.log(\`--------------------------\`);
-  const grand = obj;
-  grand.grandPropDontMangle = grand.grandPropDontMangle + 1;
-  grand._ccprivate$grandPublicPropMangle = grand._ccprivate$grandPublicPropMangle + 1;
-  grand.helloGrandDontMangle1();
-  grand.helloGrandDontMangleMe();
-  grand._ccprivate$helloGrandMangleMe3();
-  grand._ccprivate$helloGrandMangleMePublic();
-  grand._ccprivate$iGrandPropMangle = grand._ccprivate$iGrandPropMangle + 1;
-  grand.iGrandPublicPropMangleJsDocButInDontMangleList = grand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
-  console.log(\`--------------------------\`);
-  const iGrand = obj;
-  iGrand.helloGrandDontMangle1();
-  iGrand._ccprivate$helloGrandMangleMe3();
-  iGrand._ccprivate$iGrandPublicPropMangleMe = iGrand._ccprivate$iGrandPublicPropMangleMe + 1;
-  iGrand._ccprivate$iGrandPropMangle = iGrand._ccprivate$iGrandPropMangle + 1;
-  iGrand.iGrandPublicPropMangleJsDocButInDontMangleList = iGrand.iGrandPublicPropMangleJsDocButInDontMangleList + 1;
-}
-doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
-(obj => {
-  obj._ccprivate$_mangleMeProp = 333;
-  obj._ccprivate$_mangleMeProp2 = 'world';
-  obj.dontMangleMeProp3 = 444;
-  obj._ccprivate$mangleMe();
-  obj._ccprivate$mangleMe2();
-  obj.dontMangleMe3();
-})(new ManglePrivatePropertiesTest());
-(() => {
-  console.log(\`test interface 2\`);
-  const intf = {
-    _ccprivate$helloInterface1() {},
-    helloInterface2() {
-      return 0;
+"(() => {
+  console.log(\`-------------------------- IWebGLGPUTexture --------------------------\`);
+  let aaaaaaaaa;
+  aaaaaaaaa = undefined;
+  aaaaaaaaa = {
+    _ccprivate$width,
+    height: 0,
+    depth: 0,
+    _ccprivate$size: 0,
+    arrayLayer: 0,
+    mipLevel: 0,
+    _ccprivate$isPowerOf2: false,
+    glTarget: 0,
+    glInternalFmt: 0,
+    glFormat: 0,
+    glType: 0,
+    glUsage: 0,
+    glTexture: null,
+    glRenderbuffer: null,
+    glWrapS: 0,
+    glWrapT: 0,
+    glMinFilter: 0,
+    glMagFilter: 0,
+    isSwapchainTexture: false,
+    get widthGetter() {
+      return 1;
     },
-    _ccprivate$interfaceProp1: 123,
-    interfaceProp2: 'world',
-    interfaceProp3: true
+    set widthSetter(value) {},
+    _ccprivate$helloMangle() {},
+    helloDontMangle() {}
   };
-  intf._ccprivate$helloInterface1();
-  intf.helloInterface2('world');
-  if (intf._ccprivate$helloInterface3) {
-    intf._ccprivate$helloInterface3('world');
-  }
-  intf._ccprivate$interfaceProp1 = 123;
-  intf.interfaceProp2 = 'world';
-  intf.interfaceProp3 = true;
-  console.log(\`--------------------------\`);
-  const {
-    _ccprivate$helloInterface1: helloInterface1,
-    helloInterface2,
-    _ccprivate$helloInterface3: helloInterface3,
-    _ccprivate$interfaceProp1: interfaceProp1,
-    interfaceProp2,
-    interfaceProp3
-  } = intf;
-  helloInterface1();
-  helloInterface2('world');
-  if (helloInterface3) helloInterface3('world');
-  console.log(interfaceProp1);
-  console.log(interfaceProp2);
-  console.log(interfaceProp3);
+  console.log(aaaaaaaaa._ccprivate$width);
+  console.log(aaaaaaaaa.height);
+  console.log(aaaaaaaaa.depth);
+  console.log(aaaaaaaaa._ccprivate$size);
+  console.log(aaaaaaaaa.arrayLayer);
+  console.log(aaaaaaaaa.mipLevel);
+  console.log(aaaaaaaaa._ccprivate$isPowerOf2);
+  console.log(aaaaaaaaa.glTarget);
+  console.log(aaaaaaaaa.glInternalFmt);
+  console.log(aaaaaaaaa.glFormat);
+  console.log(aaaaaaaaa.glType);
+  console.log(aaaaaaaaa.glUsage);
+  console.log(aaaaaaaaa.glTexture);
+  console.log(aaaaaaaaa.glRenderbuffer);
+  console.log(aaaaaaaaa.glWrapS);
+  console.log(aaaaaaaaa.glWrapT);
+  console.log(aaaaaaaaa.glMinFilter);
+  console.log(aaaaaaaaa.glMagFilter);
+  console.log(aaaaaaaaa.isSwapchainTexture);
+  console.log(aaaaaaaaa.widthGetter);
+  console.log(aaaaaaaaa.widthSetter);
+  console.log(aaaaaaaaa._ccprivate$helloMangle());
+  console.log(aaaaaaaaa.helloDontMangle());
 })();
 (() => {
+  console.log(\`-------------------------- IWebGLGPUTexture1 --------------------------\`);
   const a = {
-    _ccprivate$blockOffsets: [],
-    _ccprivate$samplerTextureOffsets: [],
-    _ccprivate$flexibleSet: 0
+    _ccprivate$width,
+    height: 0,
+    depth: 0,
+    _ccprivate$size: 0,
+    arrayLayer: 0,
+    mipLevel: 0,
+    _ccprivate$isPowerOf2: false,
+    glTarget: 0,
+    glInternalFmt: 0,
+    glFormat: 0,
+    glType: 0,
+    glUsage: 0,
+    glTexture: null,
+    glRenderbuffer: null,
+    glWrapS: 0,
+    glWrapT: 0,
+    glMinFilter: 0,
+    glMagFilter: 0,
+    isSwapchainTexture: false,
+    get widthGetter() {
+      return 1;
+    },
+    set widthSetter(value) {},
+    _ccprivate$helloMangle() {},
+    helloDontMangle() {}
   };
-  console.log(a._ccprivate$blockOffsets, a._ccprivate$samplerTextureOffsets, a._ccprivate$flexibleSet);
-  console.log(\`--------------------------\`);
-  const b = new MangleWholeClass();
-  b.mangleWholeClassPublicProp1 = 456;
-  b.getMangleWholeClassPrivateProp3();
-  b.helloMangleWholeClassPublicMethod1();
-  console.log(\`--------------------------\`);
-  const c = new MyClassExtendsMangleWholeClass();
-  c.mangleWholeClassPublicProp1 = 456;
-  c.getMangleWholeClassPrivateProp3();
-  c.helloMangleWholeClassPublicMethod1();
-  c.helloSubclassExtendsMangleWholeMethod1();
-  c.getSubclassExtendsMangleWholeProp1();
-  c._ccprivate$helloMangleWholeClassBasePublicMethod1();
-  c._ccprivate$helloMangleWholeClassInterfaceMethod1();
-  c._ccprivate$iMangleWholeClassInterfaceProp1 = 2;
-  c._ccprivate$iMangleWholeClassInterfaceProp2 = 'world';
+  console.log(a._ccprivate$width);
+  console.log(a.height);
+  console.log(a.depth);
+  console.log(a._ccprivate$size);
+  console.log(a.arrayLayer);
+  console.log(a.mipLevel);
+  console.log(a._ccprivate$isPowerOf2);
+  console.log(a.glTarget);
+  console.log(a.glInternalFmt);
+  console.log(a.glFormat);
+  console.log(a.glType);
+  console.log(a.glUsage);
+  console.log(a.glTexture);
+  console.log(a.glRenderbuffer);
+  console.log(a.glWrapS);
+  console.log(a.glWrapT);
+  console.log(a.glMinFilter);
+  console.log(a.glMagFilter);
+  console.log(a.isSwapchainTexture);
+  console.log(a.widthGetter);
+  console.log(a.widthSetter);
+  console.log(a._ccprivate$helloMangle());
+  console.log(a.helloDontMangle());
 })();
-
-export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
+(() => {
+  console.log(\`-------------------------- IWebGLGPUTexture2 --------------------------\`);
+  let aaaaaaaaa;
+  aaaaaaaaa = undefined;
+  aaaaaaaaa = {
+    _ccprivate$width,
+    _ccprivate$height: 0,
+    _ccprivate$depth: 0,
+    _ccprivate$size: 0,
+    _ccprivate$arrayLayer: 0,
+    _ccprivate$mipLevel: 0,
+    _ccprivate$isPowerOf2: false,
+    _ccprivate$glTarget: 0,
+    _ccprivate$glInternalFmt: 0,
+    _ccprivate$glFormat: 0,
+    _ccprivate$glType: 0,
+    _ccprivate$glUsage: 0,
+    _ccprivate$glTexture: null,
+    _ccprivate$glRenderbuffer: null,
+    _ccprivate$glWrapS: 0,
+    _ccprivate$glWrapT: 0,
+    _ccprivate$glMinFilter: 0,
+    _ccprivate$glMagFilter: 0,
+    _ccprivate$isSwapchainTexture: false,
+    get _ccprivate$widthGetter() {
+      return 1;
+    },
+    set _ccprivate$widthSetter(value) {}
+  };
+  console.log(aaaaaaaaa._ccprivate$width);
+  console.log(aaaaaaaaa._ccprivate$height);
+  console.log(aaaaaaaaa._ccprivate$depth);
+  console.log(aaaaaaaaa._ccprivate$size);
+  console.log(aaaaaaaaa._ccprivate$arrayLayer);
+  console.log(aaaaaaaaa._ccprivate$mipLevel);
+  console.log(aaaaaaaaa._ccprivate$isPowerOf2);
+  console.log(aaaaaaaaa._ccprivate$glTarget);
+  console.log(aaaaaaaaa._ccprivate$glInternalFmt);
+  console.log(aaaaaaaaa._ccprivate$glFormat);
+  console.log(aaaaaaaaa._ccprivate$glType);
+  console.log(aaaaaaaaa._ccprivate$glUsage);
+  console.log(aaaaaaaaa._ccprivate$glTexture);
+  console.log(aaaaaaaaa._ccprivate$glRenderbuffer);
+  console.log(aaaaaaaaa._ccprivate$glWrapS);
+  console.log(aaaaaaaaa._ccprivate$glWrapT);
+  console.log(aaaaaaaaa._ccprivate$glMinFilter);
+  console.log(aaaaaaaaa._ccprivate$glMagFilter);
+  console.log(aaaaaaaaa._ccprivate$isSwapchainTexture);
+  console.log(aaaaaaaaa._ccprivate$widthGetter);
+  console.log(aaaaaaaaa._ccprivate$widthSetter);
+})();
+(() => {
+  console.log(\`-------------------------- IWebGLGPUTexture3 --------------------------\`);
+  let aaaaaaaaa;
+  aaaaaaaaa = undefined;
+  aaaaaaaaa = {
+    _ccprivate$width,
+    height: 0,
+    depth: 0,
+    _ccprivate$size: 0,
+    arrayLayer: 0,
+    mipLevel: 0,
+    _ccprivate$isPowerOf2: false,
+    glTarget: 0,
+    glInternalFmt: 0,
+    glFormat: 0,
+    glType: 0,
+    glUsage: 0,
+    glTexture: null,
+    _ccprivate$glRenderbuffer: null,
+    glWrapS: 0,
+    glWrapT: 0,
+    glMinFilter: 0,
+    glMagFilter: 0,
+    isSwapchainTexture: false
+  };
+  console.log(aaaaaaaaa._ccprivate$width);
+  console.log(aaaaaaaaa.height);
+  console.log(aaaaaaaaa.depth);
+  console.log(aaaaaaaaa._ccprivate$size);
+  console.log(aaaaaaaaa.arrayLayer);
+  console.log(aaaaaaaaa.mipLevel);
+  console.log(aaaaaaaaa._ccprivate$isPowerOf2);
+  console.log(aaaaaaaaa.glTarget);
+  console.log(aaaaaaaaa.glInternalFmt);
+  console.log(aaaaaaaaa.glFormat);
+  console.log(aaaaaaaaa.glType);
+  console.log(aaaaaaaaa.glUsage);
+  console.log(aaaaaaaaa.glTexture);
+  console.log(aaaaaaaaa._ccprivate$glRenderbuffer);
+  console.log(aaaaaaaaa.glWrapS);
+  console.log(aaaaaaaaa.glWrapT);
+  console.log(aaaaaaaaa.glMinFilter);
+  console.log(aaaaaaaaa.glMagFilter);
+  console.log(aaaaaaaaa.isSwapchainTexture);
+})();
+(() => {
+  console.log(\`-------------------------- IWebGLGPUTexture4 --------------------------\`);
+  let aaaaaaaaa;
+  aaaaaaaaa = undefined;
+  aaaaaaaaa = {
+    _ccprivate$width,
+    _ccprivate$height: 0,
+    _ccprivate$depth: 0,
+    _ccprivate$size: 0,
+    _ccprivate$arrayLayer: 0,
+    _ccprivate$mipLevel: 0,
+    _ccprivate$isPowerOf2: false,
+    _ccprivate$glTarget: 0,
+    _ccprivate$glInternalFmt: 0,
+    _ccprivate$glFormat: 0,
+    _ccprivate$glType: 0,
+    _ccprivate$glUsage: 0,
+    _ccprivate$glTexture: null,
+    _ccprivate$glRenderbuffer: null,
+    _ccprivate$glWrapS: 0,
+    _ccprivate$glWrapT: 0,
+    _ccprivate$glMinFilter: 0,
+    _ccprivate$glMagFilter: 0,
+    _ccprivate$isSwapchainTexture: false,
+    get _ccprivate$widthGetter() {
+      return 1;
+    }
+  };
+  console.log(aaaaaaaaa._ccprivate$width);
+  console.log(aaaaaaaaa._ccprivate$height);
+  console.log(aaaaaaaaa._ccprivate$depth);
+  console.log(aaaaaaaaa._ccprivate$size);
+  console.log(aaaaaaaaa._ccprivate$arrayLayer);
+  console.log(aaaaaaaaa._ccprivate$mipLevel);
+  console.log(aaaaaaaaa._ccprivate$isPowerOf2);
+  console.log(aaaaaaaaa._ccprivate$glTarget);
+  console.log(aaaaaaaaa._ccprivate$glInternalFmt);
+  console.log(aaaaaaaaa._ccprivate$glFormat);
+  console.log(aaaaaaaaa._ccprivate$glType);
+  console.log(aaaaaaaaa._ccprivate$glUsage);
+  console.log(aaaaaaaaa._ccprivate$glTexture);
+  console.log(aaaaaaaaa._ccprivate$glRenderbuffer);
+  console.log(aaaaaaaaa._ccprivate$glWrapS);
+  console.log(aaaaaaaaa._ccprivate$glWrapT);
+  console.log(aaaaaaaaa._ccprivate$glMinFilter);
+  console.log(aaaaaaaaa._ccprivate$glMagFilter);
+  console.log(aaaaaaaaa._ccprivate$isSwapchainTexture);
+  console.log(aaaaaaaaa._ccprivate$widthGetter);
+})();
+(() => {
+  console.log(\`-------------------------- IWebGLGPUTexture in class --------------------------\`);
+  class MyTexture {
+    constructor() {
+      this._ccprivate$_gpuTexture = void 0;
+    }
+    get gpuTexture() {
+      return this._ccprivate$_gpuTexture;
+    }
+    init() {
+      this._ccprivate$_gpuTexture = {
+        _ccprivate$width,
+        height: 0,
+        depth: 0,
+        _ccprivate$size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        _ccprivate$isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: 0,
+        glFormat: 0,
+        glType: 0,
+        glUsage: 0,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false,
+        get widthGetter() {
+          return 1;
+        },
+        set widthSetter(value) {},
+        _ccprivate$helloMangle() {},
+        helloDontMangle() {}
+      };
+      return this;
+    }
+  }
+  const tex = new MyTexture().init();
+  const aaaaaaaaa = tex.gpuTexture;
+  console.log(aaaaaaaaa._ccprivate$width);
+  console.log(aaaaaaaaa.height);
+  console.log(aaaaaaaaa.depth);
+  console.log(aaaaaaaaa._ccprivate$size);
+  console.log(aaaaaaaaa.arrayLayer);
+  console.log(aaaaaaaaa.mipLevel);
+  console.log(aaaaaaaaa._ccprivate$isPowerOf2);
+  console.log(aaaaaaaaa.glTarget);
+  console.log(aaaaaaaaa.glInternalFmt);
+  console.log(aaaaaaaaa.glFormat);
+  console.log(aaaaaaaaa.glType);
+  console.log(aaaaaaaaa.glUsage);
+  console.log(aaaaaaaaa.glTexture);
+  console.log(aaaaaaaaa.glRenderbuffer);
+  console.log(aaaaaaaaa.glWrapS);
+  console.log(aaaaaaaaa.glWrapT);
+  console.log(aaaaaaaaa.glMinFilter);
+  console.log(aaaaaaaaa.glMagFilter);
+  console.log(aaaaaaaaa.isSwapchainTexture);
+  console.log(aaaaaaaaa.widthGetter);
+  console.log(aaaaaaaaa.widthSetter);
+  console.log(aaaaaaaaa._ccprivate$helloMangle());
+  console.log(aaaaaaaaa.helloDontMangle());
+})();
 "
 `;
