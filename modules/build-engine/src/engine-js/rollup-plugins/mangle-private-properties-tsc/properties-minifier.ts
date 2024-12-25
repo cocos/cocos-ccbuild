@@ -47,7 +47,8 @@ type InterfaceMember = ts.MethodSignature | ts.PropertySignature;
 export class PropertiesMinifier {
     private readonly _context: ts.TransformationContext;
     private readonly _options: IManglePropertiesOptions;
-    private _currentProgram!: ts.Program;
+    private _currentProgram: ts.Program | null = null;
+    private _currentSourceFile: ts.SourceFile | null = null;
     private _typeChecker!: ts.TypeChecker;
 
     public constructor(context: ts.TransformationContext, options?: Partial<IManglePropertiesOptions>) {
@@ -57,8 +58,11 @@ export class PropertiesMinifier {
 
     public visitSourceFile(node: ts.SourceFile, program: ts.Program, context: ts.TransformationContext): ts.SourceFile {
         this._currentProgram = program;
+        this._currentSourceFile = node;
         this._typeChecker = program.getTypeChecker();
         const result = this.visitNodeAndChildren(node, program, context);
+        this._currentProgram = null;
+        this._currentSourceFile = null;
         return result;
     }
 
@@ -79,9 +83,30 @@ export class PropertiesMinifier {
             return this.createNewBindingElement(node, program);
         } else if (this.isConstructorParameterReference(node, program) || this.isIdentifierInVariableDeclaration(node, program)) {
             return this.createNewNode(program, node, this._context.factory.createIdentifier);
+        } else if (ts.isBlock(node)) {
+            this.checkThisDotCountInBlock(node);
         }
-
         return node;
+    }
+
+    private checkThisDotCountInBlock(node: ts.Block): void {
+        const parent = node.parent;
+        if (!this._currentSourceFile || !parent) {
+            return;
+        }
+        const text = node.getText();
+        const thisDotCount = (text.match(/this\./g) || []).length;
+        if (thisDotCount > 10) {
+            const sourceFileName = this._currentSourceFile.fileName;
+            if (sourceFileName.includes('node_modules')) {
+                return;
+            }
+
+            if (ts.isMethodDeclaration(parent) || ts.isFunctionDeclaration(parent) || ts.isGetAccessor(parent) || ts.isSetAccessor(parent) || ts.isArrowFunction(parent)) {
+                const parentName = parent.name?.getText();
+                console.warn(`[OPTIMIZE ME] Found ${thisDotCount} 'this.' in block: ${parentName}, sourceFile: ${sourceFileName}`);
+            }
+        }
     }
 
     private createNewAccessExpression(node: AccessExpression, program: ts.Program): AccessExpression {
@@ -327,7 +352,7 @@ export class PropertiesMinifier {
     }
 
     private isPropertyInInterface(node: ts.Node): node is ts.PropertyAssignment | ts.MethodDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration {
-        let isPropertyInInterface = ts.isPropertyAssignment(node) || ts.isMethodDeclaration(node);
+        let isPropertyInInterface = ts.isPropertyAssignment(node) || ts.isMethodDeclaration(node) || ts.isShorthandPropertyAssignment(node);
         if (!isPropertyInInterface && this._options.mangleGetterSetter) {
             isPropertyInInterface = ts.isGetAccessor(node) || ts.isSetAccessor(node);
         }
@@ -340,29 +365,88 @@ export class PropertiesMinifier {
         }
         
         const parent = node.parent;
-        if (parent && this.isPropertyInInterface(parent)) {
-            const variableDeclaration = parent.parent?.parent;
-            if (variableDeclaration && ts.isVariableDeclaration(variableDeclaration)) {
-                const checker = program.getTypeChecker();
-                let isPrivate = false;
-                
-                let propertyName: string | undefined;
-                const type = checker.getTypeAtLocation(variableDeclaration);
-                // interface definition has @mangle tag
-                if (type.symbol?.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
-                    isPrivate = true;
-                } else {
-                    propertyName = node.text;
-                    for (const prop of type.getProperties()) {
-                        if (!prop.valueDeclaration) continue;
-                        for (const child of prop.valueDeclaration.getChildren()) {
-                            const symbol = checker.getSymbolAtLocation(child);
-                            if (symbol && symbol.escapedName === propertyName) {
-                                for (const tag of symbol.getJsDocTags(checker)) {
-                                    if (tag.name === 'mangle') {
-                                        isPrivate = true;
-                                        break;
+        if (!parent || !this.isPropertyInInterface(parent)) {
+            return false;
+        }
+
+        const prev3Node = parent.parent?.parent;
+        if (!prev3Node) return false;
+
+        if (ts.isVariableDeclaration(prev3Node)) {
+            const checker = program.getTypeChecker();
+            let isPrivate = false;
+            let propertyName: string | undefined;
+            const type = checker.getTypeAtLocation(prev3Node.name);
+            // interface definition has @mangle tag
+            if (type.symbol?.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
+                isPrivate = true;
+            } else {
+                propertyName = node.text;
+                for (const prop of type.getProperties()) {
+                    if (!prop.valueDeclaration) continue;
+                    for (const child of prop.valueDeclaration.getChildren()) {
+                        const symbol = checker.getSymbolAtLocation(child);
+                        if (symbol && symbol.escapedName === propertyName) {
+                            for (const tag of symbol.getJsDocTags(checker)) {
+                                if (tag.name === 'mangle') {
+                                    isPrivate = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isPrivate) {
+                            break;
+                        }
+                    }
+                }
+            }
+            const parentName = type.symbol?.escapedName as string | undefined;
+            return this.updatePrivateByOptions(isPrivate, parentName, propertyName);
+        } else if (ts.isBinaryExpression(prev3Node)) {
+            const checker = program.getTypeChecker();
+            let isPrivate = false;
+            let propertyName = node.text;
+            const type = checker.getTypeAtLocation(prev3Node.left);
+            let typeSymbol: ts.Symbol | undefined;
+            if (type.isUnion()) {
+                for (const t of type.types) {
+                    if (!t.symbol || !t.symbol.members) continue;
+                    if (t.symbol.members.has(propertyName as ts.__String)) {
+                        typeSymbol = t.symbol;
+                        break;
+                    }
+                }
+            } else {
+                typeSymbol = type.symbol;
+            }
+            if (!typeSymbol) {
+                return false;
+            }
+
+            if (typeSymbol.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
+                isPrivate = true;
+            } else {
+                propertyName = node.text;
+                if (typeSymbol.members) {
+                    const members = typeSymbol.members.values();
+                    let result = members.next();
+                    while (!result.done) {
+                        const member = result.value;
+                        if (member.valueDeclaration) {
+                            for (const child of member.valueDeclaration.getChildren()) {
+                                const symbol = checker.getSymbolAtLocation(child);
+                                if (symbol && symbol.escapedName === propertyName) {
+                                    for (const tag of symbol.getJsDocTags(checker)) {
+                                        if (tag.name === 'mangle') {
+                                            isPrivate = true;
+                                            break;
+                                        }
                                     }
+                                }
+
+                                if (isPrivate) {
+                                    break;
                                 }
                             }
 
@@ -370,11 +454,12 @@ export class PropertiesMinifier {
                                 break;
                             }
                         }
+                        result = members.next();
                     }
                 }
-                const parentName = type.symbol?.escapedName as string | undefined;
-                return this.updatePrivateByOptions(isPrivate, parentName, propertyName);
             }
+            const parentName = typeSymbol.escapedName as string | undefined;
+            return this.updatePrivateByOptions(isPrivate, parentName, propertyName);
         }
 
         return false;
