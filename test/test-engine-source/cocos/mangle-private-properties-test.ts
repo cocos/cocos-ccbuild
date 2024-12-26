@@ -569,7 +569,7 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 
         private _gpuTexture!: IWebGLGPUTexture;
 
-        init(): typeof this {
+        init(): this {
             this._gpuTexture = {
                 width,
                 height: 0,
