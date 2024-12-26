@@ -28,7 +28,7 @@
 
     "@rollup/pluginutils": "5.1.0",
     "@cocos/rollup-plugin-typescript": "^12.1.2-cocos.2",
-    "@cocos/typescript": "^4.9.5-cocos.2",
+    "@cocos/typescript": "^4.9.5-cocos.3",
     "ast-kit": "1.0.0",
     "fast-glob": "3.3.2",
 
