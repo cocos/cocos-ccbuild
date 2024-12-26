@@ -245,3 +245,135 @@ export interface IMangleTest {
     /** @mangle */
     interfaceProp3?: boolean;
 }
+
+export interface IWebGLGPUTexture {
+    /** @mangle */
+    width: number;
+    height: number;
+    depth: number;
+    /** @mangle */
+    size: number;
+    arrayLayer: number;
+    mipLevel: number;
+    /** @mangle */
+    isPowerOf2: boolean;
+
+    glTarget: GLenum;
+    glInternalFmt: GLenum;
+    glFormat: GLenum;
+    glType: GLenum;
+    glUsage: GLenum;
+    glTexture: WebGLTexture | null;
+    glRenderbuffer: WebGLRenderbuffer | null;
+    glWrapS: GLenum;
+    glWrapT: GLenum;
+    glMinFilter: GLenum;
+    glMagFilter: GLenum;
+    isSwapchainTexture: boolean;
+
+    get widthGetter(): number;
+    set widthSetter(value: number);
+
+    /** @mangle */
+    helloMangle(): void;
+
+    helloDontMangle(): void;
+}
+
+/** @mangle */
+export interface IWebGLGPUTexture2 {
+    width: number;
+    height: number;
+    depth: number;
+    size: number;
+    arrayLayer: number;
+    mipLevel: number;
+    isPowerOf2: boolean;
+
+    glTarget: GLenum;
+    glInternalFmt: GLenum;
+    glFormat: GLenum;
+    glType: GLenum;
+    glUsage: GLenum;
+    glTexture: WebGLTexture | null;
+    glRenderbuffer: WebGLRenderbuffer | null;
+    glWrapS: GLenum;
+    glWrapT: GLenum;
+    glMinFilter: GLenum;
+    glMagFilter: GLenum;
+    isSwapchainTexture: boolean;
+
+    /** @mangle */
+    get widthGetter(): number;
+    set widthSetter(value: number);
+}
+
+export interface IWebGLGPUTexture3 {
+    /** @mangle */
+    width: number;
+    height: number;
+    depth: number;
+    /** @mangle */
+    size: number;
+    arrayLayer: number;
+    mipLevel: number;
+    /** @mangle */
+    isPowerOf2: boolean;
+
+    glTarget: GLenum;
+    glInternalFmt: GLenum;
+    glFormat: GLenum;
+    glType: GLenum;
+    glUsage: GLenum;
+    glTexture: WebGLTexture | null;
+    glRenderbuffer: WebGLRenderbuffer | null;
+    glWrapS: GLenum;
+    glWrapT: GLenum;
+    glMinFilter: GLenum;
+    glMagFilter: GLenum;
+    isSwapchainTexture: boolean;
+}
+
+export interface IWebGLGPUTexture4 {
+    width: number;
+    height: number;
+    depth: number;
+    size: number;
+    arrayLayer: number;
+    mipLevel: number;
+    isPowerOf2: boolean;
+
+    glTarget: GLenum;
+    glInternalFmt: GLenum;
+    glFormat: GLenum;
+    glType: GLenum;
+    glUsage: GLenum;
+    glTexture: WebGLTexture | null;
+    glRenderbuffer: WebGLRenderbuffer | null;
+    glWrapS: GLenum;
+    glWrapT: GLenum;
+    glMinFilter: GLenum;
+    glMagFilter: GLenum;
+    isSwapchainTexture: boolean;
+
+    get widthGetter(): number;
+}
+
+export interface IWebGLBindingMapping {
+    blockOffsets: number[];
+    samplerTextureOffsets: number[];
+    flexibleSet: number;
+}
+
+/** @mangle */
+export interface IWebGLGPUShaderStage {
+    source: string | number;
+    glShader: WebGLShader | null;
+}
+
+/** @mangle */
+export interface IWebGLGPUShader {
+    name: string | number;
+    gpuStages: IWebGLGPUShaderStage[];
+    gpuStageMap: Record<string, IWebGLGPUShaderStage>;
+}

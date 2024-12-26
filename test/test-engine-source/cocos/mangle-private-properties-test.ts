@@ -1,7 +1,6 @@
+import { IMangleGrand, IMangleTest, IWebGLBindingMapping, IWebGLGPUShader, IWebGLGPUTexture, IWebGLGPUTexture2, IWebGLGPUTexture3, IWebGLGPUTexture4, ManglePropertyBase, ManglePropertyGrand, MangleTestMyBaseEnum, MangleWholeClass, MyClassExtendsMangleWholeClass } from './mangle-private-base';
 
 const dontmangle: PropertyDecorator = function (target, propertyKey) {};
-
-import { IMangleGrand, IMangleTest, IWebGLBindingMapping, ManglePropertyBase, ManglePropertyGrand, MangleTestMyBaseEnum, MangleWholeClass, MyClassExtendsMangleWholeClass } from './mangle-private-base';
 
 export * from './mangle-private-base';
 
@@ -300,3 +299,444 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
 })();
 
 
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture --------------------------`);
+    const width = 123;
+    let aaaaaaaaa: IWebGLGPUTexture | undefined;
+    aaaaaaaaa = undefined;
+    aaaaaaaaa = {
+        width,
+        height: width,
+        depth: width,
+        size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: 0,
+        glFormat: 0,
+        glType: 0,
+        glUsage: 0,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false,
+
+        get widthGetter(): number { return 1; },
+        set widthSetter(value: number) {},
+
+        helloMangle(): void {},
+
+        helloDontMangle(): void {},
+    };
+    console.log(aaaaaaaaa.width);
+    console.log(aaaaaaaaa.height);
+    console.log(aaaaaaaaa.depth);
+    console.log(aaaaaaaaa.size);
+    console.log(aaaaaaaaa.arrayLayer);
+    console.log(aaaaaaaaa.mipLevel);
+    console.log(aaaaaaaaa.isPowerOf2);
+    console.log(aaaaaaaaa.glTarget);
+    console.log(aaaaaaaaa.glInternalFmt);
+    console.log(aaaaaaaaa.glFormat);
+    console.log(aaaaaaaaa.glType);
+    console.log(aaaaaaaaa.glUsage);
+    console.log(aaaaaaaaa.glTexture);
+    console.log(aaaaaaaaa.glRenderbuffer);
+    console.log(aaaaaaaaa.glWrapS);
+    console.log(aaaaaaaaa.glWrapT);
+    console.log(aaaaaaaaa.glMinFilter);
+    console.log(aaaaaaaaa.glMagFilter);
+    console.log(aaaaaaaaa.isSwapchainTexture);
+    console.log(aaaaaaaaa.widthGetter);
+    console.log(aaaaaaaaa.widthSetter);
+    console.log(aaaaaaaaa.helloMangle());
+    console.log(aaaaaaaaa.helloDontMangle());
+})();
+
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture1 --------------------------`);
+    const width = 123;
+    const a: IWebGLGPUTexture = {
+        width,
+        height: 0,
+        depth: 0,
+        size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: 0,
+        glFormat: 0,
+        glType: 0,
+        glUsage: 0,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false,
+        get widthGetter(): number { return 1; },
+        set widthSetter(value: number) {},
+
+        helloMangle(): void {},
+
+        helloDontMangle(): void {},
+    };
+    console.log(a.width);
+    console.log(a.height);
+    console.log(a.depth);
+    console.log(a.size);
+    console.log(a.arrayLayer);
+    console.log(a.mipLevel);
+    console.log(a.isPowerOf2);
+    console.log(a.glTarget);
+    console.log(a.glInternalFmt);
+    console.log(a.glFormat);
+    console.log(a.glType);
+    console.log(a.glUsage);
+    console.log(a.glTexture);
+    console.log(a.glRenderbuffer);
+    console.log(a.glWrapS);
+    console.log(a.glWrapT);
+    console.log(a.glMinFilter);
+    console.log(a.glMagFilter);
+    console.log(a.isSwapchainTexture);
+    console.log(a.widthGetter);
+    console.log(a.widthSetter);
+    console.log(a.helloMangle());
+    console.log(a.helloDontMangle());
+})();
+
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture2 --------------------------`);
+    const width = 123;
+    let aaaaaaaaa: IWebGLGPUTexture2 | undefined;
+    aaaaaaaaa = undefined;
+    aaaaaaaaa = {
+        width,
+        height: 0,
+        depth: 0,
+        size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: width,
+        glFormat: 0,
+        glType: 0,
+        glUsage: 0,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false,
+        get widthGetter(): number { return 1; },
+        set widthSetter(value: number) {},
+    };
+    console.log(aaaaaaaaa.width);
+    console.log(aaaaaaaaa.height);
+    console.log(aaaaaaaaa.depth);
+    console.log(aaaaaaaaa.size);
+    console.log(aaaaaaaaa.arrayLayer);
+    console.log(aaaaaaaaa.mipLevel);
+    console.log(aaaaaaaaa.isPowerOf2);
+    console.log(aaaaaaaaa.glTarget);
+    console.log(aaaaaaaaa.glInternalFmt);
+    console.log(aaaaaaaaa.glFormat);
+    console.log(aaaaaaaaa.glType);
+    console.log(aaaaaaaaa.glUsage);
+    console.log(aaaaaaaaa.glTexture);
+    console.log(aaaaaaaaa.glRenderbuffer);
+    console.log(aaaaaaaaa.glWrapS);
+    console.log(aaaaaaaaa.glWrapT);
+    console.log(aaaaaaaaa.glMinFilter);
+    console.log(aaaaaaaaa.glMagFilter);
+    console.log(aaaaaaaaa.isSwapchainTexture);
+    console.log(aaaaaaaaa.widthGetter);
+    console.log(aaaaaaaaa.widthSetter);
+})();
+
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture3 --------------------------`);
+    const width = 123;
+    let aaaaaaaaa: IWebGLGPUTexture3 | undefined;
+    aaaaaaaaa = undefined;
+    aaaaaaaaa = {
+        width,
+        height: 0,
+        depth: 0,
+        size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: 0,
+        glFormat: 0,
+        glType: width,
+        glUsage: 0,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false
+    };
+    console.log(aaaaaaaaa.width);
+    console.log(aaaaaaaaa.height);
+    console.log(aaaaaaaaa.depth);
+    console.log(aaaaaaaaa.size);
+    console.log(aaaaaaaaa.arrayLayer);
+    console.log(aaaaaaaaa.mipLevel);
+    console.log(aaaaaaaaa.isPowerOf2);
+    console.log(aaaaaaaaa.glTarget);
+    console.log(aaaaaaaaa.glInternalFmt);
+    console.log(aaaaaaaaa.glFormat);
+    console.log(aaaaaaaaa.glType);
+    console.log(aaaaaaaaa.glUsage);
+    console.log(aaaaaaaaa.glTexture);
+    console.log(aaaaaaaaa.glRenderbuffer);
+    console.log(aaaaaaaaa.glWrapS);
+    console.log(aaaaaaaaa.glWrapT);
+    console.log(aaaaaaaaa.glMinFilter);
+    console.log(aaaaaaaaa.glMagFilter);
+    console.log(aaaaaaaaa.isSwapchainTexture);
+})();
+
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture4 --------------------------`);
+    const width = 123;
+    let aaaaaaaaa: IWebGLGPUTexture4 | undefined;
+    aaaaaaaaa = undefined;
+    aaaaaaaaa = {
+        width,
+        height: 0,
+        depth: 0,
+        size: 0,
+        arrayLayer: 0,
+        mipLevel: 0,
+        isPowerOf2: false,
+        glTarget: 0,
+        glInternalFmt: 0,
+        glFormat: 0,
+        glType: 0,
+        glUsage: width,
+        glTexture: null,
+        glRenderbuffer: null,
+        glWrapS: 0,
+        glWrapT: 0,
+        glMinFilter: 0,
+        glMagFilter: 0,
+        isSwapchainTexture: false,
+        get widthGetter(): number { return 1; },
+    };
+    console.log(aaaaaaaaa.width);
+    console.log(aaaaaaaaa.height);
+    console.log(aaaaaaaaa.depth);
+    console.log(aaaaaaaaa.size);
+    console.log(aaaaaaaaa.arrayLayer);
+    console.log(aaaaaaaaa.mipLevel);
+    console.log(aaaaaaaaa.isPowerOf2);
+    console.log(aaaaaaaaa.glTarget);
+    console.log(aaaaaaaaa.glInternalFmt);
+    console.log(aaaaaaaaa.glFormat);
+    console.log(aaaaaaaaa.glType);
+    console.log(aaaaaaaaa.glUsage);
+    console.log(aaaaaaaaa.glTexture);
+    console.log(aaaaaaaaa.glRenderbuffer);
+    console.log(aaaaaaaaa.glWrapS);
+    console.log(aaaaaaaaa.glWrapT);
+    console.log(aaaaaaaaa.glMinFilter);
+    console.log(aaaaaaaaa.glMagFilter);
+    console.log(aaaaaaaaa.isSwapchainTexture);
+    console.log(aaaaaaaaa.widthGetter);
+})();
+
+(() => {
+    console.log(`-------------------------- IWebGLGPUTexture in class --------------------------`);
+    const width = 123;
+    class MyTexture {
+        get gpuTexture(): IWebGLGPUTexture {
+            return this._gpuTexture;
+        }
+
+        private _gpuTexture!: IWebGLGPUTexture;
+
+        init(): typeof this {
+            this._gpuTexture = {
+                width,
+                height: 0,
+                depth: 0,
+                size: 0,
+                arrayLayer: 0,
+                mipLevel: 0,
+                isPowerOf2: false,
+                glTarget: 0,
+                glInternalFmt: 0,
+                glFormat: 0,
+                glType: width,
+                glUsage: 0,
+                glTexture: null,
+                glRenderbuffer: null,
+                glWrapS: 0,
+                glWrapT: 0,
+                glMinFilter: 0,
+                glMagFilter: 0,
+                isSwapchainTexture: false,
+                
+                get widthGetter(): number { return 1; },
+                set widthSetter(value: number) {},
+
+                helloMangle(): void {},
+
+                helloDontMangle(): void {},
+            };
+            return this;
+        }
+    }
+
+    const tex = new MyTexture().init();
+    const aaaaaaaaa = tex.gpuTexture;
+    console.log(aaaaaaaaa.width);
+    console.log(aaaaaaaaa.height);
+    console.log(aaaaaaaaa.depth);
+    console.log(aaaaaaaaa.size);
+    console.log(aaaaaaaaa.arrayLayer);
+    console.log(aaaaaaaaa.mipLevel);
+    console.log(aaaaaaaaa.isPowerOf2);
+    console.log(aaaaaaaaa.glTarget);
+    console.log(aaaaaaaaa.glInternalFmt);
+    console.log(aaaaaaaaa.glFormat);
+    console.log(aaaaaaaaa.glType);
+    console.log(aaaaaaaaa.glUsage);
+    console.log(aaaaaaaaa.glTexture);
+    console.log(aaaaaaaaa.glRenderbuffer);
+    console.log(aaaaaaaaa.glWrapS);
+    console.log(aaaaaaaaa.glWrapT);
+    console.log(aaaaaaaaa.glMinFilter);
+    console.log(aaaaaaaaa.glMagFilter);
+    console.log(aaaaaaaaa.isSwapchainTexture);
+    console.log(aaaaaaaaa.widthGetter);
+    console.log(aaaaaaaaa.widthSetter);
+    console.log(aaaaaaaaa.helloMangle());
+    console.log(aaaaaaaaa.helloDontMangle());
+
+})();
+
+
+(() => {
+    const gpuShader: IWebGLGPUShader = {
+        name: '',
+        gpuStages: [{
+            source: '1',
+            glShader: null,
+        }, {
+            source: '2',
+            glShader: null,
+        }],
+        gpuStageMap: {
+            hello: {
+                source: '1',
+                glShader: null,
+            },
+            world: {
+                source: '2',
+                glShader: null,
+            }
+        }
+    };
+    console.log(gpuShader.name);
+    console.log(gpuShader.gpuStages[0].glShader);
+    console.log(gpuShader.gpuStages[0].source);
+})();
+
+(() => {
+    let gpuShader: IWebGLGPUShader | undefined;
+    gpuShader = undefined;
+    gpuShader = {
+        name: '',
+        gpuStages: [{
+            source: '1',
+            glShader: null,
+        }, {
+            source: '2',
+            glShader: null,
+        }],
+        gpuStageMap: {
+            hello: {
+                source: '1',
+                glShader: null,
+            },
+            world: {
+                source: '2',
+                glShader: null,
+            }
+        }
+    };
+    console.log(gpuShader.name);
+    console.log(gpuShader.gpuStages[0].glShader);
+    console.log(gpuShader.gpuStages[0].source);
+})();
+
+/** @mangle */
+export interface IUnionBase1 {
+    ia: number;
+    ib: string;
+}
+
+/** @mangle */
+export interface IUnionBase2 {
+    ic: boolean;
+    id: number;
+}
+
+/** @mangle */
+export interface IUnionBase3 {
+    ie: IUnionBase1 | IUnionBase2;
+}
+
+(() => {
+    const a: IUnionBase1 = {
+        ia: 1,
+        ib: 'world',
+    };
+    const b: IUnionBase3 = {
+        ie: a,
+    };
+    console.log(a.ia);
+    console.log(a.ib);
+    console.log(b.ie);
+
+    if ('ia' in b.ie) {
+        console.log(b.ie.ia);
+        console.log(b.ie.ib);
+    } else {
+        console.log(b.ie.ic);
+        console.log(b.ie.id);
+    }
+
+})();
+
+(() => {
+    const a: IUnionBase2[] = [];
+    a.push({
+        ic: true,
+        id: 1,
+    });
+    const b: IUnionBase2 = {
+        ic: false,
+        id: 2,
+    };
+    a.push(b);
+    console.log(a[0].ic);
+    console.log(a[0].id);
+    console.log(a[1].ic);
+    console.log(a[1].id);
+})();

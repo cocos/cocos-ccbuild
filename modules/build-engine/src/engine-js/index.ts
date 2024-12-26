@@ -331,7 +331,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             compilerOptions: {
                 noEmit: false,
                 target: undefined,
-                sourceMap: false,
+                sourceMap: undefined,
                 outDir: undefined,
                 module: 'NodeNext',
             },
