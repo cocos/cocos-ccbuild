@@ -1,6 +1,6 @@
 // This code was modified from https://github.com/timocov/ts-transformer-minify-privates
 
-import * as ts from '@mycocos/typescript';
+import * as ts from '@cocos/typescript';
 
 // decorators and modifiers-related api added in ts 4.8
 interface BreakingTypeScriptApi {

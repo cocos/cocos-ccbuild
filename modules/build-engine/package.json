@@ -29,8 +29,8 @@
     "magic-string": "^0.30.10",
     "@rollup/plugin-replace": "5.0.7",
     "@rollup/pluginutils": "5.1.0",
-    "@mycocos/rollup-plugin-typescript": "^12.1.2-cocos.2",
-    "@mycocos/typescript": "^4.9.5-cocos.2",
+    "@cocos/rollup-plugin-typescript": "^12.1.2-cocos.2",
+    "@cocos/typescript": "^4.9.5-cocos.2",
     "ast-kit": "1.0.0",
     "fast-glob": "3.3.2",
 

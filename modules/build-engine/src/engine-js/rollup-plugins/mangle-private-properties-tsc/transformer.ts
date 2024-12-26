@@ -1,4 +1,4 @@
-import * as ts from '@mycocos/typescript';
+import * as ts from '@cocos/typescript';
 
 import { PropertiesMinifier, IManglePropertiesOptions } from './properties-minifier';
 

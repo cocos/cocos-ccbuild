@@ -14,7 +14,7 @@ import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { getEnumData, rpInlineEnum } from './rollup-plugins/inline-enum';
 import { rpManglePrivatePropertiesBabel } from './rollup-plugins/mangle-private-properties-babel';
-import rpTypescript from '@mycocos/rollup-plugin-typescript';
+import rpTypescript from '@cocos/rollup-plugin-typescript';
 import { minifyPrivatesTransformer } from './rollup-plugins/mangle-private-properties-tsc/transformer';
 import { inlineEnumTransformer } from './rollup-plugins/inline-enum/ts-transformer';
 
@@ -40,7 +40,7 @@ import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
 import { recordDecorators } from './babel-plugins/decorator-parser';
-import ts from '@mycocos/typescript';
+import ts from '@cocos/typescript';
 
 const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
