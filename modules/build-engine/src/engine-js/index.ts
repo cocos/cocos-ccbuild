@@ -178,7 +178,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     }
 
     const babelPlugins: babel.PluginItem[] = [];
-
     if (!options.targets) {
         babelPlugins.push([babelPluginTransformForOf, {
             loose: true,
@@ -221,13 +220,11 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         plugins: babelPlugins,
         presets: [
             [babelPresetEnv, presetEnvOptions],
-
             [babelPresetCC, {
                 allowDeclareFields: true,
                 ccDecoratorHelpers: 'external',
                 fieldDecorators,
                 editorDecorators,
-                // onlyRemoveTypeImports: true,
             } as babelPresetCC.Options],
         ],
     };
@@ -239,10 +236,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         babelOptions.presets?.push([(): babel.PluginItem => ({ plugins: [[recordDecorators]] })]);
     }
 
-    // babelOptions.presets?.push([(): babel.PluginItem => ({ plugins: [[transformPrivateProperties]] })]);
-
     const rollupPlugins: rollup.Plugin[] = [];
-
     if (options.noDeprecatedFeatures) {
         rollupPlugins.push(removeDeprecatedFeatures(
             typeof options.noDeprecatedFeatures === 'string' ? options.noDeprecatedFeatures : undefined,

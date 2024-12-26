@@ -4,10 +4,10 @@ import * as ts from '@cocos/typescript';
 
 // decorators and modifiers-related api added in ts 4.8
 interface BreakingTypeScriptApi {
-	canHaveDecorators(node: ts.Node): boolean;
-	getDecorators(node: ts.Node): readonly ts.Decorator[] | undefined;
-	canHaveModifiers(node: ts.Node): boolean;
-	getModifiers(node: ts.Node): readonly ts.Modifier[] | undefined;
+    canHaveDecorators(node: ts.Node): boolean;
+    getDecorators(node: ts.Node): readonly ts.Decorator[] | undefined;
+    canHaveModifiers(node: ts.Node): boolean;
+    getModifiers(node: ts.Node): readonly ts.Modifier[] | undefined;
 }
 
 interface JSDoc extends ts.Node {
@@ -23,10 +23,10 @@ interface JSDocContainer {
 type SymbolWithParent = ts.Symbol & { parent?: ts.Symbol };
 
 export interface IManglePropertiesOptions {
-	/**
-	 * Prefix of generated names (e.g. '_ccprivate$')
-	 */
-	prefix: string;
+    /**
+     * Prefix of generated names (e.g. '_ccprivate$')
+     */
+    prefix: string;
     mangleList: string[];
     dontMangleList: string[];
     mangleGetterSetter: boolean;
@@ -89,13 +89,13 @@ export class PropertiesMinifier {
         } else if (this.isConstructorParameterReference(node, program)) {
             return this.createNewNode(program, node, this._context.factory.createIdentifier);
         } else if (this.isPropertyInInterfaceNotShorthand(node.parent) && (
-            this.isIdentifierInVariableDeclaration(node, program) || 
+            this.isIdentifierInVariableDeclaration(node, program) ||
             this.isIdentifierInBinaryExpression(node, program) ||
             this.isIdentifierInArrayLiteralExpression(node, program))
         ) {
             return this.createNewNode(program, node, this._context.factory.createIdentifier);
         } else if (ts.isShorthandPropertyAssignment(node)) {
-            if (this.isIdentifierInVariableDeclaration(node.name, program) || 
+            if (this.isIdentifierInVariableDeclaration(node.name, program) ||
                 this.isIdentifierInBinaryExpression(node.name, program) ||
                 this.isIdentifierInArrayLiteralExpression(node.name, program)
             ) {
@@ -241,13 +241,13 @@ export class PropertiesMinifier {
         }
         return false;
     }
-    
+
     private isPrivate(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
         let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
         if (!isPrivate && !this._options.ignoreJsDocTag) {
             isPrivate = this.isMangledInJsDoc(node as JSDocContainer);
         }
-    
+
         const parentName = (node.parent as any).name?.escapedText;
         if (!parentName) return isPrivate;
 
@@ -259,7 +259,7 @@ export class PropertiesMinifier {
         } else {
             isPrivate = this.updatePrivateByOptions(isPrivate, parentName, name);
         }
-        
+
         return isPrivate;
     }
 
@@ -275,7 +275,7 @@ export class PropertiesMinifier {
                 isPrivate = true;
             }
         }
-        
+
         // Check the dontMangleList option
         if (isPrivate) {
             if (this._options.dontMangleList.includes(fullName) || this._options.dontMangleList.includes(parentName)) {
@@ -338,15 +338,15 @@ export class PropertiesMinifier {
         }
         return undefined;
     }
-    
+
     private hasModifier(node: ts.Node, modifier: ts.SyntaxKind): boolean {
         return this.getModifiers(node).some((mod: ts.Modifier) => mod.kind === modifier);
     }
-    
+
     private isAccessExpression(node: ts.Node): node is AccessExpression {
         return ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node);
     }
-    
+
     private isClassMember(node: ts.Node): node is ClassMember {
         let ret = ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
         if (!ret && this._options.mangleGetterSetter) {
@@ -354,7 +354,7 @@ export class PropertiesMinifier {
         }
         return ret;
     }
-    
+
     private isInterfaceMember(node: ts.Node): node is InterfaceMember {
         let ret = ts.isMethodSignature(node) || ts.isPropertySignature(node);
         if (!ret && this._options.mangleGetterSetter) {
@@ -362,16 +362,16 @@ export class PropertiesMinifier {
         }
         return ret;
     }
-   
+
     private isConstructorParameter(node: ts.Node): node is ts.ParameterDeclaration {
         return ts.isParameter(node) && ts.isConstructorDeclaration(node.parent as ts.Node);
     }
-    
+
     private isConstructorParameterReference(node: ts.Node, program: ts.Program): node is ts.Identifier {
         if (!ts.isIdentifier(node)) {
             return false;
         }
-    
+
         const typeChecker = program.getTypeChecker();
         const symbol = typeChecker.getSymbolAtLocation(node) as SymbolWithParent;
         return this.isPrivateNonStaticClassMember(symbol);
@@ -453,7 +453,7 @@ export class PropertiesMinifier {
         if (!ts.isIdentifier(node)) {
             return false;
         }
-        
+
         const parent = node.parent as PropertyInInterface;
         if (!parent) {
             return false;
@@ -486,7 +486,7 @@ export class PropertiesMinifier {
         if (!ts.isIdentifier(node)) {
             return false;
         }
-        
+
         const parent = node.parent as PropertyInInterface;
         if (!parent) {
             return false;
@@ -524,7 +524,7 @@ export class PropertiesMinifier {
         if (!ts.isIdentifier(node)) {
             return false;
         }
-        
+
         const parent = node.parent as PropertyInInterface;
         if (!parent) {
             return false;
@@ -555,7 +555,7 @@ export class PropertiesMinifier {
     private isPropertyAssignment(node: ts.Declaration): node is ts.PropertyAssignment {
         return ts.isPropertyAssignment(node);
     }
-  
+
     private isPrivateNonStaticClassMember(symbol: SymbolWithParent | undefined): boolean {
         // for some reason ts.Symbol.declarations can be undefined (for example in order to accessing to proto member)
         if (symbol === undefined || symbol.declarations === undefined) {
@@ -569,15 +569,15 @@ export class PropertiesMinifier {
         });
         return ret;
     }
-    
+
     private hasDecorators(node: ts.Node): boolean {
         if (this.isBreakingTypeScriptApi(ts)) {
             return ts.canHaveDecorators(node) && !!ts.getDecorators(node);
         }
-    
+
         return !!node.decorators;
     }
-    
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     private getModifiers(node: ts.Node): readonly ts.Modifier[] {
@@ -585,15 +585,15 @@ export class PropertiesMinifier {
             if (!ts.canHaveModifiers(node)) {
                 return [];
             }
-    
+
             return ts.getModifiers(node) || [];
         }
-    
+
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return node.modifiers || [];
     }
-    
+
     private isBreakingTypeScriptApi(compiler: unknown): compiler is BreakingTypeScriptApi {
         return 'canHaveDecorators' in ts;
     }
