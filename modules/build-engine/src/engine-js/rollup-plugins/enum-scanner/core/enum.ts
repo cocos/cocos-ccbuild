@@ -1,4 +1,7 @@
 /* eslint-disable no-inner-declarations */
+
+// Inspired by https://github.com/unplugin/unplugin-inline-enum
+
 import path from 'node:path';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';

@@ -1,5 +1,5 @@
 import * as ts from '@cocos/typescript';
-import { EnumData } from './core/enum';
+import { EnumData } from '../../rollup-plugins/enum-scanner/core/enum';
 
 class EnumInliner {
     private readonly _context: ts.TransformationContext;

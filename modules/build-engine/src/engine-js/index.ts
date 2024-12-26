@@ -12,11 +12,10 @@ import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
-import { getEnumData, rpInlineEnum } from './rollup-plugins/inline-enum';
-import { rpManglePrivatePropertiesBabel } from './rollup-plugins/mangle-private-properties-babel';
+import { getEnumData, rpEnumScanner } from './rollup-plugins/enum-scanner';
 import rpTypescript from '@cocos/rollup-plugin-typescript';
-import { minifyPrivatesTransformer } from './rollup-plugins/mangle-private-properties-tsc/transformer';
-import { inlineEnumTransformer } from './rollup-plugins/inline-enum/ts-transformer';
+import { minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
+import { inlineEnumTransformer } from './ts-plugins/inline-enum';
 
 // import babel
 import babel = Transformer.core;
@@ -180,10 +179,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const babelPlugins: babel.PluginItem[] = [];
 
-    // if (options.mangleProperties) {
-    // babelPlugins.push([transformPrivateProperties]);
-    // }
-
     if (!options.targets) {
         babelPlugins.push([babelPluginTransformForOf, {
             loose: true,
@@ -254,12 +249,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         ));
     }
 
-    const inlineEnumPlugins = await rpInlineEnum({ 
+    const rpEnumScannerPlugin = await rpEnumScanner({ 
         scanDir: ps.join(engineRoot, 'cocos'),
         moduleOverrides,
-        // exclude: ['*.jsb.ts'],
-        // scanPattern: '**/*.{cts,mts,ts,tsx}'
-    }, false);
+    });
 
     rollupPlugins.push(
         externalWasmLoader({
@@ -319,13 +312,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     );
 
     if (options.inlineEnum) {
-        rollupPlugins.push(...inlineEnumPlugins);
+        rollupPlugins.push(...rpEnumScannerPlugin);
     }
 
     if (options.mangleProperties || options.inlineEnum) {
-        // const manglePrivatePropertiesPlugin = await rpManglePrivatePropertiesBabel({});
-        // rollupPlugins.push(...manglePrivatePropertiesPlugin);
-
         rollupPlugins.push(rpTypescript({
             tsconfig: ps.join(engineRoot, 'tsconfig.json'),
             compilerOptions: {
@@ -334,6 +324,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 sourceMap: undefined,
                 outDir: undefined,
                 module: 'NodeNext',
+                skipBuiltinTransformers: true,
             },
             transformers: (program) => {
                 const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
@@ -348,7 +339,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 }
 
                 if (options.mangleProperties) {
-                    tsTransformers.push(minifyPrivatesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
+                    tsTransformers.push(minifyPrivatePropertiesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
                 }
 
                 return {

@@ -72,7 +72,7 @@ export namespace buildEngine {
 
     export interface IManglePropertiesOptions {
         /**
-         * Prefix of generated names (e.g. '_ccprivate_')
+         * Prefix of generated names (default: '_ccprivate$')
          */
         prefix?: string;
         mangleList?: string[];
@@ -144,7 +144,7 @@ export namespace buildEngine {
         inlineEnum?: boolean;
 
         /** 
-         * 是否需要压缩 $ 后缀的属性，只在 release 模式下生效
+         * 是否需要压缩 private 属性。
          * @default true
          */
         mangleProperties?: boolean | IManglePropertiesOptions;
