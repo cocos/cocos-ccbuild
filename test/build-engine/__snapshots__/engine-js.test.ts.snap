@@ -2984,8 +2984,14 @@ exports[`engine-js inline enum 2`] = `
             });
             MyNode.Format = Format;
             MyNode.Format_2 = Format_2;
-            console.log("DefaultAnimsEnum['<None>']:" + 1001);
+            var DefaultAnimsEnum = exports("DefaultAnimsEnum", {
+              '<None>': 1001,
+              ' haha haha ': " world world hello ",
+              AAA: 1002
+            });
+            console.log("DefaultAnimsEnum['<None>']" + 1001);
             console.log('DefaultAnimsEnum.AAA' + 1002);
+            console.log('DefaultAnimsEnum[ haha haha ]' + " world world hello ");
             console.log(14);
             console.log(14);
             console.log(1);

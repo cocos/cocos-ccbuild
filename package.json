@@ -1,6 +1,6 @@
 {
   "name": "@cocos/ccbuild",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "The next generation of build tool for Cocos engine.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -37,7 +37,7 @@
   "workspaces": [
     "./modules/*"
   ],
-  "author": "PP_Pro",
+  "author": "Cocos Engine Team",
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
