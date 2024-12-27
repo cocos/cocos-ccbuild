@@ -77,6 +77,11 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         static Format_2: typeof __private._cocos_enums_define.Format_2;
         constructor(a: number);
     }
+    export enum DefaultAnimsEnum {
+        '<None>' = 1001,
+        ' haha haha ' = " world world hello ",
+        AAA = 1002
+    }
     export enum Format {
         UNKNOWN = 0,
         A8 = 1,
