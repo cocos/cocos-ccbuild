@@ -26,7 +26,7 @@ class EnumInliner {
     }
 
     private visitNode(node: ts.Node, program: ts.Program): ts.Node {
-        if (isAccessExpressionForEnum(node)) {
+        if (isAccessExpression(node)) {
             return this.tryCreateLiteral(node, program);
         } else if (ts.isEnumDeclaration(node)) {
             return this.tryReplaceEnumDeclaration(node, program);
@@ -150,7 +150,7 @@ class EnumInliner {
 
 type AccessExpression = ts.PropertyAccessExpression | ts.ElementAccessExpression;
 
-function isAccessExpressionForEnum(node: ts.Node): node is AccessExpression {
+function isAccessExpression(node: ts.Node): node is AccessExpression {
     return ts.isPropertyAccessExpression(node) || ts.isElementAccessExpression(node);
 }
 
