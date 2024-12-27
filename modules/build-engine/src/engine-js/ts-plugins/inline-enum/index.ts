@@ -45,14 +45,21 @@ class EnumInliner {
             if (ts.isEnumDeclaration(declaration)) {
                 let foundAll = true;
                 const members = declaration.members.map(member => {
-                    const name = member.name.getText();
-                    const fullName: string = `${enumName.getText()}.${name}`;
+                    const memberName = member.name;
+                    let name: string | null = null;
+                    if (ts.isIdentifier(memberName) || ts.isStringLiteral(memberName)) {
+                        name = memberName.text;
+                    } else {
+                        name = memberName.getText();
+                    }
+
+                    const fullName: string = `${enumName.text}.${name}`;
                     const value = this._enumData.defines[fullName as keyof EnumData['defines']];
                     if (value === undefined) {
                         foundAll = false;
                     }
-
-                    return ts.factory.createPropertyAssignment(name, typeof value === 'number' ? ts.factory.createNumericLiteral(value) : ts.factory.createStringLiteral(value));
+    
+                    return ts.factory.createPropertyAssignment(memberName, typeof value === 'number' ? ts.factory.createNumericLiteral(value) : ts.factory.createStringLiteral(value));
                 });
 
                 if (!foundAll) {

@@ -83,6 +83,16 @@ export class MyNode {
     }
 }
 
+export enum DefaultAnimsEnum {
+    '<None>' = 1001,
+    ' haha haha ' = ' world world hello ',
+    AAA = 1002,
+}
+
+console.log(`DefaultAnimsEnum['<None>']` + DefaultAnimsEnum['<None>']);
+console.log('DefaultAnimsEnum.AAA' + DefaultAnimsEnum.AAA);
+console.log('DefaultAnimsEnum[ haha haha ]' + DefaultAnimsEnum[' haha haha ']);
+
 console.log(MyNode.Format.RG);
 console.log(MyNode.Format_2.RG);
 
