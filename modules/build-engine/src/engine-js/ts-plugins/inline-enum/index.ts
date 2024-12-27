@@ -101,13 +101,23 @@ class EnumInliner {
         }
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
+        // Doesn't support template string now.
         if (node.parent && ts.isTemplateSpan(node.parent)) {
             return node;
         }
 
         if (symbol && symbol.valueDeclaration) {
             if (symbol.valueDeclaration.kind === ts.SyntaxKind.EnumMember) {
-                const enumText = node.expression.getText() + '.' + accessName.text;
+                let expressionName: string;
+                if (ts.isIdentifier(node.expression)) {
+                    expressionName = node.expression.text;
+                } else if (ts.isPropertyAccessExpression(node.expression)) {
+                    expressionName = node.expression.name.text;
+                } else {
+                    console.warn(`Unsupported expression type: ${node.expression.getText()}`);
+                    return node;
+                }
+                const enumText = expressionName + '.' + accessName.text;
                 const enumInlinedValue = this.findEnumData(enumText);
                 if (enumInlinedValue === undefined) {
                     return node;
