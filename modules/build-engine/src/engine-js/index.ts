@@ -12,7 +12,10 @@ import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
-import { rpInlineEnum } from './rollup-plugins/inline-enum';
+import { getEnumData, rpEnumScanner } from './rollup-plugins/enum-scanner';
+import rpTypescript from '@cocos/rollup-plugin-typescript';
+import { minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
+import { inlineEnumTransformer } from './ts-plugins/inline-enum';
 
 // import babel
 import babel = Transformer.core;
@@ -35,7 +38,8 @@ import rpVirtual = Bundler.plugins.virtual;
 import { ModuleQuery } from '@ccbuild/modularize';
 // import rpProgress = Bundler.plugins.progress;
 
-import * as decoratorRecorder from './babel-plugins/decorator-parser';
+import { recordDecorators } from './babel-plugins/decorator-parser';
+import ts from '@cocos/typescript';
 
 const realPath = (function (): (file: string) => Promise<string> {
     const realpath = typeof realFs.realpath.native === 'function' ? realFs.realpath.native : realFs.realpath;
@@ -173,7 +177,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         presetEnvOptions.targets = options.targets;
     }
 
-    const babelPlugins: any[] = [];
+    const babelPlugins: babel.PluginItem[] = [];
     if (!options.targets) {
         babelPlugins.push([babelPluginTransformForOf, {
             loose: true,
@@ -229,22 +233,19 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         if (!process.env.ENGINE_PATH) {
             throw new Error('ENGINE_PATH environment variable not set');
         }
-        babelOptions.presets?.push([(): any => ({ plugins: [[decoratorRecorder]] })]);
+        babelOptions.presets?.push([(): babel.PluginItem => ({ plugins: [[recordDecorators]] })]);
     }
 
     const rollupPlugins: rollup.Plugin[] = [];
-
     if (options.noDeprecatedFeatures) {
         rollupPlugins.push(removeDeprecatedFeatures(
             typeof options.noDeprecatedFeatures === 'string' ? options.noDeprecatedFeatures : undefined,
         ));
     }
 
-    const inlineEnumPlugins = await rpInlineEnum({ 
+    const rpEnumScannerPlugin = await rpEnumScanner({ 
         scanDir: ps.join(engineRoot, 'cocos'),
         moduleOverrides,
-        // exclude: ['*.jsb.ts'],
-        // scanPattern: '**/*.{cts,mts,ts,tsx}'
     });
 
     rollupPlugins.push(
@@ -305,7 +306,41 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     );
 
     if (options.inlineEnum) {
-        rollupPlugins.push(...inlineEnumPlugins);
+        rollupPlugins.push(...rpEnumScannerPlugin);
+    }
+
+    if (options.mangleProperties || options.inlineEnum) {
+        rollupPlugins.push(rpTypescript({
+            tsconfig: ps.join(engineRoot, 'tsconfig.json'),
+            compilerOptions: {
+                noEmit: false,
+                target: undefined,
+                sourceMap: undefined,
+                outDir: undefined,
+                module: 'NodeNext',
+                skipBuiltinTransformers: true,
+            },
+            transformers: (program) => {
+                const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
+
+                if (options.inlineEnum) {
+                    const enumData = getEnumData();
+                    if (enumData) {
+                        tsTransformers.push(inlineEnumTransformer(program, enumData));
+                    } else {
+                        console.error(`Enum data is not available for inline enum.`);
+                    }
+                }
+
+                if (options.mangleProperties) {
+                    tsTransformers.push(minifyPrivatePropertiesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
+                }
+
+                return {
+                    before: tsTransformers,
+                };
+            }
+        }));
     }
 
     rollupPlugins.push(
@@ -338,7 +373,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             },
             mangle: {
                 properties: options.mangleProperties ? {
-                    regex: /^[a-zA-Z_][a-zA-Z0-9_]{3,}\$$/,
+                    regex: /^_ccprivate\$/,
                 } : false,
             },
             keep_fnames: false,

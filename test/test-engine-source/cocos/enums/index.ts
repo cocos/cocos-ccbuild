@@ -1,10 +1,16 @@
-import { MyConstEnum, MyEnum } from './my-enum';
+import { MyConstEnum, MyEnum, testConstantOfTypeArray, GamepadInputDevice, Button, UBOLocalEnum } from './my-enum';
 
 import * as gfx from './define';
 
 import { PixelFormat } from './define';
 
 import './test-override-entry';
+
+testConstantOfTypeArray();
+
+new GamepadInputDevice().hello();
+
+console.log(Button.BUTTON_L1);
 
 export enum MyEnum2 {
     AAABBB,
@@ -92,3 +98,17 @@ console.log(MyConstEnum.C_FFF, MyConstEnum.C_AAA);
 
 console.log('---- const enum end ----');
 
+
+console.log(`UBOLocalEnum.BINDING:` + UBOLocalEnum.BINDING);
+console.log(`UBOLocalEnum.MAT_WORLD_OFFSET:` + UBOLocalEnum.MAT_WORLD_OFFSET);
+console.log(`UBOLocalEnum.MAT_WORLD_IT_OFFSET:` + UBOLocalEnum.MAT_WORLD_IT_OFFSET);
+console.log(`UBOLocalEnum.LIGHTINGMAP_UVPARAM:` + UBOLocalEnum.LIGHTINGMAP_UVPARAM);
+console.log(`UBOLocalEnum.LOCAL_SHADOW_BIAS:` + UBOLocalEnum.LOCAL_SHADOW_BIAS);
+console.log(`UBOLocalEnum.REFLECTION_PROBE_DATA1:` + UBOLocalEnum.REFLECTION_PROBE_DATA1);
+console.log(`UBOLocalEnum.REFLECTION_PROBE_DATA2:` + UBOLocalEnum.REFLECTION_PROBE_DATA2);
+console.log(`UBOLocalEnum.REFLECTION_PROBE_BLEND_DATA1:` + UBOLocalEnum.REFLECTION_PROBE_BLEND_DATA1);
+console.log(`UBOLocalEnum.REFLECTION_PROBE_BLEND_DATA2:` + UBOLocalEnum.REFLECTION_PROBE_BLEND_DATA2);
+console.log(`UBOLocalEnum.COUNT:` + UBOLocalEnum.COUNT);
+console.log(`UBOLocalEnum.SIZE:` + UBOLocalEnum.SIZE);
+
+export * from './my-enum';

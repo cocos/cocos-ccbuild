@@ -27,6 +27,16 @@ declare module "@cocos/ccbuild" {
          */
         function enumerateAllDependents(meta: buildEngine.Result, featureUnits: string[]): string[];
         export type ModuleFormat = "esm" | "cjs" | "system" | "iife";
+        export interface IManglePropertiesOptions {
+            /**
+             * Prefix of generated names (default: '_ccprivate$')
+             */
+            prefix?: string;
+            mangleList?: string[];
+            dontMangleList?: string[];
+            mangleGetterSetter?: boolean;
+            ignoreJsDocTag?: boolean;
+        }
         export interface Options {
             /**
              * 引擎仓库目录。
@@ -80,10 +90,10 @@ declare module "@cocos/ccbuild" {
              */
             inlineEnum?: boolean;
             /**
-             * 是否需要压缩 $ 后缀的属性，只在 release 模式下生效
+             * 是否需要压缩 private 属性。
              * @default true
              */
-            mangleProperties?: boolean;
+            mangleProperties?: boolean | IManglePropertiesOptions;
             /**
              * 是否生成 source map。
              * 若为 `inline` 则生成内联的 source map。
@@ -713,149 +723,6 @@ declare module "@cocos/ccbuild" {
                      * Otherwise `import(foo)` is parsed as `CallExpression(Import, [Identifier(foo)])`.
                      */
                     createImportExpressions?: boolean;
-                }
-                export interface GeneratorOptions {
-                    /**
-                     * Optional string to add as a block comment at the start of the output file.
-                     */
-                    auxiliaryCommentBefore?: string | undefined;
-                    /**
-                     * Optional string to add as a block comment at the end of the output file.
-                     */
-                    auxiliaryCommentAfter?: string | undefined;
-                    /**
-                     * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
-                     * By default, comments are included if `opts.comments` is `true` or if `opts.minifed` is `false` and the comment
-                     * contains `@preserve` or `@license`.
-                     */
-                    shouldPrintComment?(comment: string): boolean;
-                    /**
-                     * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
-                     * Defaults to `false`.
-                     */
-                    retainLines?: boolean | undefined;
-                    /**
-                     * Retain parens around function expressions (could be used to change engine parsing behavior)
-                     * Defaults to `false`.
-                     */
-                    retainFunctionParens?: boolean | undefined;
-                    /**
-                     * Should comments be included in output? Defaults to `true`.
-                     */
-                    comments?: boolean | undefined;
-                    /**
-                     * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
-                     */
-                    compact?: boolean | "auto" | undefined;
-                    /**
-                     * Should the output be minified. Defaults to `false`.
-                     */
-                    minified?: boolean | undefined;
-                    /**
-                     * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
-                     */
-                    concise?: boolean | undefined;
-                    /**
-                     * Used in warning messages
-                     */
-                    filename?: string | undefined;
-                    /**
-                     * Enable generating source maps. Defaults to `false`.
-                     */
-                    sourceMaps?: boolean | undefined;
-                    /**
-                     * A root for all relative URLs in the source map.
-                     */
-                    sourceRoot?: string | undefined;
-                    /**
-                     * The filename for the source code (i.e. the code in the `code` argument).
-                     * This will only be used if `code` is a string.
-                     */
-                    sourceFileName?: string | undefined;
-                    /**
-                     * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
-                     */
-                    jsonCompatibleStrings?: boolean | undefined;
-                    /**
-                     * Set to true to enable support for experimental decorators syntax before module exports.
-                     * Defaults to `false`.
-                     */
-                    decoratorsBeforeExport?: boolean | undefined;
-                    /**
-                     * Options for outputting jsesc representation.
-                     */
-                    jsescOption?: {
-                        /**
-                         * The default value for the quotes option is 'single'. This means that any occurrences of ' in the input
-                         * string are escaped as \', so that the output can be used in a string literal wrapped in single quotes.
-                         */
-                        quotes?: "single" | "double" | "backtick" | undefined;
-                        /**
-                         * The default value for the numbers option is 'decimal'. This means that any numeric values are represented
-                         * using decimal integer literals. Other valid options are binary, octal, and hexadecimal, which result in
-                         * binary integer literals, octal integer literals, and hexadecimal integer literals, respectively.
-                         */
-                        numbers?: "binary" | "octal" | "decimal" | "hexadecimal" | undefined;
-                        /**
-                         * The wrap option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
-                         * output is a valid JavaScript string literal wrapped in quotes. The type of quotes can be specified through
-                         * the quotes setting.
-                         */
-                        wrap?: boolean | undefined;
-                        /**
-                         * The es6 option takes a boolean value (true or false), and defaults to false (disabled). When enabled, any
-                         * astral Unicode symbols in the input are escaped using ECMAScript 6 Unicode code point escape sequences
-                         * instead of using separate escape sequences for each surrogate half. If backwards compatibility with ES5
-                         * environments is a concern, don’t enable this setting. If the json setting is enabled, the value for the es6
-                         * setting is ignored (as if it was false).
-                         */
-                        es6?: boolean | undefined;
-                        /**
-                         * The escapeEverything option takes a boolean value (true or false), and defaults to false (disabled). When
-                         * enabled, all the symbols in the output are escaped — even printable ASCII symbols.
-                         */
-                        escapeEverything?: boolean | undefined;
-                        /**
-                         * The minimal option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
-                         * only a limited set of symbols in the output are escaped: \0, \b, \t, \n, \f, \r, \\, \u2028, \u2029.
-                         */
-                        minimal?: boolean | undefined;
-                        /**
-                         * The isScriptContext option takes a boolean value (true or false), and defaults to false (disabled). When
-                         * enabled, occurrences of </script and </style in the output are escaped as <\/script and <\/style, and <!--
-                         * is escaped as \x3C!-- (or \u003C!-- when the json option is enabled). This setting is useful when jsesc’s
-                         * output ends up as part of a <script> or <style> element in an HTML document.
-                         */
-                        isScriptContext?: boolean | undefined;
-                        /**
-                         * The compact option takes a boolean value (true or false), and defaults to true (enabled). When enabled,
-                         * the output for arrays and objects is as compact as possible; it’s not formatted nicely.
-                         */
-                        compact?: boolean | undefined;
-                        /**
-                         * The indent option takes a string value, and defaults to '\t'. When the compact setting is enabled (true),
-                         * the value of the indent option is used to format the output for arrays and objects.
-                         */
-                        indent?: string | undefined;
-                        /**
-                         * The indentLevel option takes a numeric value, and defaults to 0. It represents the current indentation level,
-                         * i.e. the number of times the value of the indent option is repeated.
-                         */
-                        indentLevel?: number | undefined;
-                        /**
-                         * The json option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
-                         * output is valid JSON. Hexadecimal character escape sequences and the \v or \0 escape sequences are not used.
-                         * Setting json: true implies quotes: 'double', wrap: true, es6: false, although these values can still be
-                         * overridden if needed — but in such cases, the output won’t be valid JSON anymore.
-                         */
-                        json?: boolean | undefined;
-                        /**
-                         * The lowercaseHex option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
-                         * any alphabetical hexadecimal digits in escape sequences as well as any hexadecimal integer literals (see the
-                         * numbers option) in the output are in lowercase.
-                         */
-                        lowercaseHex?: boolean | undefined;
-                    } | undefined;
                 }
                 export namespace types {
                     export const ACCESSOR_TYPES: ("StringLiteral" | "NumericLiteral" | "JSXText" | "JSXIdentifier" | "AnyTypeAnnotation" | "ArgumentPlaceholder" | "ArrayExpression" | "ArrayPattern" | "ArrayTypeAnnotation" | "ArrowFunctionExpression" | "AssignmentExpression" | "AssignmentPattern" | "AwaitExpression" | "BigIntLiteral" | "BinaryExpression" | "BindExpression" | "BlockStatement" | "BooleanLiteral" | "BooleanLiteralTypeAnnotation" | "BooleanTypeAnnotation" | "BreakStatement" | "CallExpression" | "CatchClause" | "ClassAccessorProperty" | "ClassBody" | "ClassDeclaration" | "ClassExpression" | "ClassImplements" | "ClassMethod" | "ClassPrivateMethod" | "ClassPrivateProperty" | "ClassProperty" | "ConditionalExpression" | "ContinueStatement" | "DebuggerStatement" | "DecimalLiteral" | "DeclareClass" | "DeclareExportAllDeclaration" | "DeclareExportDeclaration" | "DeclareFunction" | "DeclareInterface" | "DeclareModule" | "DeclareModuleExports" | "DeclareOpaqueType" | "DeclareTypeAlias" | "DeclareVariable" | "DeclaredPredicate" | "Decorator" | "Directive" | "DirectiveLiteral" | "DoExpression" | "DoWhileStatement" | "EmptyStatement" | "EmptyTypeAnnotation" | "EnumBooleanBody" | "EnumBooleanMember" | "EnumDeclaration" | "EnumDefaultedMember" | "EnumNumberBody" | "EnumNumberMember" | "EnumStringBody" | "EnumStringMember" | "EnumSymbolBody" | "ExistsTypeAnnotation" | "ExportAllDeclaration" | "ExportDefaultDeclaration" | "ExportDefaultSpecifier" | "ExportNamedDeclaration" | "ExportNamespaceSpecifier" | "ExportSpecifier" | "ExpressionStatement" | "File" | "ForInStatement" | "ForOfStatement" | "ForStatement" | "FunctionDeclaration" | "FunctionExpression" | "FunctionTypeAnnotation" | "FunctionTypeParam" | "GenericTypeAnnotation" | "Identifier" | "IfStatement" | "Import" | "ImportAttribute" | "ImportDeclaration" | "ImportDefaultSpecifier" | "ImportExpression" | "ImportNamespaceSpecifier" | "ImportSpecifier" | "IndexedAccessType" | "InferredPredicate" | "InterfaceDeclaration" | "InterfaceExtends" | "InterfaceTypeAnnotation" | "InterpreterDirective" | "IntersectionTypeAnnotation" | "JSXAttribute" | "JSXClosingElement" | "JSXClosingFragment" | "JSXElement" | "JSXEmptyExpression" | "JSXExpressionContainer" | "JSXFragment" | "JSXMemberExpression" | "JSXNamespacedName" | "JSXOpeningElement" | "JSXOpeningFragment" | "JSXSpreadAttribute" | "JSXSpreadChild" | "LabeledStatement" | "LogicalExpression" | "MemberExpression" | "MetaProperty" | "MixedTypeAnnotation" | "ModuleExpression" | "NewExpression" | "Noop" | "NullLiteral" | "NullLiteralTypeAnnotation" | "NullableTypeAnnotation" | "NumberLiteral" | "NumberLiteralTypeAnnotation" | "NumberTypeAnnotation" | "ObjectExpression" | "ObjectMethod" | "ObjectPattern" | "ObjectProperty" | "ObjectTypeAnnotation" | "ObjectTypeCallProperty" | "ObjectTypeIndexer" | "ObjectTypeInternalSlot" | "ObjectTypeProperty" | "ObjectTypeSpreadProperty" | "OpaqueType" | "OptionalCallExpression" | "OptionalIndexedAccessType" | "OptionalMemberExpression" | "ParenthesizedExpression" | "PipelineBareFunction" | "PipelinePrimaryTopicReference" | "PipelineTopicExpression" | "Placeholder" | "PrivateName" | "Program" | "QualifiedTypeIdentifier" | "RecordExpression" | "RegExpLiteral" | "RegexLiteral" | "RestElement" | "RestProperty" | "ReturnStatement" | "SequenceExpression" | "SpreadElement" | "SpreadProperty" | "StaticBlock" | "StringLiteralTypeAnnotation" | "StringTypeAnnotation" | "Super" | "SwitchCase" | "SwitchStatement" | "SymbolTypeAnnotation" | "TSAnyKeyword" | "TSArrayType" | "TSAsExpression" | "TSBigIntKeyword" | "TSBooleanKeyword" | "TSCallSignatureDeclaration" | "TSConditionalType" | "TSConstructSignatureDeclaration" | "TSConstructorType" | "TSDeclareFunction" | "TSDeclareMethod" | "TSEnumDeclaration" | "TSEnumMember" | "TSExportAssignment" | "TSExpressionWithTypeArguments" | "TSExternalModuleReference" | "TSFunctionType" | "TSImportEqualsDeclaration" | "TSImportType" | "TSIndexSignature" | "TSIndexedAccessType" | "TSInferType" | "TSInstantiationExpression" | "TSInterfaceBody" | "TSInterfaceDeclaration" | "TSIntersectionType" | "TSIntrinsicKeyword" | "TSLiteralType" | "TSMappedType" | "TSMethodSignature" | "TSModuleBlock" | "TSModuleDeclaration" | "TSNamedTupleMember" | "TSNamespaceExportDeclaration" | "TSNeverKeyword" | "TSNonNullExpression" | "TSNullKeyword" | "TSNumberKeyword" | "TSObjectKeyword" | "TSOptionalType" | "TSParameterProperty" | "TSParenthesizedType" | "TSPropertySignature" | "TSQualifiedName" | "TSRestType" | "TSSatisfiesExpression" | "TSStringKeyword" | "TSSymbolKeyword" | "TSThisType" | "TSTupleType" | "TSTypeAliasDeclaration" | "TSTypeAnnotation" | "TSTypeAssertion" | "TSTypeLiteral" | "TSTypeOperator" | "TSTypeParameter" | "TSTypeParameterDeclaration" | "TSTypeParameterInstantiation" | "TSTypePredicate" | "TSTypeQuery" | "TSTypeReference" | "TSUndefinedKeyword" | "TSUnionType" | "TSUnknownKeyword" | "TSVoidKeyword" | "TaggedTemplateExpression" | "TemplateElement" | "TemplateLiteral" | "ThisExpression" | "ThisTypeAnnotation" | "ThrowStatement" | "TopicReference" | "TryStatement" | "TupleExpression" | "TupleTypeAnnotation" | "TypeAlias" | "TypeAnnotation" | "TypeCastExpression" | "TypeParameter" | "TypeParameterDeclaration" | "TypeParameterInstantiation" | "TypeofTypeAnnotation" | "UnaryExpression" | "UnionTypeAnnotation" | "UpdateExpression" | "V8IntrinsicIdentifier" | "VariableDeclaration" | "VariableDeclarator" | "Variance" | "VoidTypeAnnotation" | "WhileStatement" | "WithStatement" | "YieldExpression" | keyof Aliases)[];
@@ -4169,7 +4036,7 @@ declare module "@cocos/ccbuild" {
                      *
                      * Default: `{}`
                      */
-                    generatorOpts?: GeneratorOptions | null | undefined;
+                    generatorOpts?: generator.GeneratorOptions | null | undefined;
                     /**
                      * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`. If falsy value is returned then the generated module id is used
                      *
@@ -4551,6 +4418,7 @@ declare module "@cocos/ccbuild" {
                     <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions["envName"]>) => T): T;
                 }
                 export type ConfigFunction = (api: ConfigAPI) => TransformOptions;
+                export import GeneratorOptions = generator.GeneratorOptions;
                 export import NodePath = babel.traverse.NodePath;
                 export import Visitor = babel.traverse.Visitor;
             }
@@ -4637,6 +4505,177 @@ declare module "@cocos/ccbuild" {
                     [name: string]: any;
                 };
                 export import ParserOptions = core.ParserOptions;
+            }
+            export namespace generator {
+                export interface GeneratorOptions {
+                    /**
+                     * Optional string to add as a block comment at the start of the output file.
+                     */
+                    auxiliaryCommentBefore?: string | undefined;
+                    /**
+                     * Optional string to add as a block comment at the end of the output file.
+                     */
+                    auxiliaryCommentAfter?: string | undefined;
+                    /**
+                     * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
+                     * By default, comments are included if `opts.comments` is `true` or if `opts.minifed` is `false` and the comment
+                     * contains `@preserve` or `@license`.
+                     */
+                    shouldPrintComment?(comment: string): boolean;
+                    /**
+                     * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
+                     * Defaults to `false`.
+                     */
+                    retainLines?: boolean | undefined;
+                    /**
+                     * Retain parens around function expressions (could be used to change engine parsing behavior)
+                     * Defaults to `false`.
+                     */
+                    retainFunctionParens?: boolean | undefined;
+                    /**
+                     * Should comments be included in output? Defaults to `true`.
+                     */
+                    comments?: boolean | undefined;
+                    /**
+                     * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
+                     */
+                    compact?: boolean | "auto" | undefined;
+                    /**
+                     * Should the output be minified. Defaults to `false`.
+                     */
+                    minified?: boolean | undefined;
+                    /**
+                     * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
+                     */
+                    concise?: boolean | undefined;
+                    /**
+                     * Used in warning messages
+                     */
+                    filename?: string | undefined;
+                    /**
+                     * Enable generating source maps. Defaults to `false`.
+                     */
+                    sourceMaps?: boolean | undefined;
+                    /**
+                     * A root for all relative URLs in the source map.
+                     */
+                    sourceRoot?: string | undefined;
+                    /**
+                     * The filename for the source code (i.e. the code in the `code` argument).
+                     * This will only be used if `code` is a string.
+                     */
+                    sourceFileName?: string | undefined;
+                    /**
+                     * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
+                     */
+                    jsonCompatibleStrings?: boolean | undefined;
+                    /**
+                     * Set to true to enable support for experimental decorators syntax before module exports.
+                     * Defaults to `false`.
+                     */
+                    decoratorsBeforeExport?: boolean | undefined;
+                    /**
+                     * Options for outputting jsesc representation.
+                     */
+                    jsescOption?: {
+                        /**
+                         * The default value for the quotes option is 'single'. This means that any occurrences of ' in the input
+                         * string are escaped as \', so that the output can be used in a string literal wrapped in single quotes.
+                         */
+                        quotes?: "single" | "double" | "backtick" | undefined;
+                        /**
+                         * The default value for the numbers option is 'decimal'. This means that any numeric values are represented
+                         * using decimal integer literals. Other valid options are binary, octal, and hexadecimal, which result in
+                         * binary integer literals, octal integer literals, and hexadecimal integer literals, respectively.
+                         */
+                        numbers?: "binary" | "octal" | "decimal" | "hexadecimal" | undefined;
+                        /**
+                         * The wrap option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
+                         * output is a valid JavaScript string literal wrapped in quotes. The type of quotes can be specified through
+                         * the quotes setting.
+                         */
+                        wrap?: boolean | undefined;
+                        /**
+                         * The es6 option takes a boolean value (true or false), and defaults to false (disabled). When enabled, any
+                         * astral Unicode symbols in the input are escaped using ECMAScript 6 Unicode code point escape sequences
+                         * instead of using separate escape sequences for each surrogate half. If backwards compatibility with ES5
+                         * environments is a concern, don’t enable this setting. If the json setting is enabled, the value for the es6
+                         * setting is ignored (as if it was false).
+                         */
+                        es6?: boolean | undefined;
+                        /**
+                         * The escapeEverything option takes a boolean value (true or false), and defaults to false (disabled). When
+                         * enabled, all the symbols in the output are escaped — even printable ASCII symbols.
+                         */
+                        escapeEverything?: boolean | undefined;
+                        /**
+                         * The minimal option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
+                         * only a limited set of symbols in the output are escaped: \0, \b, \t, \n, \f, \r, \\, \u2028, \u2029.
+                         */
+                        minimal?: boolean | undefined;
+                        /**
+                         * The isScriptContext option takes a boolean value (true or false), and defaults to false (disabled). When
+                         * enabled, occurrences of </script and </style in the output are escaped as <\/script and <\/style, and <!--
+                         * is escaped as \x3C!-- (or \u003C!-- when the json option is enabled). This setting is useful when jsesc’s
+                         * output ends up as part of a <script> or <style> element in an HTML document.
+                         */
+                        isScriptContext?: boolean | undefined;
+                        /**
+                         * The compact option takes a boolean value (true or false), and defaults to true (enabled). When enabled,
+                         * the output for arrays and objects is as compact as possible; it’s not formatted nicely.
+                         */
+                        compact?: boolean | undefined;
+                        /**
+                         * The indent option takes a string value, and defaults to '\t'. When the compact setting is enabled (true),
+                         * the value of the indent option is used to format the output for arrays and objects.
+                         */
+                        indent?: string | undefined;
+                        /**
+                         * The indentLevel option takes a numeric value, and defaults to 0. It represents the current indentation level,
+                         * i.e. the number of times the value of the indent option is repeated.
+                         */
+                        indentLevel?: number | undefined;
+                        /**
+                         * The json option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the
+                         * output is valid JSON. Hexadecimal character escape sequences and the \v or \0 escape sequences are not used.
+                         * Setting json: true implies quotes: 'double', wrap: true, es6: false, although these values can still be
+                         * overridden if needed — but in such cases, the output won’t be valid JSON anymore.
+                         */
+                        json?: boolean | undefined;
+                        /**
+                         * The lowercaseHex option takes a boolean value (true or false), and defaults to false (disabled). When enabled,
+                         * any alphabetical hexadecimal digits in escape sequences as well as any hexadecimal integer literals (see the
+                         * numbers option) in the output are in lowercase.
+                         */
+                        lowercaseHex?: boolean | undefined;
+                    } | undefined;
+                }
+                /**
+                 * Turns an AST into code, maintaining sourcemaps, user preferences, and valid output.
+                 * @param ast - the abstract syntax tree from which to generate output code.
+                 * @param opts - used for specifying options for code generation.
+                 * @param code - the original source code, used for source maps.
+                 * @returns - an object containing the output code and source map.
+                 */
+                export function default(ast: core.types.Node, opts?: GeneratorOptions, code?: string | {
+                    [filename: string]: string;
+                }): GeneratorResult;
+                export class CodeGenerator {
+                    constructor(ast: core.types.Node, opts?: GeneratorOptions, code?: string);
+                    generate(): GeneratorResult;
+                }
+                export interface GeneratorResult {
+                    code: string;
+                    map: {
+                        version: number;
+                        sources: string[];
+                        names: string[];
+                        sourceRoot?: string | undefined;
+                        sourcesContent?: string[] | undefined;
+                        mappings: string;
+                        file: string;
+                    } | null;
+                }
             }
             export namespace traverse {
                 export class NodePath<T = core.types.Node> {
@@ -5888,6 +5927,7 @@ declare module "@cocos/ccbuild" {
                     addSideEffect(importedSourceIn: string, opts: Partial<ImportOptions>): void;
                 }
             }
+            export import types = core.types;
         }
         export namespace typescript {
             /*! *****************************************************************************
@@ -14161,18 +14201,18 @@ declare module "@cocos/ccbuild" {
                     isIncluded: boolean | null;
                 }
                 export type GetModuleInfo = (moduleId: string) => ModuleInfo | null;
-                export interface CustomPluginOptions {
-                    [plugin: string]: any;
-                }
+                export type CustomPluginOptions = Record<string, any>;
                 export type LoggingFunctionWithPosition = (log: RollupLog | string | (() => RollupLog | string), pos?: number | {
                     column: number;
                     line: number;
                 }) => void;
                 export type ParseAst = (input: string, options?: {
                     allowReturnOutsideFunction?: boolean;
+                    jsx?: boolean;
                 }) => ProgramNode;
                 export type ParseAstAsync = (input: string, options?: {
                     allowReturnOutsideFunction?: boolean;
+                    jsx?: boolean;
                     signal?: AbortSignal;
                 }) => Promise<ProgramNode>;
                 export interface PluginContext extends MinimalPluginContext {
@@ -14209,9 +14249,7 @@ declare module "@cocos/ccbuild" {
                     id: string;
                     resolvedBy: string;
                 }
-                export interface ResolvedIdMap {
-                    [key: string]: ResolvedId;
-                }
+                export type ResolvedIdMap = Record<string, ResolvedId>;
                 export interface PartialResolvedId extends Partial<PartialNull<ModuleOptions>> {
                     external?: boolean | "absolute" | "relative";
                     id: string;
@@ -14288,11 +14326,8 @@ declare module "@cocos/ccbuild" {
                  * const myPlugin: PluginImpl<Options> = (options = {}) => { ... }
                  * ```
                  */
-                // eslint-disable-next-line @typescript-eslint/ban-types
                 export type PluginImpl<O extends object = object, A = any> = (options?: O) => Plugin<A>;
-                export interface OutputBundle {
-                    [fileName: string]: OutputAsset | OutputChunk;
-                }
+                export type OutputBundle = Record<string, OutputAsset | OutputChunk>;
                 export interface FunctionPluginHooks {
                     augmentChunkHash: (this: PluginContext, chunk: RenderedChunk) => string | void;
                     buildEnd: (this: PluginContext, error?: Error) => void;
@@ -14335,7 +14370,7 @@ declare module "@cocos/ccbuild" {
                 export type ParallelPluginHooks = Exclude<keyof FunctionPluginHooks | AddonHooks, FirstPluginHooks | SequentialPluginHooks>;
                 export type AddonHooks = "banner" | "footer" | "intro" | "outro";
                 export type MakeAsync<Function_> = Function_ extends (this: infer This, ...parameters: infer Arguments) => infer Return ? (this: This, ...parameters: Arguments) => Return | Promise<Return> : never;
-                // eslint-disable-next-line @typescript-eslint/ban-types
+                // eslint-disable-next-line @typescript-eslint/no-empty-object-type
                 export type ObjectHook<T, O = {}> = T | ({
                     handler: T;
                     order?: "pre" | "post" | null;
@@ -14347,9 +14382,7 @@ declare module "@cocos/ccbuild" {
                 };
                 export interface OutputPlugin extends Partial<{
                     [K in OutputPluginHooks]: PluginHooks[K];
-                }>, Partial<{
-                    [K in AddonHooks]: ObjectHook<AddonHook>;
-                }> {
+                }>, Partial<Record<AddonHooks, ObjectHook<AddonHook>>> {
                     cacheKey?: string;
                     name: string;
                     version?: string;
@@ -14358,6 +14391,29 @@ declare module "@cocos/ccbuild" {
                     // for inter-plugin communication
                     api?: A;
                 }
+                export type JsxPreset = "react" | "react-jsx" | "preserve" | "preserve-react";
+                export type NormalizedJsxOptions = NormalizedJsxPreserveOptions | NormalizedJsxClassicOptions | NormalizedJsxAutomaticOptions;
+                export interface NormalizedJsxPreserveOptions {
+                    factory: string | null;
+                    fragment: string | null;
+                    importSource: string | null;
+                    mode: "preserve";
+                }
+                export interface NormalizedJsxClassicOptions {
+                    factory: string;
+                    fragment: string;
+                    importSource: string | null;
+                    mode: "classic";
+                }
+                export interface NormalizedJsxAutomaticOptions {
+                    factory: string;
+                    importSource: string | null;
+                    jsxImportSource: string;
+                    mode: "automatic";
+                }
+                export type JsxOptions = Partial<NormalizedJsxOptions> & {
+                    preset?: JsxPreset;
+                };
                 export type TreeshakingPreset = "smallest" | "safest" | "recommended";
                 export interface NormalizedTreeshakingOptions {
                     annotations: boolean;
@@ -14378,15 +14434,9 @@ declare module "@cocos/ccbuild" {
                 }
                 export type GetManualChunk = (id: string, meta: ManualChunkMeta) => string | NullValue;
                 export type ExternalOption = (string | RegExp)[] | string | RegExp | ((source: string, importer: string | undefined, isResolved: boolean) => boolean | NullValue);
-                export type GlobalsOption = {
-                    [name: string]: string;
-                } | ((name: string) => string);
-                export type InputOption = string | string[] | {
-                    [entryAlias: string]: string;
-                };
-                export type ManualChunksOption = {
-                    [chunkAlias: string]: string[];
-                } | GetManualChunk;
+                export type GlobalsOption = Record<string, string> | ((name: string) => string);
+                export type InputOption = string | string[] | Record<string, string>;
+                export type ManualChunksOption = Record<string, string[]> | GetManualChunk;
                 export type LogHandlerWithDefault = (level: LogLevel, log: RollupLog, defaultHandler: LogOrStringHandler) => void;
                 export type LogOrStringHandler = (level: LogLevel | "error", log: RollupLog | string) => void;
                 export type LogHandler = (level: LogLevel, log: RollupLog) => void;
@@ -14402,12 +14452,11 @@ declare module "@cocos/ccbuild" {
                     experimentalLogSideEffects?: boolean;
                     external?: ExternalOption;
                     input?: InputOption;
+                    jsx?: false | JsxPreset | JsxOptions;
                     logLevel?: LogLevelOption;
                     makeAbsoluteExternalsRelative?: boolean | "ifRelativeSource";
                     maxParallelFileOps?: number;
-                    moduleContext?: ((id: string) => string | NullValue) | {
-                        [id: string]: string;
-                    };
+                    moduleContext?: ((id: string) => string | NullValue) | Record<string, string>;
                     onLog?: LogHandlerWithDefault;
                     onwarn?: WarningHandlerWithDefault;
                     perf?: boolean;
@@ -14428,9 +14477,8 @@ declare module "@cocos/ccbuild" {
                     experimentalCacheExpiry: number;
                     experimentalLogSideEffects: boolean;
                     external: IsExternal;
-                    input: string[] | {
-                        [entryAlias: string]: string;
-                    };
+                    input: string[] | Record<string, string>;
+                    jsx: false | NormalizedJsxOptions;
                     logLevel: LogLevelOption;
                     makeAbsoluteExternalsRelative: boolean | "ifRelativeSource";
                     maxParallelFileOps: number;
@@ -14538,9 +14586,11 @@ declare module "@cocos/ccbuild" {
                     sourcemapFileNames?: string | ((chunkInfo: PreRenderedChunk) => string);
                     sourcemapIgnoreList?: boolean | SourcemapIgnoreListOption;
                     sourcemapPathTransform?: SourcemapPathTransformOption;
+                    sourcemapDebugIds?: boolean;
                     strict?: boolean;
                     systemNullSetters?: boolean;
                     validate?: boolean;
+                    virtualDirname?: string;
                 }
                 export interface NormalizedOutputOptions {
                     amd: NormalizedAmdOptions;
@@ -14590,21 +14640,25 @@ declare module "@cocos/ccbuild" {
                     sourcemapFileNames: string | ((chunkInfo: PreRenderedChunk) => string) | undefined;
                     sourcemapIgnoreList: SourcemapIgnoreListOption;
                     sourcemapPathTransform: SourcemapPathTransformOption | undefined;
+                    sourcemapDebugIds: boolean;
                     strict: boolean;
                     systemNullSetters: boolean;
                     validate: boolean;
+                    virtualDirname: string;
                 }
                 export type WarningHandlerWithDefault = (warning: RollupLog, defaultHandler: LoggingFunction) => void;
-                export interface SerializedTimings {
-                    [label: string]: [
-                        number,
-                        number,
-                        number
-                    ];
-                }
+                export type SerializedTimings = Record<string, [
+                    number,
+                    number,
+                    number
+                ]>;
                 export interface PreRenderedAsset {
+                    /** @deprecated Use "names" instead. */
                     name: string | undefined;
+                    names: string[];
+                    /** @deprecated Use "originalFileNames" instead. */
                     originalFileName: string | null;
+                    originalFileNames: string[];
                     source: string | Uint8Array;
                     type: "asset";
                 }
@@ -14633,13 +14687,9 @@ declare module "@cocos/ccbuild" {
                     dynamicImports: string[];
                     fileName: string;
                     implicitlyLoadedBefore: string[];
-                    importedBindings: {
-                        [imported: string]: string[];
-                    };
+                    importedBindings: Record<string, string[]>;
                     imports: string[];
-                    modules: {
-                        [id: string]: RenderedModule;
-                    };
+                    modules: Record<string, RenderedModule>;
                     referencedFiles: string[];
                 }
                 export interface OutputChunk extends RenderedChunk {
@@ -14648,12 +14698,10 @@ declare module "@cocos/ccbuild" {
                     sourcemapFileName: string | null;
                     preliminaryFileName: string;
                 }
-                export interface SerializablePluginCache {
-                    [key: string]: [
-                        number,
-                        any
-                    ];
-                }
+                export type SerializablePluginCache = Record<string, [
+                    number,
+                    any
+                ]>;
                 export interface RollupCache {
                     modules: ModuleJSON[];
                     plugins?: Record<string, SerializablePluginCache>;
@@ -14668,6 +14716,7 @@ declare module "@cocos/ccbuild" {
                     cache: RollupCache | undefined;
                     close: () => Promise<void>;
                     closed: boolean;
+                    [Symbol.asyncDispose](): Promise<void>;
                     generate: (outputOptions: OutputOptions) => Promise<RollupOutput>;
                     getTimings?: () => SerializedTimings;
                     watchFiles: string[];
@@ -14713,12 +14762,8 @@ declare module "@cocos/ccbuild" {
                     output?: OutputOptions | OutputOptions[];
                     watch?: WatcherOptions | false;
                 }
-                export type AwaitedEventListener<T extends {
-                    [event: string]: (...parameters: any) => any;
-                }, K extends keyof T> = (...parameters: Parameters<T[K]>) => void | Promise<void>;
-                export interface AwaitingEventEmitter<T extends {
-                    [event: string]: (...parameters: any) => any;
-                }> {
+                export type AwaitedEventListener<T extends Record<string, (...parameters: any) => any>, K extends keyof T> = (...parameters: Parameters<T[K]>) => void | Promise<void>;
+                export interface AwaitingEventEmitter<T extends Record<string, (...parameters: any) => any>> {
                     close(): Promise<void>;
                     emit<K extends keyof T>(event: K, ...parameters: Parameters<T[K]>): Promise<unknown>;
                     /**
@@ -15575,7 +15620,7 @@ declare module "@cocos/ccbuild" {
         export interface ___node_modules_types_estree_index__BinaryExpression extends ___node_modules_types_estree_index__BaseExpression {
             type: "BinaryExpression";
             operator: ___node_modules_types_estree_index__BinaryOperator;
-            left: ___node_modules_types_estree_index__Expression;
+            left: ___node_modules_types_estree_index__Expression | ___node_modules_types_estree_index__PrivateIdentifier;
             right: ___node_modules_types_estree_index__Expression;
         }
         export interface ___node_modules_types_estree_index__BaseCallExpression extends ___node_modules_types_estree_index__BaseExpression {
@@ -15742,7 +15787,7 @@ declare module "@cocos/ccbuild" {
         }
         export interface ___node_modules_types_estree_index__ImportSpecifier extends ___node_modules_types_estree_index__BaseModuleSpecifier {
             type: "ImportSpecifier";
-            imported: ___node_modules_types_estree_index__Identifier;
+            imported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
         }
         export interface ___node_modules_types_estree_index__ImportDefaultSpecifier extends ___node_modules_types_estree_index__BaseModuleSpecifier {
             type: "ImportDefaultSpecifier";
@@ -15755,9 +15800,10 @@ declare module "@cocos/ccbuild" {
             specifiers: Array<___node_modules_types_estree_index__ImportSpecifier | ___node_modules_types_estree_index__ImportDefaultSpecifier | ___node_modules_types_estree_index__ImportNamespaceSpecifier>;
             source: ___node_modules_types_estree_index__Literal;
         }
-        export interface ___node_modules_types_estree_index__ExportSpecifier extends ___node_modules_types_estree_index__BaseModuleSpecifier {
+        export interface ___node_modules_types_estree_index__ExportSpecifier extends Omit<___node_modules_types_estree_index__BaseModuleSpecifier, "local"> {
             type: "ExportSpecifier";
-            exported: ___node_modules_types_estree_index__Identifier;
+            local: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
+            exported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
         }
         export interface ___node_modules_types_estree_index__ExportNamedDeclaration extends ___node_modules_types_estree_index__BaseModuleDeclaration {
             type: "ExportNamedDeclaration";
@@ -15771,7 +15817,7 @@ declare module "@cocos/ccbuild" {
         }
         export interface ___node_modules_types_estree_index__ExportAllDeclaration extends ___node_modules_types_estree_index__BaseModuleDeclaration {
             type: "ExportAllDeclaration";
-            exported: ___node_modules_types_estree_index__Identifier | null;
+            exported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal | null;
             source: ___node_modules_types_estree_index__Literal;
         }
         export type ___node_modules_types_estree_index__ModuleDeclaration = ___node_modules_types_estree_index__ImportDeclaration | ___node_modules_types_estree_index__ExportNamedDeclaration | ___node_modules_types_estree_index__ExportDefaultDeclaration | ___node_modules_types_estree_index__ExportAllDeclaration;
@@ -16100,7 +16146,7 @@ declare module "@cocos/ccbuild" {
             export interface BinaryExpression extends ___node_modules_types_estree_index__BaseExpression {
                 type: "BinaryExpression";
                 operator: ___node_modules_types_estree_index__BinaryOperator;
-                left: ___node_modules_types_estree_index__Expression;
+                left: ___node_modules_types_estree_index__Expression | ___node_modules_types_estree_index__PrivateIdentifier;
                 right: ___node_modules_types_estree_index__Expression;
             }
             export interface AssignmentExpression extends ___node_modules_types_estree_index__BaseExpression {
@@ -16299,7 +16345,7 @@ declare module "@cocos/ccbuild" {
             }
             export interface ImportSpecifier extends ___node_modules_types_estree_index__BaseModuleSpecifier {
                 type: "ImportSpecifier";
-                imported: ___node_modules_types_estree_index__Identifier;
+                imported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
             }
             export interface ImportExpression extends ___node_modules_types_estree_index__BaseExpression {
                 type: "ImportExpression";
@@ -16317,9 +16363,10 @@ declare module "@cocos/ccbuild" {
                 specifiers: ___node_modules_types_estree_index__ExportSpecifier[];
                 source?: ___node_modules_types_estree_index__Literal | null | undefined;
             }
-            export interface ExportSpecifier extends ___node_modules_types_estree_index__BaseModuleSpecifier {
+            export interface ExportSpecifier extends Omit<___node_modules_types_estree_index__BaseModuleSpecifier, "local"> {
                 type: "ExportSpecifier";
-                exported: ___node_modules_types_estree_index__Identifier;
+                local: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
+                exported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal;
             }
             export interface ExportDefaultDeclaration extends ___node_modules_types_estree_index__BaseModuleDeclaration {
                 type: "ExportDefaultDeclaration";
@@ -16327,7 +16374,7 @@ declare module "@cocos/ccbuild" {
             }
             export interface ExportAllDeclaration extends ___node_modules_types_estree_index__BaseModuleDeclaration {
                 type: "ExportAllDeclaration";
-                exported: ___node_modules_types_estree_index__Identifier | null;
+                exported: ___node_modules_types_estree_index__Identifier | ___node_modules_types_estree_index__Literal | null;
                 source: ___node_modules_types_estree_index__Literal;
             }
             export interface AwaitExpression extends ___node_modules_types_estree_index__BaseExpression {

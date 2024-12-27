@@ -317,7 +317,7 @@ function cvtPropDecorators(className: string, ctx: ClassDecoratorContext) {
     };
 }
 
-export default function recordDecorators(): babel.PluginObj<any> {
+export function recordDecorators(): babel.PluginObj<any> {
     return {
         name: 'decorator-collector',
         visitor: {

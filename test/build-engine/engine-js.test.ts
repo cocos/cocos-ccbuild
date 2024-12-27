@@ -308,6 +308,7 @@ describe('engine-js', () => {
                 WEBGPU: false
             },
             inlineEnum: true,
+            mangleProperties: true,
         };
 
         await buildEngine(options);
@@ -366,6 +367,62 @@ describe('engine-js', () => {
                 DEBUG: false,
                 WEBGPU: false
             },
+        };
+
+        await buildEngine(options);
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
+        await del(out, { force: true });
+    });
+
+    test('HTML5 mangle private properties', async () => {
+        const out = ps.join(__dirname, './lib-js');
+
+        const options: buildEngine.Options = {
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            platform: 'HTML5',
+            moduleFormat: 'esm',
+            compress: false,
+            split: false,
+            nativeCodeBundleMode: 'wasm',
+            assetURLFormat: 'runtime-resolved',
+            noDeprecatedFeatures: false,
+            sourceMap: false,
+            features: ['mangle-private-properties-test'],
+            loose: true,
+            mode: 'BUILD',
+            mangleProperties: {
+                mangleGetterSetter: true,
+                mangleList: [
+                    'ManglePropertyBase._mangleMeProp',
+                    'ManglePropertyBase._mangleMeProp2',
+                    'ManglePropertyBase.mangleMe',
+                    'ManglePropertyBase.mangleMe2',
+                    'ManglePropertyGrand.helloGrandMangleInMangleList',
+                    'MangleWholeClassBase',
+                    'IMangleWholeClassInterface',
+                    'IWebGLGPUTexture3.glRenderbuffer',
+                    'IWebGLGPUTexture4',
+                ],
+                dontMangleList: [
+                    'ManglePropertyBase._dontMangleMeProp',
+                    'ManglePropertyBase.dontMangleMeProp2',
+                    'ManglePropertyBase.dontMangleMeProp3',
+                    'ManglePropertyBase.dontMangleMe',
+                    'ManglePropertyBase.dontMangleMe2',
+                    'ManglePropertyBase.dontMangleMe3',
+                    'IMangleGrand.iGrandPublicPropMangleJsDocButInDontMangleList',
+                    'ManglePrivatePropertiesTest.helloGrandMangleInMangleList',
+                    'IMangleTest.interfaceProp3',
+                ],
+            },
+            flags: {
+                DEBUG: false,
+                WEBGPU: false
+            },
+            targets: ['chrome 80'],
+            inlineEnum: true,
         };
 
         await buildEngine(options);

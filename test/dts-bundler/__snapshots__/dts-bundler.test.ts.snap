@@ -158,7 +158,383 @@ exports[`bundle dts: cc.d.ts content 1`] = `
          */
         FLIPPED_MASK = 268435455
     }
+    export function testConstantOfTypeArray(): void;
+    export enum MyEnum {
+        AAA = 0,
+        BBB = 1,
+        CCC = 123,
+        DDD = "hello",
+        EEE = 1
+    }
+    export const enum MyConstEnum {
+        C_AAA = 0,
+        C_BBB = 1,
+        C_DDD = "hello",
+        C_EEE = 1234,
+        C_FFF = 1235
+    }
+    export enum Button {
+        BUTTON_SOUTH = 0,
+        BUTTON_EAST = 1,
+        BUTTON_WEST = 2,
+        BUTTON_NORTH = 3,
+        NS_MINUS = 4,
+        NS_PLUS = 5,
+        BUTTON_L1 = 6,
+        BUTTON_L2 = 7,
+        BUTTON_L3 = 8,
+        BUTTON_R1 = 9,
+        BUTTON_R2 = 10,
+        BUTTON_R3 = 11,
+        DPAD_UP = 12,
+        DPAD_DOWN = 13,
+        DPAD_LEFT = 14,
+        DPAD_RIGHT = 15,
+        LEFT_STICK_UP = 16,
+        LEFT_STICK_DOWN = 17,
+        LEFT_STICK_LEFT = 18,
+        LEFT_STICK_RIGHT = 19,
+        RIGHT_STICK_UP = 20,
+        RIGHT_STICK_DOWN = 21,
+        RIGHT_STICK_LEFT = 22,
+        RIGHT_STICK_RIGHT = 23,
+        ROKID_MENU = 24,
+        ROKID_START = 25
+    }
+    export class GamepadInputDevice {
+        hello(): void;
+    }
+    export enum ModelLocalBindings {
+        UBO_LOCAL = 0,
+        UBO_FORWARD_LIGHTS = 1,
+        UBO_SKINNING_ANIMATION = 2,
+        UBO_SKINNING_TEXTURE = 3,
+        UBO_MORPH = 4,
+        UBO_UI_LOCAL = 5,
+        UBO_SH = 6,
+        SAMPLER_JOINTS = 7,
+        SAMPLER_MORPH_POSITION = 8,
+        SAMPLER_MORPH_NORMAL = 9,
+        SAMPLER_MORPH_TANGENT = 10,
+        SAMPLER_LIGHTMAP = 11,
+        SAMPLER_SPRITE = 12,
+        SAMPLER_REFLECTION = 13,
+        STORAGE_REFLECTION = 14,
+        SAMPLER_REFLECTION_PROBE_CUBE = 15,
+        SAMPLER_REFLECTION_PROBE_PLANAR = 16,
+        SAMPLER_REFLECTION_PROBE_DATA_MAP = 17,
+        SAMPLER_REFLECTION_PROBE_BLEND_CUBE = 18,
+        COUNT = 19
+    }
+    export enum UBOLocalEnum {
+        MAT_WORLD_OFFSET = 0,
+        MAT_WORLD_IT_OFFSET = 16,
+        LIGHTINGMAP_UVPARAM = 32,
+        LOCAL_SHADOW_BIAS = 36,
+        REFLECTION_PROBE_DATA1 = 40,
+        REFLECTION_PROBE_DATA2 = 44,
+        REFLECTION_PROBE_BLEND_DATA1 = 48,
+        REFLECTION_PROBE_BLEND_DATA2 = 52,
+        COUNT = 56,
+        SIZE = 224,
+        BINDING = 0
+    }
+    /**
+     * @en The local uniform buffer object
+     * @zh 本地 UBO。
+     */
+    export class UBOLocal {
+        static readonly MAT_WORLD_OFFSET: UBOLocalEnum;
+        static readonly MAT_WORLD_IT_OFFSET: UBOLocalEnum;
+        static readonly LIGHTINGMAP_UVPARAM: UBOLocalEnum;
+        static readonly LOCAL_SHADOW_BIAS: UBOLocalEnum;
+        static readonly REFLECTION_PROBE_DATA1: UBOLocalEnum;
+        static readonly REFLECTION_PROBE_DATA2: UBOLocalEnum;
+        static readonly REFLECTION_PROBE_BLEND_DATA1: UBOLocalEnum;
+        static readonly REFLECTION_PROBE_BLEND_DATA2: UBOLocalEnum;
+        static readonly COUNT: UBOLocalEnum;
+        static readonly SIZE: UBOLocalEnum;
+    }
     export const str = "intrinsic flag is false";
+    export enum MangleTestMyEnum {
+        AAA = 0,
+        BBB = 1,
+        CCC = 123,
+        DDD = 124
+    }
+    export enum MangleTestMyStringEnum {
+        AAA = "aaa",
+        BBB = "bbb",
+        CCC = "ccc"
+    }
+    export const enum MangleTestConstEnum {
+        CONST_A = 1,
+        CONST_B = 2,
+        'space key' = 3,
+        "space key2" = 4
+    }
+    export class ManglePrivatePropertiesTest extends ManglePropertyBase implements IMangleTest {
+        publicProp3: number;
+        get accessorProp0(): number;
+        set accessorProp0(value: number);
+        constructor();
+        helloInterface1(): void;
+        helloInterface2(v: string): number;
+        interfaceProp1: number;
+        interfaceProp2: string;
+        get myEnum1(): MangleTestMyEnum;
+        get myEnum2(): MangleTestMyEnum;
+        get myStringEnum(): MangleTestMyStringEnum;
+        getFoo(): string;
+        helloGrandMangleInMangleList(): void;
+        helloGrandDontMangle1(): void;
+        protected helloGrandAbstractMangleMe(): void;
+        protected helloGrandMangleMeProtected(): void;
+    }
+    /** @mangle */
+    export interface IUnionBase1 {
+        ia: number;
+        ib: string;
+    }
+    /** @mangle */
+    export interface IUnionBase2 {
+        ic: boolean;
+        id: number;
+    }
+    /** @mangle */
+    export interface IUnionBase3 {
+        ie: IUnionBase1 | IUnionBase2;
+    }
+    export interface IMangleGrand {
+        helloGrandDontMangle1(): void;
+        /** @mangle */
+        helloGrandMangleMe3(): void;
+        /** @mangle */
+        iGrandPublicPropMangleMe: number;
+        /** @mangle */
+        iGrandPublicPropMangleJsDocButInDontMangleList: number;
+    }
+    /** @mangle */
+    export interface IWebGLBindingMapping {
+        blockOffsets: number[];
+        samplerTextureOffsets: number[];
+        flexibleSet: number;
+    }
+    export interface IWebGLBindingMapping {
+        blockOffsets: number[];
+        samplerTextureOffsets: number[];
+        flexibleSet: number;
+    }
+    export class MangleWholeClassBase {
+        protected mangleWholeClassBaseProtectedProp1: number;
+        protected helloMangleWholeClassBaseProtectedMethod1(): void;
+        helloMangleWholeClassBasePublicMethod1(): void;
+    }
+    export interface IMangleWholeClassInterface {
+        iMangleWholeClassInterfaceProp1: number;
+        iMangleWholeClassInterfaceProp2: string;
+        helloMangleWholeClassInterfaceMethod1(): void;
+    }
+    export class MangleWholeClass extends MangleWholeClassBase implements IMangleWholeClassInterface {
+        mangleWholeClassPublicProp1: number;
+        protected mangleWholeClassProtectedProp2: number;
+        constructor();
+        iMangleWholeClassInterfaceProp1: number;
+        iMangleWholeClassInterfaceProp2: string;
+        helloMangleWholeClassInterfaceMethod1(): void;
+        getMangleWholeClassPrivateProp3(): number;
+        helloMangleWholeClassPublicMethod1(): void;
+        protected helloMangleWholeClassProtectedMethod2(): void;
+    }
+    export class MyClassExtendsMangleWholeClass extends MangleWholeClass {
+        protected subclassExtendsMangleWholeProp2: number;
+        subclassExtendsMangleWholeProp3: number;
+        constructor();
+        protected helloMangleWholeClassProtectedMethod2(): void;
+        getSubclassExtendsMangleWholeProp1(): number;
+        helloSubclassExtendsMangleWholeMethod1(): void;
+    }
+    export abstract class ManglePropertyGrand implements IMangleGrand {
+        get iGrandPropMangle(): number;
+        set iGrandPropMangle(value: number);
+        protected _grandProtectedPropDontMangle: number;
+        /** @mangle */
+        protected _grandProtectedPropMangle: number;
+        /** @mangle */
+        grandPublicPropMangle: number;
+        iGrandPublicPropMangleMe: number;
+        iGrandPublicPropMangleJsDocButInDontMangleList: number;
+        helloGrandMangleInMangleList(): void;
+        helloGrandDontMangle1(): void;
+        helloGrandDontMangleMe(): void;
+        /** @mangle */
+        abstract helloGrandMangleMePublic(): void;
+        /** @mangle */
+        protected helloGrandMangleMeProtected(): void;
+        protected abstract helloGrandAbstractDontMangle(): void;
+        /** @mangle */
+        protected abstract helloGrandAbstractMangleMe(): void;
+        helloGrandMangleMe3(): void;
+        /** @mangle */
+        get grandPropDontMangle(): number;
+        /** @mangle */
+        set grandPropDontMangle(value: number);
+    }
+    export class ManglePropertyBase extends ManglePropertyGrand implements ManglePropertyBase {
+        protected helloGrandAbstractDontMangle(): void;
+        protected helloGrandAbstractMangleMe(): void;
+        /** @mangle */
+        helloGrandDontMangle1(): void;
+        helloGrandMangleMePublic(): void;
+        protected helloGrandMangleMeProtected(): void;
+        helloGrandMangleMe3(): void;
+        protected _baseProtectedProp: number;
+        /** @mangle */
+        _basePublicProp1Mangle: number;
+        _basePublicProp2DontMangle: number;
+        /** @mangle */
+        declarePropMangle: string;
+        declarePropDontMangle: number;
+        constructor();
+        get dontMangleMePropGetter(): number;
+        /** @mangle */
+        basePublicMethod(): void;
+        _mangleMeProp: number;
+        _mangleMeProp2: string;
+        protected dontMangleMeProp2: string;
+        /** @mangle */
+        dontMangleMeProp3: number;
+        mangleMe(): void;
+        mangleMe2(): void;
+        protected dontMangleMe2(): void;
+        /** @mangle */
+        dontMangleMe3(): void;
+    }
+    export enum MangleTestMyBaseEnum {
+        HELLO = 123444,
+        WORLD = 123445,
+        FOO = 123,
+        BAR = 124,
+        TS = 125,
+        BABEL = 126
+    }
+    export interface IMangleTest {
+        /** @mangle */
+        helloInterface1(): void;
+        helloInterface2(v: string): number;
+        /** @mangle */
+        helloInterface3?(v: string): number;
+        /** @mangle */
+        interfaceProp1: number;
+        interfaceProp2: string;
+        /** @mangle */
+        interfaceProp3?: boolean;
+    }
+    export interface IWebGLGPUTexture {
+        /** @mangle */
+        width: number;
+        height: number;
+        depth: number;
+        /** @mangle */
+        size: number;
+        arrayLayer: number;
+        mipLevel: number;
+        /** @mangle */
+        isPowerOf2: boolean;
+        glTarget: GLenum;
+        glInternalFmt: GLenum;
+        glFormat: GLenum;
+        glType: GLenum;
+        glUsage: GLenum;
+        glTexture: WebGLTexture | null;
+        glRenderbuffer: WebGLRenderbuffer | null;
+        glWrapS: GLenum;
+        glWrapT: GLenum;
+        glMinFilter: GLenum;
+        glMagFilter: GLenum;
+        isSwapchainTexture: boolean;
+        /** @mangle */
+        helloMangle(): void;
+        helloDontMangle(): void;
+    }
+    /** @mangle */
+    export interface IWebGLGPUTexture2 {
+        width: number;
+        height: number;
+        depth: number;
+        size: number;
+        arrayLayer: number;
+        mipLevel: number;
+        isPowerOf2: boolean;
+        glTarget: GLenum;
+        glInternalFmt: GLenum;
+        glFormat: GLenum;
+        glType: GLenum;
+        glUsage: GLenum;
+        glTexture: WebGLTexture | null;
+        glRenderbuffer: WebGLRenderbuffer | null;
+        glWrapS: GLenum;
+        glWrapT: GLenum;
+        glMinFilter: GLenum;
+        glMagFilter: GLenum;
+        isSwapchainTexture: boolean;
+    }
+    export interface IWebGLGPUTexture3 {
+        /** @mangle */
+        width: number;
+        height: number;
+        depth: number;
+        /** @mangle */
+        size: number;
+        arrayLayer: number;
+        mipLevel: number;
+        /** @mangle */
+        isPowerOf2: boolean;
+        glTarget: GLenum;
+        glInternalFmt: GLenum;
+        glFormat: GLenum;
+        glType: GLenum;
+        glUsage: GLenum;
+        glTexture: WebGLTexture | null;
+        glRenderbuffer: WebGLRenderbuffer | null;
+        glWrapS: GLenum;
+        glWrapT: GLenum;
+        glMinFilter: GLenum;
+        glMagFilter: GLenum;
+        isSwapchainTexture: boolean;
+    }
+    export interface IWebGLGPUTexture4 {
+        width: number;
+        height: number;
+        depth: number;
+        size: number;
+        arrayLayer: number;
+        mipLevel: number;
+        isPowerOf2: boolean;
+        glTarget: GLenum;
+        glInternalFmt: GLenum;
+        glFormat: GLenum;
+        glType: GLenum;
+        glUsage: GLenum;
+        glTexture: WebGLTexture | null;
+        glRenderbuffer: WebGLRenderbuffer | null;
+        glWrapS: GLenum;
+        glWrapT: GLenum;
+        glMinFilter: GLenum;
+        glMagFilter: GLenum;
+        isSwapchainTexture: boolean;
+    }
+    /** @mangle */
+    export interface IWebGLGPUShaderStage {
+        source: string | number;
+        glShader: WebGLShader | null;
+    }
+    /** @mangle */
+    export interface IWebGLGPUShader {
+        name: string | number;
+        gpuStages: IWebGLGPUShaderStage[];
+        gpuStageMap: Record<string, IWebGLGPUShaderStage>;
+    }
     export function testEnv(): string;
     export function testInternalExport(): string;
     export namespace __private {

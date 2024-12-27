@@ -6,9 +6,11 @@ export enum TestOverrideEnum {
     HEIHEI
 }
 
+console.log('TestOverrideEnum start');
 console.log(TestOverrideEnum.WOWO);
 console.log(TestOverrideEnum.HAHA);
 console.log(TestOverrideEnum.HEIHEI);
+console.log('TestOverrideEnum end');
 
 
 console.log(MyEnum4.AAABBB, MyEnum4.Haha, MyEnum4.Hi);
