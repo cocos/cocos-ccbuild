@@ -50,7 +50,7 @@ export enum MyEnum5 {
     EEE,
 }
 
-console.log(MyEnum5.RGB);
+console.log('MyEnum5.RGB:' + MyEnum5.RGB);
 console.log(MyEnum5.RGBA);
 console.log(MyEnum5.III);
 console.log(MyEnum5.HHH);
@@ -69,7 +69,7 @@ console.log(`MyEnum6.UNION.aaa`);
 console.log(`MyEnum6.UNION`);
 console.log(`   ${gfx.Format.RGBA}`);
 
-console.log('' +(gfx.Format.RGBA | gfx.Format.RG));
+console.log('(gfx.Format.RGBA | gfx.Format.RG):' +(gfx.Format.RGBA | gfx.Format.RG));
 console.log('' +(gfx.Format_2.RGBA | gfx.Format.RG));
 
 export * from './define';

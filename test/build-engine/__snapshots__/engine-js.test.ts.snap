@@ -2962,7 +2962,7 @@ exports[`engine-js inline enum 2`] = `
               UUU: 1234,
               EEE: 1235
             });
-            console.log(15);
+            console.log('MyEnum5.RGB:' + 15);
             console.log(16);
             console.log(17);
             console.log(18);
@@ -2977,16 +2977,16 @@ exports[`engine-js inline enum 2`] = `
             console.log("MyEnum6.UNION.aaa");
             console.log("MyEnum6.UNION");
             console.log("   " + Format.RGBA);
-            console.log('' + (Format.RGBA | Format.RG));
-            console.log('' + (Format_2.RGBA | Format.RG));
+            console.log('(gfx.Format.RGBA | gfx.Format.RG):' + (16 | 14));
+            console.log('' + (31 | 14));
             var MyNode = exports("MyNode", function MyNode(a) {
               this._ccprivate$a = a;
             });
             MyNode.Format = Format;
             MyNode.Format_2 = Format_2;
-            console.log(MyNode.Format.RG);
-            console.log(MyNode.Format_2.RG);
-            console.log(PixelFormat.A8);
+            console.log(14);
+            console.log(14);
+            console.log(1);
             console.log(1);
             console.log(1024);
             console.log('---- const enum begin ----');
