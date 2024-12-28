@@ -131,6 +131,7 @@ class ManglePropertyBase extends ManglePropertyGrand {
   constructor() {
     super();
     this._ccprivate$_baseProp = 0;
+    this._basePrivateHasDontMangleProp = 0;
     this._baseProtectedProp = 1;
     this._ccprivate$_basePublicProp1Mangle = 2;
     this._basePublicProp2DontMangle = 3;
@@ -144,6 +145,13 @@ class ManglePropertyBase extends ManglePropertyGrand {
     this.declarePropDontMangle = 123;
   }
   _ccprivate$_basePrivateMethod() {
+    this._ccprivate$_baseProp = 123;
+    this._basePrivateHasDontMangleProp = 123;
+    const {
+      _ccprivate$_baseProp: baseProp,
+      _basePrivateHasDontMangleProp: basePrivateHasDontMangleProp
+    } = this;
+    console.log(baseProp, basePrivateHasDontMangleProp);
     this._dontMangleMeProp = 444;
     this.dontMangleMe();
     console.log(this._ccprivate$privateGetterMangle);
