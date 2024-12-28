@@ -105,7 +105,9 @@ class ManglePropertyGrand {
   }
   helloGrandDontMangleMe() {}
   _ccprivate$helloGrandMangleMeProtected() {}
-  _ccprivate$helloGrandMangleMe3() {}
+  _ccprivate$helloGrandMangleMe3() {
+    this._ccprivate$mangleTagInBaseButDontmangleTagInSub();
+  }
   _ccprivate$_grandPrivateMethod() {
     this._ccprivate$_grandPropMangle1 = 123;
   }
@@ -115,6 +117,7 @@ class ManglePropertyGrand {
   set grandPropDontMangle(value) {
     this._ccprivate$_grandPropMangle1 = value;
   }
+  _ccprivate$mangleTagInBaseButDontmangleTagInSub() {}
 }
 class ManglePropertyBase extends ManglePropertyGrand {
   helloGrandAbstractDontMangle() {
@@ -131,6 +134,7 @@ class ManglePropertyBase extends ManglePropertyGrand {
   constructor() {
     super();
     this._ccprivate$_baseProp = 0;
+    this._basePrivateHasDontMangleProp = 0;
     this._baseProtectedProp = 1;
     this._ccprivate$_basePublicProp1Mangle = 2;
     this._basePublicProp2DontMangle = 3;
@@ -144,9 +148,17 @@ class ManglePropertyBase extends ManglePropertyGrand {
     this.declarePropDontMangle = 123;
   }
   _ccprivate$_basePrivateMethod() {
+    this._ccprivate$_baseProp = 123;
+    this._basePrivateHasDontMangleProp = 123;
+    const {
+      _ccprivate$_baseProp: baseProp,
+      _basePrivateHasDontMangleProp: basePrivateHasDontMangleProp
+    } = this;
+    console.log(baseProp, basePrivateHasDontMangleProp);
     this._dontMangleMeProp = 444;
     this.dontMangleMe();
     console.log(this._ccprivate$privateGetterMangle);
+    this._ccprivate$mangleTagInBaseButDontmangleTagInSub();
   }
   get dontMangleMePropGetter() {
     return this._dontMangleMeProp;
@@ -160,6 +172,7 @@ class ManglePropertyBase extends ManglePropertyGrand {
   dontMangleMe() {}
   dontMangleMe2() {}
   dontMangleMe3() {}
+  _ccprivate$mangleTagInBaseButDontmangleTagInSub() {}
 }
 const MangleTestMyBaseEnum = {
   HELLO: 123444,
@@ -262,6 +275,7 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
   }
   _ccprivate$helloGrandMangleInMangleList() {
     super._ccprivate$helloGrandMangleInMangleList();
+    this._ccprivate$mangleTagInBaseButDontmangleTagInSub();
   }
   helloGrandDontMangle1() {
     super.helloGrandDontMangle1();
@@ -294,12 +308,14 @@ function doManglePrivatePropertiesTestPublic(obj) {
   obj._basePublicProp2DontMangle = 200;
   obj._ccprivate$basePublicMethod();
   obj._ccprivate$declarePropMangle = 'world';
+  obj._ccprivate$mangleTagInBaseButDontmangleTagInSub();
   console.log(\`--------------------------\`);
   const base = obj;
   base._ccprivate$_basePublicProp1Mangle = 101;
   base._basePublicProp2DontMangle = 201;
   base._ccprivate$basePublicMethod();
   base._ccprivate$declarePropMangle = 'hello';
+  base._ccprivate$mangleTagInBaseButDontmangleTagInSub();
   console.log(\`--------------------------\`);
   obj._ccprivate$helloInterface1();
   obj.helloInterface2('world');

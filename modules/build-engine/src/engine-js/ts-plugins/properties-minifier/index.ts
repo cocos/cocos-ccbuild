@@ -22,6 +22,9 @@ interface JSDocContainer {
 
 type SymbolWithParent = ts.Symbol & { parent?: ts.Symbol };
 
+const MANGLE_JSDOC_TAG_NAME = 'mangle';
+const DONT_MANGLE_JSDOC_TAG_NAME = 'dontmangle';
+
 export interface IManglePropertiesOptions {
     /**
      * Prefix of generated names (e.g. '_ccprivate$')
@@ -226,13 +229,13 @@ export class PropertiesMinifier {
         return this.isPrivate(node, parentSymbol) && !this.hasModifier(node, ts.SyntaxKind.StaticKeyword);
     }
 
-    private isMangledInJsDoc(jsDocNode: JSDocContainer): boolean {
+    private hasJsDocTag(jsDocNode: JSDocContainer, tagNameToSearch: string): boolean {
         if (jsDocNode.jsDoc) {
             for (const jsDoc of jsDocNode.jsDoc) {
                 if (jsDoc.tags) {
                     for (const tag of jsDoc.tags) {
                         const tagName = tag.tagName.escapedText;
-                        if (tagName === 'mangle') {
+                        if (tagName === tagNameToSearch) {
                             return true;
                         }
                     }
@@ -244,8 +247,14 @@ export class PropertiesMinifier {
 
     private isPrivate(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
         let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
-        if (!isPrivate && !this._options.ignoreJsDocTag) {
-            isPrivate = this.isMangledInJsDoc(node as JSDocContainer);
+        if (!this._options.ignoreJsDocTag) {
+            if (!isPrivate && this.hasJsDocTag(node as JSDocContainer, MANGLE_JSDOC_TAG_NAME)) {
+                isPrivate = true;
+            }
+
+            if (isPrivate && this.hasJsDocTag(node as JSDocContainer, DONT_MANGLE_JSDOC_TAG_NAME)) {
+                isPrivate = false;
+            }
         }
 
         const parentName = (node.parent as any).name?.escapedText;
@@ -307,8 +316,11 @@ export class PropertiesMinifier {
                                 const members = classOrInterfaceType.getProperties();
                                 for (const member of members) {
                                     if (member.name === name) {
-                                        if (classOrInterfaceSymbol.getJsDocTags(this._typeChecker).some(tag => tag.name === 'mangle')) {
+                                        const jsDocTags = classOrInterfaceSymbol.getJsDocTags(this._typeChecker);
+                                        if (jsDocTags.some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
                                             return true;
+                                        } else if (jsDocTags.some(tag => tag.name === DONT_MANGLE_JSDOC_TAG_NAME)) {
+                                            return false;
                                         } else {
                                             return this.isPrivateNonStaticClassMember(member);
                                         }
@@ -329,8 +341,11 @@ export class PropertiesMinifier {
                     });
 
                     if (found) {
-                        if (parentSymbol.getJsDocTags(this._typeChecker).some(tag => tag.name === 'mangle')) {
+                        const parentJsDocTags = parentSymbol.getJsDocTags(this._typeChecker);
+                        if (parentJsDocTags.some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
                             return true;
+                        } else if (parentJsDocTags.some(tag => tag.name === DONT_MANGLE_JSDOC_TAG_NAME)) {
+                            return false;
                         }
                     }
                 }
@@ -409,10 +424,10 @@ export class PropertiesMinifier {
         const checker = this._typeChecker;
         let isPrivate = false;
         // interface definition has @mangle tag
-        if (typeSymbol.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
+        if (typeSymbol.getJsDocTags(checker).some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
             isPrivate = true;
         } else {
-            if (typeSymbol.getJsDocTags(checker).some(tag => tag.name === 'mangle')) {
+            if (typeSymbol.getJsDocTags(checker).some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
                 isPrivate = true;
             } else {
                 if (typeSymbol.members) {
@@ -425,7 +440,7 @@ export class PropertiesMinifier {
                                 const symbol = checker.getSymbolAtLocation(child);
                                 if (symbol && symbol.escapedName === propertyName) {
                                     for (const tag of symbol.getJsDocTags(checker)) {
-                                        if (tag.name === 'mangle') {
+                                        if (tag.name === MANGLE_JSDOC_TAG_NAME) {
                                             isPrivate = true;
                                             break;
                                         }
