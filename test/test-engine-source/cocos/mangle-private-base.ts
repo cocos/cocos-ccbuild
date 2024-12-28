@@ -133,6 +133,7 @@ export abstract class ManglePropertyGrand implements IMangleGrand {
     protected abstract helloGrandAbstractMangleMe(): void;
 
     helloGrandMangleMe3(): void {
+        this.mangleTagInBaseButDontmangleTagInSub();
     }
 
     private _grandPrivateMethod(): void {
@@ -148,6 +149,9 @@ export abstract class ManglePropertyGrand implements IMangleGrand {
     set grandPropDontMangle(value: number) {
         this._grandPropMangle1 = value;
     }
+
+    /** @mangle */
+    mangleTagInBaseButDontmangleTagInSub(): void {}
 }
 
 export class ManglePropertyBase extends ManglePropertyGrand implements ManglePropertyBase {
@@ -203,6 +207,7 @@ export class ManglePropertyBase extends ManglePropertyGrand implements ManglePro
         this._dontMangleMeProp = 444;
         this.dontMangleMe();
         console.log(this.privateGetterMangle);
+        this.mangleTagInBaseButDontmangleTagInSub();
     }
 
     get dontMangleMePropGetter(): number {
@@ -230,6 +235,9 @@ export class ManglePropertyBase extends ManglePropertyGrand implements ManglePro
     protected dontMangleMe2(): void {}
     /** @mangle */
     public dontMangleMe3(): void {}
+
+    /** @dontmangle */
+    mangleTagInBaseButDontmangleTagInSub(): void {}
 }
 
 export enum MangleTestMyBaseEnum {
