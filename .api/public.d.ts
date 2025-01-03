@@ -37,6 +37,16 @@ declare module "@cocos/ccbuild" {
             mangleGetterSetter?: boolean;
             ignoreJsDocTag?: boolean;
         }
+        export interface IWarningConfig {
+            /**
+             * 当没有显式声明构造函数时，是否要输出警告？
+             */
+            noConstructorFound?: boolean;
+            /**
+             * 当函数内 'this.' 数量超过此阈值时，是否要输出警告？
+             */
+            thisDotThreshold?: number;
+        }
         export interface Options {
             /**
              * 引擎仓库目录。
@@ -77,9 +87,9 @@ declare module "@cocos/ccbuild" {
              * ```
              * 将被优化为：
              * ```ts
-             *  enum MyEnum {
-             *      AAA,
-             *      BBB,
+             *  var MyEnum = {
+             *      AAA: 0,
+             *      BBB: 1,
              *  }
              *
              *  const a = 0;
@@ -90,10 +100,14 @@ declare module "@cocos/ccbuild" {
              */
             inlineEnum?: boolean;
             /**
-             * 是否需要压缩 private 属性。
+             * 是否需要压缩私有属性。
              * @default true
              */
             mangleProperties?: boolean | IManglePropertiesOptions;
+            /**
+             * 警告相关配置。
+             */
+            warn?: IWarningConfig;
             /**
              * 是否生成 source map。
              * 若为 `inline` 则生成内联的 source map。

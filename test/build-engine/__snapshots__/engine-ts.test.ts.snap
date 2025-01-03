@@ -261,7 +261,7 @@ export const CULL_MESHOPT = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
-  play() {}
+  play(): void {}
 }",
   },
   "animation/index.ts": {

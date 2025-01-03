@@ -740,3 +740,20 @@ export interface IUnionBase3 {
     console.log(a[1].ic);
     console.log(a[1].id);
 })();
+
+
+class GenerateConstructorTestBase {
+    hello(): void {
+        console.log('hello');
+    }
+}
+
+class GenerateConstructorTest extends GenerateConstructorTestBase {
+    world(): void {
+        console.log('world');
+    }
+}
+
+const generateConstructorTest = new GenerateConstructorTest();
+generateConstructorTest.hello();
+generateConstructorTest.world();

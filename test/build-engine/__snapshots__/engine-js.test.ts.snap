@@ -822,6 +822,19 @@ doManglePrivatePropertiesTestPublic(new ManglePrivatePropertiesTest());
   console.log(a[1]._ccprivate$ic);
   console.log(a[1]._ccprivate$id);
 })();
+class GenerateConstructorTestBase {
+  hello() {
+    console.log('hello');
+  }
+}
+class GenerateConstructorTest extends GenerateConstructorTestBase {
+  world() {
+    console.log('world');
+  }
+}
+const generateConstructorTest = new GenerateConstructorTest();
+generateConstructorTest.hello();
+generateConstructorTest.world();
 
 export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
 "

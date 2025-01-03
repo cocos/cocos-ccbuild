@@ -22,7 +22,7 @@ interface JSDocContainer {
 
 type SymbolWithParent = ts.Symbol & { parent?: ts.Symbol };
 
-export interface IManglePropertiesOptions {
+export interface IMinifierOptions {
     /**
      * Prefix of generated names (e.g. '_ccprivate$')
      */
@@ -32,15 +32,17 @@ export interface IManglePropertiesOptions {
     mangleGetterSetter: boolean;
     ignoreJsDocTag: boolean;
     warnThisDotThreshold: number;
+    warnNoConstructorFound: boolean;
 }
 
-const defaultOptions: IManglePropertiesOptions = {
+const defaultOptions: IMinifierOptions = {
     prefix: '_ccprivate$',
     mangleList: [],
     dontMangleList: [],
     mangleGetterSetter: false,
     ignoreJsDocTag: false,
-    warnThisDotThreshold: 10,
+    warnThisDotThreshold: 0,
+    warnNoConstructorFound: false,
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
@@ -51,12 +53,12 @@ type PropertyInInterface = ts.PropertyAssignment | ts.MethodDeclaration | ts.Get
 
 export class PropertiesMinifier {
     private readonly _context: ts.TransformationContext;
-    private readonly _options: IManglePropertiesOptions;
+    private readonly _options: IMinifierOptions;
     private _currentProgram: ts.Program | null = null;
     private _currentSourceFile: ts.SourceFile | null = null;
     private _typeChecker!: ts.TypeChecker;
 
-    public constructor(context: ts.TransformationContext, options?: Partial<IManglePropertiesOptions>) {
+    public constructor(context: ts.TransformationContext, options?: Partial<IMinifierOptions>) {
         this._context = context;
         this._options = { ...defaultOptions, ...options };
     }
@@ -81,8 +83,33 @@ export class PropertiesMinifier {
         );
     }
 
+    private getNodeByKind(children: ts.Node[], kind: ts.SyntaxKind): ts.Node | null {
+        for (const child of children) {
+            if (child.kind === kind) {
+                return child;
+            }
+
+            if (child.kind === ts.SyntaxKind.SyntaxList) {
+                const foundNode = this.getNodeByKind(child.getChildren(), kind);
+                if (foundNode) {
+                    return foundNode;
+                }
+            }
+        }
+        return null;
+    }
+
     private visitNode(node: ts.Node, program: ts.Program): ts.Node {
-        if (this.isAccessExpression(node)) {
+        if (this._options.warnNoConstructorFound && ts.isClassDeclaration(node)) {
+            const children = node.getChildren(this._currentSourceFile!);
+            const foundConstructor = this.getNodeByKind(children, ts.SyntaxKind.Constructor);
+            if (!foundConstructor && !ts.isBlock(node.parent)) {
+                const filePath = this._currentSourceFile?.fileName || '';
+                if (!filePath.includes('node_modules')) {
+                    console.warn(`Class ( ${node.name?.getText()} ) doesn't have a default constructor, ${filePath}`);
+                }
+            }
+        } else if (this.isAccessExpression(node)) {
             return this.createNewAccessExpression(node, program);
         } else if (ts.isBindingElement(node)) {
             return this.createNewBindingElement(node, program);
@@ -420,7 +447,7 @@ export class PropertiesMinifier {
                     let result = members.next();
                     while (!result.done) {
                         const member = result.value;
-                        if (member.valueDeclaration) {
+                        if (member && member.valueDeclaration) {
                             for (const child of member.valueDeclaration.getChildren()) {
                                 const symbol = checker.getSymbolAtLocation(child);
                                 if (symbol && symbol.escapedName === propertyName) {
@@ -599,7 +626,7 @@ export class PropertiesMinifier {
     }
 }
 
-export function minifyPrivatePropertiesTransformer(program: ts.Program, config?: Partial<IManglePropertiesOptions>): ts.TransformerFactory<ts.SourceFile> {
+export function minifyPrivatePropertiesTransformer(program: ts.Program, config?: Partial<IMinifierOptions>): ts.TransformerFactory<ts.SourceFile> {
     return (context: ts.TransformationContext) => {
         const minifier = new PropertiesMinifier(context, config);
         return (file: ts.SourceFile) => {

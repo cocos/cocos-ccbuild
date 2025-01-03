@@ -14,7 +14,7 @@ import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { getEnumData, rpEnumScanner } from './rollup-plugins/enum-scanner';
 import rpTypescript from '@cocos/rollup-plugin-typescript';
-import { minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
+import { IMinifierOptions, minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
 import { inlineEnumTransformer } from './ts-plugins/inline-enum';
 
 // import babel
@@ -305,11 +305,16 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         }),
     );
 
-    if (options.inlineEnum) {
+    const inlineEnum = options.inlineEnum ?? false;
+    const mangleProperties = options.mangleProperties ?? false;
+    const warnNoConstructorFound = options.warn?.noConstructorFound ?? false;
+    const warnThisDotThreshold = options.warn?.thisDotThreshold ?? 0;
+
+    if (inlineEnum) {
         rollupPlugins.push(...rpEnumScannerPlugin);
     }
 
-    if (options.mangleProperties || options.inlineEnum) {
+    if (mangleProperties || inlineEnum || warnNoConstructorFound || warnThisDotThreshold) {
         rollupPlugins.push(rpTypescript({
             tsconfig: ps.join(engineRoot, 'tsconfig.json'),
             compilerOptions: {
@@ -323,7 +328,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             transformers: (program) => {
                 const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
 
-                if (options.inlineEnum) {
+                if (inlineEnum) {
                     const enumData = getEnumData();
                     if (enumData) {
                         tsTransformers.push(inlineEnumTransformer(program, enumData));
@@ -332,8 +337,21 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                     }
                 }
 
-                if (options.mangleProperties) {
-                    tsTransformers.push(minifyPrivatePropertiesTransformer(program, typeof options.mangleProperties === 'object' ? options.mangleProperties : undefined));
+                if (mangleProperties || warnNoConstructorFound || warnThisDotThreshold) {
+                    const config: Partial<IMinifierOptions> = {};
+                    if (typeof mangleProperties === 'object') {
+                        Object.assign(config, mangleProperties);
+                    }
+
+                    if (warnNoConstructorFound !== undefined) {
+                        Object.assign(config, { warnNoConstructorFound });
+                    }
+
+                    if (warnThisDotThreshold !== undefined) {
+                        Object.assign(config, { warnThisDotThreshold });
+                    }
+
+                    tsTransformers.push(minifyPrivatePropertiesTransformer(program, config));
                 }
 
                 return {
