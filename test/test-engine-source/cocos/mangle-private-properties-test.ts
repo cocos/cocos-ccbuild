@@ -145,6 +145,7 @@ export class ManglePrivatePropertiesTest extends ManglePropertyBase implements I
 
     helloGrandMangleInMangleList(): void {
         super.helloGrandMangleInMangleList();
+        this.mangleTagInBaseButDontmangleTagInSub();
     }
 
     helloGrandDontMangle1(): void {
@@ -175,6 +176,7 @@ function doManglePrivatePropertiesTestPublic(obj: ManglePrivatePropertiesTest): 
     obj._basePublicProp2DontMangle = 200;
     obj.basePublicMethod();
     obj.declarePropMangle = 'world';
+    obj.mangleTagInBaseButDontmangleTagInSub();
 
     console.log(`--------------------------`);
     const base: ManglePropertyBase = obj;
@@ -182,6 +184,7 @@ function doManglePrivatePropertiesTestPublic(obj: ManglePrivatePropertiesTest): 
     base._basePublicProp2DontMangle = 201;
     base.basePublicMethod();
     base.declarePropMangle = 'hello';
+    base.mangleTagInBaseButDontmangleTagInSub();
 
     console.log(`--------------------------`);
     obj.helloInterface1();

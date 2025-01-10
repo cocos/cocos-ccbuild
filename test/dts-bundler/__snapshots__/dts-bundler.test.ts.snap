@@ -384,6 +384,8 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         get grandPropDontMangle(): number;
         /** @mangle */
         set grandPropDontMangle(value: number);
+        /** @mangle */
+        mangleTagInBaseButDontmangleTagInSub(): void;
     }
     export class ManglePropertyBase extends ManglePropertyGrand implements ManglePropertyBase {
         protected helloGrandAbstractDontMangle(): void;
@@ -414,6 +416,8 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         protected dontMangleMe2(): void;
         /** @mangle */
         dontMangleMe3(): void;
+        /** @dontmangle */
+        mangleTagInBaseButDontmangleTagInSub(): void;
     }
     export enum MangleTestMyBaseEnum {
         HELLO = 123444,
