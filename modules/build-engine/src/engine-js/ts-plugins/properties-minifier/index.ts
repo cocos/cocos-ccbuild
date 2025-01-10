@@ -25,7 +25,7 @@ type SymbolWithParent = ts.Symbol & { parent?: ts.Symbol };
 const MANGLE_JSDOC_TAG_NAME = 'mangle';
 const DONT_MANGLE_JSDOC_TAG_NAME = 'dontmangle';
 
-export interface IManglePropertiesOptions {
+export interface IMinifierOptions {
     /**
      * Prefix of generated names (e.g. '_ccprivate$')
      */
@@ -33,17 +33,17 @@ export interface IManglePropertiesOptions {
     mangleList: string[];
     dontMangleList: string[];
     mangleGetterSetter: boolean;
+    mangleProtected: boolean;
     ignoreJsDocTag: boolean;
-    warnThisDotThreshold: number;
 }
 
-const defaultOptions: IManglePropertiesOptions = {
+const defaultOptions: IMinifierOptions = {
     prefix: '_ccprivate$',
     mangleList: [],
     dontMangleList: [],
     mangleGetterSetter: false,
+    mangleProtected: false,
     ignoreJsDocTag: false,
-    warnThisDotThreshold: 10,
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
@@ -54,12 +54,12 @@ type PropertyInInterface = ts.PropertyAssignment | ts.MethodDeclaration | ts.Get
 
 export class PropertiesMinifier {
     private readonly _context: ts.TransformationContext;
-    private readonly _options: IManglePropertiesOptions;
+    private readonly _options: IMinifierOptions;
     private _currentProgram: ts.Program | null = null;
     private _currentSourceFile: ts.SourceFile | null = null;
     private _typeChecker!: ts.TypeChecker;
 
-    public constructor(context: ts.TransformationContext, options?: Partial<IManglePropertiesOptions>) {
+    public constructor(context: ts.TransformationContext, options?: Partial<IMinifierOptions>) {
         this._context = context;
         this._options = { ...defaultOptions, ...options };
     }
@@ -107,32 +107,8 @@ export class PropertiesMinifier {
                     ts.factory.createIdentifier(node.name.text)
                 );
             }
-        } else if (ts.isBlock(node)) {
-            if (this._options.warnThisDotThreshold > 0) {
-                this.checkThisDotCountInBlock(node);
-            }
         }
         return node;
-    }
-
-    private checkThisDotCountInBlock(node: ts.Block): void {
-        const parent = node.parent;
-        if (!this._currentSourceFile || !parent) {
-            return;
-        }
-        const text = node.getText();
-        const thisDotCount = (text.match(/this\./g) || []).length;
-        if (thisDotCount > this._options.warnThisDotThreshold) {
-            const sourceFileName = this._currentSourceFile.fileName;
-            if (sourceFileName.includes('node_modules')) {
-                return;
-            }
-
-            if (ts.isMethodDeclaration(parent) || ts.isFunctionDeclaration(parent) || ts.isGetAccessor(parent) || ts.isSetAccessor(parent) || ts.isArrowFunction(parent)) {
-                const parentName = parent.name?.getText();
-                console.warn(`[OPTIMIZE ME] Found ${thisDotCount} 'this.' in block: ${parentName}, sourceFile: ${sourceFileName}`);
-            }
-        }
     }
 
     private createNewAccessExpression(node: AccessExpression, program: ts.Program): AccessExpression {
@@ -247,6 +223,9 @@ export class PropertiesMinifier {
 
     private isPrivate(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
         let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
+        if (!isPrivate && this._options.mangleProtected) {
+            isPrivate = this.hasModifier(node, ts.SyntaxKind.ProtectedKeyword);
+        }
         if (!this._options.ignoreJsDocTag) {
             if (!isPrivate && this.hasJsDocTag(node as JSDocContainer, MANGLE_JSDOC_TAG_NAME)) {
                 isPrivate = true;
@@ -435,7 +414,7 @@ export class PropertiesMinifier {
                     let result = members.next();
                     while (!result.done) {
                         const member = result.value;
-                        if (member.valueDeclaration) {
+                        if (member && member.valueDeclaration) {
                             for (const child of member.valueDeclaration.getChildren()) {
                                 const symbol = checker.getSymbolAtLocation(child);
                                 if (symbol && symbol.escapedName === propertyName) {
@@ -614,7 +593,7 @@ export class PropertiesMinifier {
     }
 }
 
-export function minifyPrivatePropertiesTransformer(program: ts.Program, config?: Partial<IManglePropertiesOptions>): ts.TransformerFactory<ts.SourceFile> {
+export function minifyPrivatePropertiesTransformer(program: ts.Program, config?: Partial<IMinifierOptions>): ts.TransformerFactory<ts.SourceFile> {
     return (context: ts.TransformationContext) => {
         const minifier = new PropertiesMinifier(context, config);
         return (file: ts.SourceFile) => {

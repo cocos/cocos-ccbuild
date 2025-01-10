@@ -1,3 +1,3 @@
 export class Animation {
-    play () {}
+    play (): void {}
 }
