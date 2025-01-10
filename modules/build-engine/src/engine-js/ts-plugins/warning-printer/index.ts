@@ -28,9 +28,6 @@ export class WarningPrinter {
         this._currentProgram = program;
         this._currentSourceFile = node;
         this._typeChecker = program.getTypeChecker();
-        if (this._currentSourceFile.fileName.includes('minigame/handle-input.ts')) {
-            console.log('Found pal file:', this._currentSourceFile.fileName);
-        }
         const result = this.visitNodeAndChildren(node, program, context);
         this._currentProgram = null;
         this._currentSourceFile = null;
@@ -100,7 +97,7 @@ export class WarningPrinter {
         }
         const blockParent = node.parent;
         if (!blockParent) {
-            console.warn('blockParent is undefined, sourceFile:', this._currentSourceFile.fileName);
+            console.warn('[WARN] blockParent is undefined, sourceFile:', this._currentSourceFile.fileName);
             return;
         }
 
