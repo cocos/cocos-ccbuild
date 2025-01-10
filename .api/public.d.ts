@@ -35,6 +35,7 @@ declare module "@cocos/ccbuild" {
             mangleList?: string[];
             dontMangleList?: string[];
             mangleGetterSetter?: boolean;
+            mangleProtected?: boolean;
             ignoreJsDocTag?: boolean;
         }
         export interface IWarningConfig {

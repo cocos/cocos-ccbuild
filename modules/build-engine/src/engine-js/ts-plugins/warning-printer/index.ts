@@ -122,9 +122,9 @@ export class WarningPrinter {
 
 export function warningPrinterTransformer(program: ts.Program, config?: Partial<IWarningPrinterOptions>): ts.TransformerFactory<ts.SourceFile> {
     return (context: ts.TransformationContext) => {
-        const minifier = new WarningPrinter(context, config);
+        const warningPrinter = new WarningPrinter(context, config);
         return (file: ts.SourceFile) => {
-            return minifier.visitSourceFile(file, program, context);
+            return warningPrinter.visitSourceFile(file, program, context);
         };
     };
 }

@@ -33,6 +33,7 @@ export interface IMinifierOptions {
     mangleList: string[];
     dontMangleList: string[];
     mangleGetterSetter: boolean;
+    mangleProtected: boolean;
     ignoreJsDocTag: boolean;
 }
 
@@ -41,6 +42,7 @@ const defaultOptions: IMinifierOptions = {
     mangleList: [],
     dontMangleList: [],
     mangleGetterSetter: false,
+    mangleProtected: false,
     ignoreJsDocTag: false,
 };
 
@@ -221,6 +223,9 @@ export class PropertiesMinifier {
 
     private isPrivate(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
         let isPrivate = this.hasModifier(node, ts.SyntaxKind.PrivateKeyword);
+        if (!isPrivate && this._options.mangleProtected) {
+            isPrivate = this.hasModifier(node, ts.SyntaxKind.ProtectedKeyword);
+        }
         if (!this._options.ignoreJsDocTag) {
             if (!isPrivate && this.hasJsDocTag(node as JSDocContainer, MANGLE_JSDOC_TAG_NAME)) {
                 isPrivate = true;
