@@ -31,8 +31,6 @@ export interface IMinifierOptions {
     dontMangleList: string[];
     mangleGetterSetter: boolean;
     ignoreJsDocTag: boolean;
-    warnThisDotThreshold: number;
-    warnNoConstructorFound: boolean;
 }
 
 const defaultOptions: IMinifierOptions = {
@@ -41,8 +39,6 @@ const defaultOptions: IMinifierOptions = {
     dontMangleList: [],
     mangleGetterSetter: false,
     ignoreJsDocTag: false,
-    warnThisDotThreshold: 0,
-    warnNoConstructorFound: false,
 };
 
 type NodeCreator<T extends ts.Node> = (newName: string) => T;
@@ -83,33 +79,8 @@ export class PropertiesMinifier {
         );
     }
 
-    private getNodeByKind(children: ts.Node[], kind: ts.SyntaxKind): ts.Node | null {
-        for (const child of children) {
-            if (child.kind === kind) {
-                return child;
-            }
-
-            if (child.kind === ts.SyntaxKind.SyntaxList) {
-                const foundNode = this.getNodeByKind(child.getChildren(), kind);
-                if (foundNode) {
-                    return foundNode;
-                }
-            }
-        }
-        return null;
-    }
-
     private visitNode(node: ts.Node, program: ts.Program): ts.Node {
-        if (this._options.warnNoConstructorFound && ts.isClassDeclaration(node)) {
-            const children = node.getChildren(this._currentSourceFile!);
-            const foundConstructor = this.getNodeByKind(children, ts.SyntaxKind.Constructor);
-            if (!foundConstructor && !ts.isBlock(node.parent)) {
-                const filePath = this._currentSourceFile?.fileName || '';
-                if (!filePath.includes('node_modules')) {
-                    console.warn(`Class ( ${node.name?.getText()} ) doesn't have a default constructor, ${filePath}`);
-                }
-            }
-        } else if (this.isAccessExpression(node)) {
+        if (this.isAccessExpression(node)) {
             return this.createNewAccessExpression(node, program);
         } else if (ts.isBindingElement(node)) {
             return this.createNewBindingElement(node, program);
@@ -131,32 +102,8 @@ export class PropertiesMinifier {
                     ts.factory.createIdentifier(node.name.text)
                 );
             }
-        } else if (ts.isBlock(node)) {
-            if (this._options.warnThisDotThreshold > 0) {
-                this.checkThisDotCountInBlock(node);
-            }
         }
         return node;
-    }
-
-    private checkThisDotCountInBlock(node: ts.Block): void {
-        const parent = node.parent;
-        if (!this._currentSourceFile || !parent) {
-            return;
-        }
-        const text = node.getText();
-        const thisDotCount = (text.match(/this\./g) || []).length;
-        if (thisDotCount > this._options.warnThisDotThreshold) {
-            const sourceFileName = this._currentSourceFile.fileName;
-            if (sourceFileName.includes('node_modules')) {
-                return;
-            }
-
-            if (ts.isMethodDeclaration(parent) || ts.isFunctionDeclaration(parent) || ts.isGetAccessor(parent) || ts.isSetAccessor(parent) || ts.isArrowFunction(parent)) {
-                const parentName = parent.name?.getText();
-                console.warn(`[OPTIMIZE ME] Found ${thisDotCount} 'this.' in block: ${parentName}, sourceFile: ${sourceFileName}`);
-            }
-        }
     }
 
     private createNewAccessExpression(node: AccessExpression, program: ts.Program): AccessExpression {

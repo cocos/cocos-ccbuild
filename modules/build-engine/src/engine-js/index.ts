@@ -15,6 +15,7 @@ import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { getEnumData, rpEnumScanner } from './rollup-plugins/enum-scanner';
 import rpTypescript from '@cocos/rollup-plugin-typescript';
 import { IMinifierOptions, minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
+import { IWarningPrinterOptions, warningPrinterTransformer } from './ts-plugins/warning-printer';
 import { inlineEnumTransformer } from './ts-plugins/inline-enum';
 
 // import babel
@@ -328,6 +329,17 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             transformers: (program) => {
                 const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
 
+                // The order of ts transformers is important, don't change the order if you don't know what you are doing.
+                // warningPrinterTransformer should be the first one to avoid 'undefined' parent after minify private properties.
+                if (warnNoConstructorFound || warnThisDotThreshold) {
+                    const config: IWarningPrinterOptions = {
+                        warnNoConstructorFound,
+                        warnThisDotThreshold,
+                    };
+
+                    tsTransformers.push(warningPrinterTransformer(program, config));
+                }
+
                 if (inlineEnum) {
                     const enumData = getEnumData();
                     if (enumData) {
@@ -337,18 +349,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                     }
                 }
 
-                if (mangleProperties || warnNoConstructorFound || warnThisDotThreshold) {
+                if (mangleProperties) {
                     const config: Partial<IMinifierOptions> = {};
                     if (typeof mangleProperties === 'object') {
                         Object.assign(config, mangleProperties);
-                    }
-
-                    if (warnNoConstructorFound !== undefined) {
-                        Object.assign(config, { warnNoConstructorFound });
-                    }
-
-                    if (warnThisDotThreshold !== undefined) {
-                        Object.assign(config, { warnThisDotThreshold });
                     }
 
                     tsTransformers.push(minifyPrivatePropertiesTransformer(program, config));
