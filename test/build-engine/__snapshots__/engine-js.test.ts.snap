@@ -2696,6 +2696,63 @@ exports[`engine-js inline enum 2`] = `
 
             exports("testConstantOfTypeArray", testConstantOfTypeArray);
 
+            var CCObjectFlags = exports("CCObjectFlags", {
+              Destroyed: 1,
+              RealDestroyed: 2,
+              ToDestroy: 4,
+              DontSave: 8,
+              EditorOnly: 16,
+              Dirty: 32,
+              DontDestroy: 64,
+              Destroying: 128,
+              Deactivating: 256,
+              LockedInEditor: 512,
+              HideInHierarchy: 1024,
+              IsOnEnableCalled: 2048,
+              IsEditorOnEnableCalled: 4096,
+              IsPreloadStarted: 8192,
+              IsOnLoadCalled: 16384,
+              IsOnLoadStarted: 32768,
+              IsStartCalled: 65536,
+              IsRotationLocked: 131072,
+              IsScaleLocked: 262144,
+              IsAnchorLocked: 524288,
+              IsSizeLocked: 1048576,
+              IsPositionLocked: 2097152,
+              PersistentMask: -4192741,
+              AllHideMasks: 1560
+            });
+            console.log("CCObjectFlags.Destroyed: " + 1);
+            console.log("CCObjectFlags.RealDestroyed: " + 2);
+            console.log("CCObjectFlags.ToDestroy: " + 4);
+            console.log("CCObjectFlags.DontSave: " + 8);
+            console.log("CCObjectFlags.EditorOnly: " + 16);
+            console.log("CCObjectFlags.Dirty: " + 32);
+            console.log("CCObjectFlags.DontDestroy: " + 64);
+            console.log("CCObjectFlags.Destroying: " + 128);
+            console.log("CCObjectFlags.Deactivating: " + 256);
+            console.log("CCObjectFlags.LockedInEditor: " + 512);
+            console.log("CCObjectFlags.HideInHierarchy: " + 1024);
+            console.log("CCObjectFlags.IsOnEnableCalled: " + 2048);
+            console.log("CCObjectFlags.IsEditorOnEnableCalled: " + 4096);
+            console.log("CCObjectFlags.IsPreloadStarted: " + 8192);
+            console.log("CCObjectFlags.IsOnLoadCalled: " + 16384);
+            console.log("CCObjectFlags.IsOnLoadStarted: " + 32768);
+            console.log("CCObjectFlags.IsStartCalled: " + 65536);
+            console.log("CCObjectFlags.IsRotationLocked: " + 131072);
+            console.log("CCObjectFlags.IsScaleLocked: " + 262144);
+            console.log("CCObjectFlags.IsAnchorLocked: " + 524288);
+            console.log("CCObjectFlags.IsSizeLocked: " + 1048576);
+            console.log("CCObjectFlags.IsPositionLocked: " + 2097152);
+            console.log("CCObjectFlags.PersistentMask: " + -4192741);
+            console.log("CCObjectFlags.AllHideMasks: " + 1560);
+            var data;
+            var uuidObjList = data[8];
+            var uuidPropList = data[9];
+            var uuidList = data[10];
+            console.log(uuidObjList);
+            console.log(uuidPropList);
+            console.log(uuidList);
             var MyEnum = exports("MyEnum", {
               AAA: 0,
               BBB: 1,
