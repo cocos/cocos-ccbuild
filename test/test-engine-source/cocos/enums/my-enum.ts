@@ -1,3 +1,92 @@
+export enum CCObjectFlags {
+    Destroyed = 1 << 0,
+    RealDestroyed = 1 << 1,
+    ToDestroy = 1 << 2,
+    DontSave = 1 << 3,
+    EditorOnly = 1 << 4,
+    Dirty = 1 << 5,
+    DontDestroy = 1 << 6,
+    Destroying = 1 << 7,
+    Deactivating = 1 << 8,
+    LockedInEditor = 1 << 9,
+    HideInHierarchy = 1 << 10,
+
+    IsOnEnableCalled = 1 << 11,
+    IsEditorOnEnableCalled = 1 << 12,
+    IsPreloadStarted = 1 << 13,
+    IsOnLoadCalled = 1 << 14,
+    IsOnLoadStarted = 1 << 15,
+    IsStartCalled = 1 << 16,
+
+    IsRotationLocked = 1 << 17,
+    IsScaleLocked = 1 << 18,
+    IsAnchorLocked = 1 << 19,
+    IsSizeLocked = 1 << 20,
+    IsPositionLocked = 1 << 21,
+
+    // var Hide = HideInGame | HideInEditor,
+    // should not clone or serialize these flags
+    PersistentMask = ~(ToDestroy | Dirty | Destroying | DontDestroy | Deactivating
+                           | IsPreloadStarted | IsOnLoadStarted | IsOnLoadCalled | IsStartCalled
+                           | IsOnEnableCalled | IsEditorOnEnableCalled
+                           | IsRotationLocked | IsScaleLocked | IsAnchorLocked | IsSizeLocked | IsPositionLocked
+    /* RegisteredInEditor */),
+
+    // all the hideFlags
+    AllHideMasks = DontSave | EditorOnly | LockedInEditor | HideInHierarchy,
+}
+
+console.log(`CCObjectFlags.Destroyed: ` + CCObjectFlags.Destroyed);
+console.log(`CCObjectFlags.RealDestroyed: ` + CCObjectFlags.RealDestroyed);
+console.log(`CCObjectFlags.ToDestroy: ` + CCObjectFlags.ToDestroy);
+console.log(`CCObjectFlags.DontSave: ` + CCObjectFlags.DontSave);
+console.log(`CCObjectFlags.EditorOnly: ` + CCObjectFlags.EditorOnly);
+console.log(`CCObjectFlags.Dirty: ` + CCObjectFlags.Dirty);
+console.log(`CCObjectFlags.DontDestroy: ` + CCObjectFlags.DontDestroy);
+console.log(`CCObjectFlags.Destroying: ` + CCObjectFlags.Destroying);
+console.log(`CCObjectFlags.Deactivating: ` + CCObjectFlags.Deactivating);
+console.log(`CCObjectFlags.LockedInEditor: ` + CCObjectFlags.LockedInEditor);
+console.log(`CCObjectFlags.HideInHierarchy: ` + CCObjectFlags.HideInHierarchy);
+console.log(`CCObjectFlags.IsOnEnableCalled: ` + CCObjectFlags.IsOnEnableCalled);
+console.log(`CCObjectFlags.IsEditorOnEnableCalled: ` + CCObjectFlags.IsEditorOnEnableCalled);
+console.log(`CCObjectFlags.IsPreloadStarted: ` + CCObjectFlags.IsPreloadStarted);
+console.log(`CCObjectFlags.IsOnLoadCalled: ` + CCObjectFlags.IsOnLoadCalled);
+console.log(`CCObjectFlags.IsOnLoadStarted: ` + CCObjectFlags.IsOnLoadStarted);
+console.log(`CCObjectFlags.IsStartCalled: ` + CCObjectFlags.IsStartCalled);
+console.log(`CCObjectFlags.IsRotationLocked: ` + CCObjectFlags.IsRotationLocked);
+console.log(`CCObjectFlags.IsScaleLocked: ` + CCObjectFlags.IsScaleLocked);
+console.log(`CCObjectFlags.IsAnchorLocked: ` + CCObjectFlags.IsAnchorLocked);
+console.log(`CCObjectFlags.IsSizeLocked: ` + CCObjectFlags.IsSizeLocked);
+console.log(`CCObjectFlags.IsPositionLocked: ` + CCObjectFlags.IsPositionLocked);
+console.log(`CCObjectFlags.PersistentMask: ` + CCObjectFlags.PersistentMask);
+console.log(`CCObjectFlags.AllHideMasks: ` + CCObjectFlags.AllHideMasks);
+
+const enum File {
+    Version = 0,
+    Context = 0,
+    SharedUuids,
+    SharedStrings,
+    SharedClasses,
+    SharedMasks,
+    Instances,
+    InstanceTypes,
+    Refs,
+    DependObjs,
+    DependKeys,
+    DependUuidIndices,
+    ARRAY_LENGTH,
+}
+
+let data: Record<File, any> | undefined;
+
+const uuidObjList = data![File.DependObjs];
+const uuidPropList = data![File.DependKeys];
+const uuidList = data![File.DependUuidIndices];
+
+console.log(uuidObjList);
+console.log(uuidPropList);
+console.log(uuidList);
+
 export enum MyEnum {
     AAA,
     BBB,
