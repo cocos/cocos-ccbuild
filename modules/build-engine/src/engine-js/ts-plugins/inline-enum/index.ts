@@ -106,7 +106,7 @@ class EnumInliner {
         } else {
             return node;
         }
-        const symbol = typeChecker.getSymbolAtLocation(accessName);
+        const symbol: (ts.Symbol & { parent?: ts.Symbol }) | undefined  = typeChecker.getSymbolAtLocation(accessName);
 
         // Doesn't support template string now.
         if (node.parent && ts.isTemplateSpan(node.parent)) {
@@ -120,8 +120,15 @@ class EnumInliner {
                     expressionName = node.expression.text;
                 } else if (ts.isPropertyAccessExpression(node.expression)) {
                     expressionName = node.expression.name.text;
+                } else if (ts.isNonNullExpression(node.expression)) {
+                    if (symbol.parent) {
+                        expressionName = symbol.parent.name;
+                    } else {
+                        console.warn(`NonNullExpression has no parent symbol: ${node.expression.getText()}`);
+                        return node;
+                    }
                 } else {
-                    console.warn(`Unsupported expression type: ${node.expression.getText()}`);
+                    console.warn(`Unsupported expression type: ${node.expression.getText()}, kind: ${node.expression.kind}`);
                     return node;
                 }
                 const enumText = expressionName + '.' + accessName.text;

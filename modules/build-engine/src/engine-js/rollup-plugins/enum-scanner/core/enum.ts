@@ -15,6 +15,7 @@ import type {
     TSEnumDeclaration,
     UnaryExpression,
     Statement,
+    BinaryExpression,
 } from '@babel/types';
 import type { OptionsResolved } from './options';
 
@@ -71,7 +72,11 @@ type OnGetEnumValueCallback = (v: string | number) => void;
  * @returns The evaluated result.
  */
 function evaluate(exp: string): string | number {
-    return new Function(`return ${exp}`)();
+    try {
+        return new Function(`return ${exp}`)();
+    } catch (e) {
+        throw new Error(`failed to evaluate expression: ${exp}`);
+    }
 }
 
 function getEnumClassIdentifier(
@@ -133,6 +138,178 @@ async function handleOneTsEnum(info: {
 }): Promise<void> {
     const { defines, node, decl, declarations, id, wait, resolve, file, exported } = info;
 
+    async function handleBinaryExpression(init: BinaryExpression, fullKey: string): Promise<string | number> {
+        let value: string | number;
+        function resolveValue(node: Expression | PrivateName, cb: OnGetEnumValueCallback): void {
+            assert.ok(typeof node.start === 'number');
+            assert.ok(typeof node.end === 'number');
+    
+            if (node.type === 'NumericLiteral' || node.type === 'StringLiteral') {
+                cb(node.value);
+            } else if (node.type === 'MemberExpression') {
+                const obj = getEnumClassIdentifier(node);
+                if (!obj) {
+                    throw new Error(`Could not find object identifier`);
+                }
+    
+                if (node.property.type === 'Identifier') {
+                    handleIdentifier(defines, `${obj.name}.${node.property.name}`, cb, wait);
+                } else {
+                    throw new Error(
+                        `unhandled initializer type ${node.type} for ${fullKey} in ${file}`
+                    );
+                }
+            } else if (node.type === 'Identifier') {
+                handleIdentifier(defines, `${id}.${node.name}`, cb, wait);
+            } else if (node.type === 'BinaryExpression') {
+                resolveValue(node.left, (left: string | number): void => {
+                    resolveValue(node.right, (right: string | number): void => {
+                        const exp = `${left}${node.operator}${right}`;
+                        value = evaluate(exp);
+                        cb(value);
+                    });
+                });
+            } else if (node.type === 'UnaryExpression') {
+                if (node.argument.type === 'StringLiteral' || node.argument.type === 'NumericLiteral') {
+                    const exp = `${node.operator}${node.argument.value}`;
+                    value = evaluate(exp);
+                } else if (node.argument.type === 'Identifier') {
+                    const k: EnumKey = `${id}.${node.argument.name}`;
+                    value = handleIdentifierForUnaryExpressionSync(defines, k, node);
+                } else if (node.argument.type === 'MemberExpression') {
+                    const newNode = node.argument;
+                    const obj = getEnumClassIdentifier(newNode);
+                    if (!obj) {
+                        throw new Error(`Could not find object identifier`);
+                    }
+                    if (newNode.property.type === 'Identifier') {
+                        const k: EnumKey = `${obj.name}.${newNode.property.name}`;
+                        value = handleIdentifierForUnaryExpressionSync(defines, k, node);
+                    } else {
+                        throw new Error(
+                            `unhandled initializer type ${node.type} for ${fullKey} in ${file}`
+                        );
+                    }
+                } else if (node.argument.type === 'BinaryExpression') {
+                    const argNode = node.argument;
+                    resolveValue(argNode.left, (left: string | number): void => {
+                        resolveValue(
+                            argNode.right, (right: string | number): void => {
+                                const exp = `${node.operator}(${left}${argNode.operator}${right})`;
+                                value = evaluate(exp);
+                                cb(value);
+                            }
+                        );
+                    });
+                } else {
+                    throw new Error(
+                        `unhandled UnaryExpression argument type ${node.argument.type} in ${file}`
+                    );
+                }
+            } else {
+                throw new Error(
+                    `unhandled BinaryExpression operand type ${node.type} in ${file}`
+                );
+            }
+        }
+    
+        async function resolveValueAsync(node: Expression | PrivateName): Promise<string | number> {
+            return new Promise<string | number>((resolve, reject) => {
+                resolveValue(node, resolve);
+            });
+        }
+    
+        const left = await resolveValueAsync(init.left);
+        const right = await resolveValueAsync(init.right);
+        const exp = `${left}${init.operator}${right}`;
+        value = evaluate(exp);
+        return value;
+    }
+
+    async function handleUnaryExpression(init: UnaryExpression, fullKey: string): Promise<string | number> {
+        let value: string | number;
+        if (init.argument.type === 'StringLiteral' || init.argument.type === 'NumericLiteral') {
+            const exp = `${init.operator}${init.argument.value}`;
+            value = evaluate(exp);
+        } else if (init.argument.type === 'Identifier') {
+            const k: `${string}.${string}` = `${id}.${init.argument.name}`;
+            value = handleIdentifierForUnaryExpressionSync(defines, k, init);
+        } else if (init.argument.type === 'MemberExpression') {
+            const newNode = init.argument;
+            const obj = getEnumClassIdentifier(newNode);
+            if (!obj) {
+                throw new Error(`Could not find object identifier`);
+            }
+            if (newNode.property.type === 'Identifier') {
+                const k: `${string}.${string}` = `${obj.name}.${newNode.property.name}`;
+                value = handleIdentifierForUnaryExpressionSync(defines, k, init);
+            } else {
+                throw new Error(
+                    `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
+                );
+            }
+        } else if (init.argument.type === 'BinaryExpression') {
+            const argNode = init.argument;
+            const left = await handleExpression(argNode.left, fullKey);
+            const right = await handleExpression(argNode.right, fullKey);
+            const exp = `${init.operator}(${left}${argNode.operator}${right})`;
+            value = evaluate(exp);
+        } else {
+            throw new Error(
+                `unhandled UnaryExpression argument type ${init.argument.type} in ${file}`
+            );
+        }
+        return value;
+    }
+
+    async function handleExpression(init: Expression | PrivateName, fullKey: string): Promise<string | number> {
+        let value: string | number;
+        if (init.type === 'StringLiteral' || init.type === 'NumericLiteral') {
+            value = init.value;
+        }
+        // e.g. 1 << 2
+        else if (init.type === 'BinaryExpression') {
+            value = await handleBinaryExpression(init, fullKey);
+        } else if (init.type === 'UnaryExpression') {
+            value = await handleUnaryExpression(init, fullKey);
+        } else if (init.type === 'Identifier') {
+            // Value defined in the current enum
+            const foundEnumElement = members.find((v) => v.name == init.name);
+            if (foundEnumElement) {
+                value = foundEnumElement.value;
+            } else {
+                throw new Error(
+                    `unhandled Identifier type ${init.type} for ${fullKey} in ${file}`
+                );
+            }
+        } else if (init.type === 'MemberExpression') {
+            const obj = getEnumClassIdentifier(init);
+            if (!obj) {
+                throw new Error(`Could not find object identifier`);
+            }
+
+            async function handleIdentifierAsync(defines: IDefines, k: EnumKey): Promise<string | number> {
+                return new Promise<string | number>((resolve, reject) => {
+                    handleIdentifier(defines, k, resolve, wait);
+                });
+            }
+
+            if (init.property.type === 'Identifier') {
+                const k: `${string}.${string}` = `${obj.name}.${init.property.name}`;
+                value = await handleIdentifierAsync(defines, k);
+            } else {
+                throw new Error(
+                    `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
+                );
+            }
+        } else {
+            throw new Error(
+                `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
+            );
+        }
+        return value;
+    }
+
     let lastInitialized: string | number | undefined;
     const members: Array<EnumMember> = [];
 
@@ -158,157 +335,7 @@ async function handleOneTsEnum(info: {
             
         const init = e.initializer;
         if (init) {
-            let value: string | number;
-            if (init.type === 'StringLiteral' || init.type === 'NumericLiteral') {
-                value = init.value;
-            }
-            // e.g. 1 << 2
-            else if (init.type === 'BinaryExpression') {
-                function resolveValue(node: Expression | PrivateName, cb: OnGetEnumValueCallback): void {
-                    assert.ok(typeof node.start === 'number');
-                    assert.ok(typeof node.end === 'number');
-
-                    if (node.type === 'NumericLiteral' || node.type === 'StringLiteral') {
-                        cb(node.value);
-                    } else if (node.type === 'MemberExpression') {
-                        const obj = getEnumClassIdentifier(node);
-                        if (!obj) {
-                            throw new Error(`Could not find object identifier`);
-                        }
-
-                        if (node.property.type === 'Identifier') {
-                            handleIdentifier(defines, `${obj.name}.${node.property.name}`, cb, wait);
-                        } else {
-                            throw new Error(
-                                `unhandled initializer type ${node.type} for ${fullKey} in ${file}`
-                            );
-                        }
-                    } else if (node.type === 'Identifier') {
-                        handleIdentifier(defines, `${id}.${node.name}`, cb, wait);
-                    } else if (node.type === 'BinaryExpression') {
-                        resolveValue(node.left, (left: string | number): void => {
-                            resolveValue(node.right, (right: string | number): void => {
-                                const exp = `${left}${node.operator}${right}`;
-                                value = evaluate(exp);
-                                cb(value);
-                            });
-                        });
-                    } else if (node.type === 'UnaryExpression') {
-                        if (node.argument.type === 'StringLiteral' || node.argument.type === 'NumericLiteral') {
-                            const exp = `${node.operator}${node.argument.value}`;
-                            value = evaluate(exp);
-                        } else if (node.argument.type === 'Identifier') {
-                            const k: EnumKey = `${id}.${node.argument.name}`;
-                            value = handleIdentifierForUnaryExpressionSync(defines, k, node);
-                        } else if (node.argument.type === 'MemberExpression') {
-                            const newNode = node.argument;
-                            const obj = getEnumClassIdentifier(newNode);
-                            if (!obj) {
-                                throw new Error(`Could not find object identifier`);
-                            }
-                            if (newNode.property.type === 'Identifier') {
-                                const k: EnumKey = `${obj.name}.${newNode.property.name}`;
-                                value = handleIdentifierForUnaryExpressionSync(defines, k, node);
-                            } else {
-                                throw new Error(
-                                    `unhandled initializer type ${node.type} for ${fullKey} in ${file}`
-                                );
-                            }
-                        } else if (node.argument.type === 'BinaryExpression') {
-                            const argNode = node.argument;
-                            resolveValue(argNode.left, (left: string | number): void => {
-                                resolveValue(
-                                    argNode.right, (right: string | number): void => {
-                                        const exp = `${node.operator}(${left}${argNode.operator}${right})`;
-                                        value = evaluate(exp);
-                                        cb(value);
-                                    }
-                                );
-                            });
-                        } else {
-                            throw new Error(
-                                `unhandled UnaryExpression argument type ${node.argument.type} in ${file}`
-                            );
-                        }
-                    } else {
-                        throw new Error(
-                            `unhandled BinaryExpression operand type ${node.type} in ${file}`
-                        );
-                    }
-                }
-
-                async function resolveValueAsync(node: Expression | PrivateName): Promise<string | number> {
-                    return new Promise<string | number>((resolve, reject) => {
-                        resolveValue(node, resolve);
-                    });
-                }
-
-                const left = await resolveValueAsync(init.left);
-                const right = await resolveValueAsync(init.right);
-                const exp = `${left}${init.operator}${right}`;
-                value = evaluate(exp);
-            } else if (init.type === 'UnaryExpression') {
-                if (init.argument.type === 'StringLiteral' || init.argument.type === 'NumericLiteral') {
-                    const exp = `${init.operator}${init.argument.value}`;
-                    value = evaluate(exp);
-                } else if (init.argument.type === 'Identifier') {
-                    const k: `${string}.${string}` = `${id}.${init.argument.name}`;
-                    value = handleIdentifierForUnaryExpressionSync(defines, k, init);
-                } else if (init.argument.type === 'MemberExpression') {
-                    const newNode = init.argument;
-                    const obj = getEnumClassIdentifier(newNode);
-                    if (!obj) {
-                        throw new Error(`Could not find object identifier`);
-                    }
-                    if (newNode.property.type === 'Identifier') {
-                        const k: `${string}.${string}` = `${obj.name}.${newNode.property.name}`;
-                        value = handleIdentifierForUnaryExpressionSync(defines, k, init);
-                    } else {
-                        throw new Error(
-                            `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
-                        );
-                    }
-                } else {
-                    throw new Error(
-                        `unhandled UnaryExpression argument type ${init.argument.type} in ${file}`
-                    );
-                }
-            } else if (init.type === 'Identifier') {
-                // Value defined in the current enum
-                const foundEnumElement = members.find((v) => v.name == init.name);
-                if (foundEnumElement) {
-                    value = foundEnumElement.value;
-                } else {
-                    throw new Error(
-                        `unhandled Identifier type ${init.type} for ${fullKey} in ${file}`
-                    );
-                }
-            } else if (init.type === 'MemberExpression') {
-                const obj = getEnumClassIdentifier(init);
-                if (!obj) {
-                    throw new Error(`Could not find object identifier`);
-                }
-
-                async function handleIdentifierAsync(defines: IDefines, k: EnumKey): Promise<string | number> {
-                    return new Promise<string | number>((resolve, reject) => {
-                        handleIdentifier(defines, k, resolve, wait);
-                    });
-                }
-
-                if (init.property.type === 'Identifier') {
-                    const k: `${string}.${string}` = `${obj.name}.${init.property.name}`;
-                    value = await handleIdentifierAsync(defines, k);
-                } else {
-                    throw new Error(
-                        `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
-                    );
-                }
-            } else {
-                throw new Error(
-                    `unhandled initializer type ${init.type} for ${fullKey} in ${file}`
-                );
-            }
-                
+            const value = await handleExpression(init, fullKey);
             lastInitialized = value;
             saveValue(lastInitialized);
         } else if (lastInitialized === undefined) {
