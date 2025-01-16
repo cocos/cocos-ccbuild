@@ -760,3 +760,115 @@ class GenerateConstructorTest extends GenerateConstructorTestBase {
 const generateConstructorTest = new GenerateConstructorTest();
 generateConstructorTest.hello();
 generateConstructorTest.world();
+
+
+class MangleStaticPropertyTest {
+    static prop_a_dontmangle: number = 1;
+    protected static prop_b_dontmangle: string = 'world';
+    private static prop_c_mangle: boolean = false;
+
+    /** @mangle */
+    public static prop_d_mangle: number = 2;
+
+    static prop_e_mangle_by_config: number = 3;
+    private static prop_f_dontmangle_by_config: number = 4;
+
+    private static mangleMe1(): void {
+        console.log('MangleStaticPropertyTest.mangleMe1');
+    }
+
+    protected static dontMangleMe2(): void {
+        console.log('MangleStaticPropertyTest.dontMangleMe2');
+    }
+
+    static dontMangleMe3(): void {
+        console.log('MangleStaticPropertyTest.dontMangleMe3');
+    }
+
+    /** @mangle */
+    static mangleMe(): void {
+        console.log('MangleStaticPropertyTest.mangleMe');
+    }
+
+    static mangleMeByConfig(): void {
+        console.log('MangleStaticPropertyTest.mangleMeByConfig');
+    }
+
+    private static dontMangleMeByConfig(): void {
+        console.log('MangleStaticPropertyTest.dontMangleMeByConfig');
+    }
+
+    private static get static_get_set_should_mangle(): number {
+        return 1;
+    }
+
+    private static set static_get_set_should_mangle(value: number) {
+        console.log(value);
+    }
+
+    /** @mangle */
+    public static get static_get_set_should_mangle2(): number {
+        return 1;
+    }
+
+    public static set static_get_set_should_mangle2(value: number) {
+        console.log(value);
+    }
+
+    static get static_get_set_should_mangle_by_config(): number {
+        return 1;
+    }
+
+    static set static_get_set_should_mangle_by_config(value: number) {
+        console.log(value);
+    }
+
+    private static get static_get_set_dont_mangle_by_config(): number {
+        return 1;
+    }
+
+    private static set static_get_set_dont_mangle_by_config(value: number) {
+        console.log(value);
+    }
+
+    public static helloTestMangleStaticProp(): void {
+        MangleStaticPropertyTest.mangleMe1();
+        MangleStaticPropertyTest.dontMangleMe2();
+        MangleStaticPropertyTest.dontMangleMe3();
+        MangleStaticPropertyTest.mangleMe();
+        MangleStaticPropertyTest.mangleMeByConfig();
+        MangleStaticPropertyTest.dontMangleMeByConfig();
+        MangleStaticPropertyTest.prop_a_dontmangle = 2;
+        MangleStaticPropertyTest.prop_b_dontmangle = 'hello';
+        MangleStaticPropertyTest.prop_c_mangle = true;
+        MangleStaticPropertyTest.prop_d_mangle = 12;
+        MangleStaticPropertyTest.prop_e_mangle_by_config = 4;
+        MangleStaticPropertyTest.prop_f_dontmangle_by_config = 5;
+        MangleStaticPropertyTest.static_get_set_should_mangle = 123;
+        MangleStaticPropertyTest.static_get_set_should_mangle2 = 123;
+
+        console.log(`MangleStaticPropertyTest.prop_a_dontmangle: ${MangleStaticPropertyTest.prop_a_dontmangle}`);
+        console.log(`MangleStaticPropertyTest.prop_b_dontmangle: ${MangleStaticPropertyTest.prop_b_dontmangle}`);
+        console.log(`MangleStaticPropertyTest.prop_c_mangle: ${MangleStaticPropertyTest.prop_c_mangle}`);
+        console.log(`MangleStaticPropertyTest.prop_d_mangle: ${MangleStaticPropertyTest.prop_d_mangle}`);
+        console.log(`MangleStaticPropertyTest.prop_e_mangle_by_config: ${MangleStaticPropertyTest.prop_e_mangle_by_config}`);
+        console.log(`MangleStaticPropertyTest.prop_f_dontmangle_by_config: ${MangleStaticPropertyTest.prop_f_dontmangle_by_config}`);
+        console.log(`MangleStaticPropertyTest.static_getter_should_mangle: ${MangleStaticPropertyTest.static_get_set_should_mangle}`);
+        console.log(`MangleStaticPropertyTest.static_getter_should_mangle2: ${MangleStaticPropertyTest.static_get_set_should_mangle2}`);
+
+        MangleStaticPropertyTest.static_get_set_dont_mangle_by_config = 111;
+        console.log(MangleStaticPropertyTest.static_get_set_dont_mangle_by_config);
+    }
+}
+
+console.log(`-------- after init --------`);
+MangleStaticPropertyTest.helloTestMangleStaticProp();
+MangleStaticPropertyTest.dontMangleMe3();
+MangleStaticPropertyTest.mangleMe();
+MangleStaticPropertyTest.mangleMeByConfig();
+MangleStaticPropertyTest.prop_a_dontmangle = 2;
+MangleStaticPropertyTest.prop_d_mangle = 12;
+MangleStaticPropertyTest.prop_e_mangle_by_config = 4;
+MangleStaticPropertyTest.static_get_set_should_mangle_by_config = 123;
+console.log(MangleStaticPropertyTest.static_get_set_should_mangle_by_config);
+

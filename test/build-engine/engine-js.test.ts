@@ -404,6 +404,9 @@ describe('engine-js', () => {
                     'IMangleWholeClassInterface',
                     'IWebGLGPUTexture3.glRenderbuffer',
                     'IWebGLGPUTexture4',
+                    'MangleStaticPropertyTest.prop_e_mangle_by_config',
+                    'MangleStaticPropertyTest.mangleMeByConfig',
+                    'MangleStaticPropertyTest.static_get_set_should_mangle_by_config',
                 ],
                 dontMangleList: [
                     'ManglePropertyBase._dontMangleMeProp',
@@ -415,6 +418,9 @@ describe('engine-js', () => {
                     'IMangleGrand.iGrandPublicPropMangleJsDocButInDontMangleList',
                     'ManglePrivatePropertiesTest.helloGrandMangleInMangleList',
                     'IMangleTest.interfaceProp3',
+                    'MangleStaticPropertyTest.prop_f_dontmangle_by_config',
+                    'MangleStaticPropertyTest.dontMangleMeByConfig',
+                    'MangleStaticPropertyTest.static_get_set_dont_mangle_by_config',
                 ],
             },
             flags: {

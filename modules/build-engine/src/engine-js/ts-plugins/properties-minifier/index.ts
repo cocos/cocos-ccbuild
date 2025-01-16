@@ -202,7 +202,7 @@ export class PropertiesMinifier {
     }
 
     private isPrivateNonStatic(node: ClassMember | ts.ParameterDeclaration | InterfaceMember | ts.PropertyAssignment, parentSymbol: ts.Symbol | undefined): boolean {
-        return this.isPrivate(node, parentSymbol) && !this.hasModifier(node, ts.SyntaxKind.StaticKeyword);
+        return this.isPrivate(node, parentSymbol);// && !this.hasModifier(node, ts.SyntaxKind.StaticKeyword);
     }
 
     private hasJsDocTag(jsDocNode: JSDocContainer, tagNameToSearch: string): boolean {

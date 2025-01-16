@@ -208,7 +208,7 @@ console.log(\`MangleTestConstEnum['space key']: \${MangleTestConstEnum['space ke
 console.log(\`MangleTestConstEnum["space key2"]: \${MangleTestConstEnum["space key2"]}\`);
 let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivatePropertiesTest extends ManglePropertyBase {
   _ccprivate$instanceMethod() {}
-  static staticMethod() {}
+  static _ccprivate$staticMethod() {}
   get accessorProp0() {
     return this._ccprivate$myProp0;
   }
@@ -262,8 +262,8 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
   }
   getFoo() {
     this._ccprivate$instanceMethod();
-    ManglePrivatePropertiesTest.staticMethod();
-    ManglePrivatePropertiesTest.staticProperty = 'bar';
+    ManglePrivatePropertiesTest._ccprivate$staticMethod();
+    ManglePrivatePropertiesTest._ccprivate$staticProperty = 'bar';
     this._baseProtectedProp = 323;
     this._ccprivate$_basePublicProp1Mangle = 324;
     this._basePublicProp2DontMangle = 325;
@@ -288,7 +288,7 @@ let ManglePrivatePropertiesTest = (_class = (_class2 = class ManglePrivateProper
   _ccprivate$helloGrandMangleMeProtected() {
     super._ccprivate$helloGrandMangleMeProtected();
   }
-}, _class2.staticProperty = '', _class2), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "myProp222", [dontmangle], {
+}, _class2._ccprivate$staticProperty = '', _class2), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "myProp222", [dontmangle], {
   configurable: true,
   enumerable: true,
   writable: true,
@@ -851,6 +851,92 @@ class GenerateConstructorTest extends GenerateConstructorTestBase {
 const generateConstructorTest = new GenerateConstructorTest();
 generateConstructorTest.hello();
 generateConstructorTest.world();
+class MangleStaticPropertyTest {
+  static _ccprivate$mangleMe1() {
+    console.log('MangleStaticPropertyTest.mangleMe1');
+  }
+  static dontMangleMe2() {
+    console.log('MangleStaticPropertyTest.dontMangleMe2');
+  }
+  static dontMangleMe3() {
+    console.log('MangleStaticPropertyTest.dontMangleMe3');
+  }
+  static _ccprivate$mangleMe() {
+    console.log('MangleStaticPropertyTest.mangleMe');
+  }
+  static _ccprivate$mangleMeByConfig() {
+    console.log('MangleStaticPropertyTest.mangleMeByConfig');
+  }
+  static dontMangleMeByConfig() {
+    console.log('MangleStaticPropertyTest.dontMangleMeByConfig');
+  }
+  static get _ccprivate$static_get_set_should_mangle() {
+    return 1;
+  }
+  static set _ccprivate$static_get_set_should_mangle(value) {
+    console.log(value);
+  }
+  static get _ccprivate$static_get_set_should_mangle2() {
+    return 1;
+  }
+  static set _ccprivate$static_get_set_should_mangle2(value) {
+    console.log(value);
+  }
+  static get _ccprivate$static_get_set_should_mangle_by_config() {
+    return 1;
+  }
+  static set _ccprivate$static_get_set_should_mangle_by_config(value) {
+    console.log(value);
+  }
+  static get static_get_set_dont_mangle_by_config() {
+    return 1;
+  }
+  static set static_get_set_dont_mangle_by_config(value) {
+    console.log(value);
+  }
+  static helloTestMangleStaticProp() {
+    MangleStaticPropertyTest._ccprivate$mangleMe1();
+    MangleStaticPropertyTest.dontMangleMe2();
+    MangleStaticPropertyTest.dontMangleMe3();
+    MangleStaticPropertyTest._ccprivate$mangleMe();
+    MangleStaticPropertyTest._ccprivate$mangleMeByConfig();
+    MangleStaticPropertyTest.dontMangleMeByConfig();
+    MangleStaticPropertyTest.prop_a_dontmangle = 2;
+    MangleStaticPropertyTest.prop_b_dontmangle = 'hello';
+    MangleStaticPropertyTest._ccprivate$prop_c_mangle = true;
+    MangleStaticPropertyTest._ccprivate$prop_d_mangle = 12;
+    MangleStaticPropertyTest._ccprivate$prop_e_mangle_by_config = 4;
+    MangleStaticPropertyTest.prop_f_dontmangle_by_config = 5;
+    MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle = 123;
+    MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle2 = 123;
+    console.log(\`MangleStaticPropertyTest.prop_a_dontmangle: \${MangleStaticPropertyTest.prop_a_dontmangle}\`);
+    console.log(\`MangleStaticPropertyTest.prop_b_dontmangle: \${MangleStaticPropertyTest.prop_b_dontmangle}\`);
+    console.log(\`MangleStaticPropertyTest.prop_c_mangle: \${MangleStaticPropertyTest._ccprivate$prop_c_mangle}\`);
+    console.log(\`MangleStaticPropertyTest.prop_d_mangle: \${MangleStaticPropertyTest._ccprivate$prop_d_mangle}\`);
+    console.log(\`MangleStaticPropertyTest.prop_e_mangle_by_config: \${MangleStaticPropertyTest._ccprivate$prop_e_mangle_by_config}\`);
+    console.log(\`MangleStaticPropertyTest.prop_f_dontmangle_by_config: \${MangleStaticPropertyTest.prop_f_dontmangle_by_config}\`);
+    console.log(\`MangleStaticPropertyTest.static_getter_should_mangle: \${MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle}\`);
+    console.log(\`MangleStaticPropertyTest.static_getter_should_mangle2: \${MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle2}\`);
+    MangleStaticPropertyTest.static_get_set_dont_mangle_by_config = 111;
+    console.log(MangleStaticPropertyTest.static_get_set_dont_mangle_by_config);
+  }
+}
+MangleStaticPropertyTest.prop_a_dontmangle = 1;
+MangleStaticPropertyTest.prop_b_dontmangle = 'world';
+MangleStaticPropertyTest._ccprivate$prop_c_mangle = false;
+MangleStaticPropertyTest._ccprivate$prop_d_mangle = 2;
+MangleStaticPropertyTest._ccprivate$prop_e_mangle_by_config = 3;
+MangleStaticPropertyTest.prop_f_dontmangle_by_config = 4;
+console.log(\`-------- after init --------\`);
+MangleStaticPropertyTest.helloTestMangleStaticProp();
+MangleStaticPropertyTest.dontMangleMe3();
+MangleStaticPropertyTest._ccprivate$mangleMe();
+MangleStaticPropertyTest._ccprivate$mangleMeByConfig();
+MangleStaticPropertyTest.prop_a_dontmangle = 2;
+MangleStaticPropertyTest._ccprivate$prop_d_mangle = 12;
+MangleStaticPropertyTest._ccprivate$prop_e_mangle_by_config = 4;
+MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle_by_config = 123;
+console.log(MangleStaticPropertyTest._ccprivate$static_get_set_should_mangle_by_config);
 
 export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
 "
