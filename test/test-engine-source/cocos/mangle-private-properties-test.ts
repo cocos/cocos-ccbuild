@@ -872,3 +872,54 @@ MangleStaticPropertyTest.prop_e_mangle_by_config = 4;
 MangleStaticPropertyTest.static_get_set_should_mangle_by_config = 123;
 console.log(MangleStaticPropertyTest.static_get_set_should_mangle_by_config);
 
+
+/** @mangle */
+interface IMangleQuestionTestAAA {
+    bbb?: number;
+}
+
+/** @mangle */
+interface IMangleQuestionTestProp2 {
+    aaa?: IMangleQuestionTestAAA;
+}
+
+/** @mangle */
+interface IMangleQuestionTest {
+    mangleMeQuestionProp: number;
+    prop2?: IMangleQuestionTestProp2;
+}
+
+class MangleQuestionProperties {
+    private _myProp: IMangleQuestionTest | undefined;
+
+    test(): void {
+        if (this._myProp?.mangleMeQuestionProp) {
+            this._myProp.mangleMeQuestionProp = 123;
+        }
+        const a = this._myProp?.mangleMeQuestionProp;
+        console.log(a);
+
+        // FIXME: Doesn't support ElementAccessExpression with QuestionToken before.
+        console.log(this._myProp?.['mangleMeQuestionProp']);
+
+        if (this._myProp) {
+            console.log(this._myProp['mangleMeQuestionProp']);
+        }
+    }
+
+    getProp (): number | undefined {
+        return this._myProp?.mangleMeQuestionProp;
+    }
+
+    getProp2 (): number | undefined {
+        // FIXME: Doesn't support ElementAccessExpression with QuestionToken before.
+        return this._myProp?.['mangleMeQuestionProp'];
+    }
+
+    getProp3 (): number | undefined {
+        return this._myProp?.prop2?.aaa?.bbb;
+    }
+}
+
+const mangleQuestionProperties = new MangleQuestionProperties();
+mangleQuestionProperties.test();

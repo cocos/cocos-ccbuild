@@ -116,9 +116,19 @@ export class PropertiesMinifier {
         const accessName = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression;
         const symbol = typeChecker.getSymbolAtLocation(accessName);
 
+        // FIXME: Currently, we don't support the ElementAccessExpression like this._prop?.['subprop'].
+        if (symbol === undefined && ts.isElementAccessExpression(node) && ts.isStringLiteral(node.argumentExpression)) {
+            const questionTokenNode = node.getChildAt(1);
+            if (questionTokenNode && questionTokenNode.kind === ts.SyntaxKind.QuestionDotToken) {
+                console.warn(`The ElementAccessExpression with question token ( ${node.getText()} ) is not supported.`);
+            }
+        }
+
         if (!this.isPrivateNonStaticClassMember(symbol)) {
             return node;
         }
+
+        const hasQuestionToken = !!node.questionDotToken;
 
         let propName: ts.PropertyName;
         let creator: NodeCreator<AccessExpression>;
@@ -126,7 +136,9 @@ export class PropertiesMinifier {
         if (ts.isPropertyAccessExpression(node)) {
             propName = node.name;
             creator = (newName: string): AccessExpression => {
-                return this._context.factory.createPropertyAccessExpression(node.expression, newName);
+                return hasQuestionToken ? 
+                    this._context.factory.createPropertyAccessChain(node.expression, this._context.factory.createToken(ts.SyntaxKind.QuestionDotToken), newName) : 
+                    this._context.factory.createPropertyAccessExpression(node.expression, newName);
             };
         } else {
             if (!ts.isStringLiteral(node.argumentExpression)) {
@@ -135,7 +147,9 @@ export class PropertiesMinifier {
 
             propName = node.argumentExpression;
             creator = (newName: string): AccessExpression => {
-                return this._context.factory.createElementAccessExpression(node.expression, this._context.factory.createStringLiteral(newName));
+                return hasQuestionToken ? 
+                    this._context.factory.createElementAccessChain(node.expression, this._context.factory.createToken(ts.SyntaxKind.QuestionDotToken), this._context.factory.createStringLiteral(newName)) :
+                    this._context.factory.createElementAccessExpression(node.expression, this._context.factory.createStringLiteral(newName));
             };
         }
 
