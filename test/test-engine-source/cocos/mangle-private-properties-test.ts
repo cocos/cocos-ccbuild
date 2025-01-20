@@ -874,8 +874,19 @@ console.log(MangleStaticPropertyTest.static_get_set_should_mangle_by_config);
 
 
 /** @mangle */
+interface IMangleQuestionTestAAA {
+    bbb?: number;
+}
+
+/** @mangle */
+interface IMangleQuestionTestProp2 {
+    aaa?: IMangleQuestionTestAAA;
+}
+
+/** @mangle */
 interface IMangleQuestionTest {
     mangleMeQuestionProp: number;
+    prop2?: IMangleQuestionTestProp2;
 }
 
 class MangleQuestionProperties {
@@ -903,6 +914,10 @@ class MangleQuestionProperties {
     getProp2 (): number | undefined {
         // FIXME: Doesn't support ElementAccessExpression with QuestionToken before.
         return this._myProp?.['mangleMeQuestionProp'];
+    }
+
+    getProp3 (): number | undefined {
+        return this._myProp?.prop2?.aaa?.bbb;
     }
 }
 
