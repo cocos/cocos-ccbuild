@@ -6,6 +6,7 @@ import syntaxDecorators from '@babel/plugin-syntax-decorators';
 import transformForOf from '@babel/plugin-transform-for-of';
 import cocosDynamicImportVars from '@cocos/babel-plugin-dynamic-import-vars';
 import transformModulesSystemjs from '@babel/plugin-transform-modules-systemjs';
+import proposalOptionalChaining from '@babel/plugin-proposal-optional-chaining';
 
 export {
     syntaxTS,
@@ -13,4 +14,5 @@ export {
     transformForOf,
     cocosDynamicImportVars,
     transformModulesSystemjs,
+    proposalOptionalChaining,
 };

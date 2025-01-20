@@ -16,3 +16,8 @@ declare module '@babel/plugin-transform-modules-systemjs' {
     const $: any;
     export default $;
 }
+
+declare module '@babel/plugin-proposal-optional-chaining' {
+    const $: any;
+    export default $;
+}
