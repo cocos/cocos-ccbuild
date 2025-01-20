@@ -22,6 +22,7 @@ import { inlineEnumTransformer } from './ts-plugins/inline-enum';
 import babel = Transformer.core;
 import babelPresetEnvOptions = Transformer.presets.presetEnv.Options;
 import babelPluginTransformForOf = Transformer.plugins.transformForOf;
+import babelPluginProposalOptionalChaining = Transformer.plugins.proposalOptionalChaining;
 import babelPresetEnv = Transformer.presets.presetEnv;
 import babelPluginDynamicImportVars = Transformer.plugins.cocosDynamicImportVars;
 import babelPresetCC = Transformer.presets.presetCC.babelPresetCC;
@@ -184,6 +185,10 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
             loose: true,
         }]);
     }
+
+    babelPlugins.push([babelPluginProposalOptionalChaining, {
+        loose: true,
+    }]);
 
     babelPlugins.push(
         [babelPluginDynamicImportVars, {

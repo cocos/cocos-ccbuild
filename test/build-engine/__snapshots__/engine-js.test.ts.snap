@@ -943,27 +943,27 @@ class MangleQuestionProperties {
   }
   test() {
     var _this$_ccprivate$_myP, _this$_ccprivate$_myP2, _this$_ccprivate$_myP3;
-    if ((_this$_ccprivate$_myP = this._ccprivate$_myProp) !== null && _this$_ccprivate$_myP !== void 0 && _this$_ccprivate$_myP._ccprivate$mangleMeQuestionProp) {
+    if ((_this$_ccprivate$_myP = this._ccprivate$_myProp) != null && _this$_ccprivate$_myP._ccprivate$mangleMeQuestionProp) {
       this._ccprivate$_myProp._ccprivate$mangleMeQuestionProp = 123;
     }
-    const a = (_this$_ccprivate$_myP2 = this._ccprivate$_myProp) === null || _this$_ccprivate$_myP2 === void 0 ? void 0 : _this$_ccprivate$_myP2._ccprivate$mangleMeQuestionProp;
+    const a = (_this$_ccprivate$_myP2 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP2._ccprivate$mangleMeQuestionProp;
     console.log(a);
-    console.log((_this$_ccprivate$_myP3 = this._ccprivate$_myProp) === null || _this$_ccprivate$_myP3 === void 0 ? void 0 : _this$_ccprivate$_myP3['mangleMeQuestionProp']);
+    console.log((_this$_ccprivate$_myP3 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP3['mangleMeQuestionProp']);
     if (this._ccprivate$_myProp) {
       console.log(this._ccprivate$_myProp["_ccprivate$mangleMeQuestionProp"]);
     }
   }
   getProp() {
     var _this$_ccprivate$_myP4;
-    return (_this$_ccprivate$_myP4 = this._ccprivate$_myProp) === null || _this$_ccprivate$_myP4 === void 0 ? void 0 : _this$_ccprivate$_myP4._ccprivate$mangleMeQuestionProp;
+    return (_this$_ccprivate$_myP4 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP4._ccprivate$mangleMeQuestionProp;
   }
   getProp2() {
     var _this$_ccprivate$_myP5;
-    return (_this$_ccprivate$_myP5 = this._ccprivate$_myProp) === null || _this$_ccprivate$_myP5 === void 0 ? void 0 : _this$_ccprivate$_myP5['mangleMeQuestionProp'];
+    return (_this$_ccprivate$_myP5 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP5['mangleMeQuestionProp'];
   }
   getProp3() {
     var _this$_ccprivate$_myP6, _this$_ccprivate$_myP7, _this$_ccprivate$_myP8;
-    return (_this$_ccprivate$_myP6 = this._ccprivate$_myProp) === null || _this$_ccprivate$_myP6 === void 0 ? void 0 : (_this$_ccprivate$_myP7 = _this$_ccprivate$_myP6._ccprivate$prop2) === null || _this$_ccprivate$_myP7 === void 0 ? void 0 : (_this$_ccprivate$_myP8 = _this$_ccprivate$_myP7._ccprivate$aaa) === null || _this$_ccprivate$_myP8 === void 0 ? void 0 : _this$_ccprivate$_myP8._ccprivate$bbb;
+    return (_this$_ccprivate$_myP6 = this._ccprivate$_myProp) == null ? void 0 : (_this$_ccprivate$_myP7 = _this$_ccprivate$_myP6._ccprivate$prop2) == null ? void 0 : (_this$_ccprivate$_myP8 = _this$_ccprivate$_myP7._ccprivate$aaa) == null ? void 0 : _this$_ccprivate$_myP8._ccprivate$bbb;
   }
 }
 const mangleQuestionProperties = new MangleQuestionProperties();
