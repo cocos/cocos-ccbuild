@@ -5822,6 +5822,7 @@ declare module "@cocos/ccbuild" {
                     opts?: __private.___node_modules_cocos_babel_plugin_dynamic_import_vars_lib_index__Options;
                 }>;
                 export const transformModulesSystemjs: any;
+                export const proposalOptionalChaining: any;
             }
             export namespace helpers {
                 export function addDefault(path: traverse.NodePath, importedSource: string, opts?: Partial<ImportOptions>): core.types.Identifier;
