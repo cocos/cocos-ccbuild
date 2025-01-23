@@ -46,6 +46,9 @@
         },
         "mangle-private-properties-test": {
             "modules": ["mangle-private-properties-test"]
+        },
+        "conditional-export-test": {
+            "modules": ["conditional-export-test"]
         }
     },
     "moduleOverrides": [

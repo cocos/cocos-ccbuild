@@ -297,6 +297,7 @@ declare module "@cocos/ccbuild" {
          * @param context
          */
         evaluateModuleOverrides(context: ConfigInterface.Context): Record<string, string>;
+        evalTest<T>(test: ConfigInterface.Test, context: ConfigInterface.Context): T;
     }
     export namespace StatsQuery {
         export class ConstantManager {
@@ -333,6 +334,10 @@ declare module "@cocos/ccbuild" {
                  * This is useful when we need to reduce code size.
                  */
                 WASM_SUBPACKAGE: boolean;
+                /**
+                 * An internal constant to indicate whether we're using 3D modules.
+                 */
+                USE_3D: boolean;
             }
             export interface IPublicFlagConfig {
                 DEBUG: boolean;
