@@ -436,4 +436,33 @@ describe('engine-js', () => {
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
+
+    test('HTML5 conditional export', async () => {
+        const out = ps.join(__dirname, './lib-js');
+
+        const options: buildEngine.Options = {
+            engine: ps.join(__dirname, '../test-engine-source'),
+            out,
+            platform: 'HTML5',
+            moduleFormat: 'system',
+            compress: false,
+            split: false,
+            nativeCodeBundleMode: 'wasm',
+            assetURLFormat: 'runtime-resolved',
+            noDeprecatedFeatures: false,
+            sourceMap: false,
+            features: ['conditional-export-test'],
+            loose: true,
+            mode: 'BUILD',
+            flags: {
+                DEBUG: false,
+                WEBGPU: false
+            }
+        };
+
+        await buildEngine(options);
+        expect(await getOutputDirStructure(out)).toMatchSnapshot();
+        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
+        await del(out, { force: true });
+    });
 });

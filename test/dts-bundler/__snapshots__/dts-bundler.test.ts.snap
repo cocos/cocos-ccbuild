@@ -23,6 +23,22 @@ exports[`bundle dts: cc.d.ts content 1`] = `
     export class Prefab {
     }
     export const A = "A";
+    /** @export_if context.buildTimeConstants.HTML5 */
+    export const conditionalExport: {
+        a: number;
+    };
+    /** @export_if !context.buildTimeConstants.HTML5 */
+    export const conditionalDontExport: {
+        b: number;
+    };
+    export function helloConditionalExport(): void;
+    export class ConditionalExportTest {
+        helloConditionalExport(): void;
+    }
+    export function helloConditionalExport2(): void;
+    export class ConditionalExportTest2 {
+        helloConditionalExport2(): void;
+    }
     export namespace testAsm {
         function decodeVertexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array, filter?: string): void;
         function decodeIndexBuffer(target: Uint8Array, count: number, size: number, source: Uint8Array): void;

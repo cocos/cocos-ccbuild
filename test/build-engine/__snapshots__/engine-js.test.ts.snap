@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`engine-js HTML5 conditional export 1`] = `
+[
+  "cc.js",
+]
+`;
+
+exports[`engine-js HTML5 conditional export 2`] = `
+"System.register([], (function (exports) {
+    'use strict';
+    return {
+        execute: (function () {
+
+            exports("helloConditionalExport", helloConditionalExport);
+
+            var ConditionalExportTest = exports("ConditionalExportTest", function () {
+              function ConditionalExportTest() {}
+              var _proto = ConditionalExportTest.prototype;
+              _proto.helloConditionalExport = function helloConditionalExport() {};
+              return ConditionalExportTest;
+            }());
+            function helloConditionalExport() {}
+
+            var conditionalExport = exports("conditionalExport", {
+              a: 1
+            });
+
+        })
+    };
+}));
+"
+`;
+
 exports[`engine-js HTML5 mangle private properties 1`] = `
 [
   "cc.js",

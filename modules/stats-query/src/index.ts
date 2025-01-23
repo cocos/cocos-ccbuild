@@ -178,7 +178,7 @@ export class StatsQuery {
         };
 
         this._config.moduleOverrides?.forEach(({ test, overrides, isVirtualModule }) => {
-            if (this._evalTest(test, context)) {
+            if (this.evalTest(test, context)) {
                 addModuleOverrides(overrides, isVirtualModule);
             }
         });
@@ -215,7 +215,7 @@ export class StatsQuery {
         this.constantManager = new StatsQuery.ConstantManager(engine);
     }
 
-    private _evalTest<T> (test: Test, context: Context): T {
+    public evalTest<T> (test: Test, context: Context): T {
         // eslint-disable-next-line @typescript-eslint/no-implied-eval,no-new-func
         const result = new Function('context', `return ${test}`)(context) as T;
         // console.debug(`Eval "${test}" to ${result}`);
@@ -316,6 +316,11 @@ export namespace StatsQuery {
              * This is useful when we need to reduce code size.
              */
             WASM_SUBPACKAGE: boolean;
+
+            /**
+             * An internal constant to indicate whether we're using 3D modules.
+             */
+            USE_3D: boolean;
         }
         
         export interface IPublicFlagConfig {

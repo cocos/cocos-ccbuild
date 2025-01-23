@@ -9,7 +9,7 @@ import moduleQueryPlugin from './rollup-plugins/module-query-plugin';
 import removeDeprecatedFeatures from './rollup-plugins/remove-deprecated-features';
 import type { buildEngine } from '../index';
 import { externalWasmLoader } from './rollup-plugins/external-wasm-loader';
-import { StatsQuery } from '@ccbuild/stats-query';
+import { StatsQuery, ConfigInterface } from '@ccbuild/stats-query';
 import { filePathToModuleRequest, formatPath } from '@ccbuild/utils';
 import { rpNamedChunk } from './rollup-plugins/systemjs-named-register-plugin';
 import { getEnumData, rpEnumScanner } from './rollup-plugins/enum-scanner';
@@ -17,6 +17,7 @@ import rpTypescript from '@cocos/rollup-plugin-typescript';
 import { IMinifierOptions, minifyPrivatePropertiesTransformer } from './ts-plugins/properties-minifier';
 import { IWarningPrinterOptions, warningPrinterTransformer } from './ts-plugins/warning-printer';
 import { inlineEnumTransformer } from './ts-plugins/inline-enum';
+import { exportControllerTransformer } from './ts-plugins/export-controller';
 
 // import babel
 import babel = Transformer.core;
@@ -99,6 +100,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const flags = options.flags ?? {};
 
     flags.CULL_MESHOPT = !features.includes('meshopt');
+    flags.USE_3D = features.includes('3d');
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
@@ -115,11 +117,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     //     buildTimeConstants['SUPPORT_JIT'] = options.forceJitValue as boolean;
     // }
 
-    const moduleOverrides = Object.entries(statsQuery.evaluateModuleOverrides({
+    const context: ConfigInterface.Context = {
         mode: options.mode,
         platform: options.platform,
         buildTimeConstants,
-    })).reduce((result, [k, v]) => {
+    };
+
+    const moduleOverrides = Object.entries(statsQuery.evaluateModuleOverrides(context)).reduce((result, [k, v]) => {
         result[pathUtils.makePathEqualityKey(k)] = v;
         return result;
     }, {} as Record<string, string>);
@@ -320,55 +324,55 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         rollupPlugins.push(...rpEnumScannerPlugin);
     }
 
-    if (mangleProperties || inlineEnum || warnNoConstructorFound || warnThisDotThreshold) {
-        rollupPlugins.push(rpTypescript({
-            tsconfig: ps.join(engineRoot, 'tsconfig.json'),
-            compilerOptions: {
-                noEmit: false,
-                target: undefined,
-                sourceMap: undefined,
-                outDir: undefined,
-                module: 'NodeNext',
-                skipBuiltinTransformers: true,
-            },
-            transformers: (program) => {
-                const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
+    rollupPlugins.push(rpTypescript({
+        tsconfig: ps.join(engineRoot, 'tsconfig.json'),
+        compilerOptions: {
+            noEmit: false,
+            target: undefined,
+            sourceMap: undefined,
+            outDir: undefined,
+            module: 'NodeNext',
+            skipBuiltinTransformers: true,
+        },
+        transformers: (program) => {
+            const tsTransformers: Array<ts.TransformerFactory<ts.SourceFile>> = [];
 
-                // The order of ts transformers is important, don't change the order if you don't know what you are doing.
-                // warningPrinterTransformer should be the first one to avoid 'undefined' parent after minify private properties.
-                if (warnNoConstructorFound || warnThisDotThreshold) {
-                    const config: IWarningPrinterOptions = {
-                        warnNoConstructorFound,
-                        warnThisDotThreshold,
-                    };
-
-                    tsTransformers.push(warningPrinterTransformer(program, config));
-                }
-
-                if (inlineEnum) {
-                    const enumData = getEnumData();
-                    if (enumData) {
-                        tsTransformers.push(inlineEnumTransformer(program, enumData));
-                    } else {
-                        console.error(`Enum data is not available for inline enum.`);
-                    }
-                }
-
-                if (mangleProperties) {
-                    const config: Partial<IMinifierOptions> = {};
-                    if (typeof mangleProperties === 'object') {
-                        Object.assign(config, mangleProperties);
-                    }
-
-                    tsTransformers.push(minifyPrivatePropertiesTransformer(program, config));
-                }
-
-                return {
-                    before: tsTransformers,
+            // The order of ts transformers is important, don't change the order if you don't know what you are doing.
+            // warningPrinterTransformer should be the first one to avoid 'undefined' parent after minify private properties.
+            if (warnNoConstructorFound || warnThisDotThreshold) {
+                const config: IWarningPrinterOptions = {
+                    warnNoConstructorFound,
+                    warnThisDotThreshold,
                 };
+
+                tsTransformers.push(warningPrinterTransformer(program, config));
             }
-        }));
-    }
+
+            tsTransformers.push(exportControllerTransformer(program, { context, statsQuery }));
+
+            if (inlineEnum) {
+                const enumData = getEnumData();
+                if (enumData) {
+                    tsTransformers.push(inlineEnumTransformer(program, enumData));
+                } else {
+                    console.error(`Enum data is not available for inline enum.`);
+                }
+            }
+
+            if (mangleProperties) {
+                const config: Partial<IMinifierOptions> = {};
+                if (typeof mangleProperties === 'object') {
+                    Object.assign(config, mangleProperties);
+                }
+
+                tsTransformers.push(minifyPrivatePropertiesTransformer(program, config));
+            }
+
+            return {
+                before: tsTransformers,
+            };
+        }
+    }));
 
     rollupPlugins.push(
         rpBabel({
