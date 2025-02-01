@@ -101,6 +101,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     flags.CULL_MESHOPT = !features.includes('meshopt');
     flags.USE_3D = features.includes('3d');
+    flags.USE_UI_SKEW = features.includes('ui-skew');
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({

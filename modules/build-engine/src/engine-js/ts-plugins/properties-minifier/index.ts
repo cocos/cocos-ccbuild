@@ -324,22 +324,31 @@ export class PropertiesMinifier {
                     }
                 }
 
+                let found: ts.Symbol | undefined;
                 // Check wether the parent class or interface has @mangle tag
                 if (parentSymbol.members) {
-                    let found: ts.Symbol | undefined;
                     parentSymbol.members.forEach(member => {
                         if (member.name === name) {
                             found = member;
                         }
                     });
+                }
 
-                    if (found) {
-                        const parentJsDocTags = parentSymbol.getJsDocTags(this._typeChecker);
-                        if (parentJsDocTags.some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
-                            return true;
-                        } else if (parentJsDocTags.some(tag => tag.name === DONT_MANGLE_JSDOC_TAG_NAME)) {
-                            return false;
+                // exports stores static properties those don't exist in members.
+                if (!found && parentSymbol.exports) {
+                    parentSymbol.exports.forEach(export_ => {
+                        if (export_.name === name) {
+                            found = export_;
                         }
+                    });
+                }
+
+                if (found) {
+                    const parentJsDocTags = parentSymbol.getJsDocTags(this._typeChecker);
+                    if (parentJsDocTags.some(tag => tag.name === MANGLE_JSDOC_TAG_NAME)) {
+                        return true;
+                    } else if (parentJsDocTags.some(tag => tag.name === DONT_MANGLE_JSDOC_TAG_NAME)) {
+                        return false;
                     }
                 }
             }
