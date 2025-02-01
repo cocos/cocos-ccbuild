@@ -354,6 +354,8 @@ exports[`bundle dts: cc.d.ts content 1`] = `
     }
     /** @mangle */
     export class MangleTestMangleWholeClassIncludingStatic {
+        _myProp1: number;
+        getMyProp1(): number;
         static _timers: never[];
         static getTimers(): any[];
     }

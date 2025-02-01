@@ -1001,6 +1001,12 @@ class MangleQuestionProperties {
 const mangleQuestionProperties = new MangleQuestionProperties();
 mangleQuestionProperties.test();
 class MangleTestMangleWholeClassIncludingStatic {
+  constructor() {
+    this._ccprivate$_myProp1 = 123;
+  }
+  _ccprivate$getMyProp1() {
+    return this._ccprivate$_myProp1;
+  }
   static _ccprivate$getTimers() {
     return MangleTestMangleWholeClassIncludingStatic._ccprivate$_timers;
   }

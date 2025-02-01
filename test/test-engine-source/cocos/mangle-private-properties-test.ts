@@ -926,8 +926,8 @@ mangleQuestionProperties.test();
 
 /** @mangle */
 export class MangleTestMangleWholeClassIncludingStatic {
-    // public _myProp1: number = 123;
-    // public getMyProp1(): number { return this._myProp1; }
+    public _myProp1: number = 123;
+    public getMyProp1(): number { return this._myProp1; }
     public static _timers = [];
     public static getTimers(): any[] { return MangleTestMangleWholeClassIncludingStatic._timers; }
 }
