@@ -352,6 +352,11 @@ exports[`bundle dts: cc.d.ts content 1`] = `
     export interface IUnionBase3 {
         ie: IUnionBase1 | IUnionBase2;
     }
+    /** @mangle */
+    export class MangleTestMangleWholeClassIncludingStatic {
+        static _timers: never[];
+        static getTimers(): any[];
+    }
     export interface IMangleGrand {
         helloGrandDontMangle1(): void;
         /** @mangle */
