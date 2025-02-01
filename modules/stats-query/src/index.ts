@@ -321,6 +321,11 @@ export namespace StatsQuery {
              * An internal constant to indicate whether we're using 3D modules.
              */
             USE_3D: boolean;
+
+            /**
+             * An internal constant to indicate whether we're using ui skew module.
+             */
+            USE_UI_SKEW: boolean;
         }
         
         export interface IPublicFlagConfig {
