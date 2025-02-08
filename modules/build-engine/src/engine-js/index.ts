@@ -100,19 +100,13 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const flags = options.flags ?? {};
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
-    let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
+    const allFlags: StatsQuery.ConstantManager.ConstantOptions['flags'] = { ...intrinsicFlags, ...flags };
+
+    const buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,
         platform: options.platform,
-        flags,
+        flags: allFlags,
     });
-    buildTimeConstants = {
-        ...intrinsicFlags,
-        ...buildTimeConstants,
-    };
-
-    // if (typeof options.forceJitValue !== undefined) {
-    //     buildTimeConstants['SUPPORT_JIT'] = options.forceJitValue as boolean;
-    // }
 
     const context: ConfigInterface.Context = {
         mode: options.mode,
@@ -128,8 +122,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const featureUnits = statsQuery.getUnitsOfFeatures(features);
 
     const rpVirtualOptions: Record<string, string> = {};
-
-    const allFlags: StatsQuery.ConstantManager.ConstantOptions['flags'] = { ...intrinsicFlags, ...flags };
 
     const vmInternalConstants = statsQuery.constantManager.exportStaticConstants({
         platform: options.platform,

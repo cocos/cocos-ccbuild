@@ -3268,7 +3268,41 @@ exports[`engine-js inline enum 2`] = `
 `;
 
 exports[`engine-js intrinsic flag 1`] = `
-"var str = 'intrinsic flag is true';
+"function tryDefineGlobal (name, value) {
+    const _global = typeof window === 'undefined' ? global : window;
+    if (typeof _global[name] === 'undefined') {
+        return (_global[name] = value);
+    } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return _global[name];
+    }
+}
+tryDefineGlobal('CC_WECHAT', false);
+tryDefineGlobal('CC_BAIDU', false);
+tryDefineGlobal('CC_XIAOMI', true);
+tryDefineGlobal('CC_ALIPAY', false);
+tryDefineGlobal('CC_BYTEDANCE', false);
+tryDefineGlobal('CC_OPPO', false);
+tryDefineGlobal('CC_VIVO', false);
+tryDefineGlobal('CC_HUAWEI', false);
+tryDefineGlobal('CC_COCOSPLAY', false);
+tryDefineGlobal('CC_QTT', false);
+tryDefineGlobal('CC_LINKSURE', false);
+tryDefineGlobal('CC_EDITOR', false);
+tryDefineGlobal('CC_PREVIEW', false);
+tryDefineGlobal('CC_BUILD', true);
+tryDefineGlobal('CC_TEST', false);
+tryDefineGlobal('CC_DEBUG', true);
+tryDefineGlobal('CC_DEV', false);
+tryDefineGlobal('CC_MINIGAME', true);
+tryDefineGlobal('CC_RUNTIME_BASED', false);
+tryDefineGlobal('CC_SUPPORT_JIT', false);
+tryDefineGlobal('CC_JSB', false);
+
+var str = 'intrinsic flag is true';
+{
+  console.log('[intrinsic-flag-true.ts] intrinsic flag is true');
+}
 
 export { str };
 "

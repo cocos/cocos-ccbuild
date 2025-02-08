@@ -257,7 +257,8 @@ export const WEBGPU = false;
 export let NATIVE_CODE_BUNDLE_MODE = 2;
 export const EDITOR_NOT_IN_PREVIEW = false;
 export const WASM_SUBPACKAGE = false;
-export const CULL_MESHOPT = false;",
+export const CULL_MESHOPT = false;
+export const INTRINSIC_FLAG = false;",
   },
   "animation/animation.ts": {
     "code": "export class Animation {
