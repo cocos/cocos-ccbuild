@@ -99,14 +99,24 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const flags = options.flags ?? {};
 
-    const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
-    const allFlags: StatsQuery.ConstantManager.ConstantOptions['flags'] = { ...intrinsicFlags, ...flags };
+    flags.CULL_MESHOPT = !features.includes('meshopt');
+    flags.USE_3D = features.includes('3d');
+    flags.USE_UI_SKEW = features.includes('ui-skew');
 
-    const buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
+    const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
+    let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,
         platform: options.platform,
-        flags: allFlags,
+        flags,
     });
+    buildTimeConstants = {
+        ...intrinsicFlags,
+        ...buildTimeConstants,
+    };
+
+    // if (typeof options.forceJitValue !== undefined) {
+    //     buildTimeConstants['SUPPORT_JIT'] = options.forceJitValue as boolean;
+    // }
 
     const context: ConfigInterface.Context = {
         mode: options.mode,
@@ -126,7 +136,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const vmInternalConstants = statsQuery.constantManager.exportStaticConstants({
         platform: options.platform,
         mode: options.mode,
-        flags: allFlags,
+        flags,
     });
     console.debug(`Module source "internal-constants":\n${vmInternalConstants}`);
     rpVirtualOptions['internal:constants'] = vmInternalConstants;
