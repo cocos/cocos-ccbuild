@@ -263,6 +263,7 @@ declare module "@cocos/ccbuild" {
          */
         getUnitsOfFeatures(featureIds: string[]): string[];
         getIntrinsicFlagsOfFeatures(featureIds: string[]): Record<string, number | boolean | string>;
+        getOverriddenConstantsOfFeatures(featureIds: string[]): Record<string, number | boolean>;
         /**
          * Gets all feature units in their names.
          */
@@ -434,6 +435,11 @@ declare module "@cocos/ccbuild" {
              * Flags to set when this feature is enabled.
              */
             intrinsicFlags?: Record<string, unknown>;
+            /**
+             * Constants to override when this feature is enabled.
+             * The overridden constants should be defined in cc.config.json.
+             */
+            overrideConstants?: Record<string, number | boolean>;
             /**
              * List of uuid that the feature depends on.
              */
