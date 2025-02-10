@@ -99,9 +99,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
 
     const flags = options.flags ?? {};
 
-    flags.CULL_MESHOPT = !features.includes('meshopt');
-    flags.USE_3D = features.includes('3d');
-    flags.USE_UI_SKEW = features.includes('ui-skew');
+    const overriddenConstants = statsQuery.getOverriddenConstantsOfFeatures(features);
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
@@ -110,6 +108,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
         flags,
     });
     buildTimeConstants = {
+        ...overriddenConstants,
         ...intrinsicFlags,
         ...buildTimeConstants,
     };
@@ -132,11 +131,15 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const featureUnits = statsQuery.getUnitsOfFeatures(features);
 
     const rpVirtualOptions: Record<string, string> = {};
+    const flagsWithOverriddenConstants = {
+        ...overriddenConstants,
+        ...flags,
+    };
 
     const vmInternalConstants = statsQuery.constantManager.exportStaticConstants({
         platform: options.platform,
         mode: options.mode,
-        flags,
+        flags: flagsWithOverriddenConstants,
     });
     console.debug(`Module source "internal-constants":\n${vmInternalConstants}`);
     rpVirtualOptions['internal:constants'] = vmInternalConstants;

@@ -102,6 +102,17 @@ export class StatsQuery {
         return flags as Record<string, number | boolean | string>;
     }
 
+    public getOverriddenConstantsOfFeatures (featureIds: string[]): Record<string, number | boolean> {
+        const constants: Record<string, unknown> = {};
+        for (const featureId of featureIds) {
+            const featureConstants = this._features[featureId]?.overrideConstants;
+            if (featureConstants) {
+                Object.assign(constants, featureConstants);
+            }
+        }
+        return constants as Record<string, number | boolean>;
+    }
+
     /**
      * Gets all feature units in their names.
      */
@@ -252,6 +263,7 @@ export class StatsQuery {
                 parsedFeature.modules.push(featureUnitName);
             }
             parsedFeature.intrinsicFlags = feature.intrinsicFlags;
+            parsedFeature.overrideConstants = feature.overrideConstants;
         }
 
         if (config.index) {
