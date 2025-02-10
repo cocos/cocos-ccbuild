@@ -213,6 +213,6 @@ declare module 'internal:constants'{
      */
     export const CULL_MESHOPT: boolean;
 
-    export const INTRINSIC_FLAG: boolean;
+    export const USE_INTRINSIC_FLAG: boolean;
 
 }

@@ -72,6 +72,12 @@ export interface Feature {
     intrinsicFlags?: Record<string, unknown>;
 
     /**
+     * Constants to override when this feature is enabled.
+     * The overridden constants should be defined in cc.config.json.
+     */
+    overrideConstants?: Record<string, number | boolean>;
+
+    /**
      * List of uuid that the feature depends on.
      */
     dependentAssets?: string[];
