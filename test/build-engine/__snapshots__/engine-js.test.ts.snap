@@ -980,7 +980,7 @@ class MangleQuestionProperties {
     }
     const a = (_this$_ccprivate$_myP2 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP2._ccprivate$mangleMeQuestionProp;
     console.log(a);
-    console.log((_this$_ccprivate$_myP3 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP3['mangleMeQuestionProp']);
+    console.log((_this$_ccprivate$_myP3 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP3["_ccprivate$mangleMeQuestionProp"]);
     if (this._ccprivate$_myProp) {
       console.log(this._ccprivate$_myProp["_ccprivate$mangleMeQuestionProp"]);
     }
@@ -991,7 +991,7 @@ class MangleQuestionProperties {
   }
   getProp2() {
     var _this$_ccprivate$_myP5;
-    return (_this$_ccprivate$_myP5 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP5['mangleMeQuestionProp'];
+    return (_this$_ccprivate$_myP5 = this._ccprivate$_myProp) == null ? void 0 : _this$_ccprivate$_myP5["_ccprivate$mangleMeQuestionProp"];
   }
   getProp3() {
     var _this$_ccprivate$_myP6, _this$_ccprivate$_myP7, _this$_ccprivate$_myP8;
@@ -1012,8 +1012,26 @@ class MangleTestMangleWholeClassIncludingStatic {
   }
 }
 MangleTestMangleWholeClassIncludingStatic._ccprivate$_timers = [];
+function testMangleQuestionProperties() {
+  var _a$_ccprivate$questio, _a$_ccprivate$questio2, _a$_ccprivate$questio3, _a$_ccprivate$questio4, _a$_ccprivate$questio5;
+  const questionTestC = {
+    _ccprivate$myQuestionTest: null
+  };
+  const questionTestA = {
+    _ccprivate$questionTestC: questionTestC
+  };
+  const a = {
+    _ccprivate$questionTestA: questionTestA
+  };
+  console.log((_a$_ccprivate$questio = a._ccprivate$questionTestA) == null ? void 0 : _a$_ccprivate$questio._ccprivate$questionTestC["_ccprivate$myQuestionTest"]);
+  console.log((_a$_ccprivate$questio2 = a._ccprivate$questionTestA) == null ? void 0 : _a$_ccprivate$questio2._ccprivate$questionTestC._ccprivate$myQuestionTest);
+  console.log((_a$_ccprivate$questio3 = a._ccprivate$questionTestA) == null ? void 0 : _a$_ccprivate$questio3["_ccprivate$questionTestC"]._ccprivate$myQuestionTest);
+  console.log((_a$_ccprivate$questio4 = a["_ccprivate$questionTestA"]) == null ? void 0 : _a$_ccprivate$questio4["_ccprivate$questionTestC"]._ccprivate$myQuestionTest);
+  console.log((_a$_ccprivate$questio5 = a["_ccprivate$questionTestA"]) == null ? void 0 : _a$_ccprivate$questio5["_ccprivate$questionTestC"]["_ccprivate$myQuestionTest"]);
+}
+testMangleQuestionProperties();
 
-export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMangleWholeClassIncludingStatic, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass };
+export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMangleWholeClassIncludingStatic, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass, testMangleQuestionProperties };
 "
 `;
 

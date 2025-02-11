@@ -90,20 +90,20 @@ export class PropertiesMinifier {
         } else if (ts.isBindingElement(node)) {
             return this.createNewBindingElement(node, program);
         } else if (this.isConstructorParameterReference(node, program)) {
-            return this.createNewNode(program, node, this._context.factory.createIdentifier);
+            return this.createNewNode(program, node, undefined, this._context.factory.createIdentifier);
         } else if (this.isPropertyInInterfaceNotShorthand(node.parent) && (
             this.isIdentifierInVariableDeclaration(node, program) ||
             this.isIdentifierInBinaryExpression(node, program) ||
             this.isIdentifierInArrayLiteralExpression(node, program))
         ) {
-            return this.createNewNode(program, node, this._context.factory.createIdentifier);
+            return this.createNewNode(program, node, undefined, this._context.factory.createIdentifier);
         } else if (ts.isShorthandPropertyAssignment(node)) {
             if (this.isIdentifierInVariableDeclaration(node.name, program) ||
                 this.isIdentifierInBinaryExpression(node.name, program) ||
                 this.isIdentifierInArrayLiteralExpression(node.name, program)
             ) {
                 return ts.factory.createPropertyAssignment(
-                    this.createNewNode(program, node.name, this._context.factory.createIdentifier),
+                    this.createNewNode(program, node.name, undefined, this._context.factory.createIdentifier),
                     ts.factory.createIdentifier(node.name.text)
                 );
             }
@@ -111,17 +111,31 @@ export class PropertiesMinifier {
         return node;
     }
 
+    private getSymbolForElementAccessExpressionWithQuestionDot(node: ts.ElementAccessExpression): ts.Symbol | undefined {
+        if (ts.isStringLiteral(node.argumentExpression)) {
+            const type = this._typeChecker.getTypeAtLocation(node.expression);
+            if (type.isUnion()) {
+                for (const t of type.types) {
+                    if (!t.symbol || !t.symbol.members) continue;
+                    const key = node.argumentExpression.text as ts.__String;
+                    if (t.symbol.members.has(key)) {
+                        return t.symbol.members.get(key);
+                    }
+                }
+            } else {
+                return type.symbol;
+            }
+        }
+        return undefined;
+    }
+
     private createNewAccessExpression(node: AccessExpression, program: ts.Program): AccessExpression {
         const typeChecker = program.getTypeChecker();
         const accessName = ts.isPropertyAccessExpression(node) ? node.name : node.argumentExpression;
-        const symbol = typeChecker.getSymbolAtLocation(accessName);
+        let symbol = typeChecker.getSymbolAtLocation(accessName);
 
-        // FIXME: Currently, we don't support the ElementAccessExpression like this._prop?.['subprop'].
-        if (symbol === undefined && ts.isElementAccessExpression(node) && ts.isStringLiteral(node.argumentExpression)) {
-            const questionTokenNode = node.getChildAt(1);
-            if (questionTokenNode && questionTokenNode.kind === ts.SyntaxKind.QuestionDotToken) {
-                console.warn(`The ElementAccessExpression with question token ( ${node.getText()} ) is not supported.`);
-            }
+        if (symbol === undefined && ts.isElementAccessExpression(node)) {
+            symbol = this.getSymbolForElementAccessExpressionWithQuestionDot(node);
         }
 
         if (!this.isPrivateNonStaticClassMember(symbol)) {
@@ -129,6 +143,11 @@ export class PropertiesMinifier {
         }
 
         const hasQuestionToken = !!node.questionDotToken;
+        const questionTokenNode = hasQuestionToken ? this._context.factory.createToken(ts.SyntaxKind.QuestionDotToken) : undefined;
+        let isFirstChildOptinalChain = false;
+        if (node.getChildCount() > 0 && ts.isOptionalChain(node.getChildAt(0))) {
+            isFirstChildOptinalChain = true;
+        }
 
         let propName: ts.PropertyName;
         let creator: NodeCreator<AccessExpression>;
@@ -136,8 +155,8 @@ export class PropertiesMinifier {
         if (ts.isPropertyAccessExpression(node)) {
             propName = node.name;
             creator = (newName: string): AccessExpression => {
-                return hasQuestionToken ? 
-                    this._context.factory.createPropertyAccessChain(node.expression, this._context.factory.createToken(ts.SyntaxKind.QuestionDotToken), newName) : 
+                return (hasQuestionToken || isFirstChildOptinalChain) ? 
+                    this._context.factory.createPropertyAccessChain(node.expression, questionTokenNode, newName) : 
                     this._context.factory.createPropertyAccessExpression(node.expression, newName);
             };
         } else {
@@ -147,13 +166,13 @@ export class PropertiesMinifier {
 
             propName = node.argumentExpression;
             creator = (newName: string): AccessExpression => {
-                return hasQuestionToken ? 
-                    this._context.factory.createElementAccessChain(node.expression, this._context.factory.createToken(ts.SyntaxKind.QuestionDotToken), this._context.factory.createStringLiteral(newName)) :
+                return (hasQuestionToken || isFirstChildOptinalChain) ? 
+                    this._context.factory.createElementAccessChain(node.expression, questionTokenNode, this._context.factory.createStringLiteral(newName)) :
                     this._context.factory.createElementAccessExpression(node.expression, this._context.factory.createStringLiteral(newName));
             };
         }
 
-        return this.createNewNode(program, propName, creator);
+        return this.createNewNode(program, propName, symbol, creator);
     }
 
     private createNewBindingElement(node: ts.BindingElement, program: ts.Program): ts.BindingElement {
@@ -191,16 +210,18 @@ export class PropertiesMinifier {
             return node;
         }
 
-        return this.createNewNode(program, propName, (newName: string) => {
+        return this.createNewNode(program, propName, undefined, (newName: string) => {
             return this._context.factory.createBindingElement(node.dotDotDotToken, newName, node.name, node.initializer);
         });
     }
 
-    private createNewNode<T extends ts.Node>(program: ts.Program, oldProperty: ts.PropertyName, createNode: NodeCreator<T>): T {
-        const typeChecker = program.getTypeChecker();
-        const symbol = typeChecker.getSymbolAtLocation(oldProperty);
+    private createNewNode<T extends ts.Node>(program: ts.Program, oldProperty: ts.PropertyName, symbol: ts.Symbol | undefined, createNode: NodeCreator<T>): T {
         if (symbol === undefined) {
-            throw new Error(`Cannot get symbol for node "${oldProperty.getText()}"`);
+            const typeChecker = program.getTypeChecker();
+            symbol = typeChecker.getSymbolAtLocation(oldProperty);
+            if (symbol === undefined) {
+                throw new Error(`Cannot get symbol for node "${oldProperty.getText()}"`);
+            }
         }
 
         const oldPropertyName = symbol.escapedName as string;
