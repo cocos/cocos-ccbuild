@@ -931,3 +931,40 @@ export class MangleTestMangleWholeClassIncludingStatic {
     public static _timers = [];
     public static getTimers(): any[] { return MangleTestMangleWholeClassIncludingStatic._timers; }
 }
+
+/** @mangle */
+export interface IMangleQuestionTestC {
+    myQuestionTest: WebGLTexture | null;
+}
+
+/** @mangle */
+export interface IMangleQuestionTestA {
+    questionTestC: IMangleQuestionTestC;
+}
+
+/** @mangle */
+export interface IMangleQuestionTestB {
+    questionTestA: IMangleQuestionTestA | null;
+}
+
+export function testMangleQuestionProperties(): void {
+    const questionTestC: IMangleQuestionTestC = {
+        myQuestionTest: null,
+    };
+
+    const questionTestA: IMangleQuestionTestA = {
+        questionTestC,
+    };
+
+    const a: IMangleQuestionTestB = {
+        questionTestA
+    };
+
+    console.log(a.questionTestA?.questionTestC['myQuestionTest']);
+    console.log(a.questionTestA?.questionTestC.myQuestionTest);
+    console.log(a.questionTestA?.['questionTestC'].myQuestionTest);
+    console.log(a['questionTestA']?.['questionTestC'].myQuestionTest);
+    console.log(a['questionTestA']?.['questionTestC']['myQuestionTest']);
+}
+
+testMangleQuestionProperties();
