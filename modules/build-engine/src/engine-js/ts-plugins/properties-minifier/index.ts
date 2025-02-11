@@ -113,17 +113,23 @@ export class PropertiesMinifier {
 
     private getSymbolForElementAccessExpressionWithQuestionDot(node: ts.ElementAccessExpression): ts.Symbol | undefined {
         if (ts.isStringLiteral(node.argumentExpression)) {
+            const getMemberSymbol = (symbol: ts.Symbol, key: string): ts.Symbol | undefined => {
+                if (symbol.members) {
+                    return symbol.members.get(key as ts.__String);
+                }
+                return undefined;
+            };
+            const key = node.argumentExpression.text;
             const type = this._typeChecker.getTypeAtLocation(node.expression);
+            let ret: ts.Symbol | undefined;
             if (type.isUnion()) {
                 for (const t of type.types) {
                     if (!t.symbol || !t.symbol.members) continue;
-                    const key = node.argumentExpression.text as ts.__String;
-                    if (t.symbol.members.has(key)) {
-                        return t.symbol.members.get(key);
-                    }
+                    ret = getMemberSymbol(t.symbol, key);
+                    if (ret) return ret;
                 }
             } else {
-                return type.symbol;
+                return getMemberSymbol(type.symbol, key);
             }
         }
         return undefined;
