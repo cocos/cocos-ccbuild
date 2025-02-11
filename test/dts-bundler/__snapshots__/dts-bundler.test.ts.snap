@@ -303,6 +303,7 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         static readonly SIZE: UBOLocalEnum;
     }
     export const str = "intrinsic flag is false";
+    export function testMangleQuestionProperties(): void;
     export enum MangleTestMyEnum {
         AAA = 0,
         BBB = 1,
@@ -358,6 +359,18 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         getMyProp1(): number;
         static _timers: never[];
         static getTimers(): any[];
+    }
+    /** @mangle */
+    export interface IMangleQuestionTestC {
+        myQuestionTest: WebGLTexture | null;
+    }
+    /** @mangle */
+    export interface IMangleQuestionTestA {
+        questionTestC: IMangleQuestionTestC;
+    }
+    /** @mangle */
+    export interface IMangleQuestionTestB {
+        questionTestA: IMangleQuestionTestA | null;
     }
     export interface IMangleGrand {
         helloGrandDontMangle1(): void;
