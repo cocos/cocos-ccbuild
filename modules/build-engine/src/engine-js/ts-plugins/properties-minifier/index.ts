@@ -219,13 +219,13 @@ export class PropertiesMinifier {
         if (symbol === undefined) {
             const typeChecker = program.getTypeChecker();
             symbol = typeChecker.getSymbolAtLocation(oldProperty);
-            if (symbol === undefined) {
-                throw new Error(`Cannot get symbol for node "${oldProperty.getText()}"`);
-            }
+        }
+
+        if (symbol === undefined) {
+            throw new Error(`Cannot get symbol for node "${oldProperty.getText()}"`);
         }
 
         const oldPropertyName = symbol.escapedName as string;
-
         const newPropertyName = this.getNewName(oldPropertyName);
         const newProperty = createNode(newPropertyName);
 
