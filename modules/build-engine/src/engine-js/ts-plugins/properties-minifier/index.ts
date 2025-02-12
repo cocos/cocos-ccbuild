@@ -114,7 +114,7 @@ export class PropertiesMinifier {
     private getSymbolForElementAccessExpressionWithQuestionDot(node: ts.ElementAccessExpression): ts.Symbol | undefined {
         if (ts.isStringLiteral(node.argumentExpression)) {
             const getMemberSymbol = (symbol: ts.Symbol, key: string): ts.Symbol | undefined => {
-                if (symbol.members) {
+                if (symbol && symbol.members) {
                     return symbol.members.get(key as ts.__String);
                 }
                 return undefined;
