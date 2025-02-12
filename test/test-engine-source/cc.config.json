@@ -35,8 +35,11 @@
         "module-query": {
             "modules": ["module-query"]
         },
-        "cull-meshopt": {
-            "modules": ["cull-meshopt"]
+        "meshopt": {
+            "modules": ["cull-meshopt"],
+            "overrideConstants": {
+                "CULL_MESHOPT": false
+            }
         },
         "dynamic-import": {
             "modules": ["dynamic-import"]
@@ -423,7 +426,7 @@
         "CULL_MESHOPT": {
             "comment": "An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.",
             "type": "boolean",
-            "value": false,
+            "value": true,
             "internal": true
         },
         "USE_INTRINSIC_FLAG": {

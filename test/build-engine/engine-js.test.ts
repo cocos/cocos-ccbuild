@@ -220,28 +220,27 @@ describe('engine-js', () => {
             out,
             mode: 'BUILD',
             platform: 'WECHAT',
-            features: ['cull-meshopt'],
+            features: ['meshopt'],
             moduleFormat: 'system',
             nativeCodeBundleMode: 'wasm',
             flags: {
-                CULL_MESHOPT: true,
+                // CULL_MESHOPT: true, // CULL_MESHOPT constants is associated in 'meshopt' feature definition, so doesn't need to set it here
             },
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('with wasm support');
         expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot('with wasm support');
         await del(out, { force: true });
 
-        
         await buildEngine({
             engine: ps.join(__dirname, '../test-engine-source'),
             out,
             mode: 'BUILD',
             platform: 'BYTEDANCE',
-            features: ['cull-meshopt'],
+            features: ['meshopt'],
             moduleFormat: 'system',
             nativeCodeBundleMode: 'asmjs',
             flags: {
-                CULL_MESHOPT: true,
+                CULL_MESHOPT: true, // Test override constant defined in feature.
             },
         });
         expect(await getOutputDirStructure(out)).toMatchSnapshot('without wasm support');

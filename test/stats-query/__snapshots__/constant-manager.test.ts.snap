@@ -104,7 +104,7 @@ export const NATIVE_CODE_BUNDLE_MODE = 2;
 
 export const WASM_SUBPACKAGE = false;
 
-export const CULL_MESHOPT = false;
+export const CULL_MESHOPT = true;
 
 export const USE_INTRINSIC_FLAG = false;
 
@@ -222,7 +222,7 @@ export const EDITOR_NOT_IN_PREVIEW = false;
 
 export const WASM_SUBPACKAGE = false;
 
-export const CULL_MESHOPT = false;
+export const CULL_MESHOPT = true;
 
 export const USE_INTRINSIC_FLAG = false;
 
@@ -237,7 +237,7 @@ exports[`genBuildTimeConstants 1`] = `
   "BUILD": false,
   "BYTEDANCE": false,
   "COCOSPLAY": false,
-  "CULL_MESHOPT": false,
+  "CULL_MESHOPT": true,
   "DEBUG": false,
   "DEV": true,
   "EDITOR": false,
