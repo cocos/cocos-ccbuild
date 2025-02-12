@@ -2698,64 +2698,64 @@ console.log(NATIVE_CODE_BUNDLE_MODE);
 
 exports[`engine-js cull meshopt: with wasm support 1`] = `
 [
+  "assets/meshopt_decoder.wasm-ILPQNID3.wasm",
   "cc.js",
 ]
 `;
 
 exports[`engine-js cull meshopt: with wasm support 2`] = `
-"System.register([], (function (exports) {
-    'use strict';
-    return {
-        execute: (function () {
+"System.register([], (function (exports, module) {
+	'use strict';
+	return {
+		execute: (function () {
 
-            exports({
-                testAsm: meshopt_decoder_asm,
-                testWasm: meshopt_decoder_wasm$1
-            });
+			exports("testAsm", meshopt_decoder_asm);
 
-            function meshopt_decoder_asm () {}
+			function meshopt_decoder_asm () {}
 
-            function meshopt_decoder_wasm$1 () {}
+			var MeshoptDecoder = exports("testWasm", {
+			  test_prop: 'this is the implementation of meshopt wasm module'
+			});
 
-            var meshopt_decoder_wasm = exports("wasmUrl", '');
+			var meshopt_decoder_wasm = exports("wasmUrl", 'assets/meshopt_decoder.wasm-ILPQNID3.wasm'); /* asset-hash:bc946de1 */
 
-            function tryDefineGlobal (name, value) {
-                const _global = typeof window === 'undefined' ? global : window;
-                if (typeof _global[name] === 'undefined') {
-                    return (_global[name] = value);
-                } else {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-                    return _global[name];
-                }
-            }
-            tryDefineGlobal('CC_WECHAT', true);
-            tryDefineGlobal('CC_BAIDU', false);
-            tryDefineGlobal('CC_XIAOMI', false);
-            tryDefineGlobal('CC_ALIPAY', false);
-            tryDefineGlobal('CC_BYTEDANCE', false);
-            tryDefineGlobal('CC_OPPO', false);
-            tryDefineGlobal('CC_VIVO', false);
-            tryDefineGlobal('CC_HUAWEI', false);
-            tryDefineGlobal('CC_COCOSPLAY', false);
-            tryDefineGlobal('CC_QTT', false);
-            tryDefineGlobal('CC_LINKSURE', false);
-            tryDefineGlobal('CC_EDITOR', false);
-            tryDefineGlobal('CC_PREVIEW', false);
-            tryDefineGlobal('CC_BUILD', true);
-            tryDefineGlobal('CC_TEST', false);
-            tryDefineGlobal('CC_DEBUG', true);
-            tryDefineGlobal('CC_DEV', false);
-            tryDefineGlobal('CC_MINIGAME', true);
-            tryDefineGlobal('CC_RUNTIME_BASED', false);
-            tryDefineGlobal('CC_SUPPORT_JIT', false);
-            tryDefineGlobal('CC_JSB', false);
+			function tryDefineGlobal (name, value) {
+			    const _global = typeof window === 'undefined' ? global : window;
+			    if (typeof _global[name] === 'undefined') {
+			        return (_global[name] = value);
+			    } else {
+			        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+			        return _global[name];
+			    }
+			}
+			tryDefineGlobal('CC_WECHAT', true);
+			tryDefineGlobal('CC_BAIDU', false);
+			tryDefineGlobal('CC_XIAOMI', false);
+			tryDefineGlobal('CC_ALIPAY', false);
+			tryDefineGlobal('CC_BYTEDANCE', false);
+			tryDefineGlobal('CC_OPPO', false);
+			tryDefineGlobal('CC_VIVO', false);
+			tryDefineGlobal('CC_HUAWEI', false);
+			tryDefineGlobal('CC_COCOSPLAY', false);
+			tryDefineGlobal('CC_QTT', false);
+			tryDefineGlobal('CC_LINKSURE', false);
+			tryDefineGlobal('CC_EDITOR', false);
+			tryDefineGlobal('CC_PREVIEW', false);
+			tryDefineGlobal('CC_BUILD', true);
+			tryDefineGlobal('CC_TEST', false);
+			tryDefineGlobal('CC_DEBUG', true);
+			tryDefineGlobal('CC_DEV', false);
+			tryDefineGlobal('CC_MINIGAME', true);
+			tryDefineGlobal('CC_RUNTIME_BASED', false);
+			tryDefineGlobal('CC_SUPPORT_JIT', false);
+			tryDefineGlobal('CC_JSB', false);
 
-            const CULL_MESHOPT = true;
+			{
+			  console.log('>>> CULL_MESHOPT is false');
+			}
 
-            console.log(CULL_MESHOPT);
-
-        })
-    };
+		})
+	};
 }));
 "
 `;
@@ -2814,9 +2814,9 @@ exports[`engine-js cull meshopt: without wasm support 2`] = `
             tryDefineGlobal('CC_SUPPORT_JIT', false);
             tryDefineGlobal('CC_JSB', false);
 
-            const CULL_MESHOPT = true;
-
-            console.log(CULL_MESHOPT);
+            {
+              console.log('>>> CULL_MESHOPT is true');
+            }
 
         })
     };

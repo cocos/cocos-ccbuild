@@ -3,6 +3,10 @@ import testWasm from 'external:wasm/emscripten/meshopt/meshopt_decoder.wasm.js';
 import wasmUrl from 'external:wasm/emscripten/meshopt/meshopt_decoder.wasm.wasm';
 import { CULL_MESHOPT } from 'internal:constants';
 
-console.log(CULL_MESHOPT);
+if (CULL_MESHOPT) {
+    console.log('>>> CULL_MESHOPT is true');
+} else {
+    console.log('>>> CULL_MESHOPT is false');
+}
 
 export { testAsm, testWasm, wasmUrl };

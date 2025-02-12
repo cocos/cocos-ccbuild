@@ -107,7 +107,7 @@ describe('WASM', () => {
             mode: 'BUILD',
             platform: 'OPEN_HARMONY',
             preserveType: true,
-            features: ['cull-meshopt'],
+            features: ['meshopt'],
             moduleFormat: 'system',
             flags: {
                 CULL_MESHOPT: true,
