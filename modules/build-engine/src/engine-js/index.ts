@@ -100,15 +100,18 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const flags = options.flags ?? {};
 
     const overriddenConstants = statsQuery.getOverriddenConstantsOfFeatures(features);
+    const flagsWithOverriddenConstants = {
+        ...overriddenConstants, // overridenConstnats in cc.config.json has lower priority
+        ...flags, // options.flags has higher priority
+    };
 
     const intrinsicFlags = statsQuery.getIntrinsicFlagsOfFeatures(features);
     let buildTimeConstants = statsQuery.constantManager.genBuildTimeConstants({
         mode: options.mode,
         platform: options.platform,
-        flags,
+        flags: flagsWithOverriddenConstants,
     });
     buildTimeConstants = {
-        ...overriddenConstants,
         ...intrinsicFlags,
         ...buildTimeConstants,
     };
@@ -131,10 +134,7 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
     const featureUnits = statsQuery.getUnitsOfFeatures(features);
 
     const rpVirtualOptions: Record<string, string> = {};
-    const flagsWithOverriddenConstants = {
-        ...overriddenConstants,
-        ...flags,
-    };
+    
 
     const vmInternalConstants = statsQuery.constantManager.exportStaticConstants({
         platform: options.platform,
