@@ -1030,8 +1030,36 @@ function testMangleQuestionProperties() {
   console.log((_a$_ccprivate$questio5 = a["_ccprivate$questionTestA"]) == null ? void 0 : _a$_ccprivate$questio5["_ccprivate$questionTestC"]["_ccprivate$myQuestionTest"]);
 }
 testMangleQuestionProperties();
+class DefinePropertiesInConstructorParameters {
+  constructor(_ccprivate$depthTest = true, _ccprivate$depthWrite = true, _ccprivate$stencilReadMaskFront = 0xffff, _ccprivate$stencilWriteMaskFront = 0xffff) {
+    this._ccprivate$depthTest = _ccprivate$depthTest;
+    this._ccprivate$depthWrite = _ccprivate$depthWrite;
+    this._ccprivate$stencilReadMaskFront = _ccprivate$stencilReadMaskFront;
+    this._ccprivate$stencilWriteMaskFront = _ccprivate$stencilWriteMaskFront;
+  }
+  _ccprivate$test() {
+    this._ccprivate$depthTest = false;
+    this._ccprivate$depthWrite = false;
+    this._ccprivate$stencilReadMaskFront = 0;
+    this._ccprivate$stencilWriteMaskFront = 0;
+  }
+}
+class DefinePropertiesInConstructorParameters2 {
+  constructor(depthTest = true, _ccprivate$depthWrite = true, stencilReadMaskFront = 0xffff, stencilWriteMaskFront = 0xffff) {
+    this.depthTest = depthTest;
+    this._ccprivate$depthWrite = _ccprivate$depthWrite;
+    this.stencilReadMaskFront = stencilReadMaskFront;
+    this.stencilWriteMaskFront = stencilWriteMaskFront;
+  }
+  test() {
+    this.depthTest = false;
+    this._ccprivate$depthWrite = false;
+    this.stencilReadMaskFront = 0;
+    this.stencilWriteMaskFront = 0;
+  }
+}
 
-export { ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMangleWholeClassIncludingStatic, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass, testMangleQuestionProperties };
+export { DefinePropertiesInConstructorParameters, DefinePropertiesInConstructorParameters2, ManglePrivatePropertiesTest, ManglePropertyBase, ManglePropertyGrand, MangleTestConstEnum, MangleTestMangleWholeClassIncludingStatic, MangleTestMyBaseEnum, MangleTestMyEnum, MangleTestMyStringEnum, MangleWholeClass, MangleWholeClassBase, MyClassExtendsMangleWholeClass, testMangleQuestionProperties };
 "
 `;
 

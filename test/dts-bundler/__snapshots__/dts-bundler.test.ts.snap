@@ -372,6 +372,25 @@ exports[`bundle dts: cc.d.ts content 1`] = `
     export interface IMangleQuestionTestB {
         questionTestA: IMangleQuestionTestA | null;
     }
+    /** @mangle */
+    export class DefinePropertiesInConstructorParameters {
+        depthTest: boolean;
+        depthWrite: boolean;
+        stencilReadMaskFront: number;
+        stencilWriteMaskFront: number;
+        constructor(depthTest?: boolean, depthWrite?: boolean, stencilReadMaskFront?: number, stencilWriteMaskFront?: number);
+        test(): void;
+    }
+    export class DefinePropertiesInConstructorParameters2 {
+        depthTest: boolean;
+        /** @mangle */
+        depthWrite: boolean;
+        stencilReadMaskFront: number;
+        stencilWriteMaskFront: number;
+        constructor(depthTest?: boolean, /** @mangle */
+        depthWrite?: boolean, stencilReadMaskFront?: number, stencilWriteMaskFront?: number);
+        test(): void;
+    }
     export interface IMangleGrand {
         helloGrandDontMangle1(): void;
         /** @mangle */
