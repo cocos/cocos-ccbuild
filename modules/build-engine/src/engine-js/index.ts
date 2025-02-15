@@ -352,8 +352,6 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                 tsTransformers.push(warningPrinterTransformer(program, config));
             }
 
-            tsTransformers.push(exportControllerTransformer(program, { context, statsQuery }));
-
             if (inlineEnum) {
                 const enumData = getEnumData();
                 if (enumData) {
@@ -362,6 +360,8 @@ export async function buildJsEngine(options: Required<buildEngine.Options>): Pro
                     console.error(`Enum data is not available for inline enum.`);
                 }
             }
+
+            tsTransformers.push(exportControllerTransformer(program, { context, statsQuery }));
 
             if (mangleProperties) {
                 const config: Partial<IMinifierOptions> = {};
