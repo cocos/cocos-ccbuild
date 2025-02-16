@@ -303,10 +303,10 @@ declare module "@cocos/ccbuild" {
     export namespace StatsQuery {
         export class ConstantManager {
             constructor(engineRoot: string);
-            exportDynamicConstants({ mode, platform, flags, }: ConstantManager.ConstantOptions): string;
+            exportDynamicConstants(options: ConstantManager.ConstantOptions): string;
             genBuildTimeConstants(options: ConstantManager.ConstantOptions): ConstantManager.BuildTimeConstants;
             genCCEnvConstants(options: ConstantManager.ConstantOptions): ConstantManager.CCEnvConstants;
-            exportStaticConstants({ mode, platform, flags, }: ConstantManager.ConstantOptions): string;
+            exportStaticConstants(options: ConstantManager.ConstantOptions): string;
             genInternalConstants(): string;
             genCCEnv(): string;
         }
