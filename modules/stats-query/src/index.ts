@@ -439,7 +439,7 @@ export namespace StatsQuery {
             if (config[platform]) {
                 config[platform].value = true;
             } else {
-                console.warn(`Unknown platform: ${platform}`);
+                throw new Error(`Unknown platform: ${platform}`);
             }
             for (const key in flags) {
                 const value = flags[key as ConstantManager.FlagType]!;
@@ -605,7 +605,7 @@ export namespace StatsQuery {
             if (config[platform]) {
                 config[platform].value = true;
             } else {
-                console.warn(`Unknown platform: ${platform}`);
+                throw new Error(`Unknown platform: ${platform}`);
             }
             for (const key in flags) {
                 const value = flags[key as ConstantManager.FlagType]!;

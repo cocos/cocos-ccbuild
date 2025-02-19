@@ -13,7 +13,301 @@
         "./pal/**/*.{ts,js,json}"
     ],
 
-    "constants": {},
+    "constants": {
+        "HTML5": {
+            "comment": "Running in Web platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": true
+        },
+        "NATIVE": {
+            "comment": "Running in native platform (mobile app, desktop app, or simulator).",
+            "type": "boolean",
+            "value": "$ANDROID || $IOS || $MAC || $WINDOWS || $LINUX || $OHOS || $OPEN_HARMONY",
+            "internal": false,
+            "dynamic": true
+        },
+        "ANDROID": {
+            "comment": "Running in ANDROID platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "IOS": {
+            "comment": "Running in IOS platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "MAC": {
+            "comment": "Running in MAC platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "WINDOWS": {
+            "comment": "Running in WINDOWS platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "LINUX": {
+            "comment": "Running in LINUX platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },        
+        "OHOS": {
+            "comment": "Running in OHOS platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "OPEN_HARMONY": {
+            "comment": "Running in OPEN_HARMONY platform",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": false
+        },
+        "WECHAT": {
+            "comment": "Running in the Wechat's mini game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "WECHAT_MINI_PROGRAM": {
+            "comment": "Running in the Wechat's mini program.",
+            "type": "boolean",
+            "value": false,
+            "internal": false
+        },
+        "BAIDU": {
+            "comment": "Running in the baidu's mini game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "XIAOMI": {
+            "comment": "Running in the xiaomi's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "ALIPAY": {
+            "comment": "Running in the alipay's mini game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "TAOBAO": {
+            "comment": "Running in the taobao creative app.",
+            "type": "boolean",
+            "value": false,
+            "internal": false
+        },
+        "TAOBAO_MINIGAME": {
+            "comment": "Running in the taobao mini game.",
+            "type": "boolean",
+            "value": false,
+            "internal": false
+        },
+        "BYTEDANCE": {
+            "comment": "Running in the ByteDance's mini game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "OPPO": {
+            "comment": "Running in the oppo's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "VIVO": {
+            "comment": "Running in the vivo's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "HUAWEI": {
+            "comment": "Running in the huawei's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "COCOSPLAY": {
+            "comment": "Running in the cocosplay.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "QTT": {
+            "comment": "Running in the qtt's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "LINKSURE": {
+            "comment": "Running in the linksure's quick game.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+
+        "EDITOR": {
+            "comment": "Running in the editor.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false,
+            "dynamic": true
+        },
+        "PREVIEW": {
+            "comment": "Preview in browser or simulator.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false,
+            "dynamic": true
+        },
+        "BUILD": {
+            "comment": "Running in published project.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "TEST": {
+            "comment": "Running in the engine's unit test.",
+            "type": "boolean",
+            "value": false,
+            "ccGlobal": true,
+            "internal": false,
+            "dynamic": true
+        },
+
+
+        "DEBUG": {
+            "comment": "Running debug mode.",
+            "type": "boolean",
+            "value": true,
+            "ccGlobal": true,
+            "internal": false
+        },
+        "SERVER_MODE": {
+            "comment": "Running in the server mode.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
+        },
+
+
+        "DEV": {
+            "comment": "Running in the editor or preview.",
+            "type": "boolean",
+            "value": "$EDITOR || $PREVIEW || $TEST",
+            "ccGlobal": true,
+            "internal": false,
+            "dynamic": true
+        },
+        "MINIGAME": {
+            "comment": "Running in mini game.",
+            "type": "boolean",
+            "value": "$WECHAT || $WECHAT_MINI_PROGRAM || $BAIDU || $XIAOMI || $ALIPAY || $TAOBAO || $TAOBAO_MINIGAME || $BYTEDANCE",
+            "ccGlobal": true,
+            "internal": false
+        },
+        "RUNTIME_BASED": {
+            "comment": "Running in runtime based environment.",
+            "type": "boolean",
+            "value": "$OPPO || $VIVO || $HUAWEI || $COCOSPLAY || $QTT || $LINKSURE",
+            "ccGlobal": true,
+            "internal": false
+        },
+        "SUPPORT_JIT": {
+            "comment": "Support JIT.",
+            "type": "boolean",
+            "value": "!(($PREVIEW && !$NATIVE) || $MINIGAME || $RUNTIME_BASED || $OPEN_HARMONY)",
+            "ccGlobal": true,
+            "internal": false
+        },
+        "JSB": {
+            "comment": "Running in environment where using JSB as the JavaScript interface binding scheme.",
+            "type": "boolean",
+            "value": "$NATIVE",
+            "ccGlobal": true,
+            "internal": false,
+            "dynamic": true
+        },
+        "NOT_PACK_PHYSX_LIBS": {
+            "comment": "This is an internal constant to determine whether pack physx libs.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
+        },
+        "NET_MODE": {
+            "comment": "The network access mode.\n- 0 Client\n- 1 ListenServer\n- 2 HostServer",
+            "type": "number",
+            "value": 0,
+            "internal": false
+        },
+        "WEBGPU": {
+            "comment": "Running with webgpu rendering backend.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
+        },
+        "NATIVE_CODE_BUNDLE_MODE": {
+            "comment": "Native code (wasm/asmjs) bundle mode, 0: asmjs, 1: wasm, 2: both",
+            "type": "number",
+            "value": 2, 
+            "internal": true
+        },
+        "EDITOR_NOT_IN_PREVIEW": {
+            "comment": "Run in editor but not in editor preview.",
+            "type": "boolean",
+            "value": false,
+            "internal": false,
+            "dynamic": true
+        },
+        "WASM_SUBPACKAGE": {
+            "comment": "An internal constant to indicate whether we use wasm assets as minigame subpackage.\nThis is useful when we need to reduce code size.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
+        },
+        "CULL_MESHOPT": {
+            "comment": "An internal constant to indicate whether we cull the meshopt wasm module and asm.js module.",
+            "type": "boolean",
+            "value": true,
+            "internal": true
+        },
+        "USE_INTRINSIC_FLAG": {
+            "comment": "An internal constant to indicate whether we use intrinsic flag.",
+            "type": "boolean",
+            "value": false,
+            "internal": true
+        }
+    },
 
     "optimizeDecorators": {
         "fieldDecorators": [

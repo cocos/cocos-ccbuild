@@ -197,6 +197,8 @@ export class ModuleQuery {
                     return this._resolvedCache[source] = ps.join(moduleRootDir, rootExport.native.default);
                 }
             }
+        } else {
+            throw new Error(`Unknown platform: ${platform}`);
         }
 
         // types condition
