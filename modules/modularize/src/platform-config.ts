@@ -25,6 +25,8 @@ export enum MinigamePlatform {
      * @deprecated this platform has been removed.
      */
     LINKSURE,
+    MIGU,
+    HONOR,
 }
 
 export enum NativePlatform {

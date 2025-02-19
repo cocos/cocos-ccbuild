@@ -14992,7 +14992,7 @@ declare module "@cocos/ccbuild" {
         export type WebPlatformConfig = {
             [key in Lowercase<keyof typeof WebPlatform>]?: string;
         };
-        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE";
+        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE" | "INVALID_PLATFORM";
         export interface ModuleConfig {
             [key: string]: unknown;
             /**
@@ -15128,7 +15128,9 @@ declare module "@cocos/ccbuild" {
             /**
              * @deprecated this platform has been removed.
              */
-            LINKSURE = 13
+            LINKSURE = 13,
+            MIGU = 14,
+            HONOR = 15
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,
