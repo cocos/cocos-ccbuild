@@ -376,74 +376,19 @@ export namespace StatsQuery {
 
     export class ConstantManager {
         private _engineRoot: string;
+        private _ccConfigJsonStr: string = '';
 
         constructor (engineRoot: string) {
             this._engineRoot = engineRoot;
         }
 
         //#region export string
-        public exportDynamicConstants ({
-            mode,
-            platform,
-            flags,
-        }: ConstantManager.ConstantOptions): string {
-            const config = this._getConfig();
-            // init helper
-            let result = '';
-            if (this._hasCCGlobal(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
-            }
-            if (this._hasDynamic(config)) {
-                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
-            }
-            
-            // update value
-            if (config[mode]) {
-                config[mode].value = true;
-            } else {
-                console.warn(`Unknown mode: ${mode}`);
-            }
-            if (config[platform]) {
-                config[platform].value = true;
-            } else {
-                console.warn(`Unknown platform: ${platform}`);
-            }
-            for (const key in flags) {
-                const value = flags[key as ConstantManager.FlagType]!;
-                if (config[key]) {
-                    config[key].value = value;
-                } else {
-                    console.warn(`Unknown flag: ${key}`);
-                }
-            }
-
-            // eval value
-            for (const key in config) {
-                const info = config[key];
-                if (typeof info.value === 'string') {
-                    info.value = this._evalExpression(info.value, config);
-                }
-            }
-
-            // generate export content
-            for (const key in config) {
-                const info = config[key];
-                const value = info.value;
-                if (info.dynamic) {
-                    continue;
-                }
-                result += `export const ${key} = ${value};\n`;
-                if (info.ccGlobal) {
-                    result += `tryDefineGlobal('CC_${key}', ${value});\n`;
-                }
-                result += '\n';
-            }
-
-            return result;
+        public exportDynamicConstants (options: ConstantManager.ConstantOptions): string {
+            return this._exportConstants(options, true);
         }
 
         public genBuildTimeConstants (options: ConstantManager.ConstantOptions): ConstantManager.BuildTimeConstants {
-            const config = this._getConfig();
+            const config = this._getConstantConfig();
 
             this._applyOptionsToConfig(config, options);
 
@@ -457,7 +402,7 @@ export namespace StatsQuery {
         }
 
         public genCCEnvConstants (options: ConstantManager.ConstantOptions): ConstantManager.CCEnvConstants {
-            const config = this._getConfig();
+            const config = this._getConstantConfig();
 
             this._applyOptionsToConfig(config, options);
 
@@ -472,16 +417,17 @@ export namespace StatsQuery {
             return jsonObj as unknown as StatsQuery.ConstantManager.CCEnvConstants;
         }
 
-        public exportStaticConstants ({
-            mode,
-            platform,
-            flags,
-        }: ConstantManager.ConstantOptions): string {
-            const config = this._getConfig();
+        private _exportConstants (options: ConstantManager.ConstantOptions, dynamic: boolean): string {
+            const { mode, platform, flags } = options;
+            const config = this._getConstantConfig();
             // init helper
             let result = '';
             if (this._hasCCGlobal(config)) {
                 result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-global-exporter.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
+            }
+
+            if (dynamic && this._hasDynamic(config)) {
+                result += fs.readFileSync(ps.join(__dirname, '../../../static/helper-dynamic-constants.txt'), 'utf8').replace(/\r\n/g, '\n') + '\n';
             }
 
             // update value
@@ -516,6 +462,11 @@ export namespace StatsQuery {
             for (const key in config) {
                 const info = config[key];
                 const value = info.value;
+                if (dynamic && info.dynamic) {
+                    // Dynamic constants are all handled in the above helper-dynamic-constants.txt.
+                    // So they need to be skipped here to avoid wrong overriden.
+                    continue; 
+                }
                 
                 let declarationKind = 'const';
                 if (platform === 'OPEN_HARMONY' && key === 'NATIVE_CODE_BUNDLE_MODE') {
@@ -530,11 +481,15 @@ export namespace StatsQuery {
 
             return result;
         }
+
+        public exportStaticConstants (options: ConstantManager.ConstantOptions): string {
+            return this._exportConstants(options, false);
+        }
         //#endregion export string
 
         //#region declaration
         public genInternalConstants (): string {
-            const config = this._getConfig();
+            const config = this._getConstantConfig();
 
             let result = `declare module 'internal:constants'{\n`;
 
@@ -548,7 +503,7 @@ export namespace StatsQuery {
         }
 
         public genCCEnv (): string {
-            const config = this._getConfig();
+            const config = this._getConstantConfig();
 
             let result = `declare module 'cc/env'{\n`;
 
@@ -577,8 +532,12 @@ export namespace StatsQuery {
         //#endregion declaration
 
         //#region utils
-        private _getConfig (): IConstantConfig {
-            const engineConfig =  fs.readJsonSync(ps.join(this._engineRoot, './cc.config.json').replace(/\\/g, '/')) as Config;
+        private _getConstantConfig (): IConstantConfig {
+            // Use a member property to avoid to read cc.config.json each time.
+            if (!this._ccConfigJsonStr) {
+                this._ccConfigJsonStr = fs.readFileSync(ps.join(this._engineRoot, './cc.config.json').replace(/\\/g, '/'), { encoding: 'utf-8' });
+            }
+            const engineConfig = JSON.parse(this._ccConfigJsonStr) as Config;
             const config = engineConfig.constants;
 
             // init default value
