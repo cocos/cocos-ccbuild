@@ -277,7 +277,17 @@ export class PropertiesMinifier {
             }
         }
 
-        const parentName = (node.parent as any).name?.escapedText;
+        let parentName: ts.__String | undefined;
+        if (ts.isParameter(node) 
+            && node.parent
+            && node.parent.kind === ts.SyntaxKind.Constructor
+            && node.parent.parent
+            && ts.isClassDeclaration(node.parent.parent)
+        ) {
+            parentName = node.parent.parent.name?.escapedText;
+        } else {
+            parentName = (node.parent as any).name?.escapedText;
+        }
         if (!parentName) return isPrivate;
 
         const name = node.name.getText();
@@ -395,6 +405,14 @@ export class PropertiesMinifier {
         let ret = ts.isMethodDeclaration(node) || ts.isPropertyDeclaration(node);
         if (!ret && this._options.mangleGetterSetter) {
             ret = ts.isGetAccessor(node) || ts.isSetAccessor(node);
+        }
+        if (!ret) {
+            if (ts.isParameter(node) && node.parent.kind === ts.SyntaxKind.Constructor && node.getChildCount() > 0) {
+                const modifiers = ts.getModifiers(node);
+                if (modifiers && modifiers.length > 0) {
+                    ret = modifiers.some((mod: ts.Modifier) => mod.kind === ts.SyntaxKind.PublicKeyword || mod.kind === ts.SyntaxKind.ProtectedKeyword || mod.kind === ts.SyntaxKind.PrivateKeyword);
+                }
+            }
         }
         return ret;
     }

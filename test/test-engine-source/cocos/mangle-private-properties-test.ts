@@ -968,3 +968,37 @@ export function testMangleQuestionProperties(): void {
 }
 
 testMangleQuestionProperties();
+
+/** @mangle */
+export class DefinePropertiesInConstructorParameters {
+    constructor(
+        public depthTest: boolean = true,
+        public depthWrite: boolean = true,
+        public stencilReadMaskFront: number = 0xffff,
+        public stencilWriteMaskFront: number = 0xffff,
+    ) {}
+
+    test (): void {
+        this.depthTest = false;
+        this.depthWrite = false;
+        this.stencilReadMaskFront = 0;
+        this.stencilWriteMaskFront = 0;
+    }
+}
+
+export class DefinePropertiesInConstructorParameters2 {
+    constructor(
+        public depthTest: boolean = true,
+        /** @mangle */
+        public depthWrite: boolean = true,
+        public stencilReadMaskFront: number = 0xffff,
+        public stencilWriteMaskFront: number = 0xffff,
+    ) {}
+
+    test (): void {
+        this.depthTest = false;
+        this.depthWrite = false;
+        this.stencilReadMaskFront = 0;
+        this.stencilWriteMaskFront = 0;
+    }
+}
