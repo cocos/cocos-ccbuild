@@ -1,10 +1,6 @@
 export enum MinigamePlatform {
     WECHAT,
     WECHAT_MINI_PROGRAM,
-    /** 
-     * @deprecated this platform has been removed.
-     */
-    BAIDU,
     BYTEDANCE,
     XIAOMI,
     ALIPAY,
@@ -13,20 +9,9 @@ export enum MinigamePlatform {
     OPPO,
     VIVO,
     HUAWEI,
-    /**
-     * @deprecated this platform has been removed.
-     */
-    COCOSPLAY,
-    /**
-     * @deprecated this platform has been removed.
-     */
-    QTT,
-    /**
-     * @deprecated this platform has been removed.
-     */
-    LINKSURE,
     MIGU,
     HONOR,
+    COCOS_RUNTIME,
 }
 
 export enum NativePlatform {
