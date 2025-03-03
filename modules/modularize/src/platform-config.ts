@@ -1,7 +1,11 @@
 export enum MinigamePlatform {
     WECHAT,
     WECHAT_MINI_PROGRAM,
-    BYTEDANCE,
+    // /**
+    //  * @deprecated this platform has been removed.
+    //  */
+    // BAIDU = 2,
+    BYTEDANCE = 3, // Set BYTEDANCE to 3 to keep the compatibility after remove BAIDU platform
     XIAOMI,
     ALIPAY,
     TAOBAO,
@@ -9,7 +13,19 @@ export enum MinigamePlatform {
     OPPO,
     VIVO,
     HUAWEI,
-    MIGU,
+    // /**
+    //  * @deprecated this platform has been removed.
+    //  */
+    // COCOSPLAY,
+    // /**
+    //  * @deprecated this platform has been removed.
+    //  */
+    // QTT,
+    // /**
+    //  * @deprecated this platform has been removed.
+    //  */
+    // LINKSURE,
+    MIGU = 14, // Set MIGU to 3 to keep the compatibility after remove COCOSPLAY, QTT, LINKSURE platforms
     HONOR,
     COCOS_RUNTIME,
 }

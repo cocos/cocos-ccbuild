@@ -15105,10 +15105,6 @@ declare module "@cocos/ccbuild" {
         export enum MinigamePlatform {
             WECHAT = 0,
             WECHAT_MINI_PROGRAM = 1,
-            /**
-             * @deprecated this platform has been removed.
-             */
-            BAIDU = 2,
             BYTEDANCE = 3,
             XIAOMI = 4,
             ALIPAY = 5,
@@ -15117,20 +15113,9 @@ declare module "@cocos/ccbuild" {
             OPPO = 8,
             VIVO = 9,
             HUAWEI = 10,
-            /**
-             * @deprecated this platform has been removed.
-             */
-            COCOSPLAY = 11,
-            /**
-             * @deprecated this platform has been removed.
-             */
-            QTT = 12,
-            /**
-             * @deprecated this platform has been removed.
-             */
-            LINKSURE = 13,
             MIGU = 14,
-            HONOR = 15
+            HONOR = 15,
+            COCOS_RUNTIME = 16
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,
