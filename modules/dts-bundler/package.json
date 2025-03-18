@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cocos/tfig": "3.3.3",
+    "@cocos/tfig": "3.3.4",
     "fs-extra": "~11.1.1",
     "@ccbuild/modularize": "*",
     "@ccbuild/stats-query": "*",
