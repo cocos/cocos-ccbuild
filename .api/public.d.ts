@@ -8984,7 +8984,7 @@ declare module "@cocos/ccbuild" {
                     AlwaysStrict = 1024,
                     MaxValue = 2048,
                     PriorityImpliesCombination = 416,
-                    Circularity = "Bad expression <-1>"
+                    Circularity = -1
                 }
                 /** @deprecated Use FileExtensionInfo instead. */
                 export type JsFileExtensionInfo = FileExtensionInfo;

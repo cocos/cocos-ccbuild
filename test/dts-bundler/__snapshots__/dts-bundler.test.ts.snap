@@ -133,7 +133,7 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         SCALE = 4,
         RS = 6,
         TRS = 7,
-        TRS_MASK = "Bad expression <-8>"
+        TRS_MASK = -8
     }
     export enum PixelFormat {
         RGB565 = 4,
@@ -203,7 +203,7 @@ exports[`bundle dts: cc.d.ts content 1`] = `
         IsAnchorLocked = 524288,
         IsSizeLocked = 1048576,
         IsPositionLocked = 2097152,
-        PersistentMask = "Bad expression <-4192741>",
+        PersistentMask = -4192741,
         AllHideMasks = 1560
     }
     export enum MyEnum {
@@ -667,7 +667,7 @@ exports[`bundle dts: cc.d.ts content 1`] = `
                 SCALE = 4,
                 RS = 6,
                 TRS = 7,
-                TRS_MASK = "Bad expression <-8>"
+                TRS_MASK = -8
             }
             export enum PixelFormat {
                 RGB565 = 4,
