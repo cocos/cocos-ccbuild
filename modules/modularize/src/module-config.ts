@@ -13,7 +13,7 @@ export type WebPlatformConfig = {
 };
 
 // keep compatibility for 'HTML5' and 'NATIVE'
-export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE' | 'INVALID_PLATFORM';
+export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE' | 'NODEJS' | 'INVALID_PLATFORM';
 
 /**
  * Abstract platform export, like `web`, `native` and `minigame`.

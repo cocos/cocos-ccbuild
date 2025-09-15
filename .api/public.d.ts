@@ -14992,7 +14992,7 @@ declare module "@cocos/ccbuild" {
         export type WebPlatformConfig = {
             [key in Lowercase<keyof typeof WebPlatform>]?: string;
         };
-        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE" | "INVALID_PLATFORM";
+        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE" | "NODEJS" | "INVALID_PLATFORM";
         export interface ModuleConfig {
             [key: string]: unknown;
             /**
