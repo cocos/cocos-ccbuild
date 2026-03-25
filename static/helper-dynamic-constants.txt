@@ -4,7 +4,7 @@ function defined (name) {
 }
 
 export const TEST = tryDefineGlobal('CC_TEST', defined('tap') || defined('QUnit'));
-export const EDITOR = tryDefineGlobal('CC_EDITOR', defined('Editor') && defined('process') && ('electron' in process.versions));
+export const EDITOR = tryDefineGlobal('CC_EDITOR', defined('vscode'));
 export const PREVIEW = tryDefineGlobal('CC_PREVIEW', !EDITOR);
 export const JSB = tryDefineGlobal('CC_JSB', defined('jsb'));
 export const NATIVE = JSB;
