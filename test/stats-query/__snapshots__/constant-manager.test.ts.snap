@@ -46,9 +46,6 @@ export const WECHAT_MINI_PROGRAM = false;
 export const BAIDU = false;
 tryDefineGlobal('CC_BAIDU', false);
 
-export const XIAOMI = false;
-tryDefineGlobal('CC_XIAOMI', false);
-
 export const ALIPAY = false;
 tryDefineGlobal('CC_ALIPAY', false);
 
@@ -146,9 +143,6 @@ export const WECHAT_MINI_PROGRAM = false;
 
 export const BAIDU = false;
 tryDefineGlobal('CC_BAIDU', false);
-
-export const XIAOMI = false;
-tryDefineGlobal('CC_XIAOMI', false);
 
 export const ALIPAY = false;
 tryDefineGlobal('CC_ALIPAY', false);
@@ -272,7 +266,6 @@ exports[`genBuildTimeConstants 1`] = `
   "WECHAT": false,
   "WECHAT_MINI_PROGRAM": false,
   "WINDOWS": false,
-  "XIAOMI": false,
 }
 `;
 
@@ -312,7 +305,6 @@ exports[`genCCEnvConstants 1`] = `
   "WECHAT": false,
   "WECHAT_MINI_PROGRAM": false,
   "WINDOWS": false,
-  "XIAOMI": false,
 }
 `;
 
@@ -377,11 +369,6 @@ exports[`generateCCEnv 1`] = `
 	 * Running in the baidu's mini game.
 	 */
 	export const BAIDU: boolean;
-
-	/**
-	 * Running in the xiaomi's quick game.
-	 */
-	export const XIAOMI: boolean;
 
 	/**
 	 * Running in the alipay's mini game.
@@ -561,11 +548,6 @@ exports[`generateInternalConstants 1`] = `
 	 * Running in the baidu's mini game.
 	 */
 	export const BAIDU: boolean;
-
-	/**
-	 * Running in the xiaomi's quick game.
-	 */
-	export const XIAOMI: boolean;
 
 	/**
 	 * Running in the alipay's mini game.

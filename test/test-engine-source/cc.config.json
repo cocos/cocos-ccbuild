@@ -225,13 +225,6 @@
             "ccGlobal": true,
             "internal": false
         },
-        "XIAOMI": {
-            "comment": "Running in the xiaomi's quick game.",
-            "type": "boolean",
-            "value": false,
-            "ccGlobal": true,
-            "internal": false
-        },
         "ALIPAY": {
             "comment": "Running in the alipay's mini game.",
             "type": "boolean",
@@ -360,7 +353,7 @@
         "MINIGAME": {
             "comment": "Running in mini game.",
             "type": "boolean",
-            "value": "$WECHAT || $WECHAT_MINI_PROGRAM || $BAIDU || $XIAOMI || $ALIPAY || $TAOBAO || $TAOBAO_MINIGAME || $BYTEDANCE",
+            "value": "$WECHAT || $WECHAT_MINI_PROGRAM || $BAIDU || $ALIPAY || $TAOBAO || $TAOBAO_MINIGAME || $BYTEDANCE",
             "ccGlobal": true,
             "internal": false
         },

@@ -210,8 +210,6 @@ tryDefineGlobal('CC_WECHAT', false);
 export const WECHAT_MINI_PROGRAM = false;
 export const BAIDU = false;
 tryDefineGlobal('CC_BAIDU', false);
-export const XIAOMI = false;
-tryDefineGlobal('CC_XIAOMI', false);
 export const ALIPAY = false;
 tryDefineGlobal('CC_ALIPAY', false);
 export const TAOBAO = false;

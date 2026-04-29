@@ -15106,16 +15106,16 @@ declare module "@cocos/ccbuild" {
             WECHAT = 0,
             WECHAT_MINI_PROGRAM = 1,
             BYTEDANCE = 3,
-            XIAOMI = 4,
             ALIPAY = 5,
             TAOBAO = 6,
             TAOBAO_MINIGAME = 7,
             OPPO = 8,
             VIVO = 9,
             HUAWEI = 10,
-            MIGU = 14,
             HONOR = 15,
-            COCOS_RUNTIME = 16
+            COCOS_RUNTIME = 16,
+            SUD = 17,
+            SUDV2 = 18
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,

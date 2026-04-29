@@ -1,5 +1,17 @@
 # Change Log - @cocos/ccbuild
 
+## 2.3.19
+
+### Patch Changes
+
+- Remove xiaomi & migu platform.
+
+## 2.3.18
+
+### Patch Changes
+
+- export USE_SORTING_2D
+
 ## 2.0.3
 
 ### Patch Changes

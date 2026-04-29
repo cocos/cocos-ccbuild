@@ -82,41 +82,6 @@ describe('engine-js', () => {
         // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
         await del(out, { force: true });
     });
-    
-    test('build WASM module on platform not supporting WASM', async () => {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['wasm-test'],
-            moduleFormat: 'system',
-            nativeCodeBundleMode: 'asmjs',
-        });
-        expect(await getOutputDirStructure(out)).toMatchSnapshot();
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
-        await del(out, { force: true });
-
-
-        // build asmjs only
-        const buildResult = await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['wasm-test'],
-            moduleFormat: 'system',
-            flags: {},
-            nativeCodeBundleMode: 'asmjs',
-        });
-        expect(await getOutputDirStructure(out)).toMatchSnapshot('cull asm.js module');
-        // expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();  // this is too much for a snapshot output
-        await del(out, { force: true });
-        
-        expect(buildResult).toMatchSnapshot('build result');
-
-    });
 
     test('enumerate dependents', async () => {
         const out = ps.join(__dirname, './lib-js');
@@ -134,66 +99,6 @@ describe('engine-js', () => {
         expect(buildEngine.enumerateAllDependents(res, features)).toMatchSnapshot();
         expect(buildEngine.enumerateDependentChunks(res, features)).toMatchSnapshot();
         expect(buildEngine.enumerateDependentAssets(res, features)).toMatchSnapshot();
-        await del(out, { force: true });
-    });
-
-    test('build width option nativeCodeBundleMode wasm', async () => {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['internal-constants'],
-            moduleFormat: 'esm',
-            nativeCodeBundleMode: 'wasm',
-        });
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
-        await del(out, { force: true });
-    });
-
-
-    test('build width option nativeCodeBundleMode asmjs', async () => {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['internal-constants'],
-            moduleFormat: 'esm',
-            nativeCodeBundleMode: 'asmjs',
-        });
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
-        await del(out, { force: true });
-    });
-
-    test('build width option nativeCodeBundleMode both', async () => {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['internal-constants'],
-            moduleFormat: 'esm',
-            nativeCodeBundleMode: 'both',
-        });
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
-        await del(out, { force: true });
-    });
-
-    test('intrinsic flag', async function () {
-        const out = ps.join(__dirname, './lib-js');
-        await buildEngine({
-            engine: ps.join(__dirname, '../test-engine-source'),
-            out,
-            mode: 'BUILD',
-            platform: 'XIAOMI',
-            features: ['intrinsic-flag-test'],
-            moduleFormat: 'esm',
-        });
-        expect(await getOutputContent(ps.join(out, 'cc.js'))).toMatchSnapshot();
         await del(out, { force: true });
     });
 

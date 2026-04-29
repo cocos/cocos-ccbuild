@@ -6,8 +6,7 @@ export enum MinigamePlatform {
     //  */
     // BAIDU = 2,
     BYTEDANCE = 3, // Set BYTEDANCE to 3 to keep the compatibility after remove BAIDU platform
-    XIAOMI,
-    ALIPAY,
+    ALIPAY = 5,
     TAOBAO,
     TAOBAO_MINIGAME,
     OPPO,
@@ -25,9 +24,10 @@ export enum MinigamePlatform {
     //  * @deprecated this platform has been removed.
     //  */
     // LINKSURE,
-    MIGU = 14, // Set MIGU to 3 to keep the compatibility after remove COCOSPLAY, QTT, LINKSURE platforms
-    HONOR,
+    HONOR = 15, // Set HONOR to 15 to keep the compatibility after remove COCOSPLAY, QTT, LINKSURE platforms
     COCOS_RUNTIME,
+    SUD,
+    SUDV2
 }
 
 export enum NativePlatform {
