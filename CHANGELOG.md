@@ -1,4 +1,9 @@
 # Change Log - @cocos/ccbuild
+## 2.3.20
+
+### Patch Changes
+
+- Change SUDV2 to OpenPAAS.
 
 ## 2.3.19
 
