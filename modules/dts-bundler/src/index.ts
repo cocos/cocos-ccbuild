@@ -162,6 +162,35 @@ export async function build (options: Options): Promise<boolean> {
         );
     }
 
+    // pal 私有化后以【预编译 .d.ts】的形态 spread 到 <engine>/pal。TS 的声明 emit
+    // (emitOnlyDtsFiles) 会跳过本身就是 .d.ts 的输入,导致这些声明不会进入下方 gift
+    // 打包所依赖的 unbundled 目录 → gift 解析不到 pal 符号,把类型塌缩成悬空引用。
+    // 这里像上面 spine-core.d.ts 一样,把 pal 的 .d.ts 镜像进 unbundled 目录。
+    // 对未私有化(pal 为 .ts 源码)的引擎,pal 下没有 .d.ts → 天然 no-op,不影响其他构建。
+    const palDtsRoot = ps.join(engine, 'pal');
+    if (await fs.pathExists(palDtsRoot)) {
+        const mirrorPalDts = async (dir: string): Promise<void> => {
+            for (const name of await fs.readdir(dir)) {
+                const src = ps.join(dir, name);
+                // eslint-disable-next-line no-await-in-loop
+                if ((await fs.stat(src)).isDirectory()) {
+                    // eslint-disable-next-line no-await-in-loop
+                    await mirrorPalDts(src);
+                    continue;
+                }
+                if (!src.endsWith('.d.ts')) {
+                    continue;
+                }
+                const target = ps.rebasePath(src, engine, unbundledOutDirNormalized);
+                // eslint-disable-next-line no-await-in-loop
+                await fs.ensureDir(ps.dirname(target));
+                // eslint-disable-next-line no-await-in-loop
+                await fs.copyFile(src, target);
+            }
+        };
+        await mirrorPalDts(palDtsRoot);
+    }
+
     const rebasedModuleExportMap: Record<string, string> = {};
     for (const [moduleName, modulePath] of Object.entries(moduleExportMap)) {
         let rebasedPath = ps.rebasePath(modulePath, engine, unbundledOutDirNormalized);
