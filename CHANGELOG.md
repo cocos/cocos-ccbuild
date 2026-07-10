@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.3.20
+
+### Patch Changes
+
+- feat(pal): add .d.ts type definitions for PAL interfaces
+
 ## 2.3.19
 
 ### Patch Changes
