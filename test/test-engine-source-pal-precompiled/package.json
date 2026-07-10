@@ -1,0 +1,4 @@
+{
+    "name": "cc-test-pal-precompiled",
+    "workspaces": ["pal"]
+}
