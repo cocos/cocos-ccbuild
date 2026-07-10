@@ -1,0 +1,14 @@
+{
+    "features": {
+        "pal-user": {
+            "modules": ["pal-user"]
+        }
+    },
+    "moduleOverrides": [],
+    "includes": [],
+    "constants": {},
+    "optimizeDecorators": {
+        "fieldDecorators": [],
+        "editorDecorators": []
+    }
+}
