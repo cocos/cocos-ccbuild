@@ -1,0 +1,9 @@
+{
+    "name": "pal",
+    "version": "1.0.0",
+    "exports": {
+        "./audio": {
+            "types": "./audio/index.d.ts"
+        }
+    }
+}
