@@ -55,6 +55,9 @@
         },
         "conditional-export-test": {
             "modules": ["conditional-export-test"]
+        },
+        "extensionless-override": {
+            "modules": ["extensionless-override"]
         }
     },
     "moduleOverrides": [
@@ -101,6 +104,13 @@
             "overrides": {
                 "pal/audio": "pal/audio/native.ts",
                 "pal/minigame": "pal/minigame/native.ts"
+            }
+        },
+        {
+            "test": "context.buildTimeConstants && context.buildTimeConstants.NATIVE",
+            "isVirtualModule": true,
+            "overrides": {
+                "pal/system-info-test": "pal/system-info-test/native/system-info"
             }
         },
         {

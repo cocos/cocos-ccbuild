@@ -123,6 +123,40 @@ describe('WASM', () => {
     });
 });
 
+describe('module override', function () {
+    // Regression: module override targets in cc.config.json may be written extension-less
+    // (as privatized pal modules are). The js/rollup build resolves the extension
+    // automatically, but the native ts builder resolves files itself, so it must complete
+    // the real file extension for override targets - otherwise `_load` throws
+    // "Cannot load module: .../pal/system-info-test/native/system-info".
+    test('completes extension for extension-less override target', async function () {
+        const engineBuilder = new ccbuild.EngineBuilder();
+        const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+        const out = formatPath(ps.join(__dirname, './lib-ts'));
+
+        // Before the fix this call rejected while loading the override target.
+        await expect(engineBuilder.build({
+            root,
+            features: ['extensionless-override'],
+            platform: 'OPEN_HARMONY',
+            mode: 'BUILD',
+            flagConfig: {
+                DEBUG: true,
+            },
+            outDir: out,
+        })).resolves.toBeDefined();
+
+        const structure = await getOutputDirStructure(out);
+        // the extension-less override target is resolved to the real .ts file and emitted
+        expect(structure).toContain('pal/system-info-test/native/system-info.ts');
+        // the importer's specifier is rewritten to the resolved native module
+        const indexContent = await getOutputContent(ps.join(out, 'extensionless-override/index.ts'));
+        expect(indexContent).toContain('pal/system-info-test/native/system-info');
+
+        await del(out, { force: true });
+    });
+});
+
 describe('circular reference', function () {
     test('circular reference', async function () {
         const engineBuilder = new ccbuild.EngineBuilder();

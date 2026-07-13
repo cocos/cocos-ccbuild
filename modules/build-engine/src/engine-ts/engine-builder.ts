@@ -192,6 +192,14 @@ export class EngineBuilder {
             }
         }
 
+        // Module override targets in cc.config.json (e.g. pal overrides) are written
+        // extension-less; the js/rollup build resolves the extension automatically, but
+        // the native ts builder resolves files itself, so complete the real file
+        // extension here to keep `_resolve`/`_getOverrideId` and the pass2 comparison consistent.
+        for (const key of Object.keys(this._moduleOverrides)) {
+            this._moduleOverrides[key] = this._completeOverrideExtension(this._moduleOverrides[key])!;
+        }
+
         this._virtual2code['internal:constants'] = constantManager.exportStaticConstants({
             platform,
             mode,
@@ -302,6 +310,16 @@ export class EngineBuilder {
 
     private _resolveRelative (id: string, importer: string): string | undefined {
         const file = formatPath(ps.join(ps.dirname(importer), id));
+        return this._completeOverrideExtension(file, true);
+    }
+
+    /**
+     * Complete the real file extension for an absolute path.
+     * Module override targets in cc.config.json are written extension-less; unlike the
+     * js/rollup build, the native ts builder must resolve the extension itself.
+     * Returns the input unchanged when no matching file is found (e.g. bare module ids).
+     */
+    private _completeOverrideExtension (file: string, mustExist = false): string | undefined {
         if (ps.extname(file) && fs.existsSync(file)) {
             return file;
         }
@@ -315,6 +333,7 @@ export class EngineBuilder {
                 return indexExt;
             }
         }
+        return mustExist ? undefined : file;
     }
 
     private async _load (id: string): Promise<string | void> {
