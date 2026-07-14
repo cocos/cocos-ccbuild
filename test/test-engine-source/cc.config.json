@@ -58,6 +58,9 @@
         },
         "extensionless-override": {
             "modules": ["extensionless-override"]
+        },
+        "wildcard-alias": {
+            "modules": ["wildcard-alias"]
         }
     },
     "moduleOverrides": [

@@ -19,6 +19,9 @@
     "paths": {
         "cc.decorator": [
             "./decorators.ts"
+        ],
+        "@cocos/test-engine/*": [
+            "*"
         ]
     },
     "types": [
