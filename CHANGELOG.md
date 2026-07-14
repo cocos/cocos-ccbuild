@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.3.21
+
+### Patch Changes
+
+- 1.fix(build-engine): resolve native TS extension-less overrides and wildcard aliases 2. fix(build-engine): resolve extension-less module override targets in native TS builder
+
 ## 2.3.20
 
 ### Patch Changes
