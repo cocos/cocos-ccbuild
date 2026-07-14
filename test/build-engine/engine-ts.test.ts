@@ -157,6 +157,40 @@ describe('module override', function () {
     });
 });
 
+describe('wildcard path alias', function () {
+    // Regression: tsconfig `paths` wildcard aliases (e.g. "@cocos/engine/*": ["*"], used by
+    // privatized pal to import engine internals) must be resolved by the native ts builder.
+    // The `@cocos/` prefix also exercises node-module-loader's graceful fallback when the
+    // specifier is not an installed node module.
+    test('resolves wildcard tsconfig alias to source', async function () {
+        const engineBuilder = new ccbuild.EngineBuilder();
+        const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+        const out = formatPath(ps.join(__dirname, './lib-ts'));
+
+        // Before the fix this rejected: node-module-loader threw on the unresolvable
+        // `@cocos/test-engine/*` specifier, and the wildcard alias was never applied.
+        await expect(engineBuilder.build({
+            root,
+            features: ['wildcard-alias'],
+            platform: 'OPEN_HARMONY',
+            mode: 'BUILD',
+            flagConfig: {
+                DEBUG: true,
+            },
+            outDir: out,
+        })).resolves.toBeDefined();
+
+        const structure = await getOutputDirStructure(out);
+        // the aliased import resolves to the real source file, which gets emitted
+        expect(structure).toContain('wildcard-alias/target.ts');
+        // the `@cocos/test-engine/*` specifier is rewritten to the resolved relative module
+        const indexContent = await getOutputContent(ps.join(out, 'wildcard-alias/index.ts'));
+        expect(indexContent).toContain('./target');
+
+        await del(out, { force: true });
+    });
+});
+
 describe('circular reference', function () {
     test('circular reference', async function () {
         const engineBuilder = new ccbuild.EngineBuilder();

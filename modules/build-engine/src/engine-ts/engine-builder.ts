@@ -57,6 +57,9 @@ export class EngineBuilder {
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: ConstantManager.BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
+    // Wildcard tsconfig `paths` aliases (e.g. "@cocos/engine/*": ["*"]) that cannot be
+    // stored as exact keys; matched by prefix/suffix and expanded at resolve time.
+    private _wildcardOverrides: Array<{ prefix: string; suffix: string; target: string }> = [];
     private _buildResult: EngineBuilder.IBuildResult = {};
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     // TODO: for now OH global interface conflict with Rect and Path, struct
@@ -187,7 +190,15 @@ export class EngineBuilder {
             const compilerOptions = tsconfig.compilerOptions;
             if (compilerOptions && compilerOptions.baseUrl && compilerOptions.paths) {
                 for (const [key, paths] of Object.entries(compilerOptions.paths) as any) {
-                    this._moduleOverrides[key] = formatPath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
+                    const target = formatPath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
+                    if (key.includes('*')) {
+                        // Wildcard alias, e.g. "@cocos/engine/*": ["*"]. The captured
+                        // sub-path is substituted into the target template at resolve time.
+                        const [prefix, suffix = ''] = key.split('*');
+                        this._wildcardOverrides.push({ prefix, suffix, target });
+                    } else {
+                        this._moduleOverrides[key] = target;
+                    }
                 }
             }
         }
@@ -282,6 +293,10 @@ export class EngineBuilder {
                 overrideId = this._moduleOverrides[absolutePath];
             }
         }
+        if (!overrideId) {
+            // wildcard tsconfig path alias, e.g. `@cocos/engine/*` -> engine source
+            overrideId = this._resolveWildcardOverride(id);
+        }
         return overrideId;
     }
 
@@ -306,11 +321,33 @@ export class EngineBuilder {
                 return this._moduleOverrides[resolved] ?? resolved;
             }
         }
+        // wildcard tsconfig path alias, e.g. `@cocos/engine/*` -> engine source
+        return this._resolveWildcardOverride(id);
     }
 
     private _resolveRelative (id: string, importer: string): string | undefined {
         const file = formatPath(ps.join(ps.dirname(importer), id));
         return this._completeOverrideExtension(file, true);
+    }
+
+    /**
+     * Resolve a wildcard tsconfig `paths` alias (e.g. "@cocos/engine/*": ["*"]) by
+     * substituting the captured sub-path into the target template and completing the
+     * real file extension. Returns undefined when no rule matches or the target file
+     * does not exist, so resolution can fall through.
+     */
+    private _resolveWildcardOverride (id: string): string | undefined {
+        for (const { prefix, suffix, target } of this._wildcardOverrides) {
+            if (id.length > prefix.length + suffix.length && id.startsWith(prefix) && id.endsWith(suffix)) {
+                const captured = id.slice(prefix.length, id.length - suffix.length);
+                const resolved = formatPath(target.replace('*', captured));
+                const completed = this._completeOverrideExtension(resolved, true);
+                if (completed) {
+                    return completed;
+                }
+            }
+        }
+        return undefined;
     }
 
     /**
