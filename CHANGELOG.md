@@ -1,6 +1,6 @@
 # Change Log - @cocos/ccbuild
 
-## null
+## 2.3.18.1
 
 ### Patch Changes
 
