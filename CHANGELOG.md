@@ -1,5 +1,11 @@
 # Change Log - @cocos/ccbuild
 
+## 2.3.18.1
+
+### Patch Changes
+
+- Add SUD & SUDV2 platforms.
+
 ## 2.0.3
 
 ### Patch Changes

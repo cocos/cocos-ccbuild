@@ -28,6 +28,8 @@ export enum MinigamePlatform {
     MIGU = 14, // Set MIGU to 3 to keep the compatibility after remove COCOSPLAY, QTT, LINKSURE platforms
     HONOR,
     COCOS_RUNTIME,
+    SUD,
+    SUDV2
 }
 
 export enum NativePlatform {
