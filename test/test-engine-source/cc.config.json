@@ -37,6 +37,12 @@
         },
         "dynamic-import": {
             "modules": ["dynamic-import"]
+        },
+        "extensionless-override": {
+            "modules": ["extensionless-override"]
+        },
+        "wildcard-alias": {
+            "modules": ["wildcard-alias"]
         }
     },
     "moduleOverrides": [
@@ -74,6 +80,13 @@
             "overrides": {
                 "pal/audio": "pal/audio/native.ts",
                 "pal/minigame": "pal/minigame/native.ts"
+            }
+        },
+        {
+            "test": "context.buildTimeConstants && context.buildTimeConstants.NATIVE",
+            "isVirtualModule": true,
+            "overrides": {
+                "pal/system-info-test": "pal/system-info-test/native/system-info"
             }
         },
         {
