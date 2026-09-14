@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es2015", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./bin/.ts",
+    "rootDir": "./",
+    "noEmit": true,
+    "strict": false,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "pal/*": ["./pal/*"]
+    }
+  },
+  "include": [
+    "exports/**/*.ts",
+    "pal-user/**/*.ts"
+  ]
+}
