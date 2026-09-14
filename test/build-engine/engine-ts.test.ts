@@ -30,7 +30,6 @@ test('engine-ts', async () => {
     expect(res).toMatchSnapshot();
     await del(out, { force: true });
 });
-
 test('node modules', async function () {
   const root = formatPath(ps.join(__dirname, '../test-engine-source'));
   const engineBuilder = new ccbuild.EngineBuilder();
@@ -161,6 +160,40 @@ describe('type build', function () {
         outDir: out,
     });
     expect(await getOutputDirStructure(out)).toMatchSnapshot();
+    await del(out, { force: true });
+  });
+});
+
+describe('module override', function () {
+  test('completes extension for extension-less override target', async function () {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
+    await expect(engineBuilder.build({
+      root, features: ['extensionless-override'], platform: 'OPEN_HARMONY', mode: 'BUILD',
+      flagConfig: { DEBUG: true }, outDir: out,
+    })).resolves.toBeDefined();
+    const structure = await getOutputDirStructure(out);
+    expect(structure).toContain('pal/system-info-test/native/system-info.ts');
+    const indexContent = await getOutputContent(ps.join(out, 'extensionless-override/index.ts'));
+    expect(indexContent).toContain('pal/system-info-test/native/system-info');
+    await del(out, { force: true });
+  });
+});
+
+describe('wildcard path alias', function () {
+  test('resolves wildcard tsconfig alias to source', async function () {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = formatPath(ps.join(__dirname, '../test-engine-source'));
+    const out = formatPath(ps.join(__dirname, './lib-ts'));
+    await expect(engineBuilder.build({
+      root, features: ['wildcard-alias'], platform: 'OPEN_HARMONY', mode: 'BUILD',
+      flagConfig: { DEBUG: true }, outDir: out,
+    })).resolves.toBeDefined();
+    const structure = await getOutputDirStructure(out);
+    expect(structure).toContain('wildcard-alias/target.ts');
+    const indexContent = await getOutputContent(ps.join(out, 'wildcard-alias/index.ts'));
+    expect(indexContent).toContain('./target');
     await del(out, { force: true });
   });
 });
