@@ -1,5 +1,12 @@
 # Change Log - @cocos/ccbuild
 
+## 2.3.23
+
+### Patch Changes
+
+- fix(build-engine): resolve native TS extension-less overrides and wildcard aliases 2. fix(build-engine): resolve extension-less module override targets in native TS builder
+- feat(pal): add .d.ts type definitions for PAL interfaces
+
 ## 2.3.22
 
 ### Patch Changes
