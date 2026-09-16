@@ -292,6 +292,8 @@ export namespace StatsQuery {
             LINKSURE: boolean;
             OPEN_HARMONY: boolean;
             TAOBAO_MINIGAME: boolean,
+            SUD: boolean;
+            SUDV2: boolean;
         }
         
         export interface IInternalFlagConfig {
