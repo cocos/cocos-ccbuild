@@ -15115,7 +15115,9 @@ declare module "@cocos/ccbuild" {
             HUAWEI = 10,
             MIGU = 14,
             HONOR = 15,
-            COCOS_RUNTIME = 16
+            COCOS_RUNTIME = 16,
+            SUD = 17,
+            SUDV2 = 18
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,
