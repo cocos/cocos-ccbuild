@@ -29,6 +29,31 @@ test('engine-ts', async () => {
     await del(out, { force: true });
 });
 
+test('resolves extension-less module override target', async () => {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = normalizePath(ps.join(__dirname, '../test-engine-source'));
+    await expect(engineBuilder.build({
+        root,
+        features: ['extensionless-override'],
+        platform: 'NATIVE',
+        mode: 'BUILD',
+        flagConfig: { DEBUG: true },
+    })).resolves.toBeDefined();
+});
+
+test('resolves wildcard tsconfig alias to source', async () => {
+    const engineBuilder = new ccbuild.EngineBuilder();
+    const root = normalizePath(ps.join(__dirname, '../test-engine-source'));
+    const result = await engineBuilder.build({
+        root,
+        features: ['wildcard-alias'],
+        platform: 'NATIVE',
+        mode: 'BUILD',
+        flagConfig: { DEBUG: true },
+    });
+    expect(Object.keys(result).some((file) => file.endsWith('/wildcard-alias/target.ts'))).toBe(true);
+});
+
 describe('WASM', () => {
   test('build WASM', async () => {
     const engineBuilder = new ccbuild.EngineBuilder();

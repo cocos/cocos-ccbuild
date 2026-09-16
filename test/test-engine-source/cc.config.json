@@ -13,6 +13,12 @@
         },
         "internal-constants": {
             "modules": ["internal-constants"]
+        },
+        "extensionless-override": {
+            "modules": ["extensionless-override"]
+        },
+        "wildcard-alias": {
+            "modules": ["wildcard-alias"]
         }
     },
     "moduleOverrides": [{
@@ -54,6 +60,7 @@
             "isVirtualModule": true,
             "overrides": {
                 "pal/audio": "pal/audio/native.ts",
+                "pal/system-info-test": "pal/system-info-test/native/system-info",
                 "pal/minigame": "pal/minigame/native.ts"
             }
         },
