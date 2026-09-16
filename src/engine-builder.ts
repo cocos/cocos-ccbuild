@@ -61,6 +61,7 @@ export class EngineBuilder {
     private _virtualOverrides: Record<string, string> = {};
     private _buildTimeConstants!: ConstantManager.BuildTimeConstants;
     private _moduleOverrides!: Record<string, string>;
+    private _wildcardOverrides: Array<{ prefix: string; suffix: string; target: string }> = [];
     private _buildResult: EngineBuilder.IBuildResult = {};
     private _resolveExtension: string[] = ['.ts', '.js', '.json'];  // not an option
     // TODO: for now OH global interface conflict with Rect and Path, struct
@@ -168,9 +169,19 @@ export class EngineBuilder {
             const compilerOptions = tsconfig.compilerOptions;
             if (compilerOptions && compilerOptions.baseUrl && compilerOptions.paths) {
                 for (let [key, paths] of Object.entries(compilerOptions.paths) as any) {
-                    this._moduleOverrides[key] = normalizePath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
+                    const target = normalizePath(ps.join(ps.dirname(tsconfigFile), compilerOptions.baseUrl, paths[0]));
+                    if (key.includes('*')) {
+                        const [prefix, suffix = ''] = key.split('*');
+                        this._wildcardOverrides.push({ prefix, suffix, target });
+                    } else {
+                        this._moduleOverrides[key] = target;
+                    }
                 }
             }
+        }
+
+        for (const key of Object.keys(this._moduleOverrides)) {
+            this._moduleOverrides[key] = this._completeOverrideExtension(this._moduleOverrides[key])!;
         }
 
         this._virtual2code['internal:constants'] = constantManager.exportStaticConstants({
@@ -245,6 +256,9 @@ export class EngineBuilder {
                 overrideId = this._moduleOverrides[absolutePath];
             }
         }
+        if (!overrideId) {
+            overrideId = this._resolveWildcardOverride(id);
+        }
         return overrideId;
     }
 
@@ -265,10 +279,29 @@ export class EngineBuilder {
                 return this._moduleOverrides[resolved] ?? resolved;
             }
         }
+        return this._resolveWildcardOverride(id);
     }
 
     private _resolveRelative (id: string, importer: string): string | undefined {
         const file = normalizePath(ps.join(ps.dirname(importer), id));
+        return this._completeOverrideExtension(file, true);
+    }
+
+    private _resolveWildcardOverride (id: string): string | undefined {
+        for (const { prefix, suffix, target } of this._wildcardOverrides) {
+            if (id.length > prefix.length + suffix.length && id.startsWith(prefix) && id.endsWith(suffix)) {
+                const captured = id.slice(prefix.length, id.length - suffix.length);
+                const resolved = normalizePath(target.replace('*', captured));
+                const completed = this._completeOverrideExtension(resolved, true);
+                if (completed) {
+                    return completed;
+                }
+            }
+        }
+        return undefined;
+    }
+
+    private _completeOverrideExtension (file: string, mustExist = false): string | undefined {
         if (ps.extname(file) && fs.existsSync(file)) {
             return file;
         }
@@ -282,6 +315,7 @@ export class EngineBuilder {
                 return indexExt;
             }
         }
+        return mustExist ? undefined : file;
     }
 
     private _load (id: string): string | void {
