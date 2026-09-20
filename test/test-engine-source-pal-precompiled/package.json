@@ -1,4 +1,3 @@
 {
-    "name": "cc-test-pal-precompiled",
-    "workspaces": ["pal"]
+    "name": "cc-test-pal-precompiled"
 }

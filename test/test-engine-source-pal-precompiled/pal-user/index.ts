@@ -1,1 +1,1 @@
-export { PalAudioPlayer } from 'pal/audio';
+export { PalAudioPlayer } from '../pal/audio';
