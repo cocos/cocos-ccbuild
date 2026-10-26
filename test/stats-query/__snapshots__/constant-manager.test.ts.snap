@@ -53,6 +53,8 @@ export const TAOBAO = false;
 
 export const TAOBAO_MINIGAME = false;
 
+export const GIBYTEDANCE = false;
+
 export const BYTEDANCE = false;
 tryDefineGlobal('CC_BYTEDANCE', false);
 
@@ -151,6 +153,8 @@ export const TAOBAO = false;
 
 export const TAOBAO_MINIGAME = false;
 
+export const GIBYTEDANCE = false;
+
 export const BYTEDANCE = false;
 tryDefineGlobal('CC_BYTEDANCE', false);
 
@@ -236,6 +240,7 @@ exports[`genBuildTimeConstants 1`] = `
   "DEV": true,
   "EDITOR": false,
   "EDITOR_NOT_IN_PREVIEW": false,
+  "GIBYTEDANCE": false,
   "HTML5": false,
   "HUAWEI": false,
   "IOS": false,
@@ -281,6 +286,7 @@ exports[`genCCEnvConstants 1`] = `
   "DEV": true,
   "EDITOR": false,
   "EDITOR_NOT_IN_PREVIEW": false,
+  "GIBYTEDANCE": false,
   "HTML5": false,
   "HUAWEI": false,
   "IOS": false,
@@ -384,6 +390,11 @@ exports[`generateCCEnv 1`] = `
 	 * Running in the taobao mini game.
 	 */
 	export const TAOBAO_MINIGAME: boolean;
+
+	/**
+	 * Running in the GIBYTEDANCE mini game.
+	 */
+	export const GIBYTEDANCE: boolean;
 
 	/**
 	 * Running in the ByteDance's mini game.
@@ -563,6 +574,11 @@ exports[`generateInternalConstants 1`] = `
 	 * Running in the taobao mini game.
 	 */
 	export const TAOBAO_MINIGAME: boolean;
+
+	/**
+	 * Running in the GIBYTEDANCE mini game.
+	 */
+	export const GIBYTEDANCE: boolean;
 
 	/**
 	 * Running in the ByteDance's mini game.

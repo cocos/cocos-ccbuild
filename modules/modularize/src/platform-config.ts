@@ -27,7 +27,8 @@ export enum MinigamePlatform {
     HONOR = 15, // Set HONOR to 15 to keep the compatibility after remove COCOSPLAY, QTT, LINKSURE platforms
     COCOS_RUNTIME,
     SUD,
-    SUDV2
+    SUDV2,
+    GIBYTEDANCE
 }
 
 export enum NativePlatform {

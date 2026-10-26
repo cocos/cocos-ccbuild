@@ -85,6 +85,11 @@ declare module 'internal:constants'{
     export const TAOBAO_MINIGAME: boolean;
 
     /**
+     * Running in the GIBYTEDANCE mini game.
+     */
+    export const GIBYTEDANCE: boolean;
+
+    /**
      * Running in the ByteDance's mini game.
      */
     export const BYTEDANCE: boolean;

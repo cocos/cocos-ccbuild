@@ -4,6 +4,21 @@ import ps from 'path';
 const ConstantManager = StatsQuery.ConstantManager;
 const cm = new ConstantManager(ps.join(__dirname, '../test-engine-source/'));
 
+test.each(['test-engine-source', 'test-engine-source-without-symlink'])('GIBYTEDANCE constants in %s', (engine) => {
+    const manager = new ConstantManager(ps.join(__dirname, '..', engine));
+    const options = { mode: 'BUILD', platform: 'GIBYTEDANCE', flags: {} } as const;
+    expect(manager.genBuildTimeConstants(options)).toMatchObject({
+        GIBYTEDANCE: true,
+        MINIGAME: true,
+        TAOBAO_MINIGAME: false,
+        BYTEDANCE: false,
+    });
+    expect(manager.genCCEnvConstants(options)).toMatchObject({ GIBYTEDANCE: true });
+    expect(manager.exportStaticConstants(options)).toContain('export const GIBYTEDANCE = true;');
+    expect(manager.genBuildTimeConstants({ mode: 'BUILD', platform: 'HTML5', flags: {} }))
+        .toMatchObject({ GIBYTEDANCE: false, MINIGAME: false });
+});
+
 test('generateInternalConstants', () => {
     expect(cm.genInternalConstants()).toMatchSnapshot();
 });
