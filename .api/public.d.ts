@@ -14999,7 +14999,9 @@ declare module "@cocos/ccbuild" {
             /**
              * @deprecated this platform has been removed.
              */
-            LINKSURE = 13
+            LINKSURE = 13,
+            SUD = 17,
+            SUDV2 = 18
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,
