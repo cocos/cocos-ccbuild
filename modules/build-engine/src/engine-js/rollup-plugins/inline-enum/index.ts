@@ -63,7 +63,7 @@ export async function rpInlineEnum(rawOptions: Options, meta?: any): Promise<rol
             //   enforce: options.enforce,
 
             async resolveId (this, source, importer): Promise<string | { id: string; external: true; } | null> {
-                return filter(source) ? source : null;
+                return !source.startsWith('.') && filter(source) ? source : null;
             },
 
             transform(this, code: string, moduleId: string): rollup.TransformResult {
