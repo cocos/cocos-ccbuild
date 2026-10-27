@@ -30,7 +30,14 @@ export function nodeModuleLoaderFactory (): ITsEnginePlugin {
                 if (resolvedModuleMap[source]?.id) {
                     return resolvedModuleMap[source].id;
                 }
-                const resolvedPath =  formatPath(require.resolve(source, { paths: [importer] }));
+                let resolvedPath: string;
+                try {
+                    resolvedPath = formatPath(require.resolve(source, { paths: [importer] }));
+                } catch {
+                    // Not an installed node module (e.g. the `@cocos/engine/*` alias that maps
+                    // back to engine source via tsconfig paths). Let other resolvers handle it.
+                    return;
+                }
                 resolvedModuleMap[source] ??= {
                     id: resolvedPath,
                 };
