@@ -7,16 +7,16 @@ function relativeToRoot (path: string): string {
     return ps.relative(engineRoot, path);
 }
 
-test('resolve GIBYTEDANCE exports', async () => {
-    const mq = new ModuleQuery({ engine: engineRoot, platform: 'GIBYTEDANCE' });
+test('resolve GI_BYTEDANCE exports', async () => {
+    const mq = new ModuleQuery({ engine: engineRoot, platform: 'GI_BYTEDANCE' });
     expect(await mq.resolveExport('@module-query/env'))
         .toBe(ps.join(engineRoot, 'packages/@module-query/env/src/minigame/env.ts'));
     const config = await mq.getConfig('@module-query/env');
     config.exports!['.'].minigame = {
         default: './src/minigame/env.ts',
-        gibytedance: './src/custom/env1.ts',
+        gi_bytedance: './src/custom/env1.ts',
     };
-    const specific = new ModuleQuery({ engine: engineRoot, platform: 'GIBYTEDANCE' });
+    const specific = new ModuleQuery({ engine: engineRoot, platform: 'GI_BYTEDANCE' });
     jest.spyOn(specific, 'getConfig').mockResolvedValue(config);
     expect(await specific.resolveExport('@module-query/env'))
         .toBe(ps.join(engineRoot, 'packages/@module-query/env/src/custom/env1.ts'));

@@ -4,19 +4,19 @@ import ps from 'path';
 const ConstantManager = StatsQuery.ConstantManager;
 const cm = new ConstantManager(ps.join(__dirname, '../test-engine-source/'));
 
-test.each(['test-engine-source', 'test-engine-source-without-symlink'])('GIBYTEDANCE constants in %s', (engine) => {
+test.each(['test-engine-source', 'test-engine-source-without-symlink'])('GI_BYTEDANCE constants in %s', (engine) => {
     const manager = new ConstantManager(ps.join(__dirname, '..', engine));
-    const options = { mode: 'BUILD', platform: 'GIBYTEDANCE', flags: {} } as const;
+    const options = { mode: 'BUILD', platform: 'GI_BYTEDANCE', flags: {} } as const;
     expect(manager.genBuildTimeConstants(options)).toMatchObject({
-        GIBYTEDANCE: true,
+        GI_BYTEDANCE: true,
         MINIGAME: true,
         TAOBAO_MINIGAME: false,
         BYTEDANCE: false,
     });
-    expect(manager.genCCEnvConstants(options)).toMatchObject({ GIBYTEDANCE: true });
-    expect(manager.exportStaticConstants(options)).toContain('export const GIBYTEDANCE = true;');
+    expect(manager.genCCEnvConstants(options)).toMatchObject({ GI_BYTEDANCE: true });
+    expect(manager.exportStaticConstants(options)).toContain('export const GI_BYTEDANCE = true;');
     expect(manager.genBuildTimeConstants({ mode: 'BUILD', platform: 'HTML5', flags: {} }))
-        .toMatchObject({ GIBYTEDANCE: false, MINIGAME: false });
+        .toMatchObject({ GI_BYTEDANCE: false, MINIGAME: false });
 });
 
 test('generateInternalConstants', () => {

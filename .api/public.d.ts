@@ -15116,7 +15116,7 @@ declare module "@cocos/ccbuild" {
             COCOS_RUNTIME = 16,
             SUD = 17,
             SUDV2 = 18,
-            GIBYTEDANCE = 19
+            GI_BYTEDANCE = 19
         }
         export enum NativePlatform {
             NATIVE_EDITOR = 0,

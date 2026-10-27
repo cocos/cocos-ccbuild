@@ -257,8 +257,8 @@
             "value": false,
             "internal": false
         },
-        "GIBYTEDANCE": {
-            "comment": "Running in the GIBYTEDANCE mini game.",
+        "GI_BYTEDANCE": {
+            "comment": "Running in the GI_BYTEDANCE mini game.",
             "type": "boolean",
             "value": false,
             "internal": false
@@ -372,7 +372,7 @@
         "MINIGAME": {
             "comment": "Running in mini game.",
             "type": "boolean",
-            "value": "$WECHAT || $WECHAT_MINI_PROGRAM || $BAIDU || $ALIPAY || $TAOBAO || $TAOBAO_MINIGAME || $GIBYTEDANCE || $BYTEDANCE",
+            "value": "$WECHAT || $WECHAT_MINI_PROGRAM || $BAIDU || $ALIPAY || $TAOBAO || $TAOBAO_MINIGAME || $GI_BYTEDANCE || $BYTEDANCE",
             "ccGlobal": true,
             "internal": false
         },

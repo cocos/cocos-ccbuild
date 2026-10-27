@@ -214,7 +214,7 @@ export const ALIPAY = false;
 tryDefineGlobal('CC_ALIPAY', false);
 export const TAOBAO = false;
 export const TAOBAO_MINIGAME = false;
-export const GIBYTEDANCE = false;
+export const GI_BYTEDANCE = false;
 export const BYTEDANCE = false;
 tryDefineGlobal('CC_BYTEDANCE', false);
 export const OPPO = false;

@@ -28,7 +28,7 @@ export enum MinigamePlatform {
     COCOS_RUNTIME,
     SUD,
     SUDV2,
-    GIBYTEDANCE
+    GI_BYTEDANCE
 }
 
 export enum NativePlatform {
