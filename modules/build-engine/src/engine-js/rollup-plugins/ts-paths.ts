@@ -1,10 +1,30 @@
 
 import { rollup as Bundler } from '@ccbuild/bundler';
 import { typescript as Transformer } from '@ccbuild/transformer';
+import fs from 'fs-extra';
 import ps from 'path';
 
 import ts = Transformer.core;
 import rollup = Bundler.core;
+
+const RESOLVE_EXTENSIONS = ['.ts', '.js', '.json'];
+
+function completeExtension (file: string): string | null {
+    if (ps.extname(file)) {
+        return fs.existsSync(file) ? file : null;
+    }
+    for (const extension of RESOLVE_EXTENSIONS) {
+        const fileWithExtension = `${file}${extension}`;
+        if (fs.existsSync(fileWithExtension)) {
+            return fileWithExtension;
+        }
+        const indexWithExtension = ps.join(file, `index${extension}`);
+        if (fs.existsSync(indexWithExtension)) {
+            return indexWithExtension;
+        }
+    }
+    return null;
+}
 
 export default function ({
     configFileName,
@@ -27,15 +47,39 @@ export default function ({
     if (paths) {
         const baseUrlNormalized = ps.resolve(configFileName, baseUrl ?? '.');
         const simpleMap: Record<string, string> = {};
+        const wildcardMap: Array<{
+            prefix: string;
+            suffix: string;
+            target: string;
+        }> = [];
         for (const [key, mapped] of Object.entries(paths)) {
-            simpleMap[key] = ps.resolve(baseUrlNormalized, mapped[0]);
-        }
-        resolveId = function (this, source, importer): string | null {
-            if (!(source in simpleMap)) {
-                return null;
+            const target = ps.resolve(baseUrlNormalized, mapped[0]);
+            const wildcardIndex = key.indexOf('*');
+            if (wildcardIndex < 0) {
+                simpleMap[key] = target;
             } else {
+                wildcardMap.push({
+                    prefix: key.slice(0, wildcardIndex),
+                    suffix: key.slice(wildcardIndex + 1),
+                    target,
+                });
+            }
+        }
+        wildcardMap.sort((lhs, rhs) => rhs.prefix.length - lhs.prefix.length);
+        resolveId = function (this, source, importer): string | null {
+            if (source in simpleMap) {
                 return simpleMap[source];
             }
+            for (const { prefix, suffix, target } of wildcardMap) {
+                if (source.length < prefix.length + suffix.length
+                    || !source.startsWith(prefix)
+                    || !source.endsWith(suffix)) {
+                    continue;
+                }
+                const captured = source.slice(prefix.length, source.length - suffix.length);
+                return completeExtension(ps.normalize(target.replace('*', captured)));
+            }
+            return null;
         };
     }
     return {
