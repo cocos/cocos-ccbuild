@@ -1,4 +1,5 @@
-import { MinigamePlatformConfig, ModuleConfig, NativePlatformConfig, PlatformType, WebPlatformConfig } from './module-config';
+import { getPlatformDefinitions } from './platform-registry';
+import { ModuleConfig, PlatformType } from './module-config';
 import fs from 'fs-extra';
 import { MinigamePlatform, NativePlatform, WebPlatform } from './platform-config';
 import glob from 'glob';
@@ -30,6 +31,7 @@ export interface ModuleQueryContext {
  */
 export class ModuleQuery {
     private _context: ModuleQueryContext;
+    private readonly _platformDefinitions = getPlatformDefinitions();
 
     // cache
     private _cachedModuleName2PkgJson?: Record<string, string>;
@@ -255,15 +257,15 @@ export class ModuleQuery {
         }
     }
  
-    private _isWebPlatform (platform: string): platform is keyof WebPlatformConfig {
-        return platform.toUpperCase() in WebPlatform || platform.toUpperCase() === 'HTML5';
+    private _isWebPlatform (platform: string): boolean {
+        return this._platformDefinitions.some((item) => item.id === platform.toUpperCase() && item.category === 'web') || platform.toUpperCase() in WebPlatform || platform.toUpperCase() === 'HTML5';
     }
 
-    private _isMiniGamePlatform (platform: string): platform is keyof MinigamePlatformConfig {
-        return platform.toUpperCase() in MinigamePlatform;
+    private _isMiniGamePlatform (platform: string): boolean {
+        return this._platformDefinitions.some((item) => item.id === platform.toUpperCase() && item.category === 'minigame') || platform.toUpperCase() in MinigamePlatform;
     }
 
-    private _isNativePlatform (platform: string): platform is keyof NativePlatformConfig {
-        return platform.toUpperCase() in NativePlatform || platform.toUpperCase() === 'NATIVE';
+    private _isNativePlatform (platform: string): boolean {
+        return this._platformDefinitions.some((item) => item.id === platform.toUpperCase() && item.category === 'native') || platform.toUpperCase() in NativePlatform || platform.toUpperCase() === 'NATIVE';
     }
 }

@@ -4,16 +4,17 @@ import { MinigamePlatform, NativePlatform, WebPlatform } from './platform-config
 
 export type MinigamePlatformConfig = {
     [key in Lowercase<keyof typeof MinigamePlatform>]?: string;
-};
+} & Record<string, string | undefined>;
 export type NativePlatformConfig = {
     [key in Lowercase<keyof typeof NativePlatform>]?: string;
-};
+} & Record<string, string | undefined>;
 export type WebPlatformConfig = {
     [key in Lowercase<keyof typeof WebPlatform>]?: string;
-};
+} & Record<string, string | undefined>;
 
 // keep compatibility for 'HTML5' and 'NATIVE'
-export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE' | 'NODEJS' | 'INVALID_PLATFORM';
+export type BuiltinPlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | 'HTML5' | 'NATIVE' | 'NODEJS' | 'INVALID_PLATFORM';
+export type PlatformType = BuiltinPlatformType | (string & {});
 
 /**
  * Abstract platform export, like `web`, `native` and `minigame`.

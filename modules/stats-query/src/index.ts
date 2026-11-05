@@ -5,7 +5,7 @@ import dedent from 'dedent';
 import { Config, Context, Feature, IndexConfig, Test, IConstantConfig, IConstantInfo } from './config-interface';
 
 import * as ConfigInterface from './config-interface';
-import { PlatformType as _PlatformType } from '@ccbuild/modularize';
+import { extendPlatformConstants, getPlatformModuleOverrides, getPlatformDefinitions, BuiltinPlatformType, PlatformType as _PlatformType } from '@ccbuild/modularize';
 export { ConfigInterface };
 
 /**
@@ -30,6 +30,7 @@ export class StatsQuery {
      * Constant manager for engine and user.
      */
     public constantManager: StatsQuery.ConstantManager;
+    private readonly _platformDefinitions = getPlatformDefinitions();
 
     /**
      * Gets the path to the engine root.
@@ -194,6 +195,7 @@ export class StatsQuery {
             }
         });
 
+        Object.assign(overrides, getPlatformModuleOverrides(this._engine, context.platform, this._platformDefinitions));
         return overrides;
     }
 
@@ -304,7 +306,7 @@ export namespace StatsQuery {
 
         export type PlatformType = _PlatformType;
         export type IPlatformConfig = {
-            [key in PlatformType]: boolean;
+            [key in BuiltinPlatformType]: boolean;
         };
         
         export interface IInternalFlagConfig {
@@ -377,6 +379,8 @@ export namespace StatsQuery {
     export class ConstantManager {
         private _engineRoot: string;
         private _ccConfigJsonStr: string = '';
+
+        private readonly _platformDefinitions = getPlatformDefinitions();
 
         constructor (engineRoot: string) {
             this._engineRoot = engineRoot;
@@ -539,6 +543,7 @@ export namespace StatsQuery {
             }
             const engineConfig = JSON.parse(this._ccConfigJsonStr) as Config;
             const config = engineConfig.constants;
+            extendPlatformConstants(config, this._platformDefinitions);
 
             // init default value
             for (const key in config) {
