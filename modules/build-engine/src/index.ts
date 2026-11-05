@@ -1,3 +1,4 @@
+import { PlatformDefinition, withPlatformDefinitions } from '@ccbuild/modularize';
 import { StatsQuery } from '@ccbuild/stats-query';
 import { buildJsEngine } from './engine-js';
 import { babel } from '@ccbuild/transformer';
@@ -43,6 +44,10 @@ function moduleOptionsToBabelEnvModules(moduleOptions: buildEngine.ModuleFormat)
  * @group Merged Types
  */
 export async function buildEngine (options: buildEngine.Options): Promise<buildEngine.Result> {
+    if (options.platformDefinitions) {
+        const { platformDefinitions, ...rest } = options;
+        return withPlatformDefinitions(platformDefinitions, () => buildEngine(rest));
+    }
     applyDefaultOptions(options);
 
     if (verifyCache(options)) {
@@ -94,6 +99,8 @@ export namespace buildEngine {
     }
    
     export interface Options {
+        /** Serializable definitions, scoped to this build including asynchronous queries. */
+        platformDefinitions?: PlatformDefinition[];
         /**
          * 引擎仓库目录。
          */
