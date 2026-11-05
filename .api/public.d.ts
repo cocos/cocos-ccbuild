@@ -49,6 +49,8 @@ declare module "@cocos/ccbuild" {
             thisDotThreshold?: number;
         }
         export interface Options {
+            /** Serializable definitions, scoped to this build including asynchronous queries. */
+            platformDefinitions?: Modularize.PlatformDefinition[];
             /**
              * 引擎仓库目录。
              */
@@ -313,7 +315,7 @@ declare module "@cocos/ccbuild" {
         export namespace ConstantManager {
             export type PlatformType = Modularize.PlatformType;
             export type IPlatformConfig = {
-                [key in PlatformType]: boolean;
+                [key in Modularize.BuiltinPlatformType]: boolean;
             };
             export interface IInternalFlagConfig {
                 SERVER_MODE: boolean;
@@ -14985,14 +14987,15 @@ declare module "@cocos/ccbuild" {
     export namespace Modularize {
         export type MinigamePlatformConfig = {
             [key in Lowercase<keyof typeof MinigamePlatform>]?: string;
-        };
+        } & Record<string, string | undefined>;
         export type NativePlatformConfig = {
             [key in Lowercase<keyof typeof NativePlatform>]?: string;
-        };
+        } & Record<string, string | undefined>;
         export type WebPlatformConfig = {
             [key in Lowercase<keyof typeof WebPlatform>]?: string;
-        };
-        export type PlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE" | "NODEJS" | "INVALID_PLATFORM";
+        } & Record<string, string | undefined>;
+        export type BuiltinPlatformType = Uppercase<keyof typeof WebPlatform | keyof typeof MinigamePlatform | keyof typeof NativePlatform> | "HTML5" | "NATIVE" | "NODEJS" | "INVALID_PLATFORM";
+        export type PlatformType = BuiltinPlatformType | (string & {});
         export interface ModuleConfig {
             [key: string]: unknown;
             /**
@@ -15131,6 +15134,33 @@ declare module "@cocos/ccbuild" {
             WEB_EDITOR = 0,
             WEB_MOBILE = 1,
             WEB_DESKTOP = 2
+        }
+        export function validatePlatformDefinitions(values: readonly PlatformDefinition[]): PlatformDefinition[];
+        export function registerPlatformDefinitions(values: readonly PlatformDefinition[]): void;
+        export function getPlatformDefinitions(): PlatformDefinition[];
+        export function withPlatformDefinitions<T>(values: readonly PlatformDefinition[], action: () => T): T;
+        export function getPlatformCategory(id: string): PlatformDefinition["category"] | undefined;
+        /** Shared by source builds and versioned package backports. Mutates a freshly parsed config only. */
+        export function extendPlatformConstants(config: Record<string, PlatformConstant>, values?: PlatformDefinition[]): void;
+        export function getPlatformModuleOverrides(engine: string, platform: string | undefined, values?: PlatformDefinition[]): Record<string, string>;
+        /** Serializable extension contract. Register before creating queries; restart to change definitions. */
+        export interface PlatformDefinition {
+            id: string;
+            category: "web" | "minigame" | "native";
+            /** Runtime-based games still resolve PAL minigame exports, but use RUNTIME_BASED constants. */
+            runtimeMode?: "web" | "minigame" | "runtime" | "native";
+            /** Virtual PAL specifier -> engine-relative implementation. */
+            moduleOverrides?: Record<string, string>;
+        }
+        /** Feature level consumed by platform plugin hosts. */
+        export const platformRegistryVersion = 2;
+        export interface PlatformConstant {
+            comment: string;
+            type: "boolean" | "number";
+            value: boolean | number | string;
+            internal: boolean;
+            ccGlobal?: boolean;
+            dynamic?: boolean;
         }
     }
     export namespace dtsBundler {
